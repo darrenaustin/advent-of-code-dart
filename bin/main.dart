@@ -1,13 +1,16 @@
 import 'package:advent_of_code_dart/day.dart';
 import 'package:advent_of_code_dart/days2015.dart';
+import 'package:advent_of_code_dart/days2016.dart';
 import 'package:args/args.dart';
 
 final Map<int, List<AdventDay>> yearDays = <int, List<AdventDay>> {
   2015: adventOfCode2015Days,
+  2016: adventOfCode2016Days,
 };
 
 final List<AdventDay> allAdventOfCodeDays = <AdventDay>[
   ...adventOfCode2015Days,
+  ...adventOfCode2016Days,
 ];
 
 void main(List<String> arguments) {

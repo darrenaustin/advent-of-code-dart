@@ -27,6 +27,5 @@ class Day01 extends AdventDay {
       }
       position++;
     }
-    return null;
   }
 }
