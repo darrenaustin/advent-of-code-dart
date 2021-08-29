@@ -1,6 +1,5 @@
 // https://adventofcode.com/2016/day/24
 
-
 import '../../day.dart';
 
 class Day24 extends AdventDay {
