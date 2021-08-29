@@ -1,0 +1,15 @@
+name: advent_of_code_dart
+description: Darren's solutions to the Advent of Code puzzles.
+version: 1.0.0
+
+environment:
+  sdk: '>=2.15.0-65.0.dev <3.0.0'
+
+dependencies:
+  args: ^2.2.0
+  crypto: ^3.0.1
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0
+
