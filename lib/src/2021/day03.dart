@@ -7,55 +7,47 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part1() {
-    final diagnostics = inputDataLines().map((l) => l.split(''));
-    final gamma = <String>[];
-    final epsilon = <String>[];
+    final diagnostics = inputDiagnostics();
+    final numBits = diagnostics.first.length;
+    final gammaBits = <String>[];
+    final epsilonBits = <String>[];
 
-    for (int i = 0; i < diagnostics.first.length; i++) {
+    for (int i = 0; i < numBits; i++) {
       final bits = diagnostics.map((e) => e[i]);
-      if (bits.where((e) => e == '0').length >
-          bits.where((e) => e == '1').length) {
-        gamma.add('0');
-        epsilon.add('1');
-      } else {
-        gamma.add('1');
-        epsilon.add('0');
-      }
+      final ones = bits.where((e) => e == '1').length;
+      final zeros = diagnostics.length - ones;
+      gammaBits.add(zeros < ones ? '1' : '0');
+      epsilonBits.add(zeros < ones ? '0' : '1');
     }
-    return int.parse(gamma.join(), radix: 2) *
-           int.parse(epsilon.join(), radix: 2);
+
+    return int.parse(gammaBits.join(), radix: 2) *
+           int.parse(epsilonBits.join(), radix: 2);
   }
 
   @override
   dynamic part2() {
-    final diagnostics = inputDataLines().map((l) => l.split(''));
-    var oxygen = diagnostics;
-    var co2 = diagnostics;
+    final diagnostics = inputDiagnostics();
 
-    for (int i = 0; i < diagnostics.first.length; i++) {
-      if (oxygen.length > 1) {
-        final bits = oxygen.map((e) => e[i]);
-        final zeros = bits.where((e) => e == '0').length;
-        final ones = bits.where((e) => e == '1').length;
-        if (zeros <= ones) {
-          oxygen = oxygen.where((e) => e[i] == '1');
-        } else {
-          oxygen = oxygen.where((e) => e[i] == '0');
+    int findRating(String filterMoreOnesOrEqual, String filterLessOnes) {
+      var ratingsPossible = diagnostics;
+      final numBits = diagnostics.first.length;
+      for (int i = 0; i < numBits; i++) {
+        if (ratingsPossible.length == 1) {
+          break;
         }
-      }
-      if (co2.length > 1) {
-        final bits = co2.map((e) => e[i]);
+        final bits = ratingsPossible.map((e) => e[i]);
         final zeros = bits.where((e) => e == '0').length;
-        final ones = bits.where((e) => e == '1').length;
-        if (zeros <= ones) {
-          co2 = co2.where((e) => e[i] == '0');
-        } else {
-          co2 = co2.where((e) => e[i] == '1');
-        }
+        final ones = ratingsPossible.length - zeros;
+        final filter = zeros <= ones ? filterMoreOnesOrEqual : filterLessOnes;
+        ratingsPossible = ratingsPossible.where((e) => e[i] == filter);
       }
+      return int.parse(ratingsPossible.first.join(), radix: 2);
     }
 
-    return int.parse(oxygen.first.join(), radix: 2) *
-           int.parse(co2.first.join(), radix: 2);
+    return findRating('1', '0') * findRating('0', '1');
+  }
+
+  Iterable<List<String>> inputDiagnostics() {
+    return inputDataLines().map((l) => l.split(''));
   }
 }
