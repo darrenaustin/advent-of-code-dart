@@ -31,6 +31,17 @@ class Grid<T> {
     return cells().where(test);
   }
 
+  void updateCellsWhere(bool Function(T) test, T Function(T) update) {
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
+        final value = _cells[row][col];
+        if (test(value)) {
+          _cells[row][col] = update(value);
+        }
+      }
+    }
+  }
+
   static const List<Vector> cardinalNeighborOffsets = <Vector>[
     Vector(-1, -1), Vector(0, -1), Vector(1, -1),
     Vector(-1,  0),                Vector(1,  0),
