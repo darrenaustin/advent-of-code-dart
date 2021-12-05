@@ -22,3 +22,7 @@ T? maxOrNull<T extends num>(T? a, T? b) {
   }
   return a ?? b;
 }
+
+int sign(num n) {
+  return n == 0 ? 0 : n > 0 ? 1 : -1;
+}
