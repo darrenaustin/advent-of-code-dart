@@ -85,7 +85,7 @@ Iterable<int> range(int startOrEnd, [int? end, int step = 1]) sync* {
   } else {
     while (value > end) {
       yield value;
-      value += step;
+      value -= step;
     }
   }
 }

@@ -1,6 +1,7 @@
 // https://adventofcode.com/2021/day/5
+
+import 'package:advent_of_code_dart/src/util/collection.dart';
 import 'package:advent_of_code_dart/src/util/grid2.dart';
-import 'package:advent_of_code_dart/src/util/math.dart';
 import 'package:advent_of_code_dart/src/util/vec2.dart';
 
 import '../../day.dart';
@@ -10,50 +11,60 @@ class Day05 extends AdventDay {
 
   @override
   dynamic part1() {
-    // TODO: using the SparseGrid is WAY too slow here.
-    final grid = SparseGrid<int>(defaultValue: 0);
-    for (final line in inputLines()) {
-      final step = Vector.int(sign(line.end.x - line.start.x), sign(line.end.y - line.start.y));
-      if (step.x != 0 && step.y != 0) {
-        continue;
-      }
-      for (Vector p = line.start; p != line.end; p += step) {
+    final grid = Grid<int>(1000, 1000, 0);
+    for (final line in inputLines().where(_orthogonal)) {
+      for (final p in line.pointsAlong()) {
         grid.setCell(p, grid.cell(p) + 1);
       }
-      grid.setCell(line.end, grid.cell(line.end) + 1);
     }
-    return grid.numSetCellsWhere((count) => count >= 2);
+    return grid.cellsWhere((count) => count >= 2).length;
   }
 
   @override
   dynamic part2() {
-    // TODO: using the SparseGrid is WAY too slow here.
-    final grid = SparseGrid<int>(defaultValue: 0);
+    final grid = Grid<int>(1000, 1000, 0);
     for (final line in inputLines()) {
-      final step = Vector.int(sign(line.end.x - line.start.x), sign(line.end.y - line.start.y));
-      for (Vector p = line.start; p != line.end; p += step) {
+      for (final p in line.pointsAlong()) {
         grid.setCell(p, grid.cell(p) + 1);
       }
-      grid.setCell(line.end, grid.cell(line.end) + 1);
     }
-    return grid.numSetCellsWhere((count) => count >= 2);
+    return grid.cellsWhere((count) => count >= 2).length;
   }
 
   Iterable<LineSegment> inputLines() {
     return inputDataLines().map((s) {
       final nums = s.split(RegExp(r'[^\d]+')).map((n) => int.parse(n)).toList();
-      return LineSegment(Vector.int(nums[0], nums[1]), Vector.int(nums[2], nums[3]));
+      return LineSegment(nums[0], nums[1], nums[2], nums[3]);
     });
   }
 }
 
+bool _orthogonal(LineSegment line) => (line.startX == line.endX || line.startY == line.endY);
+
 class LineSegment {
-  LineSegment(this.start, this.end);
+  LineSegment(this.startX, this.startY, this.endX, this.endY);
 
-  final Vector start;
-  final Vector end;
+  final int startX;
+  final int startY;
+  final int endX;
+  final int endY;
 
-  bool orthogonal() {
-    return (start.x == end.x || start.y == end.y);
+  Iterable<Vector> pointsAlong() sync* {
+    var ys = range(startY, endY + (startY > endY ? -1 : 1)).toList();
+    var xs = range(startX, endX + (startX > endX ? -1 : 1)).toList();
+    if (ys.length == 1) {
+      ys = List<int>.filled(xs.length, ys.first);
+    }
+    if (xs.length == 1) {
+      xs = List<int>.filled(ys.length, xs.first);
+    }
+    for (int i = 0; i < ys.length; i++) {
+      yield Vector.int(xs[i], ys[i]);
+    }
+  }
+
+  @override
+  String toString() {
+    return 'line ($startX, $startY) -> ($endX, $endY)';
   }
 }
