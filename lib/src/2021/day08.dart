@@ -33,19 +33,19 @@ class Day08 extends AdventDay {
       codes[8] = entry.signals.firstWhere((s) => s.length == 7);
 
       var d5 = Set.of(entry.signals.where((s) => s.length == 5));
-      codes[3] = d5.firstWhere((s) => s.contains(codes[1][0]) && s.contains(codes[1][1]));
+      codes[3] = d5.firstWhere((s) => codes[1].split('').every((c) => s.contains(c)));
       d5.remove(codes[3]);
 
-      var left4 = codes[4].split('').where((s) => !codes[1].contains(s)).join();
-      codes[5] = d5.firstWhere((s) => s.contains(left4[0]) && s.contains(left4[1]));
+      var left4 = codes[4].split('').where((s) => !codes[1].contains(s));
+      codes[5] = d5.firstWhere((s) => left4.every((c) => s.contains(c)));
       d5.remove(codes[5]);
       codes[2] = d5.first;
 
       var d6 = Set.of(entry.signals.where((s) => s.length == 6));
-      codes[6] = d6.firstWhere((s) => !s.contains(codes[1][0]) || !s.contains(codes[1][1]));
+      codes[6] = d6.firstWhere((s) => !codes[1].split('').every((c) => s.contains(c)));
       d6.remove(codes[6]);
 
-      codes[9] = d6.firstWhere((s) => s.contains(codes[4][0]) && s.contains(codes[4][1]) && s.contains(codes[4][2]) && s.contains(codes[4][3]));
+      codes[9] = d6.firstWhere((s) => codes[4].split('').every((c) => s.contains(c)));
       d6.remove(codes[9]);
       codes[0] = d6.first;
 
