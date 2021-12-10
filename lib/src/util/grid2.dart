@@ -52,6 +52,16 @@ class Grid<T> {
     return offsets.map((Vector o) => p + o).where(validCell).map(cell);
   }
 
+  static const List<Vector> orthogonalNeighborOffsets = <Vector>[
+                    Vector(0, -1),
+    Vector(-1,  0),                Vector(1,  0),
+                    Vector(0,  1),
+  ];
+
+  Iterable<T> orthogonalNeighbors(Vector p, [List<Vector> offsets = orthogonalNeighborOffsets]) {
+    return offsets.map((Vector o) => p + o).where(validCell).map(cell);
+  }
+
   @override
   String toString() {
     return _cells.map((List<T> r) => r.join()).join('\n');
