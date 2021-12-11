@@ -16,8 +16,7 @@ class Grid<T> {
   T cell(Vector p) => _cells[p.y.toInt()][p.x.toInt()];
   void setCell(Vector p, T value) => _cells[p.y.toInt()][p.x.toInt()] = value;
 
-  bool validCell(Vector p) =>
-      0 <= p.x && p.x < width && 0 <= p.y && p.y < height;
+  bool validCell(Vector p) => 0 <= p.x && p.x < width && 0 <= p.y && p.y < height;
 
   Iterable<T> cells() sync* {
     for (final List<T> line in _cells) {
@@ -27,8 +26,29 @@ class Grid<T> {
     }
   }
 
+  Iterable<Vector> locations() sync* {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        yield Vector.int(x, y);
+      }
+    }
+  }
+
   Iterable<T> cellsWhere(bool Function(T) test) {
     return cells().where(test);
+  }
+
+  Iterable<Vector> locationsWhere(bool Function(T) test) {
+    return locations().where((p) => test(cell(p)));
+  }
+
+  void updateCells(T Function(T) update) {
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
+        final value = _cells[row][col];
+        _cells[row][col] = update(value);
+      }
+    }
   }
 
   void updateCellsWhere(bool Function(T) test, T Function(T) update) {
@@ -48,23 +68,23 @@ class Grid<T> {
     Vector(-1,  1), Vector(0,  1), Vector(1,  1),
   ];
 
-  Iterable<T> neighbors(Vector p, [List<Vector> offsets = cardinalNeighborOffsets]) {
-    return offsets.map((Vector o) => p + o).where(validCell).map(cell);
-  }
-
   static const List<Vector> orthogonalNeighborOffsets = <Vector>[
                     Vector(0, -1),
     Vector(-1,  0),                Vector(1,  0),
                     Vector(0,  1),
   ];
 
-  Iterable<T> orthogonalNeighbors(Vector p, [List<Vector> offsets = orthogonalNeighborOffsets]) {
+  Iterable<T> neighbors(Vector p, [List<Vector> offsets = cardinalNeighborOffsets]) {
     return offsets.map((Vector o) => p + o).where(validCell).map(cell);
+  }
+
+  Iterable<Vector> neighborLocations(Vector p, [List<Vector> offsets = cardinalNeighborOffsets]) {
+    return offsets.map((Vector o) => p + o).where(validCell);
   }
 
   @override
   String toString() {
-    return _cells.map((List<T> r) => r.join()).join('\n');
+    return _cells.map((List<T> r) => r.join(' ')).join('\n');
   }
 }
 

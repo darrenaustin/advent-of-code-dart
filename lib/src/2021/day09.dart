@@ -42,7 +42,7 @@ class Day09 extends AdventDay {
 
   bool lowPoint(Grid<int> grid, Vector p) {
     final n = grid.cell(p);
-    return grid.orthogonalNeighbors(p).every((e) => n < e);
+    return grid.neighbors(p, Grid.orthogonalNeighborOffsets).every((e) => n < e);
   }
 
   int basinSizeFor(Grid<int> grid, Vector p) {
