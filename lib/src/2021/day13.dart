@@ -1,7 +1,6 @@
 // https://adventofcode.com/2021/day/13
 
-import 'package:advent_of_code_dart/src/util/grid2.dart';
-import 'package:advent_of_code_dart/src/util/vec2.dart';
+import 'package:advent_of_code_dart/src/util/grid.dart';
 
 import '../../day.dart';
 
@@ -29,9 +28,9 @@ class Day13 extends AdventDay {
     final expandingGrid = SparseGrid<String>(defaultValue: ' ');
     for (final point in gridDotPoints) {
       final coords = point.split(',');
-      expandingGrid.setCell(Vector.int(int.parse(coords[0]), int.parse(coords[1])), '#');
+      expandingGrid.setCell(Loc(int.parse(coords[0]), int.parse(coords[1])), '#');
     }
-    final grid = Grid<String>(expandingGrid.maxVector.x.toInt() + 1, expandingGrid.maxVector.y.toInt() + 1, ' ');
+    final grid = Grid<String>(expandingGrid.maxLocation.x + 1, expandingGrid.maxLocation.y + 1, ' ');
     for (final loc in grid.locations()) {
       grid.setCell(loc, expandingGrid.cell(loc));
     }
@@ -52,8 +51,8 @@ class Day13 extends AdventDay {
       final newGrid = Grid<String>(grid.width, newHeight, ' ');
       for (int i = 0; i < newHeight; i++) {
         for (int x = 0; x < grid.width; x++) {
-          final foldedP = Vector.int(x, newHeight + fold.line - i);
-          final p = Vector.int(x, i);
+          final foldedP = Loc(x, newHeight + fold.line - i);
+          final p = Loc(x, i);
           final cell = grid.cell(p) == '#' || grid.cell(foldedP) == '#' ? '#' : ' ';
           newGrid.setCell(p, cell);
         }
@@ -64,8 +63,8 @@ class Day13 extends AdventDay {
       final newGrid = Grid<String>(newWidth, grid.height, ' ');
       for (int i = 0; i < newWidth; i++) {
         for (int y = 0; y < grid.height; y++) {
-          final foldedP = Vector.int(newWidth + fold.line - i, y);
-          final p = Vector.int(i, y);
+          final foldedP = Loc(newWidth + fold.line - i, y);
+          final p = Loc(i, y);
           final cell = grid.cell(p) == '#' || grid.cell(foldedP) == '#' ? '#' : ' ';
           newGrid.setCell(p, cell);
         }

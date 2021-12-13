@@ -4,8 +4,7 @@ import 'dart:math';
 
 import '../../day.dart';
 import '../util/collection.dart';
-import '../util/grid2.dart';
-import '../util/vec2.dart';
+import '../util/grid.dart';
 
 class Day06 extends AdventDay {
   Day06() : super(2015, 6, solution1: 543903, solution2: 14687245);
@@ -18,7 +17,7 @@ class Day06 extends AdventDay {
       (i.type == InstructionType.toggle && !value);
 
     inputInstructions().forEach((Instruction i) =>
-      region(i.p1, i.p2).forEach((Vector v) =>
+      region(i.p1, i.p2).forEach((Loc v) =>
           lights.setCell(v, apply(i, lights.cell(v)))));
     return lights.cellsWhere((bool value) => value).length;
   }
@@ -35,7 +34,7 @@ class Day06 extends AdventDay {
     }
 
     inputInstructions().forEach((Instruction i) =>
-        region(i.p1, i.p2).forEach((Vector v) =>
+        region(i.p1, i.p2).forEach((Loc v) =>
             lights.setCell(v, apply(i, lights.cell(v)))));
     return lights.cells().sum();
   }
@@ -52,15 +51,15 @@ class Day06 extends AdventDay {
               : InstructionType.turnOff;
       return Instruction(
           type,
-          Vector.int(int.parse(match.group(2)!), int.parse(match.group(3)!)),
-          Vector.int(int.parse(match.group(4)!), int.parse(match.group(5)!)));
+          Loc(int.parse(match.group(2)!), int.parse(match.group(3)!)),
+          Loc(int.parse(match.group(4)!), int.parse(match.group(5)!)));
     });
   }
 
-  Iterable<Vector> region(Vector p1, Vector p2) sync* {
-    for (double y = p1.y; y <= p2.y; y++) {
-      for (double x = p1.x; x <= p2.x; x++) {
-        yield Vector(x, y);
+  Iterable<Loc> region(Loc p1, Loc p2) sync* {
+    for (int y = p1.y; y <= p2.y; y++) {
+      for (int x = p1.x; x <= p2.x; x++) {
+        yield Loc(x, y);
       }
     }
   }
@@ -72,6 +71,6 @@ class Instruction {
   Instruction(this.type, this.p1, this.p2);
 
   final InstructionType type;
-  final Vector p1;
-  final Vector p2;
+  final Loc p1;
+  final Loc p2;
 }

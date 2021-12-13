@@ -1,8 +1,7 @@
 // https://adventofcode.com/2021/day/5
 
 import 'package:advent_of_code_dart/src/util/collection.dart';
-import 'package:advent_of_code_dart/src/util/grid2.dart';
-import 'package:advent_of_code_dart/src/util/vec2.dart';
+import 'package:advent_of_code_dart/src/util/grid.dart';
 
 import '../../day.dart';
 
@@ -49,7 +48,7 @@ class LineSegment {
   final int endX;
   final int endY;
 
-  Iterable<Vector> pointsAlong() sync* {
+  Iterable<Loc> pointsAlong() sync* {
     var ys = range(startY, endY + (startY > endY ? -1 : 1)).toList();
     var xs = range(startX, endX + (startX > endX ? -1 : 1)).toList();
     if (ys.length == 1) {
@@ -59,7 +58,7 @@ class LineSegment {
       xs = List<int>.filled(ys.length, xs.first);
     }
     for (int i = 0; i < ys.length; i++) {
-      yield Vector.int(xs[i], ys[i]);
+      yield Loc(xs[i], ys[i]);
     }
   }
 

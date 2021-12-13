@@ -1,8 +1,7 @@
 // https://adventofcode.com/2021/day/4
 
 import 'package:advent_of_code_dart/src/util/collection.dart';
-import 'package:advent_of_code_dart/src/util/grid2.dart';
-import 'package:advent_of_code_dart/src/util/vec2.dart';
+import 'package:advent_of_code_dart/src/util/grid.dart';
 
 import '../../day.dart';
 
@@ -54,7 +53,7 @@ class Day04 extends AdventDay {
       final board = Grid<int?>(5, 5, null);
       for (int row = 0; row < 5; row++) {
         for (int col = 0; col < 5; col++) {
-          board.setCell(Vector.int(col, row), boardNumbers[row][col]);
+          board.setCell(Loc(col, row), boardNumbers[row][col]);
         }
       }
       boards.add(board);
@@ -62,9 +61,9 @@ class Day04 extends AdventDay {
     return boards;
   }
 
-  final List<List<Vector>> winningVectors = [
-    ...List.generate(5, (r) => List.generate(5, (c) => Vector.int(c, r))),
-    ...List.generate(5, (c) => List.generate(5, (r) => Vector.int(c, r))),
+  final List<List<Loc>> winningLocations = [
+    ...List.generate(5, (r) => List.generate(5, (c) => Loc(c, r))),
+    ...List.generate(5, (c) => List.generate(5, (r) => Loc(c, r))),
   ];
 
   void removeNumber(Grid<int?> board, int number) {
@@ -72,7 +71,7 @@ class Day04 extends AdventDay {
   }
 
   bool winning(Grid<int?> board) {
-    return winningVectors.any((g) => g.every((v) => board.cell(v) == null));
+    return winningLocations.any((g) => g.every((v) => board.cell(v) == null));
   }
 
   int score(Grid<int?> board, int winningNumber) {
