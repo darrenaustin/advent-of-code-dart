@@ -48,8 +48,8 @@ class Grid<T> {
   final T defaultValue;
   late final List<List<T>> _cells;
 
-  T cell(Loc p) => _cells[p.y.toInt()][p.x.toInt()];
-  void setCell(Loc p, T value) => _cells[p.y.toInt()][p.x.toInt()] = value;
+  T cell(Loc p) => _cells[p.y][p.x];
+  void setCell(Loc p, T value) => _cells[p.y][p.x] = value;
 
   bool validCell(Loc p) => 0 <= p.x && p.x < width && 0 <= p.y && p.y < height;
 
@@ -162,8 +162,8 @@ class SparseGrid<T> {
 
   @override
   String toString() {
-    return range(_min.y.toInt(), _max.y.toInt() + 1)
-        .map((int y) => range(_min.x.toInt(), _max.x.toInt() + 1).map((int x) {
+    return range(_min.y, _max.y + 1)
+        .map((int y) => range(_min.x, _max.x + 1).map((int x) {
               final Loc p = Loc(x, y);
               return isSet(p) ? cell(p).toString() : ' ';
             }).join(' '))

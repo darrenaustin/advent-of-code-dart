@@ -1,5 +1,6 @@
 // https://adventofcode.com/2021/day/13
 
+import 'package:advent_of_code_dart/src/util/collection.dart';
 import 'package:advent_of_code_dart/src/util/grid.dart';
 
 import '../../day.dart';
@@ -24,15 +25,18 @@ class Day13 extends AdventDay {
   }
 
   Grid<String> inputGrid()  {
-    final gridDotPoints = inputData().split('\n\n').first.split('\n');
-    final expandingGrid = SparseGrid<String>(defaultValue: ' ');
-    for (final point in gridDotPoints) {
-      final coords = point.split(',');
-      expandingGrid.setCell(Loc(int.parse(coords[0]), int.parse(coords[1])), '#');
-    }
-    final grid = Grid<String>(expandingGrid.maxLocation.x + 1, expandingGrid.maxLocation.y + 1, ' ');
-    for (final loc in grid.locations()) {
-      grid.setCell(loc, expandingGrid.cell(loc));
+    final gridDotPointLines = inputData().split('\n\n').first.split('\n');
+    final dotLocations = gridDotPointLines.map((l) {
+      final coords = l.split(',');
+      final x = int.parse(coords[0]);
+      final y = int.parse(coords[1]);
+      return Loc(x, y);
+    });
+    final gridWidth = dotLocations.map((l) => l.x + 1).max();
+    final gridHeight = dotLocations.map((l) => l.y + 1).max();
+    final grid = Grid<String>(gridWidth, gridHeight, ' ');
+    for (final loc in dotLocations) {
+      grid.setCell(loc, '#');
     }
     return grid;
   }
