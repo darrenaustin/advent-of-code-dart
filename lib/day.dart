@@ -16,14 +16,21 @@ abstract class AdventDay {
   final dynamic solution2;
 
   void solve() {
+    void _part(int partNum) {
+      final start = DateTime.now();
+      final solution = partNum == 1 ? part1() : part2();
+      final time = DateTime.now().difference(start).inMilliseconds;
+      print('  part $partNum: ${_results(solution, partNum == 1 ? solution1 : solution2, time)}');
+    }
+
     print('$year: day $day');
-    print('  part 1: ${_format(part1() ?? 'not yet implemented')}');
-    print('  part 2: ${_format(part2() ?? 'not yet implemented')}');
+    _part(1);
+    _part(2);
     print('');
   }
 
   String get inputFileName =>
-      'input/$year/day${day.toString().padLeft(2, '0')}.txt';
+    'input/$year/day${day.toString().padLeft(2, '0')}.txt';
 
   String inputData() {
     return File(inputFileName).readAsStringSync().trim();
@@ -31,9 +38,17 @@ abstract class AdventDay {
 
   List<String> inputDataLines() {
     return File(inputFileName)
-        .readAsLinesSync()
-        .where((String e) => e.isNotEmpty)
-        .toList();
+      .readAsLinesSync()
+      .where((String e) => e.isNotEmpty)
+      .toList();
+  }
+
+  String _results(dynamic solution, dynamic expected, int time) {
+    if (solution == null) {
+      return 'not yet implemented';
+    }
+    final String correct = expected != null ? expected == solution ? 'correct, ' : 'INCORRECT, ' : '';
+    return '${_format(solution)}, ($correct$time ms)';
   }
 
   String _format(dynamic value) {
