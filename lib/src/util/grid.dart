@@ -43,6 +43,25 @@ class Grid<T> {
     _cells = List<List<T>>.generate(height, (int i) => List<T>.generate(width, (int i) => defaultValue));
   }
 
+  factory Grid.from(List<List<T>> values, T defaultValue) {
+    final grid = Grid<T>(values[0].length, values.length, defaultValue);
+    for (int row = 0; row < grid.height; row++) {
+      for (int col = 0; col < grid.width; col++) {
+        final rowLine = values[row];
+        grid.setCell(Loc(col, row), rowLine[col]);
+      }
+    }
+    return grid;
+  }
+
+  factory Grid.copy(Grid<T> other) {
+    final grid = Grid<T>(other.width, other.height, other.defaultValue);
+    for (final loc in other.locations()) {
+      grid.setCell(loc, other.cell(loc));
+    }
+    return grid;
+  }
+
   final int width;
   final int height;
   final T defaultValue;
