@@ -142,6 +142,90 @@ class Grid<T> {
   }
 }
 
+
+class IndexedGrid<T> {
+  IndexedGrid(this.width, this.height, T defaultValue) {
+    _cells = List<T>.filled(width * height, defaultValue);
+  }
+
+  final int width;
+  final int height;
+  late final List<T> _cells;
+
+  int index(int x, int y) => x + y * width;
+  int indexOf(Loc l) => index(l.x, l.y);
+  Loc loc(int index) => Loc(index % width, index ~/ width);
+  int x(int index) => index % width;
+  int y(int index) => index ~/ width;
+
+  T operator [](int index) => _cells[index];
+  void operator[]=(int index, T value) => _cells[index] = value;
+
+  bool validCell(Loc p) => 0 <= p.x && p.x < width && 0 <= p.y && p.y < height;
+
+  Iterable<T> cells() => _cells;
+
+  Iterable<Loc> locations() sync* {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        yield Loc(x, y);
+      }
+    }
+  }
+
+  Iterable<T> cellsWhere(bool Function(T) test) {
+    return cells().where(test);
+  }
+
+  Iterable<Loc> locationsWhere(bool Function(T) test) {
+    return locations().where((p) => test(this[index(p.x, p.y)]));
+  }
+
+  void updateCells(T Function(T) update) {
+    for (int i = 0; i < _cells.length; i++) {
+      _cells[i] = update(_cells[i]);
+    }
+  }
+
+  void updateCellsWhere(bool Function(T) test, T Function(T) update) {
+    for (int i = 0; i < _cells.length; i++) {
+      final T value = _cells[i];
+      if (test(value)) {
+        _cells[i] = update(value);
+      }
+    }
+  }
+
+  static const List<Loc> cardinalNeighborOffsets = <Loc>[
+    Loc(-1, -1), Loc(0, -1), Loc(1, -1),
+    Loc(-1,  0),             Loc(1,  0),
+    Loc(-1,  1), Loc(0,  1), Loc(1,  1),
+  ];
+
+  static const List<Loc> orthogonalNeighborOffsets = <Loc>[
+    Loc(0, -1),
+    Loc(-1, 0),             Loc(1, 0),
+    Loc(0,  1),
+  ];
+
+  Iterable<T> neighbors(Loc p, [List<Loc> offsets = cardinalNeighborOffsets]) {
+    return offsets.map((Loc o) => p + o).where(validCell).map((p) => this[index(p.x, p.y)]);
+  }
+
+  Iterable<int> neighborLocations(int i, [List<Loc> offsets = cardinalNeighborOffsets]) {
+    return offsets.map((Loc o) => loc(i) + o).where(validCell).map((l) => index(l.x, l.y));
+  }
+
+  @override
+  String toString() {
+    final lines = <String>[];
+    for (int y = 0; y < height; y++) {
+      lines.add(_cells.getRange(y * width, (y + 1) * width).join());
+    }
+    return lines.join('\n');
+  }
+}
+
 class SparseGrid<T> {
   SparseGrid({
     required this.defaultValue,

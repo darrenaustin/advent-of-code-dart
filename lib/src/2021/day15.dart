@@ -18,40 +18,32 @@ class Day15 extends AdventDay {
     return _lowestRisk(_expandGrid(inputGrid()));
   }
 
-  Grid<int> inputGrid() {
+  IndexedGrid<int> inputGrid() {
     final lines = inputDataLines().map((l) =>
-        l.split('').map((n) => int.parse(n)).toList()).toList();
-    final grid = Grid<int>(lines.first.length, lines.length, 0);
+      l.split('').map((n) => int.parse(n)).toList()).toList();
+    final grid = IndexedGrid<int>(lines.first.length, lines.length, 0);
     for (int r = 0; r < grid.height; r++) {
       for (int c = 0; c < grid.width; c++) {
-        grid.setCell(Loc(c, r), lines[r][c]);
+        grid[grid.index(c, r)] = lines[r][c];
       }
     }
     return grid;
   }
 
-  double? _lowestRisk(Grid<int> grid) {
-    final start = Loc(0, 0);
-    final goal = Loc(grid.width - 1, grid.height - 1);
-    return aStarLowestCost<Loc>(
+  double? _lowestRisk(IndexedGrid<int> grid) {
+    final start = 0;
+    final goal = grid.index(grid.width - 1, grid.height - 1);
+    return aStarLowestCost<int>(
       start: start,
       goal: goal,
-      estimatedDistance: (l) => (l.x + l.y).toDouble(),
-      costTo: (from, to) => grid.cell(to).toDouble(),
-      neighborsOf: (loc) =>
-        grid.neighborLocations(loc, Grid.orthogonalNeighborOffsets),
+      estimatedDistance: (i) => (grid.x(i) + grid.y(i)).toDouble(),
+      costTo: (from, to) => grid[to].toDouble(),
+      neighborsOf: (i) => grid.neighborLocations(i, IndexedGrid.orthogonalNeighborOffsets),
     );
-    // return dijkstraLowestCost<Loc>(
-    //   start: start,
-    //   goal: goal,
-    //   costTo: (from, to) => grid.cell(to).toDouble(),
-    //   neighborsOf: (loc) =>
-    //       grid.neighborLocations(loc, Grid.orthogonalNeighborOffsets),
-    // );
   }
 
-  Grid<int> _expandGrid(Grid<int> source) {
-    final grid = Grid<int>(source.width * 5, source.height * 5, 0);
+  IndexedGrid<int> _expandGrid(IndexedGrid<int> source) {
+    final grid = IndexedGrid<int>(source.width * 5, source.height * 5, 0);
     for (int gridX = 0; gridX < 5; gridX++) {
       for (int gridY = 0; gridY < 5; gridY++) {
         final riskIncrease = gridX + gridY;
@@ -59,8 +51,8 @@ class Day15 extends AdventDay {
         for (int x = 0; x < source.width; x++) {
           for (int y = 0; y < source.height; y++) {
             final cellLoc = Loc(x, y);
-            final risk = (source.cell(cellLoc) + riskIncrease - 1) % 9 + 1;
-            grid.setCell(gridOrigin + cellLoc, risk);
+            final risk = (source[source.indexOf(cellLoc)] + riskIncrease - 1) % 9 + 1;
+            grid[grid.indexOf(gridOrigin + cellLoc)] = risk;
           }
         }
       }
