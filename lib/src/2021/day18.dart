@@ -23,8 +23,8 @@ class Day18 extends AdventDay {
     int maxMagnitude = 0;
     for (int a = 0; a < pairs.length - 1; a++) {
       for (int b = a + 1; b < pairs.length; b++) {
-        maxMagnitude = max(maxMagnitude, (Pair.copy(pairs[a]) + Pair.copy(pairs[b])).magnitude());
-        maxMagnitude = max(maxMagnitude, (Pair.copy(pairs[b]) + Pair.copy(pairs[a])).magnitude());
+        maxMagnitude = max(maxMagnitude, (pairs[a] + pairs[b]).magnitude());
+        maxMagnitude = max(maxMagnitude, (pairs[b] + pairs[a]).magnitude());
       }
     }
     return maxMagnitude;
@@ -207,7 +207,7 @@ class Pair {
   }
 
   Pair operator+ (Pair other) {
-    return Pair(this, other)..reduce();
+    return Pair(Pair.copy(this), Pair.copy(other))..reduce();
   }
 
   @override
