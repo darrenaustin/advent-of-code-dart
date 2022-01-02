@@ -11,20 +11,25 @@ class Day06 extends AdventDay {
 
   @override
   dynamic part1() {
-    final Grid<bool> lights = Grid<bool>(1000, 1000, false);
+    final lights = IndexedGrid<bool>(1000, 1000, false);
     bool apply(final Instruction i, bool value) =>
       i.type == InstructionType.turnOn ||
       (i.type == InstructionType.toggle && !value);
 
-    inputInstructions().forEach((Instruction i) =>
-      region(i.p1, i.p2).forEach((Loc v) =>
-          lights.setCell(v, apply(i, lights.cell(v)))));
+    for (final instruction in inputInstructions()) {
+      for (int y = instruction.p1.y; y <= instruction.p2.y; y++) {
+        for (int x = instruction.p1.x; x <= instruction.p2.x; x++) {
+          final index = lights.index(x, y);
+          lights[index] = apply(instruction, lights[index]);
+        }
+      }
+    }
     return lights.cellsWhere((bool value) => value).length;
   }
 
   @override
   dynamic part2() {
-    final Grid<int> lights = Grid<int>(1000, 1000, 0);
+    final lights = IndexedGrid<int>(1000, 1000, 0);
     int apply(final Instruction i, int value) {
       switch (i.type) {
         case InstructionType.turnOn: return value + 1;
@@ -33,9 +38,14 @@ class Day06 extends AdventDay {
       }
     }
 
-    inputInstructions().forEach((Instruction i) =>
-        region(i.p1, i.p2).forEach((Loc v) =>
-            lights.setCell(v, apply(i, lights.cell(v)))));
+    for (final instruction in inputInstructions()) {
+      for (int y = instruction.p1.y; y <= instruction.p2.y; y++) {
+        for (int x = instruction.p1.x; x <= instruction.p2.x; x++) {
+          final index = lights.index(x, y);
+          lights[index] = apply(instruction, lights[index]);
+        }
+      }
+    }
     return lights.cells().sum();
   }
 
@@ -50,18 +60,11 @@ class Day06 extends AdventDay {
               ? InstructionType.toggle
               : InstructionType.turnOff;
       return Instruction(
-          type,
-          Loc(int.parse(match.group(2)!), int.parse(match.group(3)!)),
-          Loc(int.parse(match.group(4)!), int.parse(match.group(5)!)));
+        type,
+        Loc(int.parse(match.group(2)!), int.parse(match.group(3)!)),
+        Loc(int.parse(match.group(4)!), int.parse(match.group(5)!))
+      );
     });
-  }
-
-  Iterable<Loc> region(Loc p1, Loc p2) sync* {
-    for (int y = p1.y; y <= p2.y; y++) {
-      for (int x = p1.x; x <= p2.x; x++) {
-        yield Loc(x, y);
-      }
-    }
   }
 }
 
