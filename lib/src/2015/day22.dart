@@ -203,6 +203,7 @@ class Spell {
         effect(caster, enemy);
       }
     }
+    return null;
   }
 
   @override

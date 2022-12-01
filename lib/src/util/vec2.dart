@@ -88,6 +88,7 @@ class LineSegment {
         return from + dir * t;
       }
     }
+    return null;
   }
 
   double? distanceAlong(Vector p) {
@@ -103,6 +104,7 @@ class LineSegment {
         }
       }
     }
+    return null;
   }
 
   Iterable<Vector> discretePointsAlong() sync* {

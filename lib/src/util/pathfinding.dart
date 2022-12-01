@@ -40,6 +40,7 @@ Iterable<L>? aStarPath<L>({
       }
     }
   }
+  return null;
 }
 
 double? aStarLowestCost<L>({
@@ -77,6 +78,7 @@ double? aStarLowestCost<L>({
       }
     }
   }
+  return null;
 }
 
 Iterable<L>? dijkstraPath<L>({
@@ -111,6 +113,7 @@ Iterable<L>? dijkstraPath<L>({
       }
     }
   }
+  return null;
 }
 
 double? dijkstraLowestCost<L>({
@@ -139,4 +142,5 @@ double? dijkstraLowestCost<L>({
       }
     }
   }
+  return null;
 }

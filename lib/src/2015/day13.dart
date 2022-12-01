@@ -3,7 +3,6 @@
 import 'package:collection/collection.dart';
 
 import '../../day.dart';
-import '../util/collection.dart';
 
 class Day13 extends AdventDay {
   Day13() : super(2015, 13, solution1: 709, solution2: 668);
@@ -13,7 +12,7 @@ class Day13 extends AdventDay {
     final Map<String, Map<String, int>> rules = inputHappinessRules();
     return permutations(rules.keys.toSet())
         .map((Iterable<String> p) => happiness(p, rules))
-        .max();
+        .max;
   }
 
   @override
@@ -27,7 +26,7 @@ class Day13 extends AdventDay {
         names.map((String n) => MapEntry<String, int>(n, 0)));
     return permutations(rules.keys.toSet())
         .map((Iterable<String> p) => happiness(p, rules))
-        .max();
+        .max;
   }
 
   final RegExp ruleRegex = RegExp(r'^(.+) would (gain|lose) (\d+) happiness units by sitting next to (.+).$');

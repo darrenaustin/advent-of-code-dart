@@ -33,6 +33,7 @@ class Day19 extends AdventDay {
           }
         }
       }
+      return null;
     }
 
     return findShortestPath(inputMolecule());
