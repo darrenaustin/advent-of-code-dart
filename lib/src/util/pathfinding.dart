@@ -17,12 +17,12 @@ Iterable<L>? aStarPath<L>({
   final openSet = {start};
 
   while (openSet.isNotEmpty) {
-    var current = openHeap.removeFirst();
+    L current = openHeap.removeFirst();
     openSet.remove(current);
     if (current == goal) {
       final path = [current];
       while (cameFrom.keys.contains(current)) {
-        current = cameFrom[current]!;
+        current = cameFrom[current] as L;
         path.insert(0, current);
       }
       return path;
@@ -99,7 +99,7 @@ Iterable<L>? dijkstraPath<L>({
       // Reconstruct the path in reverse.
       final path = [current];
       while (prev.keys.contains(current)) {
-        current = prev[current]!;
+        current = prev[current] as L;
         path.insert(0, current);
       }
       return path;
