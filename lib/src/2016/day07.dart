@@ -1,9 +1,11 @@
 // https://adventofcode.com/2016/day/7
 
+import 'package:collection/collection.dart';
+
 import '../../day.dart';
 
 class Day07 extends AdventDay {
-  Day07() : super(2016, 7, solution1: 115);
+  Day07() : super(2016, 7, solution1: 115, solution2: 231);
 
   @override
   dynamic part1() {
@@ -12,75 +14,57 @@ class Day07 extends AdventDay {
 
   @override
   dynamic part2() {
-    // return supportsSSL('aba[bab]xyz');
-    // return supportsSSL('xyx[xyx]xyx');
-    // return supportsSSL('aaa[kek]eke');
-    // return supportsSSL('zazbz[bzb]cdb');
-    // return inputDataLines().where(supportsSSL).length;
-  }
-
-  bool supportsTLS(String address) {
-    bool foundABBA = false;
-    while (address.isNotEmpty && !foundABBA) {
-      int braceIndex = address.indexOf('[');
-      if (braceIndex != -1) {
-        foundABBA |= hasABBA(address.substring(0, braceIndex));
-        // Check the hypernet sequence between the braces
-        final closeBraceIndex = address.indexOf(']', braceIndex);
-        if (closeBraceIndex == -1) {
-          throw Exception('Hypernet sequence missing closing \']\' - $address');
-        }
-        if (hasABBA(address.substring(braceIndex + 1, closeBraceIndex))) {
-          return false;
-        }
-        address = address.substring(closeBraceIndex + 1);
-      } else {
-        foundABBA |= hasABBA(address);
-        address = '';
-      }
-    }
-    return foundABBA;
+    return inputDataLines().where(supportsSSL).length;
   }
 
   final RegExp abbaRegExp = RegExp(r'(.)(.)\2(?!\2)\1');
-  bool hasABBA(String s) {
-    return abbaRegExp.hasMatch(s);
+  bool hasABBA(String s) => abbaRegExp.hasMatch(s);
+
+  bool supportsTLS(String s) {
+    final IPAddress address = IPAddress(s);
+    return address.hypernetSequences.none(hasABBA)
+        && address.supernetSequences.any(hasABBA);
   }
 
-  bool supportsSSL(String address) {
-    List<String> abaSequences = [];
-    List<String> hypernetSequences = [];
+  final RegExp abaRegExp = RegExp(r'(?=(.)(?!\1)(.)\1)');
+  Iterable<String> abaS(String s) => abaRegExp.allMatches(s).map((m) => '${m[1]!}${m[2]!}${m[1]!}');
+  String bab(String aba) => '${aba[1]}${aba[0]}${aba[1]}';
 
-    // Parse the address collecting ABA sequences from the supernet sections
-    // and the full text of of the hypernet sections (in brackets)
+  bool supportsSSL(String s) {
+    final IPAddress address = IPAddress(s);
+    final abaSequences = address.supernetSequences.map(abaS).flattened;
+    if (abaSequences.isEmpty) {
+      return false;
+    }
+    final babSequences = abaSequences.map(bab);
+    final anyBAB = RegExp('(${babSequences.join('|')})');
+    return address.hypernetSequences.any((s) => s.contains(anyBAB));
+  }
+}
+
+class IPAddress {
+  IPAddress(String address) {
+    final List<String> supernet = [];
+    final List<String> hypernet = [];
     while (address.isNotEmpty) {
       int braceIndex = address.indexOf('[');
       if (braceIndex != -1) {
-        abaSequences.addAll(abaS(address.substring(0, braceIndex)));
+        supernet.add(address.substring(0, braceIndex));
         final closeBraceIndex = address.indexOf(']', braceIndex);
         if (closeBraceIndex == -1) {
           throw Exception('Hypernet sequence missing closing \']\' - $address');
         }
-        hypernetSequences.add(address.substring(braceIndex + 1, closeBraceIndex));
+        hypernet.add(address.substring(braceIndex + 1, closeBraceIndex));
         address = address.substring(closeBraceIndex + 1);
       } else {
-        abaSequences.addAll(abaS(address));
+        supernet.add(address);
         address = '';
       }
     }
-
-    // Construct a regexp for matching any of the abas as babs
-    final babSequences = abaSequences.map((s) => '${s[1]}${s[0]}${s[1]}');
-    final babRegExp = RegExp('(${babSequences.join('|')})');
-    return hypernetSequences.any((s) => babRegExp.hasMatch(s));
+    supernetSequences = supernet;
+    hypernetSequences = hypernet;
   }
 
-  final RegExp abaRegExp = RegExp(r'(?=(.)(?!\1)(.)\1)');
-  Iterable<String> abaS(String s) {
-    return abaRegExp.allMatches(s).map((m) => '${m[1]!}${m[2]!}${m[1]!}');
-  }
-
-
-
+  late final Iterable<String> supernetSequences;
+  late final Iterable<String> hypernetSequences;
 }
-
