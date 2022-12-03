@@ -6,13 +6,17 @@ final projectTestPath = "./test";
 final projectSrcPath = path.join(projectLibPath, 'src');
 final projectSrcDir = Directory(projectSrcPath);
 
-void main(List<String> arguments) async {
+void main(List<String> arguments) {
+  updateDayStructures();
+}
+
+void updateDayStructures() {
   final RegExp yearRegexp = RegExp(r'\d\d\d\d');
   final List<String> years = projectSrcDir.listSync()
-    .whereType<Directory>()
-    .where((d) => yearRegexp.hasMatch(path.basename(d.path)))
-    .map((d) => path.basename(d.path))
-    .toList()
+      .whereType<Directory>()
+      .where((d) => yearRegexp.hasMatch(path.basename(d.path)))
+      .map((d) => path.basename(d.path))
+      .toList()
     ..sort();
   for (final year in years) {
     writeYearFile(year);
