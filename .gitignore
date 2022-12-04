@@ -11,3 +11,6 @@ doc/api/
 # IntelliJ project files
 .idea/
 *.iml
+
+# Browser session file used to download input files
+.session
