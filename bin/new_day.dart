@@ -52,6 +52,9 @@ void main(List<String> arguments) async {
     out.close();
   }
 
+  // Update the day structures across the repo.
+  await updateDayStructures();
+
   // Create an empty input file
   final inputFilePath = path.join(projectInputPath, year, 'day$day.txt');
   final inputFile = File(inputFilePath);
@@ -65,22 +68,25 @@ void main(List<String> arguments) async {
   }
   if (sessionId == null) {
     print('No session data found, unable to download input file');
-    exit(0);
-  }
-  final inputURL = Uri.parse("https://adventofcode.com/$year/day/$dayNum/input");
-  print('Fetching input data: $inputURL');
-  final request = await HttpClient().getUrl(inputURL);
-  request.cookies.add(Cookie("session", sessionId));
-  final response = await request.close();
-  if (response.statusCode == HttpStatus.ok) {
-    // Write the text to the input file
-    final contents = await response.transform(utf8.decoder).join();
-    inputFile.writeAsStringSync(contents);
-    print('Input data successfully downloaded');
   } else {
-    print('Unable to fetch input data, code = ${response.statusCode}');
+    final inputURL = Uri.parse("https://adventofcode.com/$year/day/$dayNum/input");
+    print('Fetching input data: $inputURL');
+    final client = HttpClient();
+    try {
+      final request = await client.getUrl(inputURL);
+      request.cookies.add(Cookie("session", sessionId));
+      final response = await request.close();
+      if (response.statusCode == HttpStatus.ok) {
+        // Write the text to the input file
+        final contents = await response.transform(utf8.decoder).join();
+        inputFile.writeAsStringSync(contents);
+        print('Input data successfully downloaded');
+      } else {
+        print('Unable to fetch input data, code = ${response.statusCode}');
+      }
+    } finally {
+      client.close();
+    }
   }
-
-  // Update the day structures across the repo.
-  updateDayStructures();
+  exit(0);
 }

@@ -10,7 +10,7 @@ void main(List<String> arguments) {
   updateDayStructures();
 }
 
-void updateDayStructures() {
+Future<void> updateDayStructures() async {
   final RegExp yearRegexp = RegExp(r'\d\d\d\d');
   final List<String> years = projectSrcDir.listSync()
       .whereType<Directory>()
