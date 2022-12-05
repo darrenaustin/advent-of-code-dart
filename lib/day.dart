@@ -32,6 +32,10 @@ abstract class AdventDay {
   String get inputFileName =>
     'input/$year/day${day.toString().padLeft(2, '0')}.txt';
 
+  String input() {
+    return File(inputFileName).readAsStringSync();
+  }
+
   String inputData() {
     return File(inputFileName).readAsStringSync().trim();
   }
