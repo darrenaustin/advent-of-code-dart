@@ -31,40 +31,28 @@ class Day07 extends AdventDay {
   }
 
   FSEntry fileSystem() {
-    final commandDelimiter = RegExp(r'\n?\$ ');
-    final cdCommandRegExp = RegExp(r'cd (.*)');
-    final fileRegExp = RegExp(r'(\d+) (.*)');
-
     final FSEntry root = FSEntry.dir('/', null);
     FSEntry cwd = root;
 
-    final commandGroups = inputData().split(commandDelimiter).skip(1).map((s) => s.split('\n'));
-    for (final commandGroup in commandGroups) {
-      final command = commandGroup.first;
-      final cdMatch = cdCommandRegExp.firstMatch(command);
-      if (cdMatch != null) {
-        String dir = cdMatch.group(1)!;
-        while (dir.startsWith('..')) {
-          cwd = cwd.parent!;
-          dir = dir.substring(2);
+    for (final line in inputDataLines()) {
+      if (line.startsWith('\$ cd')) {
+        final dirName = line.substring(5);
+        if (dirName == '..') {
+          cwd = cwd.parent ?? cwd;
+        } else {
+          cwd = cwd.children?[dirName] ?? cwd;
         }
-        if (dir.isNotEmpty) {
-          cwd = cwd.children?[dir] ?? cwd;
-        }
-      } else if (command == 'ls') {
-        for (final entry in commandGroup.skip(1)) {
-          if (entry.startsWith('dir')) {
-            final dirName = entry.substring(4);
-            cwd.children![dirName] ??= FSEntry.dir(dirName, cwd);
-          } else {
-            final fileData = fileRegExp.firstMatch(entry)!;
-            final fileSize = int.parse(fileData.group(1)!);
-            final fileName = fileData.group(2)!;
-            cwd.children![fileName] ??= FSEntry.file(fileName, cwd, fileSize);
-          }
-        }
+      } else if (line == '\$ ls') {
+        continue;
+      } else if (line.startsWith('dir')) {
+        final dirName = line.substring(4);
+        cwd.children![dirName] ??= FSEntry.dir(dirName, cwd);
       } else {
-        throw('Unknown command: $command');
+        // It must be a file
+        final fileParts = line.split(' ');
+        final size = int.parse(fileParts[0]);
+        final name = fileParts[1];
+        cwd.children![name] ??= FSEntry.file(name, cwd, size);
       }
     }
     return root;
