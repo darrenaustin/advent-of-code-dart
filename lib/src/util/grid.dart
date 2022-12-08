@@ -9,6 +9,14 @@ class Loc {
   final int y;
 
   static const Loc zero = Loc(0, 0);
+  static const Loc up = Loc(0, -1);
+  static const Loc upRight = Loc(1, -1);
+  static const Loc right = Loc(1, 0);
+  static const Loc downRight = Loc(1, 1);
+  static const Loc down = Loc(0, 1);
+  static const Loc downLeft = Loc(-1, 1);
+  static const Loc left = Loc(-1, 0);
+  static const Loc upLeft = Loc(-1, -1);
 
   Loc operator +(Loc other) {
     return Loc(x + other.x, y + other.y);
@@ -117,16 +125,13 @@ class Grid<T> {
   }
 
   static const List<Loc> cardinalNeighborOffsets = <Loc>[
-    Loc(-1, -1), Loc(0, -1), Loc(1, -1),
-    Loc(-1,  0),             Loc(1,  0),
-    Loc(-1,  1), Loc(0,  1), Loc(1,  1),
+    Loc.upLeft,   Loc.up,   Loc.upRight,
+    Loc.left,               Loc.right,
+    Loc.downLeft, Loc.down, Loc.downRight,
   ];
 
-  static const List<Loc> orthogonalNeighborOffsets = <Loc>[
-                 Loc(0, -1),
-    Loc(-1,  0),             Loc(1,  0),
-                 Loc(0,  1),
-  ];
+  static const List<Loc> orthogonalNeighborOffsets =
+    [Loc.up, Loc.down, Loc.left, Loc.right];
 
   Iterable<T> neighbors(Loc p, [List<Loc> offsets = cardinalNeighborOffsets]) {
     return offsets.map((Loc o) => p + o).where(validCell).map(cell);
