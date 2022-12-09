@@ -38,7 +38,7 @@ class Day15 extends AdventDay {
       goal: goal,
       estimatedDistance: (i) => (grid.x(i) + grid.y(i)).toDouble(),
       costTo: (from, to) => grid[to].toDouble(),
-      neighborsOf: (i) => grid.neighborLocations(i, IndexedGrid.orthogonalNeighborOffsets),
+      neighborsOf: (i) => grid.neighborLocations(i, Loc.orthogonalDirs),
     );
   }
 

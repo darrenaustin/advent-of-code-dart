@@ -41,7 +41,7 @@ class Day09 extends AdventDay {
 
   bool lowPoint(Grid<int> grid, Loc p) {
     final n = grid.cell(p);
-    return grid.neighbors(p, Grid.orthogonalNeighborOffsets).every((e) => n < e);
+    return grid.neighbors(p, Loc.orthogonalDirs).every((e) => n < e);
   }
 
   int basinSizeFor(Grid<int> grid, Loc p) {
@@ -50,7 +50,7 @@ class Day09 extends AdventDay {
     while (edges.isNotEmpty) {
       final edge = edges.removeLast();
       locs.add(edge);
-      edges.addAll(Grid.orthogonalNeighborOffsets
+      edges.addAll(Loc.orthogonalDirs
         .map((offset) => edge + offset)
         .where((newEdge) => grid.validCell(newEdge)
           && grid.cell(newEdge) != 9

@@ -7,8 +7,6 @@ import '../util/grid.dart';
 class Day08 extends AdventDay {
   Day08() : super(2022, 8, solution1: 1794, solution2: 199272);
 
-  static final dirs = [Loc.up, Loc.down, Loc.left, Loc.right];
-
   @override
   dynamic part1() {
     final grid = inputGrid();
@@ -28,7 +26,9 @@ class Day08 extends AdventDay {
   @override
   dynamic part2() {
     final grid = inputGrid();
-    int score(Loc tree) => dirs.map((d) => numSeenFromTree(grid, tree, d)).product();
+    int score(Loc tree) => Loc.orthogonalDirs
+      .map((d) => numSeenFromTree(grid, tree, d))
+      .product();
     return grid.locations().map(score).max();
   }
 

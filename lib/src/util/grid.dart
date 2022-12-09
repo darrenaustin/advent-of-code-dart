@@ -18,6 +18,22 @@ class Loc {
   static const Loc left = Loc(-1, 0);
   static const Loc upLeft = Loc(-1, -1);
 
+  static const List<Loc> cardinalDirs = <Loc>[
+    Loc.upLeft,   Loc.up,   Loc.upRight,
+    Loc.left,     Loc.zero, Loc.right,
+    Loc.downLeft, Loc.down, Loc.downRight,
+  ];
+
+  static const List<Loc> aroundDirs = <Loc>[
+    Loc.upLeft,   Loc.up,   Loc.upRight,
+    Loc.left,               Loc.right,
+    Loc.downLeft, Loc.down, Loc.downRight,
+  ];
+
+  static const List<Loc> orthogonalDirs = [
+    Loc.up, Loc.down, Loc.left, Loc.right,
+  ];
+
   Loc operator +(Loc other) {
     return Loc(x + other.x, y + other.y);
   }
@@ -124,20 +140,11 @@ class Grid<T> {
     }
   }
 
-  static const List<Loc> cardinalNeighborOffsets = <Loc>[
-    Loc.upLeft,   Loc.up,   Loc.upRight,
-    Loc.left,               Loc.right,
-    Loc.downLeft, Loc.down, Loc.downRight,
-  ];
-
-  static const List<Loc> orthogonalNeighborOffsets =
-    [Loc.up, Loc.down, Loc.left, Loc.right];
-
-  Iterable<T> neighbors(Loc p, [List<Loc> offsets = cardinalNeighborOffsets]) {
+  Iterable<T> neighbors(Loc p, [List<Loc> offsets = Loc.aroundDirs]) {
     return offsets.map((Loc o) => p + o).where(validCell).map(cell);
   }
 
-  Iterable<Loc> neighborLocations(Loc p, [List<Loc> offsets = cardinalNeighborOffsets]) {
+  Iterable<Loc> neighborLocations(Loc p, [List<Loc> offsets = Loc.aroundDirs]) {
     return offsets.map((Loc o) => p + o).where(validCell);
   }
 
@@ -201,23 +208,11 @@ class IndexedGrid<T> {
     }
   }
 
-  static const List<Loc> cardinalNeighborOffsets = <Loc>[
-    Loc(-1, -1), Loc(0, -1), Loc(1, -1),
-    Loc(-1,  0),             Loc(1,  0),
-    Loc(-1,  1), Loc(0,  1), Loc(1,  1),
-  ];
-
-  static const List<Loc> orthogonalNeighborOffsets = <Loc>[
-    Loc(0, -1),
-    Loc(-1, 0),             Loc(1, 0),
-    Loc(0,  1),
-  ];
-
-  Iterable<T> neighbors(Loc p, [List<Loc> offsets = cardinalNeighborOffsets]) {
+  Iterable<T> neighbors(Loc p, [List<Loc> offsets = Loc.aroundDirs]) {
     return offsets.map((Loc o) => p + o).where(validCell).map((p) => this[index(p.x, p.y)]);
   }
 
-  Iterable<int> neighborLocations(int i, [List<Loc> offsets = cardinalNeighborOffsets]) {
+  Iterable<int> neighborLocations(int i, [List<Loc> offsets = Loc.aroundDirs]) {
     return offsets.map((Loc o) => loc(i) + o).where(validCell).map((l) => index(l.x, l.y));
   }
 
