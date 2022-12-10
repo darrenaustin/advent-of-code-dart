@@ -65,24 +65,22 @@ class CRT {
 
   final int width;
 
-  final List<String> _lines = [''];
-  int _line = 0;
+  final StringBuffer _lines = StringBuffer();
   int _pixel = 0;
 
   void tick(int spriteX) {
-    final pixelShowing = abs(_pixel - spriteX) < 2;
-    final pixelChar = pixelShowing ? '\u2588' : ' ';
-    _lines[_line] = '${_lines[_line]}$pixelChar';
+    final paintPixel = abs(_pixel - spriteX) < 2;
+    final pixelChar = paintPixel ? '\u2588' : ' ';
+    _lines.write(pixelChar);
     _pixel += 1;
     if (_pixel >= width) {
-      _line += 1;
-      _lines.add('');
+      _lines.writeln();
       _pixel = 0;
     }
   }
 
   @override
   String toString() {
-    return _lines.join('\n');
+    return _lines.toString();
   }
 }
