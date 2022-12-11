@@ -4,23 +4,24 @@ import 'dart:math';
 
 import '../../day.dart';
 import '../util/collection.dart';
-import '../util/grid.dart';
+import '../util/grid2.dart';
+import '../util/vec2.dart';
 
 class Day06 extends AdventDay {
   Day06() : super(2015, 6, solution1: 543903, solution2: 14687245);
 
   @override
   dynamic part1() {
-    final lights = IndexedGrid<bool>(1000, 1000, false);
+    final lights = Grid<bool>(1000, 1000, false);
     bool apply(final Instruction i, bool value) =>
       i.type == InstructionType.turnOn ||
       (i.type == InstructionType.toggle && !value);
 
     for (final instruction in inputInstructions()) {
-      for (int y = instruction.p1.y; y <= instruction.p2.y; y++) {
-        for (int x = instruction.p1.x; x <= instruction.p2.x; x++) {
-          final index = lights.index(x, y);
-          lights[index] = apply(instruction, lights[index]);
+      for (int y = instruction.p1.yInt; y <= instruction.p2.y; y++) {
+        for (int x = instruction.p1.xInt; x <= instruction.p2.x; x++) {
+          final loc = Vec2.int(x, y);
+          lights.setCell(loc, apply(instruction, lights.cell(loc)));
         }
       }
     }
@@ -29,7 +30,7 @@ class Day06 extends AdventDay {
 
   @override
   dynamic part2() {
-    final lights = IndexedGrid<int>(1000, 1000, 0);
+    final lights = Grid<int>(1000, 1000, 0);
     int apply(final Instruction i, int value) {
       switch (i.type) {
         case InstructionType.turnOn: return value + 1;
@@ -39,10 +40,10 @@ class Day06 extends AdventDay {
     }
 
     for (final instruction in inputInstructions()) {
-      for (int y = instruction.p1.y; y <= instruction.p2.y; y++) {
-        for (int x = instruction.p1.x; x <= instruction.p2.x; x++) {
-          final index = lights.index(x, y);
-          lights[index] = apply(instruction, lights[index]);
+      for (int y = instruction.p1.yInt; y <= instruction.p2.y; y++) {
+        for (int x = instruction.p1.xInt; x <= instruction.p2.x; x++) {
+          final loc = Vec2.int(x, y);
+          lights.setCell(loc, apply(instruction, lights.cell(loc)));
         }
       }
     }
@@ -61,8 +62,8 @@ class Day06 extends AdventDay {
               : InstructionType.turnOff;
       return Instruction(
         type,
-        Loc(int.parse(match.group(2)!), int.parse(match.group(3)!)),
-        Loc(int.parse(match.group(4)!), int.parse(match.group(5)!))
+        Vec2.int(int.parse(match.group(2)!), int.parse(match.group(3)!)),
+        Vec2.int(int.parse(match.group(4)!), int.parse(match.group(5)!))
       );
     });
   }
@@ -74,6 +75,6 @@ class Instruction {
   Instruction(this.type, this.p1, this.p2);
 
   final InstructionType type;
-  final Loc p1;
-  final Loc p2;
+  final Vec2 p1;
+  final Vec2 p2;
 }

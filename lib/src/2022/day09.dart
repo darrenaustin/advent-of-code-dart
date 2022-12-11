@@ -1,7 +1,7 @@
 // https://adventofcode.com/2022/day/9
 
 import '../../day.dart';
-import '../util/grid.dart';
+import '../util/vec2.dart';
 
 class Day09 extends AdventDay {
   Day09() : super(2022, 9, solution1: 6236, solution2: 2449);
@@ -23,11 +23,11 @@ class Day09 extends AdventDay {
 
 class Rope {
   Rope(int knots) :
-    _knot = List.generate(knots, (_) => Loc.zero),
-    _tailVisited = <Loc>{Loc.zero};
+    _knot = List.generate(knots, (_) => Vec2.zero),
+    _tailVisited = <Vec2>{Vec2.zero};
 
-  final List<Loc> _knot;
-  final Set<Loc> _tailVisited;
+  final List<Vec2> _knot;
+  final Set<Vec2> _tailVisited;
 
   int numTailVisited() {
     return _tailVisited.length;
@@ -41,15 +41,15 @@ class Rope {
     }
   }
 
-  void moveHead(Loc dir, int amount) {
+  void moveHead(Vec2 dir, int amount) {
     for (int i = 0; i < amount; i++) {
       _knot[0] += dir;
       for (int k = 1; k < _knot.length; k++) {
-        final Loc leader = _knot[k - 1];
-        if (!Loc.cardinalDirs.any((l) => (leader + l) == _knot[k])) {
+        final Vec2 leader = _knot[k - 1];
+        if (!Vec2.cardinalDirs.any((l) => (leader + l) == _knot[k])) {
             // Not in any of the surrounding spaces of the leader, so
             // move the knot in the direction of the leader.
-            _knot[k] += Loc(
+            _knot[k] += Vec2.int(
               leader.x.compareTo(_knot[k].x),
               leader.y.compareTo(_knot[k].y)
             );
@@ -59,10 +59,10 @@ class Rope {
     }
   }
 
-  static final Map<String, Loc> dirs = {
-    'R' : Loc.right,
-    'L' : Loc.left,
-    'U' : Loc.up,
-    'D' : Loc.down,
+  static final Map<String, Vec2> dirs = {
+    'R' : Vec2.right,
+    'L' : Vec2.left,
+    'U' : Vec2.up,
+    'D' : Vec2.down,
   };
 }

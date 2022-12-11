@@ -1,8 +1,8 @@
 // https://adventofcode.com/2021/day/20
 
-import 'package:advent_of_code_dart/src/util/grid.dart';
-
 import '../../day.dart';
+import '../util/grid2.dart';
+import '../util/vec2.dart';
 
 class Day20 extends AdventDay {
   Day20() : super(2021, 20, solution1: 5349, solution2: 15806);
@@ -37,18 +37,15 @@ class Day20 extends AdventDay {
     int y = 0;
     for (final line in inputLines.skip(1)) {
       for (int x = 0; x < line.length; x++) {
-        grid.setCell(Loc(x, y), line[x] == '#' ? 1 : 0);
+        grid.setCell(Vec2.int(x, y), line[x] == '#' ? 1 : 0);
       }
       y++;
     }
     return grid;
   }
 
-  static final _areaOffsets = [
-    Loc(-1, -1), Loc(0, -1), Loc(1, -1),
-    Loc(-1, 0), Loc(0, 0), Loc(1, 0),
-    Loc(-1, 1), Loc(0, 1), Loc(1, 1),
-  ].map((o) => o + Loc(-2, -2));
+  static final _areaOffsets =
+    Vec2.cardinalDirs.map((o) => o + Vec2.int(-2, -2));
 
   Grid<int> _enhance({
     required List<int> algo,
@@ -60,7 +57,7 @@ class Day20 extends AdventDay {
       final newGrid = Grid<int>(grid.width + 4, grid.height + 4, 0);
       for (int y = 0; y < newGrid.height; y++) {
         for (int x = 0; x < newGrid.width; x++) {
-          final center = Loc(x, y);
+          final center = Vec2.int(x, y);
           final areaValues = _areaOffsets.map((o) {
             final l = o + center;
             return grid.validCell(l) ? grid.cell(l) : outerValue;

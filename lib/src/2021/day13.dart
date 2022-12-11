@@ -1,9 +1,10 @@
 // https://adventofcode.com/2021/day/13
 
-import 'package:advent_of_code_dart/src/util/collection.dart';
-import 'package:advent_of_code_dart/src/util/grid.dart';
+import 'package:collection/collection.dart';
 
 import '../../day.dart';
+import '../util/grid2.dart';
+import '../util/vec2.dart';
 
 class Day13 extends AdventDay {
   Day13() : super(2021, 13, solution1: 647, solution2: 'HEJHJRCJ');
@@ -30,10 +31,10 @@ class Day13 extends AdventDay {
       final coords = l.split(',');
       final x = int.parse(coords[0]);
       final y = int.parse(coords[1]);
-      return Loc(x, y);
+      return Vec2.int(x, y);
     });
-    final gridWidth = dotLocations.map((l) => l.x + 1).max();
-    final gridHeight = dotLocations.map((l) => l.y + 1).max();
+    final gridWidth = dotLocations.map((l) => l.x + 1).max.toInt();
+    final gridHeight = dotLocations.map((l) => l.y + 1).max.toInt();
     final grid = Grid<String>(gridWidth, gridHeight, ' ');
     for (final loc in dotLocations) {
       grid.setCell(loc, '#');
@@ -55,8 +56,8 @@ class Day13 extends AdventDay {
       final newGrid = Grid<String>(grid.width, newHeight, ' ');
       for (int i = 0; i < newHeight; i++) {
         for (int x = 0; x < grid.width; x++) {
-          final foldedP = Loc(x, newHeight + fold.line - i);
-          final p = Loc(x, i);
+          final foldedP = Vec2.int(x, newHeight + fold.line - i);
+          final p = Vec2.int(x, i);
           final cell = grid.cell(p) == '#' || grid.cell(foldedP) == '#' ? '#' : ' ';
           newGrid.setCell(p, cell);
         }
@@ -67,8 +68,8 @@ class Day13 extends AdventDay {
       final newGrid = Grid<String>(newWidth, grid.height, ' ');
       for (int i = 0; i < newWidth; i++) {
         for (int y = 0; y < grid.height; y++) {
-          final foldedP = Loc(newWidth + fold.line - i, y);
-          final p = Loc(i, y);
+          final foldedP = Vec2.int(newWidth + fold.line - i, y);
+          final p = Vec2.int(i, y);
           final cell = grid.cell(p) == '#' || grid.cell(foldedP) == '#' ? '#' : ' ';
           newGrid.setCell(p, cell);
         }

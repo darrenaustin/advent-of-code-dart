@@ -1,8 +1,9 @@
 // https://adventofcode.com/2021/day/25
 
-import 'package:advent_of_code_dart/src/util/grid.dart';
+import 'package:advent_of_code_dart/src/util/vec2.dart';
 
 import '../../day.dart';
+import '../util/grid2.dart';
 
 class Day25 extends AdventDay {
   Day25() : super(2021, 25, solution1: 453);
@@ -23,8 +24,8 @@ class Day25 extends AdventDay {
   }
 
   int step(Grid<String> grid) {
-    Loc eastOf(Loc l) => Loc((l.x + 1) % grid.width, l.y);
-    Loc southOf(Loc l) => Loc(l.x, (l.y + 1) % grid.height);
+    Vec2 eastOf(Vec2 l) => Vec2((l.x + 1) % grid.width, l.y);
+    Vec2 southOf(Vec2 l) => Vec2(l.x, (l.y + 1) % grid.height);
 
     final eastMoves = grid
       .locationsWhere((c) => c == '>')

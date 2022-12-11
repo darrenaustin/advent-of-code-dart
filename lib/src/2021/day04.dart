@@ -1,9 +1,9 @@
 // https://adventofcode.com/2021/day/4
 
-import 'package:advent_of_code_dart/src/util/collection.dart';
-import 'package:advent_of_code_dart/src/util/grid.dart';
-
 import '../../day.dart';
+import '../util/collection.dart';
+import '../util/grid2.dart';
+import '../util/vec2.dart';
 
 class Day04 extends AdventDay {
   Day04() : super(2021, 4, solution1: 39902, solution2: 26936);
@@ -53,7 +53,7 @@ class Day04 extends AdventDay {
       final board = Grid<int?>(5, 5, null);
       for (int row = 0; row < 5; row++) {
         for (int col = 0; col < 5; col++) {
-          board.setCell(Loc(col, row), boardNumbers[row][col]);
+          board.setCell(Vec2.int(col, row), boardNumbers[row][col]);
         }
       }
       boards.add(board);
@@ -61,9 +61,9 @@ class Day04 extends AdventDay {
     return boards;
   }
 
-  final List<List<Loc>> winningLocations = [
-    ...List.generate(5, (r) => List.generate(5, (c) => Loc(c, r))),
-    ...List.generate(5, (c) => List.generate(5, (r) => Loc(c, r))),
+  final List<List<Vec2>> winningLocations = [
+    ...List.generate(5, (r) => List.generate(5, (c) => Vec2.int(c, r))),
+    ...List.generate(5, (c) => List.generate(5, (r) => Vec2.int(c, r))),
   ];
 
   void removeNumber(Grid<int?> board, int number) {

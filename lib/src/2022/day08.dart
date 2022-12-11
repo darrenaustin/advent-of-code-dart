@@ -1,8 +1,10 @@
 // https://adventofcode.com/2022/day/8
 
+import 'package:advent_of_code_dart/src/util/vec2.dart';
+
 import '../../day.dart';
 import '../util/collection.dart';
-import '../util/grid.dart';
+import '../util/grid2.dart';
 
 class Day08 extends AdventDay {
   Day08() : super(2022, 8, solution1: 1794, solution2: 199272);
@@ -11,14 +13,14 @@ class Day08 extends AdventDay {
   dynamic part1() {
     final grid = inputGrid();
 
-    final Set<Loc> visible = {};
+    final Set<Vec2> visible = {};
     for (int col = 0; col < grid.width; col++) {
-      visible.addAll(seenInDirection(grid, Loc(col, 0), Loc.down));
-      visible.addAll(seenInDirection(grid, Loc(col, grid.height -1), Loc.up));
+      visible.addAll(seenInDirection(grid, Vec2.int(col, 0), Vec2.down));
+      visible.addAll(seenInDirection(grid, Vec2.int(col, grid.height -1), Vec2.up));
     }
     for (int row = 0; row < grid.height; row++) {
-      visible.addAll(seenInDirection(grid, Loc(0, row), Loc.right));
-      visible.addAll(seenInDirection(grid, Loc(grid.width - 1, row), Loc.left));
+      visible.addAll(seenInDirection(grid, Vec2.int(0, row), Vec2.right));
+      visible.addAll(seenInDirection(grid, Vec2.int(grid.width - 1, row), Vec2.left));
     }
     return visible.length;
   }
@@ -26,16 +28,16 @@ class Day08 extends AdventDay {
   @override
   dynamic part2() {
     final grid = inputGrid();
-    int score(Loc tree) => Loc.orthogonalDirs
+    int score(Vec2 tree) => Vec2.orthogonalDirs
       .map((d) => numSeenFromTree(grid, tree, d))
       .product();
     return grid.locations().map(score).max();
   }
 
-  Iterable<Loc> seenInDirection(Grid<int> grid, Loc starting, Loc dir) {
-    final List<Loc> seen = [starting];
-    Loc max = starting;
-    Loc current = starting + dir;
+  Iterable<Vec2> seenInDirection(Grid<int> grid, Vec2 starting, Vec2 dir) {
+    final List<Vec2> seen = [starting];
+    Vec2 max = starting;
+    Vec2 current = starting + dir;
     while (grid.validCell(current)) {
       if (grid.cell(max) < grid.cell(current)) {
         seen.add(current);
@@ -46,10 +48,10 @@ class Day08 extends AdventDay {
     return seen;
   }
 
-  int numSeenFromTree(Grid<int> grid, Loc tree, Loc dir) {
+  int numSeenFromTree(Grid<int> grid, Vec2 tree, Vec2 dir) {
     int seen = 0;
     int treeHeight = grid.cell(tree);
-    Loc current = tree + dir;
+    Vec2 current = tree + dir;
     while (grid.validCell(current)) {
       seen += 1;
       if (grid.cell(current) >= treeHeight) {

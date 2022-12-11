@@ -1,9 +1,9 @@
 // https://adventofcode.com/2021/day/5
 
-import 'package:advent_of_code_dart/src/util/collection.dart';
-import 'package:advent_of_code_dart/src/util/grid.dart';
-
 import '../../day.dart';
+import '../util/collection.dart';
+import '../util/grid2.dart';
+import '../util/vec2.dart';
 
 class Day05 extends AdventDay {
   Day05() : super(2021, 5, solution1: 4826, solution2: 16793);
@@ -32,7 +32,7 @@ class Day05 extends AdventDay {
 
   Iterable<LineSegment> inputLines() {
     return inputDataLines().map((s) {
-      final nums = s.split(RegExp(r'[^\d]+')).map((n) => int.parse(n)).toList();
+      final nums = s.split(RegExp(r'\D+')).map((n) => int.parse(n)).toList();
       return LineSegment(nums[0], nums[1], nums[2], nums[3]);
     });
   }
@@ -48,7 +48,7 @@ class LineSegment {
   final int endX;
   final int endY;
 
-  Iterable<Loc> pointsAlong() sync* {
+  Iterable<Vec2> pointsAlong() sync* {
     var ys = range(startY, endY + (startY > endY ? -1 : 1)).toList();
     var xs = range(startX, endX + (startX > endX ? -1 : 1)).toList();
     if (ys.length == 1) {
@@ -58,7 +58,7 @@ class LineSegment {
       xs = List<int>.filled(ys.length, xs.first);
     }
     for (int i = 0; i < ys.length; i++) {
-      yield Loc(xs[i], ys[i]);
+      yield Vec2.int(xs[i], ys[i]);
     }
   }
 

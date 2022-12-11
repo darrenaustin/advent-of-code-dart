@@ -1,7 +1,8 @@
 // https://adventofcode.com/2015/day/3
 
 import '../../day.dart';
-import '../util/grid.dart';
+import '../util/sparse_grid.dart';
+import '../util/vec2.dart';
 
 class Day03 extends AdventDay {
   Day03() : super(2015, 3, solution1: 2592, solution2: 2360);
@@ -9,7 +10,7 @@ class Day03 extends AdventDay {
   @override
   dynamic part1() {
     final SparseGrid<int> grid = SparseGrid<int>(defaultValue: 0);
-    Loc location = Loc.zero;
+    Vec2 location = Vec2.zero;
     grid.setCell(location, 1);
 
     for (final String d in inputDirections()) {
@@ -23,13 +24,13 @@ class Day03 extends AdventDay {
   @override
   dynamic part2() {
     final SparseGrid<int> grid = SparseGrid<int>(defaultValue: 0);
-    Loc santa = Loc.zero;
-    Loc robotSanta = Loc.zero;
+    Vec2 santa = Vec2.zero;
+    Vec2 robotSanta = Vec2.zero;
     grid.setCell(santa, 2);
     bool santaTurn = true;
 
     for (final String d in inputDirections()) {
-      late final Loc presentDropped;
+      late final Vec2 presentDropped;
       if (santaTurn) {
         santa += _directionOffset[d]!;
         presentDropped = santa;
@@ -47,10 +48,10 @@ class Day03 extends AdventDay {
     return inputData().trim().split('');
   }
 
-  static const Map<String, Loc> _directionOffset = <String, Loc>{
-    '^': Loc( 0,  1),
-    '>': Loc( 1,  0),
-    'v': Loc( 0, -1),
-    '<': Loc(-1,  0),
+  static const Map<String, Vec2> _directionOffset = <String, Vec2>{
+    '^': Vec2.up,
+    '>': Vec2.right,
+    'v': Vec2.down,
+    '<': Vec2.left,
   };
 }

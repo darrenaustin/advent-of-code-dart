@@ -1,8 +1,8 @@
 // https://adventofcode.com/2021/day/11
 
-import 'package:advent_of_code_dart/src/util/grid.dart';
-
 import '../../day.dart';
+import '../util/grid2.dart';
+import '../util/vec2.dart';
 
 class Day11 extends AdventDay {
   Day11() : super(2021, 11, solution1: 1562, solution2: 268);
@@ -28,9 +28,9 @@ class Day11 extends AdventDay {
     return step;
   }
 
-  Iterable<Loc> stepGrid(Grid<int> grid) {
+  Iterable<Vec2> stepGrid(Grid<int> grid) {
     grid.updateCells((v) => v + 1);
-    final flashes = <Loc>{};
+    final flashes = <Vec2>{};
     final needFlashes = grid.locationsWhere((v) => v > 9).toList();
     while (needFlashes.isNotEmpty) {
       final flash = needFlashes.removeLast();
@@ -59,7 +59,7 @@ class Day11 extends AdventDay {
     final Grid<int> grid = Grid(nums[0].length, nums.length, 0);
     for (int y = 0; y < grid.height; y++) {
       for (int x = 0; x < grid.width; x++) {
-        grid.setCell(Loc(x, y), nums[y][x]);
+        grid.setCell(Vec2.int(x, y), nums[y][x]);
       }
     }
     return grid;
