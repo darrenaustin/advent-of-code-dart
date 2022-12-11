@@ -9,6 +9,7 @@ import 'src/2022/day07.dart' show Day07;
 import 'src/2022/day08.dart' show Day08;
 import 'src/2022/day09.dart' show Day09;
 import 'src/2022/day10.dart' show Day10;
+import 'src/2022/day11.dart' show Day11;
 
 final List<AdventDay> adventOfCode2022Days = <AdventDay>[
   Day01(),
@@ -21,4 +22,5 @@ final List<AdventDay> adventOfCode2022Days = <AdventDay>[
   Day08(),
   Day09(),
   Day10(),
+  Day11(),
 ];
