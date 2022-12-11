@@ -4,7 +4,7 @@ import '../../day.dart';
 import '../util/grid.dart';
 
 class Day08 extends AdventDay {
-  Day08() : super(2016, 8);
+  Day08() : super(2016, 8, solution1: 116, solution2:'UPOJFLBCEZ');
 
   @override
   dynamic part1() {

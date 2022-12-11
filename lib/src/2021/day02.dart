@@ -16,28 +16,28 @@ class Day02 extends AdventDay {
   @override
   dynamic part2() {
     final directions = inputDirections();
-    Vector destination = Vector.zero;
+    Vec2 destination = Vec2.zero;
     double aim = 0;
     for (final direction in directions) {
-      destination += Vector(direction.x, aim * direction.x);
+      destination += Vec2(direction.x, aim * direction.x);
       aim += direction.y;
     }
     return destination.x * destination.y;
   }
 
-  List<Vector> inputDirections() {
-    const directionsVector = {
-      'forward': Vector(1, 0),
-      'up': Vector(0, -1),
-      'down': Vector(0, 1),
+  List<Vec2> inputDirections() {
+    const directionsVec2 = {
+      'forward': Vec2.right,
+      'up': Vec2.up,
+      'down': Vec2.down,
     };
     final lines = inputDataLines();
-    final directions = <Vector>[];
+    final directions = <Vec2>[];
     for (final line in lines) {
       final parts = line.split(' ');
       final direction = parts[0];
       final units = int.parse(parts[1]);
-      directions.add(directionsVector[direction]! * units);
+      directions.add(directionsVec2[direction]! * units);
     }
     return directions;
   }

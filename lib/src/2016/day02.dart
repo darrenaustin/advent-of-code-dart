@@ -13,7 +13,7 @@ class Day02 extends AdventDay {
       ['4', '5', '6'],
       ['7', '8', '9'],
     ];
-    return keycode(touchPad, Vector(1, 1), inputDirections());
+    return keycode(touchPad, Vec2(1, 1), inputDirections());
   }
 
   @override
@@ -25,15 +25,15 @@ class Day02 extends AdventDay {
       [  '', 'A', 'B', 'C',  ''],
       [  '',  '', 'D',  '',  ''],
     ];
-    return keycode(touchPad, Vector(0, 2), inputDirections());
+    return keycode(touchPad, Vec2(0, 2), inputDirections());
   }
 
   Iterable<Iterable<String>> inputDirections() {
     return inputDataLines().map((s) => s.split(''));
   }
 
-  String keycode(List<List<String>> touchPad, Vector keyPosition, Iterable<Iterable<String>> directions) {
-    bool validPos(Vector pos) =>
+  String keycode(List<List<String>> touchPad, Vec2 keyPosition, Iterable<Iterable<String>> directions) {
+    bool validPos(Vec2 pos) =>
         0 <= pos.x && pos.x < touchPad[0].length &&
         0 <= pos.y && pos.y < touchPad.length &&
         touchPad[pos.y.toInt()][pos.x.toInt()].isNotEmpty;
@@ -41,7 +41,7 @@ class Day02 extends AdventDay {
     List<String> pressed = [];
     for (Iterable<String> line in directions) {
       for (String dir in line) {
-        final Vector newPosition = keyPosition + directionVector[dir]!;
+        final Vec2 newPosition = keyPosition + directionVec2[dir]!;
         if (validPos(newPosition)) {
           keyPosition = newPosition;
         }
@@ -52,9 +52,9 @@ class Day02 extends AdventDay {
   }
 }
 
-const Map<String, Vector> directionVector = {
-  'U': Vector( 0, -1),
-  'D': Vector( 0,  1),
-  'L': Vector(-1,  0),
-  'R': Vector( 1,  0),
+const Map<String, Vec2> directionVec2 = {
+  'U': Vec2( 0, -1),
+  'D': Vec2( 0,  1),
+  'L': Vec2(-1,  0),
+  'R': Vec2( 1,  0),
 };

@@ -1,0 +1,62 @@
+import 'dart:math';
+
+class Vec3 {
+
+  const Vec3(this.x, this.y, this.z);
+
+  Vec3.int(int x, int y, int z)
+    : x = x.toDouble(),
+      y = y.toDouble(),
+      z = z.toDouble();
+
+  final double x;
+  final double y;
+  final double z;
+
+  double get magnitude => sqrt(x * x + y * y + z * z);
+
+  double get squaredMagnitude => x * x + y * y + z * z;
+
+  static const zero = Vec3(0, 0, 0);
+
+  Vec3 translate(num dx, num dy, num dz) => Vec3(x + dx, y + dy, z + dz);
+
+  Vec3 scale(num scaleX, num scaleY, num scaleZ) =>
+    Vec3(x * scaleX, y * scaleY, z * scaleZ);
+
+  double distanceTo(Vec3 other) => (this - other).magnitude;
+
+  double squaredDistanceTo(Vec3 other) => (this - other).squaredMagnitude;
+
+  double manhattanDistanceTo(Vec3 other) =>
+    (x - other.x).abs() + (y - other.y).abs() + (z - other.z).abs();
+
+  Vec3 crossProduct(Vec3 other) => Vec3(
+    y * other.z - z * other.y,
+    z * other.x - x * other.z,
+    x * other.y - y * other.x,
+  );
+
+  double dotProduct(Vec3 other) => x * other.x + y * other.y + z * other.z;
+
+  Vec3 operator +(Vec3 other) => Vec3(x + other.x, y + other.y, z + other.z);
+
+  Vec3 operator -() => Vec3(-x, -y, -z);
+
+  Vec3 operator -(Vec3 other) => Vec3(x - other.x, y - other.y, z - other.z);
+
+  Vec3 operator *(num factor) => Vec3(x * factor, y * factor, z * factor);
+
+  @override
+  bool operator ==(Object other) =>
+    other is Vec3
+      && other.x == x
+      && other.y == y
+      && other.z == z;
+
+  @override
+  int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode;
+
+  @override
+  String toString() => 'Vector($x, $y, $z)';
+}

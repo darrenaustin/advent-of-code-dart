@@ -1,20 +1,44 @@
 import 'dart:math';
 
-import 'package:meta/meta.dart';
-
 import 'collection.dart';
 import 'math.dart';
 
-@immutable
-class Vector {
-  const Vector(this.x, this.y);
+class Vec2 {
+  const Vec2(this.x, this.y);
 
-  Vector.int(int x, int y)
-      : x = x.toDouble(),
-        y = y.toDouble();
+  Vec2.int(int x, int y) : x = x.toDouble(), y = y.toDouble();
 
   final double x;
   final double y;
+
+  int get xInt => x.toInt();
+  int get yInt => y.toInt();
+
+  static const Vec2 zero = Vec2(0, 0);
+  static const Vec2 up = Vec2(0, -1);
+  static const Vec2 upRight = Vec2(1, -1);
+  static const Vec2 right = Vec2(1, 0);
+  static const Vec2 downRight = Vec2(1, 1);
+  static const Vec2 down = Vec2(0, 1);
+  static const Vec2 downLeft = Vec2(-1, 1);
+  static const Vec2 left = Vec2(-1, 0);
+  static const Vec2 upLeft = Vec2(-1, -1);
+
+  static const List<Vec2> cardinalDirs = <Vec2>[
+    Vec2.upLeft,   Vec2.up,   Vec2.upRight,
+    Vec2.left,     Vec2.zero, Vec2.right,
+    Vec2.downLeft, Vec2.down, Vec2.downRight,
+  ];
+
+  static const List<Vec2> aroundDirs = <Vec2>[
+    Vec2.upLeft,   Vec2.up,   Vec2.upRight,
+    Vec2.left,               Vec2.right,
+    Vec2.downLeft, Vec2.down, Vec2.downRight,
+  ];
+
+  static const List<Vec2> orthogonalDirs = [
+    Vec2.up, Vec2.down, Vec2.left, Vec2.right,
+  ];
 
   double get magnitude => sqrt(x * x + y * y);
 
@@ -22,64 +46,57 @@ class Vector {
 
   double get direction => atan2(y, x);
 
-  static const Vector zero = Vector(0, 0);
+  Vec2 translate(num dx, num dy) => Vec2(x + dx, y + dy);
 
-  Vector translate(num dx, num dy) => Vector(x + dx, y + dy);
+  Vec2 scale(num scaleX, num scaleY) => Vec2(x * scaleX, y * scaleY);
 
-  Vector scale(num scaleX, num scaleY) => Vector(x * scaleX, y * scaleY);
+  double distanceTo(Vec2 other) => (this - other).magnitude;
 
-  double distanceTo(Vector other) => (this - other).magnitude;
+  double squaredDistanceTo(Vec2 other) => (this - other).squaredMagnitude;
 
-  double squaredDistanceTo(Vector other) => (this - other).squaredMagnitude;
+  double manhattanDistanceTo(Vec2 other) =>
+    (x - other.x).abs() + (y - other.y).abs();
 
-  double manhattanDistanceTo(Vector other) => (x - other.x).abs() + (y - other.y).abs();
+  double crossProduct(Vec2 other) => x * other.y - y * other.x;
 
-  double crossProduct(Vector other) => x * other.y - y * other.x;
+  double dotProduct(Vec2 other) => x * other.x + y * other.y;
 
-  double dotProduct(Vector other) => x * other.x + y * other.y;
+  double angle(Vec2 other) => (other - this).direction;
 
-  double angle(Vector other) => (other - this).direction;
+  Vec2 operator +(Vec2 other) => Vec2(x + other.x, y + other.y);
 
-  Vector operator +(Vector other) {
-    return Vector(x + other.x, y + other.y);
-  }
+  Vec2 operator -() => Vec2(-x, -y);
 
-  Vector operator -() => Vector(-x, -y);
+  Vec2 operator -(Vec2 other) => Vec2(x - other.x, y - other.y);
 
-  Vector operator -(Vector other) {
-    return Vector(x - other.x, y - other.y);
-  }
-
-  Vector operator *(num factor) {
-    return Vector(x * factor, y * factor);
-  }
+  Vec2 operator *(num factor) => Vec2(x * factor, y * factor);
 
   @override
   bool operator ==(Object other) {
-    return other is Vector
-        && other.x == x
-        && other.y == y;
+    return other is Vec2
+      && other.x == x
+      && other.y == y;
   }
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode;
 
   @override
-  String toString() => 'Vector($x, $y)';
+  String toString() => 'Vec2($x, $y)';
 }
 
 class LineSegment {
   LineSegment(this.from, this.to);
 
-  final Vector from;
-  final Vector to;
+  final Vec2 from;
+  final Vec2 to;
 
   double get slope => (to.y - from.y) / (to.x - from.x);
   double get intercept => from.y - slope * from.x;
 
-  Vector? intersection(LineSegment other) {
-    final Vector dir = to - from;
-    final Vector otherDir = other.to - other.from;
+  Vec2? intersection(LineSegment other) {
+    final Vec2 dir = to - from;
+    final Vec2 otherDir = other.to - other.from;
     final double dirCross = dir.crossProduct(otherDir);
     if (dirCross != 0) {
       final double t = (other.from - from).crossProduct(otherDir) / dirCross;
@@ -91,9 +108,9 @@ class LineSegment {
     return null;
   }
 
-  double? distanceAlong(Vector p) {
-    final Vector dir = to - from;
-    final Vector dirP = p - from;
+  double? distanceAlong(Vec2 p) {
+    final Vec2 dir = to - from;
+    final Vec2 dirP = p - from;
     final double cross = dir.crossProduct(dirP);
     if (cross.abs() <= epsilon) {
       final double dot = dir.dotProduct(dirP);
@@ -107,20 +124,20 @@ class LineSegment {
     return null;
   }
 
-  Iterable<Vector> discretePointsAlong() sync* {
+  Iterable<Vec2> discretePointsAlong() sync* {
     final double m = slope;
     final double b = intercept;
     if (slope.isInfinite) {
       final int inc = (to.y - from.y).sign.toInt();
       for (final int y in range(from.y.truncate() + inc, to.y.truncate() + inc, inc)) {
-        yield Vector(from.x, y.toDouble());
+        yield Vec2(from.x, y.toDouble());
       }
     } else {
       final int inc = (to.x - from.x).sign.toInt();
       for (final int x in range(from.x.truncate() + inc, to.x.truncate() + inc, inc)) {
         final double y = m * x + b;
         if ((y - y.truncateToDouble()).abs() < epsilon) {
-          yield Vector(x.toDouble(), y.truncateToDouble());
+          yield Vec2(x.toDouble(), y.truncateToDouble());
         }
       }
     }
@@ -129,5 +146,5 @@ class LineSegment {
   double get manhattanDistance => from.manhattanDistanceTo(to);
 
   @override
-  String toString() => 'LineSegment($from, $to)';
+  String toString() => 'Line2($from, $to)';
 }

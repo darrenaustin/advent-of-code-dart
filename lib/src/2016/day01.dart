@@ -8,26 +8,26 @@ class Day01 extends AdventDay {
 
   @override
   dynamic part1() {
-    Vector position = Vector.zero;
+    Vec2 position = Vec2.zero;
     Direction direction = Direction.north;
     for (Move move in inputMoves()) {
       direction = directionAfterTurn(direction, move.turn);
       position += directions[direction]! * move.length;
     }
-    return position.manhattanDistanceTo(Vector.zero).toInt();
+    return position.manhattanDistanceTo(Vec2.zero).toInt();
   }
 
   @override
   dynamic part2() {
-    Vector position = Vector.zero;
+    Vec2 position = Vec2.zero;
     Direction direction = Direction.north;
-    Set<Vector> visited = {position};
+    Set<Vec2> visited = {position};
     for (Move move in inputMoves()) {
       direction = directionAfterTurn(direction, move.turn);
       for (int i = 0; i < move.length; i++) {
         position += directions[direction]!;
         if (visited.contains(position)) {
-          return position.manhattanDistanceTo(Vector.zero).toInt();
+          return position.manhattanDistanceTo(Vec2.zero).toInt();
         }
         visited.add(position);
       }
@@ -51,11 +51,11 @@ class Day01 extends AdventDay {
 enum Turn { left, right }
 enum Direction { north, east, south, west }
 
-const Map<Direction, Vector> directions = {
-  Direction.north: Vector( 0, -1),
-  Direction.east:  Vector( 1,  0),
-  Direction.south: Vector( 0,  1),
-  Direction.west:  Vector(-1,  0),
+const Map<Direction, Vec2> directions = {
+  Direction.north: Vec2( 0, -1),
+  Direction.east:  Vec2( 1,  0),
+  Direction.south: Vec2( 0,  1),
+  Direction.west:  Vec2(-1,  0),
 };
 
 class Move {

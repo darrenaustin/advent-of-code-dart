@@ -16,6 +16,7 @@ class Day05 extends AdventDay {
 
   @override
   dynamic part2() {
+    // return '437e60fc';
     return positionalPassword(inputData());
   }
 }
@@ -63,4 +64,3 @@ Iterable<String> passwordHashes(String id) sync* {
     yield hash;
   }
 }
-
