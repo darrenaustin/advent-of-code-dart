@@ -35,7 +35,6 @@ class Day13 extends AdventDay {
     return (packets.indexOf(div1) + 1) * (packets.indexOf(div2) + 1);
   }
 
-  // dynamic parsePacket(String s) => Parser(s).parse();
   dynamic parsePacket(String s) => jsonDecode(s);
 
   int comparePackets(dynamic p1, dynamic p2) {
@@ -66,49 +65,4 @@ class Day13 extends AdventDay {
     }
     return 0;
   }
-}
-
-// Crude and cheesy hand written parser. Used it to solve the
-// problem, but then realized afterwards I could have just used
-// the JSON parser directly. Sigh.
-final numRegex = RegExp(r'\d+');
-class Parser {
-  Parser(this.s) : _index = 0;
-
-  dynamic parse([String? until]) {
-    while (_index < s.length) {
-      if (until != null && lookingAt(until)) {
-        _index += until.length;
-        return null;
-      }
-      if (lookingAt('[')) {
-        final l = [];
-        _index += 1;
-        dynamic value = parse(']');
-        while (value != null) {
-          l.add(value);
-          value = parse(']');
-        }
-        return l;
-      } else if (lookingAt(numRegex)) {
-        return takeNumber();
-      } else if (lookingAt(',')) {
-        _index += 1;
-      }
-    }
-    return null;
-  }
-
-  bool lookingAt(Pattern p) {
-    return s.startsWith(p, _index);
-  }
-
-  int takeNumber() {
-    final match = numRegex.matchAsPrefix(s, _index)!;
-    _index = match.end;
-    return int.parse(match.group(0)!);
-  }
-
-  final String s;
-  int _index;
 }
