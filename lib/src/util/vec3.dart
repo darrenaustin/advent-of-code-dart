@@ -13,6 +13,10 @@ class Vec3 {
   final double y;
   final double z;
 
+  int get xInt => x.toInt();
+  int get yInt => y.toInt();
+  int get zInt => z.toInt();
+
   double get magnitude => sqrt(x * x + y * y + z * z);
 
   double get squaredMagnitude => x * x + y * y + z * z;
@@ -58,5 +62,5 @@ class Vec3 {
   int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode;
 
   @override
-  String toString() => 'Vector($x, $y, $z)';
+  String toString() => 'Vec3($x, $y, $z)';
 }
