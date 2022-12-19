@@ -1,8 +1,10 @@
 import 'vec2.dart';
 
 class Grid<T> {
-  Grid(this.width, this.height, this.defaultValue) {
-    _cells = List<List<T>>.generate(height, (int i) => List<T>.generate(width, (int i) => defaultValue));
+  Grid(this.width, int height, this.defaultValue)
+    : _height = height {
+    _cells = List<List<T>>.generate(height,
+      (_) => List<T>.generate(width, (_) => defaultValue));
   }
 
   factory Grid.from(List<List<T>> values, T defaultValue) {
@@ -25,7 +27,8 @@ class Grid<T> {
   }
 
   final int width;
-  final int height;
+  int get height => _height;
+  int _height;
   final T defaultValue;
   late final List<List<T>> _cells;
 
@@ -76,6 +79,28 @@ class Grid<T> {
         }
       }
     }
+  }
+
+  void addTopRows(int numRows) {
+    for (int r = 0; r < numRows; r++) {
+      _cells.insert(0, List<T>.generate(width, (_) => defaultValue));
+    }
+    _height += numRows;
+  }
+
+  List<List<T>> copyRows(int startRow, int lastRow) {
+    final List<List<T>> rows = [];
+    for (int r = startRow; r <= lastRow; r++) {
+      rows.add(List.from(_cells[r]));
+    }
+    return rows;
+  }
+
+  String printRows(int startRow, int numRows) {
+    return _cells
+      .sublist(startRow, startRow + numRows)
+      .map((List<T> r) => r.join(' '))
+      .join('\n');
   }
 
   Iterable<T> neighbors(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) {
