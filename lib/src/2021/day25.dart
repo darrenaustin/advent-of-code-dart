@@ -20,7 +20,7 @@ class Day25 extends AdventDay {
 
   @override
   dynamic part2() {
-    return null;
+    return 'got em all';
   }
 
   int step(Grid<String> grid) {

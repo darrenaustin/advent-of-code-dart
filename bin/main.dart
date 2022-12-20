@@ -5,7 +5,7 @@ import 'package:advent_of_code_dart/days.dart';
 
 void main(List<String> arguments) {
 
-  List<AdventDay> days = allAdventOfCodeDays;
+  List<AdventDay> days = allDays;
 
   final ArgParser parser = ArgParser();
   parser.addOption('year', abbr: 'y');
@@ -14,18 +14,24 @@ void main(List<String> arguments) {
   final String? year = parsed['year'] as String?;
   if (year != null) {
     final int? yearNum = int.tryParse(year);
-    if (yearNum == null || !yearDays.containsKey(yearNum)) {
+    if (yearNum == null || !allYearDays.containsKey(yearNum)) {
       throw Exception('Invalid year: $year');
     }
-    days = yearDays[yearNum]!;
-  }
-  if (parsed.rest.isNotEmpty) {
-    for (final String day in parsed.rest) {
-      final int? dayNum = int.tryParse(day);
-      if (dayNum != null) {
-        days[dayNum - 1].solve();
-      } else {
-        print('Unknown day number: $day');
+    final yearDays = allYearDays[yearNum]!;
+    days = yearDays.values.toList();
+
+    if (parsed.rest.isNotEmpty) {
+      for (final String day in parsed.rest) {
+        final int? dayNum = int.tryParse(day);
+        if (dayNum != null) {
+          if (yearDays.containsKey(dayNum)) {
+            yearDays[dayNum]!.solve();
+          } else {
+            print('No solution for $year day $day');
+          }
+        } else {
+          print('Unknown day number: $day');
+        }
       }
     }
   } else {

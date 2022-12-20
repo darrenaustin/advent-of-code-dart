@@ -41,11 +41,11 @@ void writeYearFile(String year) {
     out.writeln("import 'src/$year/day$day.dart' show Day$day;");
   }
   out.writeln();
-  out.writeln("final List<AdventDay> adventOfCode${year}Days = <AdventDay>[");
+  out.writeln("final aoc${year}Days = <int, AdventDay>{");
   for (final day in days) {
-    out.writeln("  Day$day(),");
+    out.writeln("  $day: Day$day(),");
   }
-  out.writeln("];");
+  out.writeln("};");
   out.close();
 }
 
@@ -58,15 +58,15 @@ void writeAllDaysFile(List<String> years) {
   out.writeln();
   out.writeln("import 'day.dart';");
   out.writeln();
-  out.writeln("final Map<int, List<AdventDay>> yearDays = <int, List<AdventDay>> {");
+  out.writeln("final allYearDays = <int, Map<int, AdventDay>> {");
   for (final year in years) {
-    out.writeln("  $year: adventOfCode${year}Days,");
+    out.writeln("  $year: aoc${year}Days,");
   }
   out.writeln("};");
   out.writeln();
-  out.writeln("final List<AdventDay> allAdventOfCodeDays = <AdventDay>[");
+  out.writeln("final List<AdventDay> allDays = <AdventDay>[");
   for (final year in years) {
-    out.writeln("  ...adventOfCode${year}Days,");
+    out.writeln("  ...aoc${year}Days.values,");
   }
   out.writeln("];");
   out.close();
@@ -82,7 +82,7 @@ void writeYearTestFile(String year) {
   out.writeln();
   out.writeln("void main() {");
   out.writeln("  group('$year', () {");
-  out.writeln("    testDays(adventOfCode${year}Days);");
+  out.writeln("    testDays(aoc${year}Days);");
   out.writeln("  });");
   out.writeln("}");
   out.close();

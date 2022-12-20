@@ -13,18 +13,18 @@ import 'src/2019/day11.dart' show Day11;
 import 'src/2019/day12.dart' show Day12;
 import 'src/2019/day13.dart' show Day13;
 
-final List<AdventDay> adventOfCode2019Days = <AdventDay>[
-  Day01(),
-  Day02(),
-  Day03(),
-  Day04(),
-  Day05(),
-  Day06(),
-  Day07(),
-  Day08(),
-  Day09(),
-  Day10(),
-  Day11(),
-  Day12(),
-  Day13(),
-];
+final aoc2019Days = <int, AdventDay>{
+  01: Day01(),
+  02: Day02(),
+  03: Day03(),
+  04: Day04(),
+  05: Day05(),
+  06: Day06(),
+  07: Day07(),
+  08: Day08(),
+  09: Day09(),
+  10: Day10(),
+  11: Day11(),
+  12: Day12(),
+  13: Day13(),
+};

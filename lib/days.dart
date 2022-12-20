@@ -7,20 +7,20 @@ import 'package:advent_of_code_dart/days2022.dart';
 
 import 'day.dart';
 
-final Map<int, List<AdventDay>> yearDays = <int, List<AdventDay>> {
-  2015: adventOfCode2015Days,
-  2016: adventOfCode2016Days,
-  2019: adventOfCode2019Days,
-  2020: adventOfCode2020Days,
-  2021: adventOfCode2021Days,
-  2022: adventOfCode2022Days,
+final allYearDays = <int, Map<int, AdventDay>> {
+  2015: aoc2015Days,
+  2016: aoc2016Days,
+  2019: aoc2019Days,
+  2020: aoc2020Days,
+  2021: aoc2021Days,
+  2022: aoc2022Days,
 };
 
-final List<AdventDay> allAdventOfCodeDays = <AdventDay>[
-  ...adventOfCode2015Days,
-  ...adventOfCode2016Days,
-  ...adventOfCode2019Days,
-  ...adventOfCode2020Days,
-  ...adventOfCode2021Days,
-  ...adventOfCode2022Days,
+final List<AdventDay> allDays = <AdventDay>[
+  ...aoc2015Days.values,
+  ...aoc2016Days.values,
+  ...aoc2019Days.values,
+  ...aoc2020Days.values,
+  ...aoc2021Days.values,
+  ...aoc2022Days.values,
 ];

@@ -5,6 +5,6 @@ import 'test_days.dart';
 
 void main() {
   group('2015', () {
-    testDays(adventOfCode2015Days);
+    testDays(aoc2015Days);
   });
 }

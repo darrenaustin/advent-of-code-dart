@@ -10,15 +10,15 @@ import 'src/2016/day08.dart' show Day08;
 import 'src/2016/day09.dart' show Day09;
 import 'src/2016/day10.dart' show Day10;
 
-final List<AdventDay> adventOfCode2016Days = <AdventDay>[
-  Day01(),
-  Day02(),
-  Day03(),
-  Day04(),
-  Day05(),
-  Day06(),
-  Day07(),
-  Day08(),
-  Day09(),
-  Day10(),
-];
+final aoc2016Days = <int, AdventDay>{
+  01: Day01(),
+  02: Day02(),
+  03: Day03(),
+  04: Day04(),
+  05: Day05(),
+  06: Day06(),
+  07: Day07(),
+  08: Day08(),
+  09: Day09(),
+  10: Day10(),
+};

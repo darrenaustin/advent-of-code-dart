@@ -3,7 +3,7 @@
 import '../../day.dart';
 
 class Day25 extends AdventDay {
-  Day25() : super(2015, 25, solution1: 2650453);
+  Day25() : super(2015, 25, solution1: 2650453, solution2: 'got em all');
 
   @override
   dynamic part1() {
@@ -13,7 +13,7 @@ class Day25 extends AdventDay {
 
   @override
   dynamic part2() {
-    return null;
+    return 'got em all';
   }
 
   int inputRow(String input) {
