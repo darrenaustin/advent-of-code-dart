@@ -3,7 +3,7 @@ description: Darren's solutions to the Advent of Code puzzles.
 version: 1.0.0
 
 environment:
-  sdk: '>=2.19.0-444.0.dev <3.0.0'
+  sdk: '>=3.0.0-35.0.dev <4.0.0'
 
 dependencies:
   args: ^2.2.0
