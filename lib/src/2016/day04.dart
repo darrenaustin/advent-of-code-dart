@@ -2,6 +2,7 @@
 
 import '../../day.dart';
 import '../util/collection.dart';
+import '../util/comparison.dart';
 
 class Day04 extends AdventDay {
   Day04() : super(2016, 4, solution1: 278221, solution2: 267);
@@ -9,13 +10,14 @@ class Day04 extends AdventDay {
   @override
   dynamic part1() {
     return inputRooms()
-      .where((r) => r.real())
+      .where((r) => r.isReal)
       .map((r) => r.sectorID)
-      .sum();
+      .sum;
   }
 
   @override
   dynamic part2() {
+    // Name determined by manually inspecting all the decrypted names.
     return inputRooms()
       .firstWhere((r) => r.decryptedName() == 'northpole object storage')
       .sectorID;
@@ -31,37 +33,36 @@ class Room {
   final int sectorID;
   final String checksum;
 
-  bool real() => checksum == computedChecksum();
+  bool get isReal => checksum == computedChecksum();
 
   String computedChecksum() {
-    final chars = name.split('').where((c) => c != '-').toList()..sort();
-    final groups = chars
-      .partitionWhere((c1, c2) => c1 != c2)
-      .toList()
-      ..sort((a, b) => b.length.compareTo(a.length));
+    final nameChars = name.split('-').join().split('')..sort();
+    final groups = nameChars
+      .slicesWhere(isNotEqual)
+      .sorted((a, b) => b.length.compareTo(a.length));
     return groups
       .take(5)
       .map((g) => g.first)
       .join();
   }
 
-  String decryptedName() {
-    final charA = 'a'.codeUnits[0];
-    final charDash = '-'.codeUnits[0];
-    final charSpace = ' '.codeUnits[0];
+  static final _charA = 'a'.codeUnits[0];
+  static final _charDash = '-'.codeUnits[0];
+  static final _charSpace = ' '.codeUnits[0];
 
+  String decryptedName() {
     final charCodes = name.codeUnits;
-    return String.fromCharCodes(charCodes.map((c) =>
-      (c == charDash)
-        ? charSpace
-        : (c - charA + sectorID) % 26 + charA));
+    return String.fromCharCodes(charCodes.map((c) => c == _charDash
+      ? _charSpace
+      : (c - _charA + sectorID) % 26 + _charA));
   }
 
+  static final _roomRegexp = RegExp(r'([a-z\-]+)-(\d+)\[([a-z]+)\]');
+
   static Room parse(String s) {
-    final roomRegexp = RegExp(r'([a-z\-]+)-(\d+)\[([a-z]+)\]');
-    final match = roomRegexp.firstMatch(s);
+    final match = _roomRegexp.firstMatch(s);
     if (match == null) {
-      throw Exception('Unable to parse room from $s.');
+      throw Exception('Invalid room description: $s.');
     }
     return Room(match.group(1)!, int.parse(match.group(2)!), match.group(3)!);
   }
@@ -70,5 +71,4 @@ class Room {
   String toString() {
     return 'Room "$name", sector $sectorID, checksum $checksum';
   }
-
 }

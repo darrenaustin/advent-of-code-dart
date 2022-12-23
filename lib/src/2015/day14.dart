@@ -10,7 +10,7 @@ class Day14 extends AdventDay {
 
   @override
   dynamic part1() {
-    return inputReindeer().map((Reindeer r) => r.distance(2503)).max();
+    return inputReindeer().map((Reindeer r) => r.distance(2503)).max;
   }
 
   @override
@@ -33,7 +33,7 @@ class Day14 extends AdventDay {
         points[r]++;
       }
     }
-    return points.max();
+    return points.max;
   }
 
   final RegExp reindeerRegex = RegExp(r'\S+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.');

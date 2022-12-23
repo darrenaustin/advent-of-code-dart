@@ -30,7 +30,7 @@ class Day09 extends AdventDay {
     return routes;
   }
 
-  int? extremeDistance(Map<String, Map<String, int>> routes, Comparator<int>comparator) {
+  int? minDistanceBy(Map<String, Map<String, int>> routes, Comparator<int>comparator) {
     int? shortestFrom(String location, Set<String> toVisit) {
       if (toVisit.isEmpty) {
         return 0;
@@ -42,21 +42,21 @@ class Day09 extends AdventDay {
           final int? shortestFromDest = shortestFrom(d, toVisit.difference(<String>{d}));
           return shortestFromDest != null ? destDistance + shortestFromDest : null;
         }
-      }).whereType<int>().extremeValue(comparator);
+      }).whereType<int>().minBy(comparator);
     }
 
     final Set<String> locations = routes.keys.toSet();
     return locations
         .map((String l) => shortestFrom(l, locations.difference(<String>{l})))
         .whereType<int>()
-        .extremeValue(comparator);
+        .minBy(comparator);
   }
 
   int? shortestDistance(Map<String, Map<String, int>> routes) {
-    return extremeDistance(routes, numMinComparator);
+    return minDistanceBy(routes, numMinComparator);
   }
 
   int? longestDistance(Map<String, Map<String, int>> routes) {
-    return extremeDistance(routes, numMaxComparator);
+    return minDistanceBy(routes, numMaxComparator);
   }
 }

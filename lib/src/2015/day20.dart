@@ -11,7 +11,7 @@ class Day20 extends AdventDay {
   @override
   dynamic part1() {
     int numPresents(int houseNum) {
-      return divisors(houseNum).map((int e) => e * 10).sum();
+      return divisors(houseNum).map((int e) => e * 10).sum;
     }
 
     final int targetPresents = int.parse(inputData());
@@ -28,7 +28,7 @@ class Day20 extends AdventDay {
       return divisors(houseNum)
         .where((int e) => houseNum ~/ e <= 50)
         .map((int e) => e * 11)
-        .sum();
+        .sum;
     }
 
     final int targetPresents = int.parse(inputData());

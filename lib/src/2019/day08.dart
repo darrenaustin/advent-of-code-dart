@@ -1,7 +1,5 @@
 // https://adventofcode.com/2019/day/8
 
-import 'package:collection/collection.dart';
-
 import '../../day.dart';
 import '../util/collection.dart';
 
@@ -21,7 +19,7 @@ class Day08 extends AdventDay {
 
   @override
   dynamic part2() {
-    final image = IterableZip(inputLayers(25 * 6)).map(pixelFrom).partition(25);
+    final image = IterableZip(inputLayers(25 * 6)).map(pixelFrom).slices(25);
     print(image
       .map((e) => e.join(''))
       .join('\n')
@@ -38,7 +36,7 @@ class Day08 extends AdventDay {
     return inputData()
       .split('')
       .map(int.parse)
-      .partition(layerSize)
+      .slices(layerSize)
       .map((l) => l.toList());
   }
 

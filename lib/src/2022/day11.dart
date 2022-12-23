@@ -1,7 +1,5 @@
 // https://adventofcode.com/2022/day/11
 
-import 'package:collection/collection.dart';
-
 import '../../day.dart';
 import '../util/collection.dart';
 import '../util/math.dart';
@@ -41,7 +39,7 @@ class Day11 extends AdventDay {
       .map((m) => m.numInspected)
       .sorted((a, b) => b - a)
       .take(2)
-      .product();
+      .product;
 
   List<Monkey> inputMonkeys() {
     List<Monkey> monkeys = [];

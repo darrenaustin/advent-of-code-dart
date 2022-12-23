@@ -14,7 +14,7 @@ class Day15 extends AdventDay {
     final Iterable<List<int>> combos = sumCombinations(List<int>.filled(ingredients.length, 0), 100);
     return combos
       .map((List<int> c) => cookieScore(ingredients, c))
-      .max();
+      .max;
   }
 
   @override
@@ -24,7 +24,7 @@ class Day15 extends AdventDay {
     return combos
       .where((List<int> c) => calories(ingredients, c) == 500)
       .map((List<int> e) => cookieScore(ingredients, e))
-      .max();
+      .max;
   }
 
   Iterable<Map<String, int>> inputIngredients() {
@@ -46,7 +46,7 @@ class Day15 extends AdventDay {
         }
       });
     }
-    return totals.values.map((int v) => max(v, 0)).product();
+    return totals.values.map((int v) => max(v, 0)).product;
   }
 
   int calories(List<Map<String, int>> ingredients, List<int> ingredientQuantities) {
@@ -58,7 +58,7 @@ class Day15 extends AdventDay {
   }
 
   Iterable<List<int>> sumCombinations(List<int> start, int sum, [int len = 0]) sync* {
-    final int remaining = sum - start.sum();
+    final int remaining = sum - start.sum;
     if (len == start.length - 1) {
       yield List<int>.from(start)..[len] = remaining;
     } else {

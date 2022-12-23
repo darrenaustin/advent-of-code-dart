@@ -1,7 +1,5 @@
 // https://adventofcode.com/2016/day/3
 
-import 'package:collection/collection.dart';
-
 import '../../day.dart';
 import '../util/collection.dart';
 
@@ -42,7 +40,7 @@ class Day03 extends AdventDay {
     // Break the input into 3 line groups and then
     // parse the numbers and map the columns to rows for
     // the triangles.
-    return inputDataLines().partition(3).map((group) {
+    return inputDataLines().slices(3).map((group) {
       final rows = group.map((line) => parseNumbers(line).toList()).toList();
       return [
         [rows[0][0], rows[1][0], rows[2][0]],

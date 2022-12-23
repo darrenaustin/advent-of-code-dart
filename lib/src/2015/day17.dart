@@ -14,7 +14,7 @@ class Day17 extends AdventDay {
   @override
   dynamic part2() {
     final Iterable<Iterable<int>> allCombinations = sumTo(inputContainers(), 150);
-    final int minContainersUsed = allCombinations.map((Iterable<int> c) => c.length).min();
+    final int minContainersUsed = allCombinations.map((Iterable<int> c) => c.length).min;
     return allCombinations.where((Iterable<int> c) => c.length == minContainersUsed).length;
   }
 

@@ -10,14 +10,14 @@ class Day08 extends AdventDay {
   dynamic part1() {
     return inputDataLines()
         .map((String s) => s.length - unescape(s).length)
-        .sum();
+        .sum;
   }
 
   @override
   dynamic part2() {
     return inputDataLines()
         .map((String s) => escape(s).length - s.length)
-        .sum();
+        .sum;
   }
 
   String escape(String text) {

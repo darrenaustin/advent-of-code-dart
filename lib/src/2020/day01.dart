@@ -9,17 +9,17 @@ class Day01 extends AdventDay {
   @override
   dynamic part1() {
     return pairs(expenseReport())
-      .where((pair) => pair.sum() == 2020)
+      .where((pair) => pair.sum == 2020)
       .first
-      .product();
+      .product;
   }
 
   @override
   dynamic part2() {
     return triples(expenseReport())
-      .where((triple) => triple.sum() == 2020)
+      .where((triple) => triple.sum == 2020)
       .first
-      .product();
+      .product;
   }
 
   List<int> expenseReport() {

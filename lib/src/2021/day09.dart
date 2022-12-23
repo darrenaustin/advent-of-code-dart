@@ -36,7 +36,7 @@ class Day09 extends AdventDay {
       }
     }
     basinSize.sort((a, b) => b.compareTo(a));
-    return basinSize.take(3).product();
+    return basinSize.take(3).product;
   }
 
   bool lowPoint(Grid<int> grid, Vec2 p) {

@@ -25,6 +25,6 @@ class Day12 extends AdventDay {
     return RegExp(r'(-?\d+)')
         .allMatches(text)
         .map((RegExpMatch m) => int.parse(m.group(0)!))
-        .sum();
+        .sum;
   }
 }

@@ -1,77 +1,45 @@
-import 'comparison.dart';
+export 'package:collection/collection.dart';
 
 extension IterableIntExtension on Iterable<int> {
-  int sum() => fold<int>(0, (int s, int e) => s + e);
+  int get product => fold<int>(1, (int p, int e) => p * e);
 
-  int product() => fold<int>(1, (int p, int e) => p * e);
-
-  int min() => extremeValue(numMinComparator);
-
-  int max() => extremeValue(numMaxComparator);
-
-  int extremeValue(Comparator<int> comparator) =>
-      reduce((int m, int e) => comparator(e, m) < 0 ? e : m);
+  int minBy(Comparator<int> comparator) =>
+    reduce((int m, int e) => comparator(e, m) < 0 ? e : m);
 }
 
 extension IterableDoubleExtension on Iterable<double> {
-  double sum() => fold<double>(0, (double s, double e) => s + e);
+  double get product => fold<double>(1, (double p, double e) => p * e);
 
-  double product() => fold<double>(1, (double p, double e) => p * e);
-
-  double min() => extremeValue(numMinComparator);
-
-  double max() => extremeValue(numMaxComparator);
-
-  double extremeValue(Comparator<double> comparator) =>
-      reduce((double m, double e) => comparator(e, m) < 0 ? e : m);
+  double minBy(Comparator<double> comparator) =>
+    reduce((double m, double e) => comparator(e, m) < 0 ? e : m);
 }
 
 extension IterableExtensions<T> on Iterable<T> {
   int quantify(bool Function(T) test) => where(test).length;
 
-  Iterable<Iterable<T>> partition(int size) sync* {
-    if (length <= size) {
-      yield this;
-    } else {
-      final Iterator<T> iter = iterator;
-      List<T> current = <T>[];
-      int count = 0;
-      while (iter.moveNext()) {
-        current.add(iter.current);
-        count++;
-        if (count == size) {
-          yield current;
-          current = <T>[];
-          count = 0;
-        }
-      }
-      if (current.isNotEmpty) {
-        yield current;
-      }
-    }
-  }
-
-  Iterable<Iterable<T>> partitionWhere(bool Function(T, T) test) sync* {
+  Iterable<Iterable<T>> slicesWhere(bool Function(T, T) test) sync* {
     if (length < 2) {
       yield this;
     } else {
-      final Iterator<T> iter = iterator;
-      iter.moveNext();
-      T last = iter.current;
-      List<T> current = <T>[last];
-      while (iter.moveNext()) {
-        if (test(last, iter.current)) {
-          yield current;
-          last = iter.current;
-          current = <T>[last];
-        } else {
-          last = iter.current;
-          current.add(last);
+      final Iterator<T> iterator = this.iterator..moveNext();
+      T previous = iterator.current;
+      List<T> slice = <T>[previous];
+      while (iterator.moveNext()) {
+        if (test(previous, iterator.current)) {
+          yield slice;
+          slice = <T>[];
         }
+        previous = iterator.current;
+        slice.add(previous);
       }
-      yield current;
+      yield slice;
     }
   }
+}
+
+extension IterableComparableExtension<T extends Comparable<T>> on Iterable<T> {
+  T minBy(Comparator<T> comparator) =>
+    reduce((T m, T e) => comparator(e, m) < 0 ? e : m);
 }
 
 Iterable<int> range(int startOrEnd, [int? end, int step = 1]) sync* {

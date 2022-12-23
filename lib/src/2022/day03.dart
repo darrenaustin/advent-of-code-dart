@@ -1,6 +1,5 @@
 // https://adventofcode.com/2022/day/3
 
-import 'package:advent_of_code_dart/src/util/collection.dart' show IterableExtensions;
 import 'package:collection/collection.dart';
 
 import '../../day.dart';
@@ -19,7 +18,8 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part2() {
-    return inputDataLines().partition(3)
+    return inputDataLines()
+      .slices(3)
       .map(commonItem)
       .map(priority)
       .sum;
@@ -34,7 +34,8 @@ class Day03 extends AdventDay {
   }
 
   String commonItem(Iterable<String> sacks) {
-    return sacks.skip(1)
+    return sacks
+      .skip(1)
       .fold<Set<String>>(
         chars(sacks.first),
         (Set<String> common, String sack) => common.intersection(chars(sack))

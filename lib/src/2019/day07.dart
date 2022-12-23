@@ -21,7 +21,7 @@ class Day07 extends AdventDay {
       return input;
     }
 
-    return permutations(range(5).toSet()).map(runAmps).max();
+    return permutations(range(5).toSet()).map(runAmps).max;
   }
 
   @override
@@ -47,7 +47,7 @@ class Day07 extends AdventDay {
       return machines.last.output.last;
     }
 
-    return permutations(range(5, 10).toSet()).map(runAmps).max();
+    return permutations(range(5, 10).toSet()).map(runAmps).max;
   }
 
   Iterable<List<int>> permutations(Set <int>elements) {

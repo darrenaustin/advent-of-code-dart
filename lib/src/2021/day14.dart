@@ -32,7 +32,7 @@ class Day14 extends AdventDay {
       template = applyPairs(template, pairs);
     }
     final values = template.split('').toList()..sort();
-    final freqs = values.partitionWhere((a, b) => a != b).map((l) => l.length).toList()..sort();
+    final freqs = values.slicesWhere((a, b) => a != b).map((l) => l.length).toList()..sort();
     return freqs.last - freqs.first;
   }
 

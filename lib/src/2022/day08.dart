@@ -30,8 +30,8 @@ class Day08 extends AdventDay {
     final grid = inputGrid();
     int score(Vec2 tree) => Vec2.orthogonalDirs
       .map((d) => numSeenFromTree(grid, tree, d))
-      .product();
-    return grid.locations().map(score).max();
+      .product;
+    return grid.locations().map(score).max;
   }
 
   Iterable<Vec2> seenInDirection(Grid<int> grid, Vec2 starting, Vec2 dir) {

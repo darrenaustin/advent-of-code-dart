@@ -23,13 +23,13 @@ class Day24 extends AdventDay {
       inputDataLines().map(int.parse).toList()..sort(numMaxComparator);
 
   int smallestFirstGroupProduct(List<int> packages, int numGroups) {
-    final int weight = packages.sum() ~/ numGroups;
+    final int weight = packages.sum ~/ numGroups;
     for (int n = 0; n < packages.length; n++) {
       final Iterable<int> shortestProducts = combinations<int>(packages, n)
-          .where((Iterable<int> ps) => ps.sum() == weight)
-          .map((Iterable<int> ps) => ps.product());
+          .where((Iterable<int> ps) => ps.sum == weight)
+          .map((Iterable<int> ps) => ps.product);
       if (shortestProducts.isNotEmpty) {
-        return shortestProducts.min();
+        return shortestProducts.min;
       }
     }
     throw Exception('No solution found');

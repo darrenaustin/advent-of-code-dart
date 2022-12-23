@@ -75,6 +75,6 @@ class Day04 extends AdventDay {
   }
 
   int score(Grid<int?> board, int winningNumber) {
-    return board.cellsWhere((n) => n != null).whereType<int>().sum() * winningNumber;
+    return board.cellsWhere((n) => n != null).whereType<int>().sum * winningNumber;
   }
 }

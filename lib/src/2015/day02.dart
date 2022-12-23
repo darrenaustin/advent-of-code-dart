@@ -8,12 +8,12 @@ class Day02 extends AdventDay {
 
   @override
   dynamic part1() {
-    return inputPackages().map(wrapNeededFor).sum();
+    return inputPackages().map(wrapNeededFor).sum;
   }
 
   @override
   dynamic part2() {
-    return inputPackages().map(ribbonNeededFor).sum();
+    return inputPackages().map(ribbonNeededFor).sum;
   }
 
   Iterable<List<int>> inputPackages() {

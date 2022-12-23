@@ -47,7 +47,7 @@ class Day06 extends AdventDay {
         }
       }
     }
-    return lights.cells().sum();
+    return lights.cells().sum;
   }
 
   Iterable<Instruction> inputInstructions() {

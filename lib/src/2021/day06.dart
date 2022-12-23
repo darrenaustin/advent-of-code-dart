@@ -39,7 +39,7 @@ class Day06 extends AdventDay {
       fishCounts = newCounts;
       newCounts = tmp;
     }
-    return fishCounts.sum();
+    return fishCounts.sum;
   }
 
   List<int> inputFish() {

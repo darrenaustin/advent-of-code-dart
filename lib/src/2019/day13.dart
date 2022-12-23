@@ -3,7 +3,6 @@
 import '../../day.dart';
 import '../util/collection.dart';
 import '../util/vec2.dart';
-
 import 'intcode.dart';
 
 const int empty = 0;
@@ -19,7 +18,7 @@ class Day13 extends AdventDay {
   dynamic part1() {
     final machine = Intcode.from(program: inputData());
     while (!machine.execute()) {}
-    return machine.output.partition(3)
+    return machine.output.slices(3)
       .where((p) => p.last == block)
       .length;
   }
@@ -33,7 +32,7 @@ class Day13 extends AdventDay {
 
     machine[0] = 2;
     while (!machine.execute() || machine.output.isNotEmpty) {
-      machine.output.partition(3).map((p) => p.toList()).forEach((command) {
+      machine.output.slices(3).map((p) => p.toList()).forEach((command) {
         if (command[0] == -1 && command[1] == 0) {
           score = command[2];
         } else {

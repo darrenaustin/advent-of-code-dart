@@ -2,8 +2,6 @@
 
 import 'dart:math';
 
-import 'package:collection/collection.dart';
-
 import '../../day.dart';
 import '../util/collection.dart';
 import '../util/vec2.dart';

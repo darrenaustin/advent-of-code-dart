@@ -13,7 +13,7 @@ class Day07 extends AdventDay {
     final List<int> crabs = inputCrabs()..sort();
     return range(crabs.first, crabs.last + 1)
       .map((t) => fuelUsed(crabs, t))
-      .min();
+      .min;
   }
 
   @override
@@ -21,7 +21,7 @@ class Day07 extends AdventDay {
     final List<int> crabs = inputCrabs()..sort();
     return range(crabs.first, crabs.last + 1)
       .map((t) => acceleratingFuelUsed(crabs, t))
-      .min();
+      .min;
   }
 
   List<int> inputCrabs() {
@@ -29,13 +29,13 @@ class Day07 extends AdventDay {
   }
 
   int fuelUsed(Iterable<int> crabs, int target) {
-    return crabs.map((c) => abs(target - c).toInt()).sum();
+    return crabs.map((c) => abs(target - c).toInt()).sum;
   }
 
   int acceleratingFuelUsed(Iterable<int> crabs, int target) {
     return crabs.map((c) {
       final dist = abs(target - c);
       return dist * (dist + 1) ~/ 2;
-    }).sum();
+    }).sum;
   }
 }

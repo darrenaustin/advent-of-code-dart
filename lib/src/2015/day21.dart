@@ -17,7 +17,7 @@ class Day21 extends AdventDay {
         return battle(player, boss) == player;
       })
       .map(equipmentCost)
-      .min();
+      .min;
   }
 
   @override
@@ -29,7 +29,7 @@ class Day21 extends AdventDay {
         return battle(player, boss) != player;
       })
       .map(equipmentCost)
-      .max();
+      .max;
   }
 
   Character inputBoss() {
@@ -91,13 +91,13 @@ class Day21 extends AdventDay {
     return Character(
       name: 'Player',
       hitPoints: 100,
-      damage: items.map((Item i) => i.damage).sum(),
-      armor: items.map((Item i) => i.armor).sum(),
+      damage: items.map((Item i) => i.damage).sum,
+      armor: items.map((Item i) => i.armor).sum,
     );
   }
 
   int equipmentCost(Iterable<Item> items) =>
-    items.map((Item i) => i.cost).sum();
+    items.map((Item i) => i.cost).sum;
 }
 
 const List<Item> weapons = <Item>[
