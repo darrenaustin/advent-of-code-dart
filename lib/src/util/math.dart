@@ -1,5 +1,6 @@
 import 'dart:math';
 
+const int maxInt = 9223372036854775807;
 const double epsilon = 4.94065645841247E-16;
 const double twoPi = pi * 2;
 
