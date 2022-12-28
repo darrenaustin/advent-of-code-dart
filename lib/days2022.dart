@@ -14,6 +14,7 @@ import 'src/2022/day12.dart' show Day12;
 import 'src/2022/day13.dart' show Day13;
 import 'src/2022/day14.dart' show Day14;
 import 'src/2022/day15.dart' show Day15;
+import 'src/2022/day16.dart' show Day16;
 import 'src/2022/day17.dart' show Day17;
 import 'src/2022/day18.dart' show Day18;
 import 'src/2022/day19.dart' show Day19;
@@ -40,6 +41,7 @@ final aoc2022Days = <int, AdventDay>{
   13: Day13(),
   14: Day14(),
   15: Day15(),
+  16: Day16(),
   17: Day17(),
   18: Day18(),
   19: Day19(),
