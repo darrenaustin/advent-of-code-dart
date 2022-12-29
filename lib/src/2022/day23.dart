@@ -54,8 +54,8 @@ class Field {
     final overbooked = <Vec2>{};
     for (final elf in movingElves) {
       for (final dir in _testDirs) {
-        if (dir.$1.map((d) => d + elf).none((p) => _elves.contains(p))) {
-          final destination = elf + dir.$0;
+        if (dir.checkDirections.map((d) => d + elf).none((p) => _elves.contains(p))) {
+          final destination = elf + dir.direction;
           if (destinations.contains(destination)) {
             overbooked.add(destination);
           } else {
@@ -98,10 +98,16 @@ class Field {
   }
 
   // Direction to travel if there are no neighbors in the directions list.
-  final List<(Vec2, List<Vec2>)> _testDirs = [
-    (Vec2.up, [Vec2.upLeft, Vec2.up, Vec2.upRight]),
-    (Vec2.down, [Vec2.downLeft, Vec2.down, Vec2.downRight]),
-    (Vec2.left, [Vec2.upLeft, Vec2.left, Vec2.downLeft]),
-    (Vec2.right, [Vec2.upRight, Vec2.right, Vec2.downRight]),
+  final List<CheckDirs> _testDirs = [
+    CheckDirs(Vec2.up, [Vec2.upLeft, Vec2.up, Vec2.upRight]),
+    CheckDirs(Vec2.down, [Vec2.downLeft, Vec2.down, Vec2.downRight]),
+    CheckDirs(Vec2.left, [Vec2.upLeft, Vec2.left, Vec2.downLeft]),
+    CheckDirs(Vec2.right, [Vec2.upRight, Vec2.right, Vec2.downRight]),
   ];
+}
+
+class CheckDirs {
+  CheckDirs(this.direction, this.checkDirections);
+  final Vec2 direction;
+  final List<Vec2> checkDirections;
 }
