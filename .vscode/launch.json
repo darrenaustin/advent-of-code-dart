@@ -5,9 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "all days",
+            "name": "interactive",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["--year", "${input:year}", "${input:day}"],
+        },
+        {
+            "name": "current",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--year", "2016", "12"],
+        }
+    ],
+    "inputs": [
+        {
+            "id": "year",
+            "type":"promptString",
+            "description": "AoC Year",
+            "default": "2016"
+        },
+        {
+            "id": "day",
+            "type":"promptString",
+            "description": "AoC Day",
+            "default": ""
         }
     ]
 }
