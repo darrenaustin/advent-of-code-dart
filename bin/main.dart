@@ -1,4 +1,4 @@
-import 'package:advent_of_code_dart/day.dart';
+import 'package:aoc/aoc.dart';
 import 'package:args/args.dart';
 
 import 'package:advent_of_code_dart/days.dart';

@@ -1,5 +1,3 @@
-export 'package:collection/collection.dart';
-
 extension IterableIntExtension on Iterable<int> {
   int get product => fold<int>(1, (int p, int e) => p * e);
 

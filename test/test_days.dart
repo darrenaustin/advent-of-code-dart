@@ -1,4 +1,4 @@
-import 'package:advent_of_code_dart/day.dart';
+import 'package:aoc/aoc.dart';
 import 'package:test/test.dart';
 
 void testDays(Map<int, AdventDay> days) {

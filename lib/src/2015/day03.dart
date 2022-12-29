@@ -1,8 +1,8 @@
 // https://adventofcode.com/2015/day/3
 
-import '../../day.dart';
-import '../util/sparse_grid.dart';
-import '../util/vec2.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/sparse_grid.dart';
+import 'package:aoc/util/vec2.dart';
 
 class Day03 extends AdventDay {
   Day03() : super(2015, 3, solution1: 2592, solution2: 2360);

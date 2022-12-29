@@ -1,7 +1,8 @@
 // https://adventofcode.com/2019/day/8
 
-import '../../day.dart';
-import '../util/collection.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/collection.dart';
+import 'package:collection/collection.dart';
 
 class Day08 extends AdventDay {
   Day08() : super(2019, 8, solution1: 1935, solution2: 'CFLUL');
@@ -28,7 +29,7 @@ class Day08 extends AdventDay {
     );
 
     // TODO: look into OCR to parse the text from the ascii generated above?
-    // After manually reading the above, sigh.
+      // After manually reading the above, sigh.
     return 'CFLUL';
   }
 

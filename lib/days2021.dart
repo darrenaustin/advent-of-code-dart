@@ -1,4 +1,4 @@
-import 'day.dart';
+import 'package:aoc/aoc.dart';
 import 'src/2021/day01.dart' show Day01;
 import 'src/2021/day02.dart' show Day02;
 import 'src/2021/day03.dart' show Day03;

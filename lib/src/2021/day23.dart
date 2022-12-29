@@ -1,6 +1,6 @@
 // https://adventofcode.com/2021/day/23
 
-import '../../day.dart';
+import 'package:aoc/aoc.dart';
 
 class Day23 extends AdventDay {
   Day23() : super(2021, 23, solution1: 19046);

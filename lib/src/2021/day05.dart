@@ -1,9 +1,9 @@
 // https://adventofcode.com/2021/day/5
 
-import '../../day.dart';
-import '../util/collection.dart';
-import '../util/grid2.dart';
-import '../util/vec2.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/vec2.dart';
 
 class Day05 extends AdventDay {
   Day05() : super(2021, 5, solution1: 4826, solution2: 16793);

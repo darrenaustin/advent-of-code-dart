@@ -1,8 +1,7 @@
 // https://adventofcode.com/2021/day/14
 
-import 'package:advent_of_code_dart/src/util/collection.dart';
-
-import '../../day.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/collection.dart';
 
 class Day14 extends AdventDay {
   Day14() : super(2021, 14, solution1: 2975, solution2: 3015383850689);

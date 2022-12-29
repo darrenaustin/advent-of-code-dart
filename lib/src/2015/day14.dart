@@ -2,8 +2,8 @@
 
 import 'dart:math';
 
-import '../../day.dart';
-import '../util/collection.dart';
+import 'package:aoc/aoc.dart';
+import 'package:collection/collection.dart';
 
 class Day14 extends AdventDay {
   Day14() : super(2015, 14, solution1: 2640, solution2: 1102);

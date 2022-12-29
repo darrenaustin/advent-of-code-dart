@@ -2,17 +2,17 @@
 
 import 'dart:math';
 
-import '../../day.dart';
-import '../util/collection.dart';
+import 'package:aoc/aoc.dart';
+import 'package:collection/collection.dart';
 
 class Day25 extends AdventDay {
-  Day25() : super(2022, 25, solution1: '20===-20-020=0001-02', solution2: 'got em all!');
+  Day25() : super(2022, 25, solution1: '20===-20-020=0001-02', solution2: '🎄 Got em all! 🎉');
 
   @override
   dynamic part1() => intSnafu(inputDataLines().map(snafuInt).sum);
 
   @override
-  dynamic part2() => 'got em all!';
+  dynamic part2() => '🎄 Got em all! 🎉';
 
   final digitValues = { '=': -2, '-': -1, '0': 0, '1': 1, '2': 2 };
   int snafuInt(String s) => s.split('')

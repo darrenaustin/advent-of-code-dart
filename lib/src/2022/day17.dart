@@ -2,10 +2,9 @@
 
 import 'dart:math';
 
-import 'package:advent_of_code_dart/src/util/grid2.dart';
-
-import '../../day.dart';
-import '../util/vec2.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/vec2.dart';
 
 class Day17 extends AdventDay {
   Day17() : super(2022, 17, solution1: 3227, solution2: 1597714285698);

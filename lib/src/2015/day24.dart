@@ -1,10 +1,11 @@
 // https://adventofcode.com/2015/day/24
 
 
-import '../../day.dart';
-import '../util/collection.dart';
-import '../util/combinatorics.dart';
-import '../util/comparison.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/combinatorics.dart';
+import 'package:aoc/util/comparison.dart';
+import 'package:collection/collection.dart';
 
 class Day24 extends AdventDay {
   Day24() : super(2015, 24, solution1: 11846773891, solution2: 80393059);

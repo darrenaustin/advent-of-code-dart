@@ -1,10 +1,9 @@
 // https://adventofcode.com/2021/day/13
 
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/vec2.dart';
 import 'package:collection/collection.dart';
-
-import '../../day.dart';
-import '../util/grid2.dart';
-import '../util/vec2.dart';
 
 class Day13 extends AdventDay {
   Day13() : super(2021, 13, solution1: 647, solution2: 'HEJHJRCJ');

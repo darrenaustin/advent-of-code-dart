@@ -6,8 +6,7 @@ import 'package:advent_of_code_dart/days2019.dart';
 import 'package:advent_of_code_dart/days2020.dart';
 import 'package:advent_of_code_dart/days2021.dart';
 import 'package:advent_of_code_dart/days2022.dart';
-
-import 'day.dart';
+import 'package:aoc/aoc.dart';
 
 final allYearDays = <int, Map<int, AdventDay>> {
   2015: aoc2015Days,

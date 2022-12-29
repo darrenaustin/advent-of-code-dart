@@ -1,8 +1,9 @@
 // https://adventofcode.com/2019/day/13
 
-import '../../day.dart';
-import '../util/collection.dart';
-import '../util/vec2.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/vec2.dart';
+import 'package:collection/collection.dart';
+
 import 'intcode.dart';
 
 const int empty = 0;

@@ -1,11 +1,10 @@
 // https://adventofcode.com/2022/day/12
 
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/pathfinding.dart';
+import 'package:aoc/util/vec2.dart';
 import 'package:collection/collection.dart';
-
-import '../../day.dart';
-import '../util/grid2.dart';
-import '../util/pathfinding.dart';
-import '../util/vec2.dart';
 
 class Day12 extends AdventDay {
   Day12() : super(2022, 12, solution1: 383, solution2: 377);

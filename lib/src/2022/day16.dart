@@ -2,9 +2,10 @@
 
 import 'dart:math';
 
-import '../../day.dart';
-import '../util/collection.dart';
-import '../util/math.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/math.dart';
+import 'package:collection/collection.dart';
 
 // My original solution for this worked, but took minutes to find the answer
 // for the second part. After looking at r/adventofcode posts and other people's

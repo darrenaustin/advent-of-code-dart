@@ -1,9 +1,9 @@
 // https://adventofcode.com/2015/day/25
 
-import '../../day.dart';
+import 'package:aoc/aoc.dart';
 
 class Day25 extends AdventDay {
-  Day25() : super(2015, 25, solution1: 2650453, solution2: 'got em all');
+  Day25() : super(2015, 25, solution1: 2650453, solution2: '🎄 Got em all! 🎉');
 
   @override
   dynamic part1() {
@@ -12,9 +12,7 @@ class Day25 extends AdventDay {
   }
 
   @override
-  dynamic part2() {
-    return 'got em all';
-  }
+  dynamic part2() => '🎄 Got em all! 🎉';
 
   int inputRow(String input) {
     final RegExpMatch match = RegExp(r'\brow (\d+)').firstMatch(input)!;

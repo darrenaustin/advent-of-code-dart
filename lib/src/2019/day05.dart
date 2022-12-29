@@ -1,6 +1,6 @@
 // https://adventofcode.com/2019/day/5
 
-import '../../day.dart';
+import 'package:aoc/aoc.dart';
 import 'intcode.dart';
 
 class Day05 extends AdventDay {

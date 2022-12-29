@@ -1,8 +1,9 @@
 // https://adventofcode.com/2019/day/11
 
-import '../../day.dart';
-import '../util/sparse_grid.dart';
-import '../util/vec2.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/sparse_grid.dart';
+import 'package:aoc/util/vec2.dart';
+
 import 'intcode.dart';
 
 class Day11 extends AdventDay {

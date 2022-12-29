@@ -1,8 +1,7 @@
 // https://adventofcode.com/2016/day/10
 
-import 'package:advent_of_code_dart/src/util/collection.dart';
-
-import '../../day.dart';
+import 'package:aoc/aoc.dart';
+import 'package:aoc/util/collection.dart';
 
 class Day10 extends AdventDay {
   Day10() : super(2016, 10, solution1: 56, solution2: 7847);

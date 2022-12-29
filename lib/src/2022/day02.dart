@@ -1,6 +1,6 @@
 // https://adventofcode.com/2022/day/2
 
-import '../../day.dart';
+import 'package:aoc/aoc.dart';
 
 enum Shape {
   rock(1), paper(2), scissors(3);
