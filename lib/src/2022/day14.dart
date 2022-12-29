@@ -77,7 +77,7 @@ class SandMap {
 
   void _drawLine(Vec2 from, Vec2 to, String value) {
     final diff = to - from;
-    final delta = Vec2.int(sign(diff.x), sign(diff.y));
+    final delta = Vec2(diff.x.sign, diff.y.sign);
     for (Vec2 current = from; current != to; current += delta) {
       _grid.setCell(current, value);
     }

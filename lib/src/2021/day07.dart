@@ -29,12 +29,12 @@ class Day07 extends AdventDay {
   }
 
   int fuelUsed(Iterable<int> crabs, int target) {
-    return crabs.map((c) => abs(target - c).toInt()).sum;
+    return crabs.map((c) => (target - c).abs().toInt()).sum;
   }
 
   int acceleratingFuelUsed(Iterable<int> crabs, int target) {
     return crabs.map((c) {
-      final dist = abs(target - c);
+      final dist = (target - c).abs();
       return dist * (dist + 1) ~/ 2;
     }).sum;
   }

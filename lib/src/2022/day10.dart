@@ -69,7 +69,7 @@ class CRT {
   int _pixel = 0;
 
   void tick(int spriteX) {
-    final paintPixel = abs(_pixel - spriteX) < 2;
+    final paintPixel = (_pixel - spriteX).abs() < 2;
     final pixelChar = paintPixel ? '\u2588' : ' ';
     _lines.write(pixelChar);
     _pixel += 1;
