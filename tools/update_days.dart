@@ -4,18 +4,15 @@ import 'package:path/path.dart' as path;
 
 final packagesPath = './packages';
 final projectLibPath = './lib';
-
 final projectTestPath = "./test";
-final projectSrcPath = path.join(projectLibPath, 'src');
-final projectSrcDir = Directory(projectSrcPath);
 
 void main(List<String> arguments) => updateDayStructures();
 
 Future<void> updateDayStructures() async {
   final years = activeYears();
-  writeAllDaysFile(years);
+  await writeAllDaysFile(years);
   for (final year in years) {
-    updateYearFiles(year);
+    await updateYearFiles(year);
   }
 }
 
@@ -32,7 +29,7 @@ List<String> activeYears() {
     .toList();
 }
 
-void updateYearFiles(String year) {
+Future<void> updateYearFiles(String year) async {
   final yearLibPath = path.join(packagesPath, 'aoc$year', 'lib');
   final yearSrcPath = path.join(yearLibPath, 'src');
   final yearTestPath = path.join(packagesPath, 'aoc$year', 'test');
@@ -59,15 +56,15 @@ void updateYearFiles(String year) {
     out.writeln("  $day: Day$day(),");
   }
   out.writeln("};");
-  out.close();
+  await out.close();
 
   for (final day in days) {
-    migrateDay(yearSrcPath, year, day);
-    writeTestFile(yearTestPath, year, day);
+    await migrateDay(yearSrcPath, year, day);
+    await writeTestFile(yearTestPath, year, day);
   }
 }
 
-void migrateDay(String dirPath, String year, String day) {
+Future<void> migrateDay(String dirPath, String year, String day) async {
   final dayFile = File(path.join(dirPath, 'day$day.dart'));
   if (!dayFile.existsSync()) return;
 
@@ -97,10 +94,10 @@ void migrateDay(String dirPath, String year, String day) {
   out.writeln("}");
   out.writeln();
   out.write(origContents);
-  out.close();
+  await out.close();
 }
 
-void writeTestFile(String dirPath, String year, String day) {
+Future<void> writeTestFile(String dirPath, String year, String day) async {
   final testFile = File(path.join(dirPath, 'day${day}_test.dart'));
   if (testFile.existsSync()) return;
 
@@ -143,10 +140,10 @@ void writeTestFile(String dirPath, String year, String day) {
   out.writeln("    });");
   out.writeln("  });");
   out.writeln("}");
-  out.close();
+  await out.close();
 }
 
-void writeAllDaysFile(List<String> years) {
+Future<void> writeAllDaysFile(List<String> years) async {
   final daysFile = File(path.join(projectLibPath, 'days.dart'));
   final out = daysFile.openWrite();
   out.writeln("import 'package:aoc/aoc.dart';");
@@ -165,5 +162,5 @@ void writeAllDaysFile(List<String> years) {
     out.writeln("  ...aoc${year}Days.values,");
   }
   out.writeln("];");
-  out.close();
+  await out.close();
 }

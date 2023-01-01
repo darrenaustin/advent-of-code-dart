@@ -5,8 +5,6 @@ import 'package:path/path.dart' as path;
 
 import 'update_days.dart';
 
-final projectInputPath = "./input";
-
 void main(List<String> arguments) async {
 
   final ArgParser parser = ArgParser();
@@ -27,36 +25,36 @@ void main(List<String> arguments) async {
   String day = dayNum.toString().padLeft(2, '0');
 
   // Create the skeleton for the day's solution
-  final dayFilePath = path.join(projectSrcPath, year, 'day$day.dart');
+  final dayFilePath = path.join(packagesPath, 'aoc$year', 'lib', 'src', 'day$day.dart');
   final dayFile = File(dayFilePath);
   if (!dayFile.existsSync()) {
     dayFile.createSync(recursive: true);
     final out = dayFile.openWrite();
     out.writeln("// https://adventofcode.com/$year/day/$dayNum");
     out.writeln();
-    out.writeln("import '../../day.dart';");
+    out.writeln("import 'package:aoc/aoc.dart';");
+    out.writeln();
+    out.writeln("main() => Day$day().solve();");
     out.writeln();
     out.writeln("class Day$day extends AdventDay {");
-    out.writeln("  Day$day() : super($year, $dayNum);");
+    out.writeln("  Day$day() : super(");
+    out.writeln("    $year, $dayNum, name: '',");
+    out.writeln("  );");
     out.writeln();
     out.writeln("  @override");
-    out.writeln("  dynamic part1(String input) {");
-    out.writeln("    return null;");
-    out.writeln("  }");
+    out.writeln("  dynamic part1(String input) => null;");
     out.writeln();
     out.writeln("  @override");
-    out.writeln("  dynamic part2(String input) {");
-    out.writeln("    return null;");
-    out.writeln("  }");
+    out.writeln("  dynamic part2(String input) => null;");
     out.writeln("}");
-    out.close();
+    await out.close();
   }
 
   // Update the day structures across the repo.
   await updateDayStructures();
 
   // Create an empty input file
-  final inputFilePath = path.join(projectInputPath, year, 'day$day.txt');
+  final inputFilePath = path.join(packagesPath, 'aoc$year', 'input', 'day$day.txt');
   final inputFile = File(inputFilePath);
   inputFile.createSync(recursive: true);
 
