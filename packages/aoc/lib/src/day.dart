@@ -1,57 +1,54 @@
 import 'dart:io';
 
 abstract class AdventDay {
-  AdventDay(this.year, this.day, {this.solution1, this.solution2});
+  AdventDay(this.year, this.day, {this.name, this.solution1, this.solution2});
 
   final int year;
-
   final int day;
-
-  dynamic part1();
-
+  final String? name;
   final dynamic solution1;
-
-  dynamic part2();
-
   final dynamic solution2;
+
+  dynamic part1(String input);
+
+  dynamic part2(String input);
 
   void solve() {
     void part(int partNum) {
+      final inputText = input();
       final start = DateTime.now();
-      final solution = partNum == 1 ? part1() : part2();
+      final solution = partNum == 1 ? part1(inputText) : part2(inputText);
       final time = DateTime.now().difference(start).inMilliseconds;
       print('  part $partNum: ${_results(solution, partNum == 1 ? solution1 : solution2, time)}');
     }
 
-    print('$year: day $day');
+    print('$year: day $day ${name ?? ''}\n');
     part(1);
     part(2);
     print('');
   }
 
   String get inputFileName =>
-    'input/$year/day${day.toString().padLeft(2, '0')}.txt';
+    'input/day${day.toString().padLeft(2, '0')}.txt';
 
-  String input() {
-    return File(inputFileName).readAsStringSync();
-  }
+  String input() => File(inputFileName).readAsStringSync().trimRight();
 
-  String inputData() {
-    return File(inputFileName).readAsStringSync().trim();
-  }
+  String _inputData() => File(inputFileName).readAsStringSync().trim();
 
-  List<String> inputDataLines() {
-    return File(inputFileName)
-      .readAsLinesSync()
-      .where((String e) => e.isNotEmpty)
-      .toList();
-  }
+  List<String> _inputDataLines() => File(inputFileName)
+    .readAsLinesSync()
+    .where((String e) => e.isNotEmpty)
+    .toList();
 
   String _results(dynamic solution, dynamic expected, int time) {
     if (solution == null) {
       return 'not yet implemented';
     }
-    final String correct = expected != null ? expected == solution ? 'correct, ' : 'INCORRECT, ' : '';
+    final String correct = expected != null
+      ? expected == solution
+        ? 'correct, '
+        : 'INCORRECT, '
+      : '';
     return '${_format(solution)}, ($correct$time ms)';
   }
 

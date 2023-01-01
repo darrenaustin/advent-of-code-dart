@@ -56,6 +56,13 @@ Iterable<int> range(int startOrEnd, [int? end, int step = 1]) sync* {
   }
 }
 
+Iterable<T> iterate<T>(T Function(T) fn, T value) sync* {
+  while (true) {
+    yield value;
+    value = fn(value);
+  }
+}
+
 extension DefaultMap<K, V> on Map<K, V> {
   V getOrElse(K key, V defaultValue) {
     if (containsKey(key)) {

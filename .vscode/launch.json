@@ -5,17 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "all days",
+            "request": "launch",
+            "type": "dart",
+            "program": "bin/aoc.dart",
+        },
+        {
             "name": "interactive",
             "request": "launch",
             "type": "dart",
+            "program": "bin/aoc.dart",
             "args": ["--year", "${input:year}", "${input:day}"],
         },
         {
             "name": "current",
             "request": "launch",
             "type": "dart",
+            "program": "bin/aoc.dart",
             "args": ["--year", "2016", "12"],
         }
+
+
     ],
     "inputs": [
         {

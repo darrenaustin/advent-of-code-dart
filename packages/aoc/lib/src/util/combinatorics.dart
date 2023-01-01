@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 import 'collection.dart';
 
 Iterable<Iterable<T>> combinations<T>(Iterable<T> elements, int length) sync* {
@@ -31,6 +33,34 @@ Iterable<Iterable<Iterable<T>>> partitions<T>(Iterable<T> elements, int numParti
       for (final i in range(p.length)) {
         yield [...p.take(i), [head, ...p.elementAt(i)], ...p.skip(i + 1)];
       }
+    }
+  }
+}
+
+// Heap's Algorithm
+Iterable<Iterable<T>> permutations<T>(Iterable<T> elements) sync* {
+  final List<T> toPermute = List.from(elements);
+  final int numElements = toPermute.length;
+  final c = List.generate(numElements, (_) => 0);
+  yield elements;
+  int i = 0;
+  while (i < numElements) {
+    if (c[i] < i) {
+      if (i.isEven) {
+        final temp = toPermute[0];
+        toPermute[0] = toPermute[i];
+        toPermute[i] = temp;
+      } else {
+        final temp = toPermute[c[i]];
+        toPermute[c[i]] = toPermute[i];
+        toPermute[i] = temp;
+      }
+      yield List.from(toPermute);
+      c[i] += 1;
+      i = 0;
+    } else {
+      c[i] = 0;
+      i += 1;
     }
   }
 }

@@ -37,6 +37,10 @@ class Grid<T> {
 
   bool validCell(Vec2 p) => 0 <= p.x && p.x < width && 0 <= p.y && p.y < height;
 
+  void updateCell(Vec2 p, T Function(T) update) {
+    setCell(p, update(cell(p)));
+  }
+
   Iterable<T> cells() sync* {
     for (final List<T> line in _cells) {
       for (final T value in line) {

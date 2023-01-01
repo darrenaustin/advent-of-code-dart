@@ -1,6 +1,7 @@
 name: advent_of_code_dart
 description: Darren's solutions to the Advent of Code puzzles.
 version: 1.0.0
+publish_to: none
 
 environment:
   sdk: '>=3.0.0-35.0.dev <4.0.0'
@@ -8,10 +9,13 @@ environment:
 dependencies:
   aoc:
     path: packages/aoc
+  aoc2015:
+    path: packages/aoc2015
+    
   args: ^2.2.0
-  collection: ^1.15.0
-  crypto: ^3.0.1
-  meta: ^1.8.0
+  # collection: ^1.15.0
+  # crypto: ^3.0.1
+  # meta: ^1.8.0
   path: ^1.8.2
 
 dev_dependencies:

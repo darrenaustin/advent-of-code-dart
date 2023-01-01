@@ -71,6 +71,14 @@ class Vec2 {
 
   Vec2 operator *(num factor) => Vec2(x * factor, y * factor);
 
+  static Iterable<Vec2> range(Vec2 min, Vec2 max) sync* {
+    for (int y = min.yInt; y < max.yInt; y++) {
+      for (int x = min.xInt; x < max.xInt; x++) {
+        yield Vec2.int(x, y);
+      }
+    }
+  }
+
   @override
   bool operator ==(Object other) {
     return other is Vec2

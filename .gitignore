@@ -12,5 +12,8 @@ doc/api/
 .idea/
 *.iml
 
+# VS Code project files
+.vscode/
+
 # Browser session file used to download input files
 .session
