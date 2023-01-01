@@ -24,7 +24,12 @@
             "program": "bin/aoc.dart",
             "args": ["--year", "2016", "12"],
         }
-
+        {
+            "name": "update days",
+            "request": "launch",
+            "type": "dart",
+            "program": "tools/update_days.dart",
+        },
 
     ],
     "inputs": [

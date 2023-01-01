@@ -33,13 +33,6 @@ abstract class AdventDay {
 
   String input() => File(inputFileName).readAsStringSync().trimRight();
 
-  String _inputData() => File(inputFileName).readAsStringSync().trim();
-
-  List<String> _inputDataLines() => File(inputFileName)
-    .readAsLinesSync()
-    .where((String e) => e.isNotEmpty)
-    .toList();
-
   String _results(dynamic solution, dynamic expected, int time) {
     if (solution == null) {
       return 'not yet implemented';

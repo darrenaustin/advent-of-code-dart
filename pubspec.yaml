@@ -11,11 +11,23 @@ dependencies:
     path: packages/aoc
   aoc2015:
     path: packages/aoc2015
+  aoc2016:
+    path: packages/aoc2016
+  aoc2017:
+    path: packages/aoc2017
+  aoc2018:
+    path: packages/aoc2018
+  aoc2019:
+    path: packages/aoc2019
+  aoc2020:
+    path: packages/aoc2020
+  aoc2021:
+    path: packages/aoc2021
+  aoc2022:
+    path: packages/aoc2022
     
   args: ^2.2.0
-  # collection: ^1.15.0
-  # crypto: ^3.0.1
-  # meta: ^1.8.0
+  collection: ^1.15.0
   path: ^1.8.2
 
 dev_dependencies:

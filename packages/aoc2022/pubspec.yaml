@@ -1,0 +1,16 @@
+name: aoc2022
+description: Solutions for Advent of Code 2022
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0-35.0.dev <4.0.0'
+
+dependencies:
+  aoc:
+    path: "../aoc"
+  collection: ^1.15.0
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.21.0

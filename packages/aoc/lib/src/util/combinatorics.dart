@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 import 'collection.dart';
 
 Iterable<Iterable<T>> combinations<T>(Iterable<T> elements, int length) sync* {

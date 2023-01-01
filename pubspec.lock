@@ -31,6 +31,55 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  aoc2016:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2016"
+      relative: true
+    source: path
+    version: "1.0.0"
+  aoc2017:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2017"
+      relative: true
+    source: path
+    version: "1.0.0"
+  aoc2018:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2018"
+      relative: true
+    source: path
+    version: "1.0.0"
+  aoc2019:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2019"
+      relative: true
+    source: path
+    version: "1.0.0"
+  aoc2020:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2020"
+      relative: true
+    source: path
+    version: "1.0.0"
+  aoc2021:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2021"
+      relative: true
+    source: path
+    version: "1.0.0"
+  aoc2022:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2022"
+      relative: true
+    source: path
+    version: "1.0.0"
   args:
     dependency: "direct main"
     description:
@@ -56,7 +105,7 @@ packages:
     source: hosted
     version: "2.1.1"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: cfc915e6923fe5ce6e153b0723c753045de46de1b4d63771530504004a45fae0
