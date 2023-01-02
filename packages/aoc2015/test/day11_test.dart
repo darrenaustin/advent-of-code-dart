@@ -2,7 +2,7 @@ import 'package:aoc2015/src/day11.dart';
 import 'package:test/test.dart';
 
 main() {
-  group('2115 Day 11', () {
+  group('2015 Day 11', () {
     group('part 1', () {
       test('example', () {
         expect(Day11.validPassword('hijklmmn'), false);
@@ -12,17 +12,11 @@ main() {
         expect(Day11.nextValidPassword('ghijklmn'), 'ghjaabcc');
       });
 
-      test('solution', () {
-        final day = Day11();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day11().testPart1());
     });
 
     group('part 2', () {
-      test('solution', () {
-        final day = Day11();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day11().testPart2());
     });
   });
 }

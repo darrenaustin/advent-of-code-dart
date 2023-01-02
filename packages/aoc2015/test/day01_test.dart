@@ -16,10 +16,7 @@ main() {
         expect(Day01().part1(')())())'), -3); 
       });
 
-      test('solution', () {
-        final day = Day01();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day01().testPart1());
     });
 
     group('part 2', () {
@@ -28,10 +25,7 @@ main() {
         expect(Day01().part2('()())'), 5); 
       });
 
-      test('solution', () {
-        final day = Day01();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day01().testPart2());
     });
   });
 }

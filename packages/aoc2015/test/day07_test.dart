@@ -24,17 +24,11 @@ NOT y -> i''');
         expect(Day07.signal('y', exampleCircuit), 456);
       });
 
-      test('solution', () {
-        final day = Day07();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day07().testPart1());
     });
 
     group('part 2', () {
-      test('solution', () {
-        final day = Day07();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day07().testPart2());
     });
   });
 }

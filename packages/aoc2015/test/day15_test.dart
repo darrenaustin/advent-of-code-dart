@@ -2,7 +2,7 @@ import 'package:aoc2015/src/day15.dart';
 import 'package:test/test.dart';
 
 main() {
-  group('2155 Day 15', () {
+  group('2015 Day 15', () {
     final exampleInput = '''
 Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
 Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3''';
@@ -14,10 +14,7 @@ Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3''';
         expect(Day15().part1(exampleInput), 62842880);
       });
 
-      test('solution', () {
-        final day = Day15();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day15().testPart1());
     });
 
     group('part 2', () {
@@ -28,10 +25,7 @@ Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3''';
         expect(Day15().part2(exampleInput), 57600000);
       });
 
-      test('solution', () {
-        final day = Day15();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day15().testPart2());
     });
   });
 }

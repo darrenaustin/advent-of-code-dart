@@ -2,7 +2,7 @@ import 'package:aoc2015/src/day12.dart';
 import 'package:test/test.dart';
 
 main() {
-  group('2125 Day 12', () {
+  group('2015 Day 12', () {
     group('part 1', () {
       test('examples', () {
         expect(Day12().part1('[1,2,3]'), 6); 
@@ -15,10 +15,7 @@ main() {
         expect(Day12().part1('{}}'), 0); 
       });
 
-      test('solution', () {
-        final day = Day12();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day12().testPart1());
     });
 
     group('part 2', () {
@@ -28,10 +25,7 @@ main() {
         expect(Day12().part2('[1,"red",5]'), 6); 
       });
 
-      test('solution', () {
-        final day = Day12();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day12().testPart2());
     });
   });
 }

@@ -2,7 +2,7 @@ import 'package:aoc2015/src/day13.dart';
 import 'package:test/test.dart';
 
 main() {
-  group('2135 Day 13', () {
+  group('2015 Day 13', () {
     final exampleInput = '''
 Alice would gain 54 happiness units by sitting next to Bob.
 Alice would lose 79 happiness units by sitting next to Carol.
@@ -22,17 +22,11 @@ David would gain 41 happiness units by sitting next to Carol.''';
         expect(Day13().part1(exampleInput), 330);
       });
 
-      test('solution', () {
-        final day = Day13();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day13().testPart1());
     });
 
     group('part 2', () {
-      test('solution', () {
-        final day = Day13();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day13().testPart2());
     });
   });
 }

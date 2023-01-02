@@ -9,10 +9,7 @@ main() {
         expect(Day03().part1('^v^v^v^v^v'), 2); 
       });
 
-      test('solution', () {
-        final day = Day03();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day03().testPart1());
     });
 
     group('part 2', () {
@@ -22,10 +19,7 @@ main() {
         expect(Day03().part2('^v^v^v^v^v'), 11); 
       });
 
-      test('solution', () {
-        final day = Day03();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day03().testPart2());
     });
   });
 }

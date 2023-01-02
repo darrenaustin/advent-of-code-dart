@@ -10,7 +10,7 @@ Just some ideas for future improvements:
   - [x] Convert to passing the input to each puzzle part to help with testing.
   - [x] Write tests with the examples for each puzzle.
   - [x] Move new_day and update_days scripts into a 'tools' directory.
-  - [ ] Update pubspec's to latest deps.
+  - [x] Update pubspec's to latest deps.
   - [ ] Migrate 2015 solutions.
   - [ ] Migrate 2016 solutions.
   - [ ] Migrate 2017 solutions.

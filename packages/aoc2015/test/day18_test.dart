@@ -3,36 +3,28 @@ import 'package:test/test.dart';
 
 main() {
   group('2015 Day 18', () {
+    final exampleInput = '''
+.#.#.#
+...##.
+#....#
+..#...
+#.#..#
+####..''';
+
     group('part 1', () {
-      test('examples', () {
-        // expect(Day18().part1(''), 0); 
+      test('example', () {
+        expect(Day18().part1(exampleInput, 4), 4);
       });
 
-      test('solution', () {
-        final day = Day18();
-        final result = day.part1(day.input());
-        if (day.solution1 == null) {
-          print('Unknown solution $result');
-        } else {
-          expect(result, day.solution1); 
-        }
-      });
+      test('solution', () => Day18().testPart1());
     });
 
     group('part 2', () {
-      test('examples', () {
-        // expect(Day18().part2(')'), 1); 
+      test('example', () {
+        expect(Day18().part2(exampleInput, 5), 17);
       });
 
-      test('solution', () {
-        final day = Day18();
-        final result = day.part2(day.input());
-        if (day.solution2 == null) {
-          print('Unknown solution $result');
-        } else {
-          expect(result, day.solution2); 
-        }
-      });
+      test('solution', () => Day18().testPart2());
     });
   });
 }

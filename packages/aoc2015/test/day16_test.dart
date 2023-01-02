@@ -4,35 +4,11 @@ import 'package:test/test.dart';
 main() {
   group('2015 Day 16', () {
     group('part 1', () {
-      test('examples', () {
-        // expect(Day16().part1(''), 0); 
-      });
-
-      test('solution', () {
-        final day = Day16();
-        final result = day.part1(day.input());
-        if (day.solution1 == null) {
-          print('Unknown solution $result');
-        } else {
-          expect(result, day.solution1); 
-        }
-      });
+      test('solution', () => Day16().testPart1());
     });
 
     group('part 2', () {
-      test('examples', () {
-        // expect(Day16().part2(')'), 1); 
-      });
-
-      test('solution', () {
-        final day = Day16();
-        final result = day.part2(day.input());
-        if (day.solution2 == null) {
-          print('Unknown solution $result');
-        } else {
-          expect(result, day.solution2); 
-        }
-      });
+      test('solution', () => Day16().testPart2());
     });
   });
 }

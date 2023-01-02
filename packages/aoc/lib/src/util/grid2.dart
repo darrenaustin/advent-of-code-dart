@@ -18,19 +18,22 @@ class Grid<T> {
     return grid;
   }
 
-  factory Grid.copy(Grid<T> other) {
-    final grid = Grid<T>(other.width, other.height, other.defaultValue);
-    for (final loc in other.locations()) {
-      grid.setCell(loc, other.cell(loc));
-    }
-    return grid;
-  }
+  factory Grid.emptyFrom(Grid<T> other) => 
+    Grid<T>(other.width, other.height, other.defaultValue);
 
   final int width;
   int get height => _height;
   int _height;
   final T defaultValue;
   late final List<List<T>> _cells;
+
+  Grid<T> copy() {
+    final grid = Grid<T>(width, height, defaultValue);
+    for (final loc in locations()) {
+      grid.setCell(loc, cell(loc));
+    }
+    return grid;
+  }
 
   T cell(Vec2 p) => _cells[p.yInt][p.xInt];
   void setCell(Vec2 p, T value) => _cells[p.yInt][p.xInt] = value;

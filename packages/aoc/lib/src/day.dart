@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:test/test.dart';
 
 abstract class AdventDay {
   AdventDay(this.year, this.day, {this.name, this.solution1, this.solution2});
@@ -28,10 +29,28 @@ abstract class AdventDay {
     print('');
   }
 
-  String get inputFileName =>
-    'input/day${day.toString().padLeft(2, '0')}.txt';
+  void testPart1() {
+    final result = part1(input());
+    if (solution1 == null) {
+      print('$year, $day part 1 - unknown solution $result');
+    } else {
+      expect(result, solution1); 
+    }
+  }
 
-  String input() => File(inputFileName).readAsStringSync().trimRight();
+  void testPart2() {
+    final result = part2(input());
+    if (solution2 == null) {
+      print('$year, $day part 2 - unknown solution $result');
+    } else {
+      expect(result, solution2); 
+    }
+  }
+
+  String input() => File(_inputFileName).readAsStringSync().trimRight();
+
+  String get _inputFileName =>
+    'input/day${day.toString().padLeft(2, '0')}.txt';
 
   String _results(dynamic solution, dynamic expected, int time) {
     if (solution == null) {

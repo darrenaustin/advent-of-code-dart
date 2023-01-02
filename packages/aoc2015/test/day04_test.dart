@@ -9,17 +9,11 @@ main() {
         expect(Day04().part1('pqrstuv'), 1048970); 
       });
 
-      test('solution', () {
-        final day = Day04();
-        expect(day.part1(day.input()), day.solution1); 
-      });
+      test('solution', () => Day04().testPart1());
     });
 
     group('part 2', () {
-      test('solution', () {
-        final day = Day04();
-        expect(day.part2(day.input()), day.solution2); 
-      });
+      test('solution', () => Day04().testPart2());
     });
   });
 }
