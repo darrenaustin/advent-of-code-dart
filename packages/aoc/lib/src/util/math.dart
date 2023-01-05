@@ -23,3 +23,18 @@ T? maxOrNull<T extends num>(T? a, T? b) {
   }
   return a ?? b;
 }
+
+Iterable<int> divisors(int n, [bool proper = false]) {
+  final divisors = [1, if (!proper) n];
+  final limit = sqrt(n).floor();
+  for (int f = 2; f <= limit; f++) {
+    if (n % f == 0) {
+      final factor = n ~/ f;
+      divisors.add(factor);
+      if (factor != f) {
+        divisors.add(f);
+      }
+    }
+  }
+  return divisors;
+}

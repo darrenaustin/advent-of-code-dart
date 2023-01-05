@@ -1,76 +1,36 @@
 // https://adventofcode.com/2015/day/20
 
+import 'dart:math';
+
 import 'package:aoc/aoc.dart';
+import 'package:aoc/util/math.dart';
 
 main() => Day20().solve();
 
 class Day20 extends AdventDay {
   Day20() : super(
-    2015, 20, name: '',
+    2015, 20, name: 'Infinite Elves and Infinite Houses',
+    solution1: 665280, solution2: 705600,
   );
 
   @override
-  dynamic part1(String input) => 'Need to migrate';
+  dynamic part1(String input) => firstHouseThatGets(int.parse(input), 10);
 
   @override
-  dynamic part2(String input) => 'Need to migrate';
-}
+  dynamic part2(String input) => firstHouseThatGets(int.parse(input), 11, 50);
 
-// https://adventofcode.com/2015/day/20
-// 
-// import 'dart:math';
-// 
-// import 'package:aoc/aoc.dart';
-// import 'package:collection/collection.dart';
-// 
-// class Day20 extends AdventDay {
-//   Day20() : super(2015, 20, solution1: 665280, solution2: 705600);
-// 
-//   @override
-//   dynamic part1(String input) {
-//     int numPresents(int houseNum) {
-//       return divisors(houseNum).map((int e) => e * 10).sum;
-//     }
-// 
-//     final int targetPresents = int.parse(inputData());
-//     int house = 1;
-//     while (numPresents(house) <= targetPresents) {
-//       house++;
-//     }
-//     return house;
-//   }
-// 
-//   @override
-//   dynamic part2(String input) {
-//     int numPresents(int houseNum) {
-//       return divisors(houseNum)
-//         .where((int e) => houseNum ~/ e <= 50)
-//         .map((int e) => e * 11)
-//         .sum;
-//     }
-// 
-//     final int targetPresents = int.parse(inputData());
-//     int house = 1;
-//     while (numPresents(house) <= targetPresents) {
-//       house++;
-//     }
-//     return house;
-//   }
-// 
-//   Iterable<int> divisors(int n) sync* {
-//     if (n == 1) {
-//       yield 1;
-//       return;
-//     }
-//     final double rootN = sqrt(n);
-//     for (int d = 1; d <= rootN; d++) {
-//       if (rootN == d) {
-//         yield d;
-//       } else if (n % d == 0) {
-//         yield d;
-//         yield n ~/ d;
-//       }
-//     }
-//   }
-// }
-// 
+  int firstHouseThatGets(int target, int elfPresents, [int elfHouseLimit = maxInt]) {
+    final size = target ~/ elfPresents;
+    final houses = List.generate(size, (_) => 0);
+    for (int elf = 1; elf < size; elf++) {
+      final lastElfHouse = min(size ~/ elf, elfHouseLimit);
+      for (int elfFactor = 1; elfFactor <= lastElfHouse; elfFactor++) {
+        houses[elfFactor * elf - 1] += elf * elfPresents;
+      }
+      if (houses[elf - 1] >= target) {
+        return elf;
+      }
+    }
+    throw 'No solution';
+  }
+}

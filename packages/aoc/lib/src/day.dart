@@ -49,6 +49,8 @@ abstract class AdventDay {
 
   String input() => File(_inputFileName).readAsStringSync().trimRight();
 
+  static const lastStarSolution = '🎄 Got em all! 🎉';
+
   String get _inputFileName =>
     'input/day${day.toString().padLeft(2, '0')}.txt';
 
