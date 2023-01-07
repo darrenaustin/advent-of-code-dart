@@ -14,7 +14,7 @@ Just some ideas for future improvements:
   - [x] Migrate 2015 solutions.
   - [x] Migrate 2016 solutions.
   - [x] Migrate 2017 solutions.
-  - [ ] Migrate 2018 solutions.
+  - [x] Migrate 2018 solutions.
   - [ ] Migrate 2019 solutions.
   - [ ] Migrate 2020 solutions.
   - [ ] Migrate 2021 solutions.
