@@ -13,7 +13,7 @@ Just some ideas for future improvements:
   - [x] Update pubspec's to latest deps.
   - [x] Migrate 2015 solutions.
   - [x] Migrate 2016 solutions.
-  - [ ] Migrate 2017 solutions.
+  - [x] Migrate 2017 solutions.
   - [ ] Migrate 2018 solutions.
   - [ ] Migrate 2019 solutions.
   - [ ] Migrate 2020 solutions.
