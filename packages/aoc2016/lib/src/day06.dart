@@ -1,54 +1,39 @@
 // https://adventofcode.com/2016/day/6
 
 import 'package:aoc/aoc.dart';
+import 'package:aoc/util/comparison.dart';
+import 'package:aoc/util/string.dart';
+import 'package:collection/collection.dart';
 
 main() => Day06().solve();
 
 class Day06 extends AdventDay {
   Day06() : super(
-    2016, 6, name: '',
+    2016, 6, name: 'Signals and Noise',
+    solution1: 'kjxfwkdh', solution2: 'xrwcsnps',
   );
 
   @override
-  dynamic part1(String input) => 'Need to migrate';
+  dynamic part1(String input) =>
+    errorCorrectedMessage(input.lines, numMaxComparator);
 
   @override
-  dynamic part2(String input) => 'Need to migrate';
-}
+  dynamic part2(String input) =>
+    errorCorrectedMessage(input.lines, numMinComparator);
 
-// https://adventofcode.com/2016/day/6
-// 
-// import 'package:aoc/aoc.dart';
-// import 'package:aoc/util/comparison.dart';
-// 
-// class Day06 extends AdventDay {
-//   Day06() : super(2016, 6, solution1: 'kjxfwkdh', solution2: 'xrwcsnps');
-// 
-//   @override
-//   dynamic part1() {
-//     return errorCorrectedMessage(inputRecordedMessages(), numMaxComparator);
-//   }
-// 
-//   @override
-//   dynamic part2() {
-//     return errorCorrectedMessage(inputRecordedMessages(), numMinComparator);
-//   }
-// 
-//   Iterable<List<String>> inputRecordedMessages() => inputDataLines().map((s) => s.split('').toList());
-// 
-//   String errorCorrectedMessage(Iterable<List<String>> recorded, Comparator<int> freqCompare) {
-//     final StringBuffer message = StringBuffer();
-//     for (int i = 0; i < recorded.first.length; i++) {
-//       final Map<String, int> charFrequency = <String, int>{};
-//       for (var c in recorded) {
-//         charFrequency[c[i]] = (charFrequency[c[i]] ?? 0) + 1;
-//       }
-//       final List<String> sortedChars = charFrequency.keys.toList()
-//         ..sort((k1, k2) => freqCompare(charFrequency[k1]!, charFrequency[k2]!));
-//       message.write(sortedChars.first);
-//     }
-//     return message.toString();
-//   }
-// 
-// }
-// 
+  String errorCorrectedMessage(Iterable<String> recorded, Comparator<int> freqCompare) {
+    final message = StringBuffer();
+    for (int i = 0; i < recorded.first.length; i++) {
+      final charFrequency = <String, int>{};
+      for (final c in recorded) {
+        charFrequency[c[i]] = (charFrequency[c[i]] ?? 0) + 1;
+      }
+      final sortedChars = charFrequency
+        .keys
+        .sorted((k1, k2) => freqCompare(charFrequency[k1]!, charFrequency[k2]!));
+      message.write(sortedChars.first);
+    }
+    return message.toString();
+  }
+
+}

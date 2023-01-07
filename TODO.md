@@ -11,8 +11,8 @@ Just some ideas for future improvements:
   - [x] Write tests with the examples for each puzzle.
   - [x] Move new_day and update_days scripts into a 'tools' directory.
   - [x] Update pubspec's to latest deps.
-  - [ ] Migrate 2015 solutions.
-  - [ ] Migrate 2016 solutions.
+  - [x] Migrate 2015 solutions.
+  - [x] Migrate 2016 solutions.
   - [ ] Migrate 2017 solutions.
   - [ ] Migrate 2018 solutions.
   - [ ] Migrate 2019 solutions.
@@ -20,8 +20,8 @@ Just some ideas for future improvements:
   - [ ] Migrate 2021 solutions.
   - [ ] Migrate 2022 solutions.
 
-- [ ] Default Map in the collections?
-- [ ] Speed up 2015 day 4 (MD5)
+- [ ] Speed up 2015 4, 2016 5 (MD5)
 - [ ] Update all package and top level README.md files.
 - [ ] Update all package descriptions in pubspec.yaml files.
-- [ ] Add gotta catch em all to AdventDay for day 50 part 2s.
+- [x] Add gotta catch em all to AdventDay for day 50 part 2s.
+- [ ] Put together an OCR for 2016 8, etc.
