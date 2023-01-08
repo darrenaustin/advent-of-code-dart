@@ -1,57 +1,36 @@
 // https://adventofcode.com/2019/day/1
 
+import 'dart:math';
+
 import 'package:aoc/aoc.dart';
+import 'package:aoc/util/string.dart';
+import 'package:collection/collection.dart';
 
 main() => Day01().solve();
 
 class Day01 extends AdventDay {
   Day01() : super(
-    2019, 1, name: '',
+    2019, 1, name: 'The Tyranny of the Rocket Equation',
+    solution1: 3371958, solution2: 5055050,
   );
 
   @override
-  dynamic part1(String input) => 'Need to migrate';
+  dynamic part1(String input) {
+    return inputMasses(input).map(fuelFor).sum;
+  }
 
   @override
-  dynamic part2(String input) => 'Need to migrate';
-}
+  dynamic part2(String input) {
+    return inputMasses(input).map(totalFuelFor).sum;
+  }
 
-// https://adventofcode.com/2019/day/1
-// 
-// import 'package:aoc/aoc.dart';
-// import 'package:collection/collection.dart';
-// 
-// class Day01 extends AdventDay {
-//   Day01() : super(2019, 1, solution1: 3371958, solution2: 5055050);
-// 
-//   @override
-//   dynamic part1() {
-//     return inputMasses().map(fuelFor).sum;
-//   }
-// 
-//   @override
-//   dynamic part2() {
-//     return inputMasses().map(totalFuelFor).sum;
-//   }
-// 
-//   Iterable<int>inputMasses() {
-//     return inputDataLines().map(int.parse);
-//   }
-// 
-//   int fuelFor(int mass) {
-//     return mass ~/ 3 - 2;
-//   }
-// 
-//   int totalFuelFor(int mass) {
-//     var totalMass = 0;
-//     while (mass > 0) {
-//       final fuel = fuelFor(mass);
-//       if (fuel > 0) {
-//         totalMass += fuel;
-//       }
-//       mass = fuel;
-//     }
-//     return totalMass;
-//   }
-// }
-// 
+  Iterable<int>inputMasses(String input) => input.lines.map(int.parse);
+
+  static int fuelFor(int mass) => mass ~/ 3 - 2;
+
+  static int totalFuelFor(int mass) {
+    if (mass <= 0) return 0;
+    final fuel = max(fuelFor(mass), 0);
+    return fuel + totalFuelFor(fuel);
+  }
+}

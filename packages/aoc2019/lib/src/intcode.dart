@@ -191,21 +191,20 @@ class Intcode {
     }
   }
 
-  static List<int> parseProgram(String program) {
-    return program.split(',').map(int.parse).toList();
-  }
+  static List<int> parseProgram(String program) =>
+    program.split(',').map(int.parse).toList();
 
   static String disassemble(List<int> program, [int? startAddress]) {
     final buffer = StringBuffer();
 
-    var pc = startAddress ?? 0;
+    int pc = startAddress ?? 0;
 
     void instruction(String opCode, [int numParams = 0]) {
       final address = pc.toString().padLeft(4);
       if (numParams > 0) {
         final params = <String>[];
         final modes = (program[pc] ~/ 100).toString().padLeft(3, '0').split('').reversed.map(int.parse).toList();
-        for (var p = 0; p < numParams; p++) {
+        for (int p = 0; p < numParams; p++) {
           final paramAddress = (pc + p + 1).toString();
           switch (modes[p]) {
             case 0: params.add(paramAddress); break;
@@ -214,7 +213,7 @@ class Intcode {
           }
         }
         buffer.writeln('$address: $opCode ${params.join(', ')}');
-        for (var p = 0; p < numParams; p++) {
+        for (int p = 0; p < numParams; p++) {
           final paramAddress = (pc + p + 1).toString().padLeft(4);
           buffer.writeln('$paramAddress:   [${program[pc + p + 1]}]');
         }

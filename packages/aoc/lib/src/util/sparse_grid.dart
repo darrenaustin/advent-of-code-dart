@@ -37,15 +37,6 @@ class SparseGrid<T> {
   int numSetCellsWhere(bool Function(T) test) =>
     _cells.values.where(test).length;
 
-  // Iterable<Vec2> locations() sync* {
-  //   for (int y = 0; y < height; y++) {
-  //     for (int x = 0; x < width; x++) {
-  //       yield Vec2.int(x, y);
-  //     }
-  //   }
-  // }
-  //
-
   Iterable<Vec2> locationsWhere(bool Function(T) test) {
     return _cells.keys.where((p) => test(cell(p)));
   }

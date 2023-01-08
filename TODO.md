@@ -15,7 +15,7 @@ Just some ideas for future improvements:
   - [x] Migrate 2016 solutions.
   - [x] Migrate 2017 solutions.
   - [x] Migrate 2018 solutions.
-  - [ ] Migrate 2019 solutions.
+  - [x] Migrate 2019 solutions.
   - [ ] Migrate 2020 solutions.
   - [ ] Migrate 2021 solutions.
   - [ ] Migrate 2022 solutions.
@@ -24,4 +24,8 @@ Just some ideas for future improvements:
 - [ ] Update all package and top level README.md files.
 - [ ] Update all package descriptions in pubspec.yaml files.
 - [x] Add gotta catch em all to AdventDay for day 50 part 2s.
-- [ ] Put together an OCR for 2016 8, etc.
+- [ ] Put together an OCR for 2016 8, 2019 8, 2019 10, etc.
+- [ ] Document and clean up the util code.
+- [ ] Write tests for the util code.
+- [ ] Resurect solutions from 2020 repo.
+

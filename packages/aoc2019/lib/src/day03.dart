@@ -1,19 +1,91 @@
 // https://adventofcode.com/2019/day/3
 
 import 'package:aoc/aoc.dart';
+import 'package:aoc/util/string.dart';
+import 'package:aoc/util/vec2.dart';
+import 'package:collection/collection.dart';
 
 main() => Day03().solve();
 
 class Day03 extends AdventDay {
   Day03() : super(
-    2019, 3, name: '',
+    2019, 3, name: 'Crossed Wires',
+    solution1: 1626, solution2: 27330,
   );
 
   @override
-  dynamic part1(String input) => 'Need to migrate';
+  dynamic part1(String input) {
+    final origin = Vec2.zero;
+    final wireSegments = wirePaths(input).map((p) => segmentsFrom(origin, p));
+    final wire1 = wireSegments.first;
+    final wire2 = wireSegments.last;
+
+    final intersections = <Vec2>{};
+    for (final s1 in wire1) {
+      intersections.addAll(
+        wire2.map((s2) => s1.intersection(s2)).whereNotNull()
+      );
+    }
+    intersections.remove(origin);
+    return intersections.map((v) => v.manhattanDistanceTo(origin)).min.toInt();
+  }
 
   @override
-  dynamic part2(String input) => 'Need to migrate';
+  dynamic part2(String input) {
+    final origin = Vec2.zero;
+    final wireSegments = wirePaths(input).map((p) => segmentsFrom(origin, p));
+    final wire1 = wireSegments.first;
+    final wire2 = wireSegments.last;
+
+    final intersections = <Vec2>{};
+    for (final s1 in wire1) {
+      intersections.addAll(
+          wire2.map((s2) => s1.intersection(s2)).whereNotNull()
+      );
+    }
+    intersections.remove(origin);
+    return intersections
+      .map((v) => distanceTo(v, wire1) + distanceTo(v, wire2))
+      .min
+      .toInt();
+  }
+
+  static final _dirVec2s = {
+    'U': Vec2.up,
+    'D': Vec2.down,
+    'L': Vec2.left,
+    'R': Vec2.right,
+  };
+
+  Iterable<Iterable<Vec2>> wirePaths(String input) => 
+    input
+      .lines
+      .map((line) =>
+        line
+          .split(',')
+          .map((v) => _dirVec2s[v[0]]! * int.parse(v.substring(1))));
+
+  Iterable<LineSegment> segmentsFrom(Vec2 origin, Iterable<Vec2> path) {
+    final segments = <LineSegment>[];
+    for (final p in path) {
+      final end = origin + p;
+      segments.add(LineSegment(origin, end));
+      origin = end;
+    }
+    return segments;
+  }
+
+  double distanceTo(Vec2 intersection, Iterable<LineSegment> path) {
+    var distance = 0;
+    for (final segment in path) {
+      final distanceAlong = segment.distanceAlong(intersection);
+      if (distanceAlong != null) {
+        return distance + distanceAlong;
+      }
+      distance += segment.manhattanDistance.toInt();
+    }
+    throw Exception('Point $intersection is not on path $path');
+  }
 }
 
 // https://adventofcode.com/2019/day/3

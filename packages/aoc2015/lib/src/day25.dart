@@ -16,7 +16,7 @@ class Day25 extends AdventDay {
   }
 
   @override
-  dynamic part2(String _) => AdventDay.lastStarSolution;
+  dynamic part2(String input) => AdventDay.lastStarSolution;
 
   int inputRow(String input) =>
     int.parse(RegExp(r'\brow (\d+)').firstMatch(input)!.group(1)!);
