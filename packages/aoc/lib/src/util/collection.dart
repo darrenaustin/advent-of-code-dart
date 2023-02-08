@@ -40,19 +40,17 @@ extension IterableComparableExtension<T extends Comparable<T>> on Iterable<T> {
     reduce((T m, T e) => comparator(e, m) < 0 ? e : m);
 }
 
-Iterable<int> range(int startOrEnd, [int? end, int step = 1]) sync* {
+Iterable<int> range(int startOrEnd, [int? end, int? step]) sync* {
   int value = (end != null) ? startOrEnd : 0;
   end ??= startOrEnd;
-  if (end > value) {
-    while (value < end) {
-      yield value;
-      value += step;
-    }
-  } else {
-    while (value > end) {
-      yield value;
-      value -= step;
-    }
+  step ??= (end - value).sign;
+  if ((end - value).sign != step.sign) {
+    // Invalid range, so just return empty iterable.
+    return;
+  }
+  while (step > 0 ? value < end : end < value) {
+    yield value;
+    value += step;
   }
 }
 

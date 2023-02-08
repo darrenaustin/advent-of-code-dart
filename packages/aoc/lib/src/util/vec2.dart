@@ -101,6 +101,7 @@ class LineSegment {
 
   double get slope => (to.y - from.y) / (to.x - from.x);
   double get intercept => from.y - slope * from.x;
+  bool get isOrthogonal => from.x == to.x || from.y == to.y;
 
   Vec2? intersection(LineSegment other) {
     final Vec2 dir = to - from;
@@ -135,14 +136,15 @@ class LineSegment {
   Iterable<Vec2> discretePointsAlong() sync* {
     final double m = slope;
     final double b = intercept;
-    if (slope.isInfinite) {
+    if (m.isInfinite) {
+      // vertical line
       final int inc = (to.y - from.y).sign.toInt();
-      for (final int y in range(from.y.truncate() + inc, to.y.truncate() + inc, inc)) {
+      for (final int y in range(from.y.truncate(), to.y.truncate() + inc, inc)) {
         yield Vec2(from.x, y.toDouble());
       }
     } else {
       final int inc = (to.x - from.x).sign.toInt();
-      for (final int x in range(from.x.truncate() + inc, to.x.truncate() + inc, inc)) {
+      for (final int x in range(from.x.truncate(), to.x.truncate() + inc, inc)) {
         final double y = m * x + b;
         if ((y - y.truncateToDouble()).abs() < epsilon) {
           yield Vec2(x.toDouble(), y.truncateToDouble());
