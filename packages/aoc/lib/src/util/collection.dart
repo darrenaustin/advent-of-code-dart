@@ -69,3 +69,11 @@ extension DefaultMap<K, V> on Map<K, V> {
     return defaultValue;
   }
 }
+
+/// Returns a map of element to element count for the given iterable.
+Map<T, int> frequencies<T>(Iterable<T> elements) {
+    return elements.fold({}, (counts, element) {
+      counts[element] = (counts[element] ?? 0) + 1;
+      return counts;
+    });
+}
