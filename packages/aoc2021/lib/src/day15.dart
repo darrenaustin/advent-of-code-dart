@@ -15,12 +15,12 @@ class Day15 extends AdventDay {
   );
 
   @override
-  dynamic part1(String input) => _lowestRisk(inputGrid(input));
+  dynamic part1(String input) => _lowestRisk(parseGrid(input));
 
   @override
-  dynamic part2(String input) => _lowestRisk(_expandGrid(inputGrid(input)));
+  dynamic part2(String input) => _lowestRisk(_expandGrid(parseGrid(input)));
 
-  Grid<int> inputGrid(String input) =>
+  Grid<int> parseGrid(String input) =>
     Grid<int>.from(input.lines
       .map((l) => l.split('').map((n) => int.parse(n)).toList())
       .toList(),

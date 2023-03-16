@@ -15,16 +15,16 @@ class Day14 extends AdventDay {
   @override
   dynamic part1(String input) {
     final inputLines = input.lines;
-    final template = inputTemplate(inputLines);
-    final rules = inputRules(inputLines);
+    final template = parseTemplate(inputLines);
+    final rules = parseRules(inputLines);
     return polymerStrength(template, rules, 10);
   }
 
   @override
   dynamic part2(String input) {
     final inputLines = input.lines;
-    final template = inputTemplate(inputLines);
-    final rules = inputRules(inputLines);
+    final template = parseTemplate(inputLines);
+    final rules = parseRules(inputLines);
     return polymerStrength(template, rules, 40);
   }
 
@@ -72,9 +72,9 @@ class Day14 extends AdventDay {
     return counts.last - counts.first;
   }
 
-  List<String> inputTemplate(List<String> lines) => lines.first.split('');
+  List<String> parseTemplate(List<String> lines) => lines.first.split('');
 
-  Map<String, String> inputRules(List<String> lines) =>
+  Map<String, String> parseRules(List<String> lines) =>
     Map.fromEntries(lines.skip(2).map((l)  {
       final parts = l.split(' -> ');
       return MapEntry(parts[0], parts[1]);

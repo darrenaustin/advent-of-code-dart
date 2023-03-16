@@ -29,4 +29,6 @@ Just some ideas for future improvements:
 - [ ] Document and clean up the util code.
 - [ ] Write tests for the util code.
 - [ ] Resurect solutions from 2020 repo.
+- [ ] Calculate a better upper bound for vy in 2021 17.
+
 
