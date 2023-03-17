@@ -17,7 +17,7 @@ Just some ideas for future improvements:
   - [x] Migrate 2018 solutions.
   - [x] Migrate 2019 solutions.
   - [x] Migrate 2020 solutions.
-  - [ ] Migrate 2021 solutions.
+  - [x] Migrate 2021 solutions.
   - [ ] Migrate 2022 solutions.
 
 - [ ] Move input files to private repo.
