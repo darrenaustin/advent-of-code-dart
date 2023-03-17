@@ -3,18 +3,22 @@ import 'package:test/test.dart';
 
 main() {
   group('2022 Day 02', () {
+    final exampleInput = '''
+A Y
+B X
+C Z''';
     group('part 1', () {
-      // test('examples', () {
-      //   expect(Day02().part1(''), 0); 
-      // });
+      test('example', () {
+        expect(Day02().part1(exampleInput), 15);
+      });
 
       test('solution', () => Day02().testPart1());
     });
 
     group('part 2', () {
-      // test('examples', () {
-      //   expect(Day02().part2(''), 0); 
-      // });
+      test('example', () {
+        expect(Day02().part2(exampleInput), 12);
+      });
 
       test('solution', () => Day02().testPart2());
     });
