@@ -7,13 +7,12 @@ main() => Day25().solve();
 class Day25 extends AdventDay {
   Day25() : super(
     2015, 25, name: 'Let It Snow',
-    solution1: 2650453, solution2: '🎄 Got em all! 🎉'
+    solution1: 2650453, solution2: AdventDay.lastStarSolution,
   );
 
   @override
-  dynamic part1(String input) {
-    return codeAt(20151125, inputRow(input), inputColumn(input));
-  }
+  dynamic part1(String input) =>
+    codeAt(20151125, inputRow(input), inputColumn(input));
 
   @override
   dynamic part2(String input) => AdventDay.lastStarSolution;
