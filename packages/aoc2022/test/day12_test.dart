@@ -3,18 +3,25 @@ import 'package:test/test.dart';
 
 main() {
   group('2022 Day 12', () {
+    final exampleInput = '''
+Sabqponm
+abcryxxl
+accszExk
+acctuvwj
+abdefghi''';
+
     group('part 1', () {
-      // test('examples', () {
-      //   expect(Day12().part1(''), 0); 
-      // });
+      test('example', () {
+        expect(Day12().part1(exampleInput), 31);
+      });
 
       test('solution', () => Day12().testPart1());
     });
 
     group('part 2', () {
-      // test('examples', () {
-      //   expect(Day12().part2(''), 0); 
-      // });
+      test('example', () {
+        expect(Day12().part2(exampleInput), 29);
+      });
 
       test('solution', () => Day12().testPart2());
     });

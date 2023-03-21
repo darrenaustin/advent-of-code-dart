@@ -33,7 +33,7 @@ Monkey 3:
     If false: throw to monkey 1''';
 
     group('part 1', () {
-      test('examples', () {
+      test('example', () {
         expect(Day11().part1(exampleInput), 10605);
       });
 
@@ -41,7 +41,7 @@ Monkey 3:
     });
 
     group('part 2', () {
-      test('examples', () {
+      test('example', () {
         expect(Day11().part2(exampleInput), 2713310158);
       });
 
