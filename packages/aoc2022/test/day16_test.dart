@@ -3,18 +3,30 @@ import 'package:test/test.dart';
 
 main() {
   group('2022 Day 16', () {
+    final exampleInput = '''
+Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
+Valve BB has flow rate=13; tunnels lead to valves CC, AA
+Valve CC has flow rate=2; tunnels lead to valves DD, BB
+Valve DD has flow rate=20; tunnels lead to valves CC, AA, EE
+Valve EE has flow rate=3; tunnels lead to valves FF, DD
+Valve FF has flow rate=0; tunnels lead to valves EE, GG
+Valve GG has flow rate=0; tunnels lead to valves FF, HH
+Valve HH has flow rate=22; tunnel leads to valve GG
+Valve II has flow rate=0; tunnels lead to valves AA, JJ
+Valve JJ has flow rate=21; tunnel leads to valve II''';
+
     group('part 1', () {
-      // test('examples', () {
-      //   expect(Day16().part1(''), 0); 
-      // });
+      test('example', () {
+        expect(Day16().part1(exampleInput), 1651);
+      });
 
       test('solution', () => Day16().testPart1());
     });
 
     group('part 2', () {
-      // test('examples', () {
-      //   expect(Day16().part2(''), 0); 
-      // });
+      test('example', () {
+        expect(Day16().part2(exampleInput), 1707);
+      });
 
       test('solution', () => Day16().testPart2());
     });
