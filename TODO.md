@@ -30,5 +30,7 @@ Just some ideas for future improvements:
 - [ ] Write tests for the util code.
 - [ ] Resurect solutions from 2020 repo.
 - [ ] Calculate a better upper bound for vy in 2021 17.
+- [ ] Find a general solution for the cube folding in 2022 22.
+
 
 
