@@ -2,8 +2,7 @@
 
 Just some ideas for future improvements:
 
-- [ ] Restructure into packages.
-  - [x] Move base code and utils into 'aoc' package.
+ - [x] Move base code and utils into 'aoc' package.
   - [x] Move each years solutions and input into 'aocYYYY' packages.
   - [x] Add a name field for each puzzle.
   - [x] Add a main function for each puzzle.
@@ -18,7 +17,7 @@ Just some ideas for future improvements:
   - [x] Migrate 2019 solutions.
   - [x] Migrate 2020 solutions.
   - [x] Migrate 2021 solutions.
-  - [ ] Migrate 2022 solutions.
+  - [x] Migrate 2022 solutions.
 
 - [ ] Move input files to private repo.
 - [ ] Speed up 2015 4, 2016 5 (MD5)
@@ -31,6 +30,3 @@ Just some ideas for future improvements:
 - [ ] Resurect solutions from 2020 repo.
 - [ ] Calculate a better upper bound for vy in 2021 17.
 - [ ] Find a general solution for the cube folding in 2022 22.
-
-
-
