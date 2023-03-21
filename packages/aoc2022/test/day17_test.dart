@@ -3,18 +3,20 @@ import 'package:test/test.dart';
 
 main() {
   group('2022 Day 17', () {
+    final exampleInput = '>>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>';
+
     group('part 1', () {
-      // test('examples', () {
-      //   expect(Day17().part1(''), 0); 
-      // });
+      test('example', () {
+        expect(Day17().part1(exampleInput), 3068);
+      });
 
       test('solution', () => Day17().testPart1());
     });
 
     group('part 2', () {
-      // test('examples', () {
-      //   expect(Day17().part2(''), 0); 
-      // });
+      test('example', () {
+        expect(Day17().part2(exampleInput), 1514285714288);
+      });
 
       test('solution', () => Day17().testPart2());
     });
