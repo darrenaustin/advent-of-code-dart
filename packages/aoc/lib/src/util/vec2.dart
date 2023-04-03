@@ -32,7 +32,7 @@ class Vec2 {
 
   static const List<Vec2> aroundDirs = <Vec2>[
     Vec2.upLeft,   Vec2.up,   Vec2.upRight,
-    Vec2.left,               Vec2.right,
+    Vec2.left,                Vec2.right,
     Vec2.downLeft, Vec2.down, Vec2.downRight,
   ];
 

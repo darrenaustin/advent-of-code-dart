@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 import 'vec2.dart';
 
 class Grid<T> {
@@ -18,7 +20,7 @@ class Grid<T> {
     return grid;
   }
 
-  factory Grid.emptyFrom(Grid<T> other) => 
+  factory Grid.emptyFrom(Grid<T> other) =>
     Grid<T>(other.width, other.height, other.defaultValue);
 
   final int width;
@@ -33,6 +35,14 @@ class Grid<T> {
       grid.setCell(loc, cell(loc));
     }
     return grid;
+  }
+
+  bool equals(Grid<T> other) {
+    return
+      width == other.width &&
+      height == other.height &&
+      defaultValue == other.defaultValue &&
+      DeepCollectionEquality().equals(_cells, other._cells);
   }
 
   T cell(Vec2 p) => _cells[p.yInt][p.xInt];
@@ -52,9 +62,7 @@ class Grid<T> {
     }
   }
 
-  Iterable<T> cellsWhere(bool Function(T) test) {
-    return cells().where(test);
-  }
+  Iterable<T> cellsWhere(bool Function(T) test) => cells().where(test);
 
   Iterable<Vec2> locations() sync* {
     for (int y = 0; y < height; y++) {
@@ -64,9 +72,8 @@ class Grid<T> {
     }
   }
 
-  Iterable<Vec2> locationsWhere(bool Function(T) test) {
-    return locations().where((p) => test(cell(p)));
-  }
+  Iterable<Vec2> locationsWhere(bool Function(T) test)=>
+    locations().where((p) => test(cell(p)));
 
   void updateCells(T Function(T) update) {
     for (int row = 0; row < height; row++) {
@@ -103,23 +110,23 @@ class Grid<T> {
     return rows;
   }
 
-  String printRows(int startRow, int numRows) {
-    return _cells
+  String printRows(int startRow, int numRows) =>
+    _cells
       .sublist(startRow, startRow + numRows)
       .map((List<T> r) => r.join(' '))
       .join('\n');
-  }
 
-  Iterable<T> neighbors(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) {
-    return offsets.map((Vec2 o) => p + o).where(validCell).map(cell);
-  }
+  Iterable<T> neighbors(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) =>
+    offsets
+      .map((Vec2 o) => p + o)
+      .where(validCell)
+      .map(cell);
 
-  Iterable<Vec2> neighborLocations(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) {
-    return offsets.map((Vec2 o) => p + o).where(validCell);
-  }
+  Iterable<Vec2> neighborLocations(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) =>
+    offsets
+      .map((Vec2 o) => p + o)
+      .where(validCell);
 
   @override
-  String toString() {
-    return _cells.map((List<T> r) => r.join(' ')).join('\n');
-  }
+  String toString() => _cells.map((List<T> r) => r.join(' ')).join('\n');
 }
