@@ -17,7 +17,7 @@ class Day11 extends AdventDay {
   );
 
   @override
-  int? part1(String input) =>
+  dynamic part1(String input) =>
     numOccupiedSeatsAtEquilibrium(parseSeatChart(input), adjacentSeatRules);
 
   @override
@@ -33,7 +33,7 @@ class Day11 extends AdventDay {
       '.',
     );
 
-  int numOccupiedSeatsAtEquilibrium(Grid<String> seats, SeatRules rules) {
+  dynamic numOccupiedSeatsAtEquilibrium(Grid<String> seats, SeatRules rules) {
     var equilibrium = false;
     while (!equilibrium) {
       final nextSeats = rules(seats);
