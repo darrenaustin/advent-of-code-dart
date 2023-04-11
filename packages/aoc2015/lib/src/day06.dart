@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day06().solve();
@@ -19,7 +19,7 @@ class Day06 extends AdventDay {
   @override
   dynamic part1(String input) {
     final lights = Grid<bool>(1000, 1000, false);
-    
+
     bool apply(Command command, bool light) =>
       command.type == CommandType.turnOn ||
       (command.type == CommandType.toggle && !light);
@@ -52,7 +52,7 @@ class Day06 extends AdventDay {
     return lights.cells().sum;
   }
 
-  static final RegExp _commandRegex = 
+  static final RegExp _commandRegex =
     RegExp(r'^(turn on|toggle|turn off) (\d+),(\d+) through (\d+),(\d+)$');
 
   static Command parseCommand(String line) {

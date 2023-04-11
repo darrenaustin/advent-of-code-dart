@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day15().solve();
 
@@ -97,7 +97,7 @@ class Sensor {
 //
 // import 'package:aoc/aoc.dart';
 // import 'package:aoc/util/collection.dart';
-// import 'package:aoc/util/vec2.dart';
+// import 'package:aoc/util/vec.dart';
 //
 // class Day15 extends AdventDay {
 //   Day15() : super(2022, 15, solution1: 5125700, solution2: 11379394658764);

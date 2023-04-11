@@ -53,10 +53,12 @@ class Vec3 {
 
   @override
   bool operator ==(Object other) =>
-    other is Vec3
-      && other.x == x
-      && other.y == y
-      && other.z == z;
+    identical(other, this) ||
+      (other is Vec3
+        && other.runtimeType == runtimeType
+        && other.x == x
+        && other.y == y
+        && other.z == z);
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode;

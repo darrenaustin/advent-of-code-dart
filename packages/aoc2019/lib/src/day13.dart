@@ -1,7 +1,7 @@
 // https://adventofcode.com/2019/day/13
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 import 'intcode.dart';

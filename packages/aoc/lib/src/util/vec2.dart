@@ -80,11 +80,12 @@ class Vec2 {
   }
 
   @override
-  bool operator ==(Object other) {
-    return other is Vec2
-      && other.x == x
-      && other.y == y;
-  }
+  bool operator ==(Object other) =>
+    identical(other, this) ||
+      (other is Vec2
+        && other.runtimeType == runtimeType
+        && other.x == x
+        && other.y == y);
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode;
@@ -93,8 +94,8 @@ class Vec2 {
   String toString() => 'Vec2($x, $y)';
 }
 
-class LineSegment {
-  LineSegment(this.from, this.to);
+class LineSegment2 {
+  LineSegment2(this.from, this.to);
 
   final Vec2 from;
   final Vec2 to;
@@ -103,7 +104,7 @@ class LineSegment {
   double get intercept => from.y - slope * from.x;
   bool get isOrthogonal => from.x == to.x || from.y == to.y;
 
-  Vec2? intersection(LineSegment other) {
+  Vec2? intersection(LineSegment2 other) {
     final Vec2 dir = to - from;
     final Vec2 otherDir = other.to - other.from;
     final double dirCross = dir.crossProduct(otherDir);

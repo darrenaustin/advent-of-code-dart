@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day17().solve();
 
@@ -227,7 +227,7 @@ class CacheState {
 //
 // import 'package:aoc/aoc.dart';
 // import 'package:aoc/util/grid2.dart';
-// import 'package:aoc/util/vec2.dart';
+// import 'package:aoc/util/vec.dart';
 //
 // class Day17 extends AdventDay {
 //   Day17() : super(2022, 17, solution1: 3227, solution2: 1597714285698);
