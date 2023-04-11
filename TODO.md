@@ -27,6 +27,6 @@ Just some ideas for future improvements:
 - [ ] Put together an OCR for 2016 8, 2019 8, 2019 10, 2021 13, etc.
 - [ ] Document and clean up the util code.
 - [ ] Write tests for the util code.
-- [ ] Resurect solutions from 2020 repo.
+- [x] Resurect solutions from 2020 repo.
 - [ ] Calculate a better upper bound for vy in 2021 17.
 - [ ] Find a general solution for the cube folding in 2022 22.
