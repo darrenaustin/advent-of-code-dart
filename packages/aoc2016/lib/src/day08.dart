@@ -8,10 +8,7 @@ import 'package:aoc/util/vec.dart';
 main() => Day08().solve();
 
 class Day08 extends AdventDay {
-  Day08() : super(
-    2016, 8, name: 'Two-Factor Authentication',
-    solution1: 116, solution2:'UPOJFLBCEZ',
-  );
+  Day08() : super(2016, 8, name: 'Two-Factor Authentication');
 
   @override
   dynamic part1(String input) {

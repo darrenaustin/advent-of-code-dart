@@ -1,14 +1,19 @@
+import 'dart:convert';
 import 'dart:io';
+
+import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 
 abstract class AdventDay {
-  AdventDay(this.year, this.day, {this.name, this.solution1, this.solution2});
+  AdventDay(this.year, this.day, {this.name});
 
   final int year;
   final int day;
   final String? name;
-  final dynamic solution1;
-  final dynamic solution2;
+
+  late final Map<String, dynamic> _answers = _loadAnswers(year, day);
+  dynamic get answer1 => _answers['answer1'];
+  dynamic get answer2 => _answers['answer2'];
 
   dynamic part1(String input);
 
@@ -18,12 +23,12 @@ abstract class AdventDay {
     void part(int partNum) {
       final inputText = input();
       final start = DateTime.now();
-      final solution = partNum == 1 ? part1(inputText) : part2(inputText);
+      final answer = partNum == 1 ? part1(inputText) : part2(inputText);
       final time = DateTime.now().difference(start).inMilliseconds;
-      print('  part $partNum: ${_results(solution, partNum == 1 ? solution1 : solution2, time)}');
+      print('  part $partNum: ${_results(answer, partNum == 1 ? answer1 : answer2, time)}');
     }
 
-    print('$year: day $day ${name ?? ''}\n');
+    print('$year Day $day: ${name ?? ''}\n');
     part(1);
     part(2);
     print('');
@@ -31,19 +36,19 @@ abstract class AdventDay {
 
   void testPart1() {
     final result = part1(input());
-    if (solution1 == null) {
-      print('$year, $day part 1 - unknown solution $result');
+    if (answer1 == null) {
+      print('$year, $day part 1 - unverified answer $result');
     } else {
-      expect(result, solution1); 
+      expect(result, answer1);
     }
   }
 
   void testPart2() {
     final result = part2(input());
-    if (solution2 == null) {
-      print('$year, $day part 2 - unknown solution $result');
+    if (answer2 == null) {
+      print('$year, $day part 2 - unverified answer $result');
     } else {
-      expect(result, solution2); 
+      expect(result, answer2);
     }
   }
 
@@ -51,19 +56,22 @@ abstract class AdventDay {
 
   static const lastStarSolution = '🎄 Got em all! 🎉';
 
-  String get _inputFileName =>
-    'input/day${day.toString().padLeft(2, '0')}.txt';
+  static final inputRepoBase =
+    String.fromEnvironment('INPUT_REPO', defaultValue: '../../../advent_of_code_input');
 
-  String _results(dynamic solution, dynamic expected, int time) {
-    if (solution == null) {
+  String get _inputFileName =>
+    '$inputRepoBase/$year/${day.toString().padLeft(2, '0')}_input.txt';
+
+  String _results(dynamic answer, dynamic expected, int time) {
+    if (answer == null) {
       return 'not yet implemented';
     }
     final String correct = expected != null
-      ? expected == solution
+      ? expected == answer
         ? 'correct, '
         : 'INCORRECT, '
       : '';
-    return '${_format(solution)}, ($correct$time ms)';
+    return '${_format(answer)}, ($correct$time ms)';
   }
 
   String _format(dynamic value) {
@@ -71,5 +79,16 @@ abstract class AdventDay {
       return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
     }
     return value.toString();
+  }
+
+  static Map<String, dynamic> _loadAnswers(int year, int day) {
+    final answerFile = File(path.join(inputRepoBase, year.toString(), '${day.toString().padLeft(2, '0')}_answer.json'));
+    if (answerFile.existsSync()) {
+      try {
+        return jsonDecode(answerFile.readAsStringSync());
+      } catch (_) {
+      }
+    }
+    return {};
   }
 }

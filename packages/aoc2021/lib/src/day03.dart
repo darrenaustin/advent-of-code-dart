@@ -6,10 +6,7 @@ import 'package:aoc/util/string.dart';
 main() => Day03().solve();
 
 class Day03 extends AdventDay {
-  Day03() : super(
-    2021, 3, name: 'Binary Diagnostic',
-    solution1: 3309596, solution2: 2981085,
-  );
+  Day03() : super(2021, 3, name: 'Binary Diagnostic');
 
   @override
   dynamic part1(String input) {

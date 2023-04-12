@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day02().solve();
 
 class Day02 extends AdventDay {
-  Day02() : super(
-    2017, 2, name: 'Corruption Checksum',
-    solution1: 45351, solution2: 275,
-  );
+  Day02() : super(2017, 2, name: 'Corruption Checksum');
 
   @override
   dynamic part1(String input) {

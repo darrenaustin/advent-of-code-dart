@@ -10,10 +10,7 @@ import 'package:aoc/util/vec.dart';
 main() => Day15().solve();
 
 class Day15 extends AdventDay {
-  Day15() : super(
-    2022, 15, name: 'Beacon Exclusion Zone',
-    solution1: 5125700, solution2: 11379394658764,
-  );
+  Day15() : super(2022, 15, name: 'Beacon Exclusion Zone');
 
   @override
   dynamic part1(String input, [int row = 2000000]) {
@@ -100,7 +97,7 @@ class Sensor {
 // import 'package:aoc/util/vec.dart';
 //
 // class Day15 extends AdventDay {
-//   Day15() : super(2022, 15, solution1: 5125700, solution2: 11379394658764);
+//   Day15() : super(2022, 15);
 //
 //   @override
 //   dynamic part1() {

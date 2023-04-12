@@ -7,10 +7,7 @@ import 'package:aoc/util/string.dart';
 main() => Day05().solve();
 
 class Day05 extends AdventDay {
-  Day05() : super(
-    2015, 5, name: "Doesn't He Have Intern-Elves For This?",
-    solution1: 238, solution2: 69,
-   );
+  Day05() : super(2015, 5, name: "Doesn't He Have Intern-Elves For This?");
 
   @override
   dynamic part1(String input) => input.lines.quantify(niceStringPart1);

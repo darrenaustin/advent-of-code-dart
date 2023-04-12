@@ -8,10 +8,7 @@ import 'package:collection/collection.dart';
 main() => Day16().solve();
 
 class Day16 extends AdventDay {
-  Day16() : super(
-    2020, 16, name: 'Ticket Translation',
-    solution1: 18227, solution2: 2355350878831,
-  );
+  Day16() : super(2020, 16, name: 'Ticket Translation');
 
   @override
   dynamic part1(String input) {

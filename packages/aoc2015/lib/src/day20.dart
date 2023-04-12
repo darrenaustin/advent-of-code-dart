@@ -8,10 +8,7 @@ import 'package:aoc/util/math.dart';
 main() => Day20().solve();
 
 class Day20 extends AdventDay {
-  Day20() : super(
-    2015, 20, name: 'Infinite Elves and Infinite Houses',
-    solution1: 665280, solution2: 705600,
-  );
+  Day20() : super(2015, 20, name: 'Infinite Elves and Infinite Houses');
 
   @override
   dynamic part1(String input) => firstHouseThatGets(int.parse(input), 10);

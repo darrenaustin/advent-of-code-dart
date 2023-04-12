@@ -11,10 +11,7 @@ import 'package:collection/collection.dart';
 main() => Day22().solve();
 
 class Day22 extends AdventDay {
-  Day22() : super(
-    2022, 22, name: 'Monkey Map',
-    solution1: 47462, solution2: 137045,
-  );
+  Day22() : super(2022, 22, name: 'Monkey Map');
 
   @override
   dynamic part1(String input) {

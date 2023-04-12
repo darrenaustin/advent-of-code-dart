@@ -10,10 +10,7 @@ import 'intcode.dart';
 main() => Day07().solve();
 
 class Day07 extends AdventDay {
-  Day07() : super(
-    2019, 7, name: 'Amplification Circuit',
-    solution1: 24405, solution2: 8271623,
-  );
+  Day07() : super(2019, 7, name: 'Amplification Circuit');
 
   @override
   dynamic part1(String input) {

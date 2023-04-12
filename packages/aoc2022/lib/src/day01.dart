@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day01().solve();
 
 class Day01 extends AdventDay {
-  Day01() : super(
-    2022, 1, name: 'Calorie Counting',
-    solution1: 67622, solution2: 201491,
-  );
+  Day01() : super(2022, 1, name: 'Calorie Counting');
 
   @override
   dynamic part1(String input) => parseCalories(input).max;

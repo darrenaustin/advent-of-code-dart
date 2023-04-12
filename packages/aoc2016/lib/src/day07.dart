@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day07().solve();
 
 class Day07 extends AdventDay {
-  Day07() : super(
-    2016, 7, name: 'Internet Protocol Version 7',
-    solution1: 115, solution2: 231,
-  );
+  Day07() : super(2016, 7, name: 'Internet Protocol Version 7');
 
   @override
   dynamic part1(String input) {

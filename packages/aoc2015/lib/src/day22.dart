@@ -8,10 +8,7 @@ import 'package:aoc/util/math.dart';
 main() => Day22().solve();
 
 class Day22 extends AdventDay {
-  Day22() : super(
-    2015, 22, name: 'Wizard Simulator 20XX',
-    solution1: 1269, solution2: 1309,
-  );
+  Day22() : super(2015, 22, name: 'Wizard Simulator 20XX');
 
   @override
   dynamic part1(String input) {

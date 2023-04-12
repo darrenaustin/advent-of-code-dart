@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day10().solve();
 
 class Day10 extends AdventDay {
-  Day10() : super(
-    2021, 10, name: 'Syntax Scoring',
-    solution1: 318081, solution2: 4361305341,
-  );
+  Day10() : super(2021, 10, name: 'Syntax Scoring');
 
   static const pairs = {
     '(': ')',

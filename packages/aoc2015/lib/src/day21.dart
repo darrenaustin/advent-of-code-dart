@@ -8,10 +8,7 @@ import 'package:collection/collection.dart';
 main() => Day21().solve();
 
 class Day21 extends AdventDay {
-  Day21() : super(
-    2015, 21, name: 'RPG Simulator 20XX',
-    solution1: 91, solution2: 158,
-  );
+  Day21() : super(2015, 21, name: 'RPG Simulator 20XX');
   @override
   dynamic part1(String input) {
     final boss = Character.parse(input, 'Boss');

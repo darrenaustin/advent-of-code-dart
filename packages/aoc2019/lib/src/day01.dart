@@ -9,10 +9,7 @@ import 'package:collection/collection.dart';
 main() => Day01().solve();
 
 class Day01 extends AdventDay {
-  Day01() : super(
-    2019, 1, name: 'The Tyranny of the Rocket Equation',
-    solution1: 3371958, solution2: 5055050,
-  );
+  Day01() : super(2019, 1, name: 'The Tyranny of the Rocket Equation');
 
   @override
   dynamic part1(String input) {

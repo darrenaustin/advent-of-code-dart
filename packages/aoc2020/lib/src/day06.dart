@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day06().solve();
 
 class Day06 extends AdventDay {
-  Day06() : super(
-    2020, 6, name: 'Custom Customs',
-    solution1: 6310, solution2: 3193,
-  );
+  Day06() : super(2020, 6, name: 'Custom Customs');
 
   @override
   dynamic part1(String input) => parseAnswers(input)

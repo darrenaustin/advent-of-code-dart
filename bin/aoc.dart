@@ -4,7 +4,6 @@ import 'package:path/path.dart' as path;
 import 'package:aoc/aoc.dart';
 import 'package:args/args.dart';
 
-
 final String packageDir = path.join(Directory.current.path, 'packages');
 
 void main(List<String> arguments) {
@@ -24,12 +23,12 @@ void main(List<String> arguments) {
     days = yearDays.values.toList();
 
     if (parsed.rest.isNotEmpty) {
+      days = [];
       for (final String day in parsed.rest) {
         final int? dayNum = int.tryParse(day);
         if (dayNum != null) {
           if (yearDays.containsKey(dayNum)) {
-            cdPackagePath(yearNum);
-            yearDays[dayNum]!.solve();
+            days.add(yearDays[dayNum]!);
           } else {
             print('No solution for $year day $day');
           }
@@ -38,12 +37,12 @@ void main(List<String> arguments) {
         }
       }
     }
-  } else {
-    // Solve all of them
-    for (final AdventDay day in days) {
-      cdPackagePath(day.year);
-      day.solve();
-    }
+  }
+
+  // Solve the days specified
+  for (final AdventDay day in days) {
+    cdPackagePath(day.year);
+    day.solve();
   }
 }
 

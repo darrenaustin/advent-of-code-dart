@@ -7,10 +7,7 @@ import 'package:aoc/aoc.dart';
 main() => Day16().solve();
 
 class Day16 extends AdventDay {
-  Day16() : super(
-    2021, 16, name: 'Packet Decoder',
-    solution1: 984, solution2: 1015320896946,
-  );
+  Day16() : super(2021, 16, name: 'Packet Decoder');
 
   @override
   dynamic part1(String input) {

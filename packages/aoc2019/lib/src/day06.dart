@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day06().solve();
 
 class Day06 extends AdventDay {
-  Day06() : super(
-    2019, 6, name: 'Universal Orbit Map',
-    solution1: 135690, solution2: 298,
-  );
+  Day06() : super(2019, 6, name: 'Universal Orbit Map');
 
   @override
   dynamic part1(String input) {

@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day04().solve();
 
 class Day04 extends AdventDay {
-  Day04() : super(
-    2017, 4, name: 'High-Entropy Passphrases',
-    solution1: 386, solution2: 208,
-  );
+  Day04() : super(2017, 4, name: 'High-Entropy Passphrases');
 
   @override
   dynamic part1(String input) {

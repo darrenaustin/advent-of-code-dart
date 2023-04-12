@@ -9,10 +9,7 @@ import 'package:aoc/util/vec.dart';
 main() => Day17().solve();
 
 class Day17 extends AdventDay {
-  Day17() : super(
-    2022, 17, name: 'Pyroclastic Flow',
-    solution1: 3227, solution2: 1597714285698,
-  );
+  Day17() : super(2022, 17, name: 'Pyroclastic Flow');
 
   @override
   dynamic part1(String input) =>
@@ -230,7 +227,7 @@ class CacheState {
 // import 'package:aoc/util/vec.dart';
 //
 // class Day17 extends AdventDay {
-//   Day17() : super(2022, 17, solution1: 3227, solution2: 1597714285698);
+//   Day17() : super(2022, 17);
 //
 //   @override
 //   dynamic part1() {

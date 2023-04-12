@@ -8,10 +8,7 @@ import 'package:collection/collection.dart';
 main() => Day03().solve();
 
 class Day03 extends AdventDay {
-  Day03() : super(
-    2019, 3, name: 'Crossed Wires',
-    solution1: 1626, solution2: 27330,
-  );
+  Day03() : super(2019, 3, name: 'Crossed Wires');
 
   @override
   dynamic part1(String input) {
@@ -95,7 +92,7 @@ class Day03 extends AdventDay {
 // import 'package:collection/collection.dart';
 //
 // class Day03 extends AdventDay {
-//   Day03() : super(2019, 3, solution1: 1626, solution2: 27330);
+//   Day03() : super(2019, 3);
 //
 //   @override
 //   dynamic part1() {

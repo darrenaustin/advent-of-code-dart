@@ -6,10 +6,7 @@ import 'package:aoc/util/string.dart';
 main() => Day12().solve();
 
 class Day12 extends AdventDay {
-  Day12() : super(
-    2021, 12, name: 'Passage Pathing',
-    solution1: 4773, solution2: 116985,
-  );
+  Day12() : super(2021, 12, name: 'Passage Pathing');
 
   @override
   dynamic part1(String input) {

@@ -9,10 +9,7 @@ import 'package:collection/collection.dart';
 main() => Day25().solve();
 
 class Day25 extends AdventDay {
-  Day25() : super(
-    2022, 25, name: 'Full of Hot Air',
-    solution1: '20===-20-020=0001-02', solution2: AdventDay.lastStarSolution,
-  );
+  Day25() : super(2022, 25, name: 'Full of Hot Air');
 
   @override
   dynamic part1(String input) => intSnafu(input.lines.map(snafuInt).sum);

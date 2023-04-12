@@ -10,10 +10,7 @@ import 'package:collection/collection.dart';
 main() => Day19().solve();
 
 class Day19 extends AdventDay {
-  Day19() : super(
-    2022, 19, name: 'Not Enough Minerals',
-    solution1: 978, solution2: 15939,
-  );
+  Day19() : super(2022, 19, name: 'Not Enough Minerals');
 
   @override
   dynamic part1(String input) => parseBlueprints(input)

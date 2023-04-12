@@ -6,10 +6,7 @@ import 'package:collection/collection.dart';
 main() => Day01().solve();
 
 class Day01 extends AdventDay {
-  Day01() : super(
-    2017, 1, name: 'Inverse Captcha',
-    solution1: 1029, solution2: 1220,
-  );
+  Day01() : super(2017, 1, name: 'Inverse Captcha');
 
   @override
   dynamic part1(String input) {

@@ -9,10 +9,7 @@ import 'package:aoc/util/vec.dart';
 main() => Day03().solve();
 
 class Day03 extends AdventDay {
-  Day03() : super(
-    2020, 3, name: 'Toboggan Trajectory',
-    solution1: 257, solution2: 1744787392,
-  );
+  Day03() : super(2020, 3, name: 'Toboggan Trajectory');
 
   @override
   dynamic part1(String input) => treesHit(parseGrid(input), Vec2(3, 1));

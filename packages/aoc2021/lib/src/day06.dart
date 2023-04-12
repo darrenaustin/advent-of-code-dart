@@ -7,10 +7,7 @@ import 'package:collection/collection.dart';
 main() => Day06().solve();
 
 class Day06 extends AdventDay {
-  Day06() : super(
-    2021, 6, name: 'Lanternfish',
-    solution1:349549, solution2: 1589590444365,
-  );
+  Day06() : super(2021, 6, name: 'Lanternfish');
 
   @override
   dynamic part1(String input) => populationAfterDay(input, 80);

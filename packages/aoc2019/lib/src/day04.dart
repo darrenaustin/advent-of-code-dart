@@ -7,10 +7,7 @@ import 'package:aoc/util/comparison.dart';
 main() => Day04().solve();
 
 class Day04 extends AdventDay {
-  Day04() : super(
-    2019, 4, name: 'Secure Container',
-    solution1: 530, solution2: 324,
-  );
+  Day04() : super(2019, 4, name: 'Secure Container');
 
   @override
   dynamic part1(String input) {

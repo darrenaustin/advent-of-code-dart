@@ -8,10 +8,7 @@ import 'package:collection/collection.dart';
 main() => Day08().solve();
 
 class Day08 extends AdventDay {
-  Day08() : super(
-    2019, 8, name: 'Space Image Format',
-    solution1: 1935, solution2: 'CFLUL',
-  );
+  Day08() : super(2019, 8, name: 'Space Image Format');
 
   @override
   dynamic part1(String input) {

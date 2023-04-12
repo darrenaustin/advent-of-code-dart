@@ -9,10 +9,7 @@ import 'intcode.dart';
 main() => Day11().solve();
 
 class Day11 extends AdventDay {
-  Day11() : super(
-    2019, 11, name: 'Space Police',
-    solution1: 1686, solution2: 'GARPKZUL',
-  );
+  Day11() : super(2019, 11, name: 'Space Police');
 
   @override
   dynamic part1(String input) => paintedHull(input, black).numSetCells();

@@ -9,10 +9,7 @@ import 'package:collection/collection.dart';
 main() => Day09().solve();
 
 class Day09 extends AdventDay {
-  Day09() : super(
-    2015, 9, name: 'All in a Single Night', 
-    solution1: 141, solution2: 736,
-  );
+  Day09() : super(2015, 9, name: 'All in a Single Night');
 
   @override
   dynamic part1(String input) => minDistanceBy(parseRoutes(input));
