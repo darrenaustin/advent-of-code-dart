@@ -14,6 +14,7 @@ doc/api/
 
 # VS Code project files
 .vscode/
+*.code-workspace
 
 # Browser session file used to download input files
 .session
