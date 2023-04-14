@@ -19,8 +19,10 @@ Just some ideas for future improvements:
   - [x] Migrate 2021 solutions.
   - [x] Migrate 2022 solutions.
 
-- [ ] Move input files to private repo.
-- [ ] Speed up 2015 4, 2016 5 (MD5)
+- [x] Move input files to private repo.
+- [ ] Speed up 2015 4, 2016 5, 2016 14 (MD5)
+  - See https://github.com/dart-lang/crypto/issues/5 for more detail
+  - Perhaps I could write a plugin or just FFI to some fast native MD5 library
 - [ ] Update all package and top level README.md files.
 - [ ] Update all package descriptions in pubspec.yaml files.
 - [x] Add gotta catch em all to AdventDay for day 50 part 2s.
