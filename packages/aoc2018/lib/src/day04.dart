@@ -18,8 +18,8 @@ class Day04 extends AdventDay {
       .reduce((kv, ekv) => kv.value < ekv.value ? ekv : kv)
       .key;
     final minutes = guardSleepTimes[mostSleepyGuard]!;
-    final mostSleptDay = minutes.indexOf(minutes.max);
-    return mostSleepyGuard * mostSleptDay;
+    final mostSleptMinute = minutes.indexOf(minutes.max);
+    return mostSleepyGuard * mostSleptMinute;
   }
 
   @override
@@ -31,8 +31,8 @@ class Day04 extends AdventDay {
       .reduce((kv, ekv) => kv.value < ekv.value ? ekv : kv)
       .key;
     final minutes = guardSleepTimes[mostSleepyGuard]!;
-    final mostSleptDay = minutes.indexOf(minutes.max);
-    return mostSleepyGuard * mostSleptDay;
+    final mostSleptMinute = minutes.indexOf(minutes.max);
+    return mostSleepyGuard * mostSleptMinute;
   }
 
   Map<int, List<int>> parseGuardSleepTimes(String input) {
