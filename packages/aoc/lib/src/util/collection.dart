@@ -77,3 +77,15 @@ Map<T, int> frequencies<T>(Iterable<T> elements) {
       return counts;
     });
 }
+
+extension ListExtension<T> on List<T> {
+  Iterable<int> indicesWhere(bool Function(T) test) {
+    final indices = <int>[];
+    int index = indexWhere(test);
+    while (index != -1) {
+      indices.add(index);
+      index = indexWhere(test, index + 1);
+    }
+    return indices;
+  }
+}
