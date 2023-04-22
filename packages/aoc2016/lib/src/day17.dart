@@ -12,7 +12,7 @@ import 'package:crypto/crypto.dart';
 main() => Day17().solve();
 
 class Day17 extends AdventDay {
-  Day17() : super(2016, 17, name: '');
+  Day17() : super(2016, 17, name: 'Two Steps Forward');
 
   static List<Vec2> directions = [
     Vec2.up, Vec2.down, Vec2.left, Vec2.right
