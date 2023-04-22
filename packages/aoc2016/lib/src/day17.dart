@@ -39,7 +39,7 @@ class Day17 extends AdventDay {
 
   @override
   dynamic part2(String input) {
-    // Longest path is NP-hard, so just try brute for here
+    // Longest path is NP-hard, so just try brute here.
     final Vec2 goal = Vec2(3, 3);
     int maxPath = 0;
     final List<Position> openPositions = [Position(input, Vec2.zero)];
