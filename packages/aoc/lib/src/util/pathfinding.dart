@@ -2,12 +2,13 @@ import 'package:collection/collection.dart';
 
 Iterable<L>? aStarPath<L>({
   required L start,
-  required L goal,
+  L? goal,
+  bool Function(L)? isGoal,
   required double Function(L) estimatedDistance,
   required double Function(L, L) costTo,
   required Iterable<L> Function(L) neighborsOf,
 }) {
-
+  assert(goal != null || isGoal != null);
   final cameFrom = <L, L>{};
   final gScore = <L, double>{start: 0};
   final fScore = <L, double>{start: estimatedDistance(start)};
@@ -19,7 +20,7 @@ Iterable<L>? aStarPath<L>({
   while (openSet.isNotEmpty) {
     L current = openHeap.removeFirst();
     openSet.remove(current);
-    if (current == goal) {
+    if ((goal != null && current == goal) || (isGoal != null && isGoal(current))) {
       final path = [current];
       while (cameFrom.keys.contains(current)) {
         current = cameFrom[current] as L;
@@ -45,12 +46,13 @@ Iterable<L>? aStarPath<L>({
 
 double? aStarLowestCost<L>({
   required L start,
-  required L goal,
+  L? goal,
+  bool Function(L)? isGoal,
   required double Function(L) estimatedDistance,
   required double Function(L, L) costTo,
   required Iterable<L> Function(L) neighborsOf,
 }) {
-
+  assert(goal != null || isGoal != null);
   final cameFrom = <L, L>{};
   final gScore = <L, double>{start: 0};
   final fScore = <L, double>{start: estimatedDistance(start)};
@@ -62,7 +64,7 @@ double? aStarLowestCost<L>({
   while (openSet.isNotEmpty) {
     var current = openHeap.removeFirst();
     openSet.remove(current);
-    if (current == goal) {
+    if ((goal != null && current == goal) || (isGoal != null && isGoal(current))) {
       return gScore[current];
     }
     for (final neighbor in neighborsOf(current)) {
