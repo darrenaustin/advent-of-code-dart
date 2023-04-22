@@ -2,7 +2,6 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:collection/collection.dart';
 
 main() => Day15().solve();
 
