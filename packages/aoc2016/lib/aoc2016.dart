@@ -19,6 +19,7 @@ import 'src/day15.dart' show Day15;
 import 'src/day16.dart' show Day16;
 import 'src/day17.dart' show Day17;
 import 'src/day18.dart' show Day18;
+import 'src/day19.dart' show Day19;
 
 final aoc2016Days = <int, AdventDay>{
   01: Day01(),
@@ -39,4 +40,5 @@ final aoc2016Days = <int, AdventDay>{
   16: Day16(),
   17: Day17(),
   18: Day18(),
+  19: Day19(),
 };
