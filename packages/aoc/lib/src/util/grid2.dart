@@ -37,14 +37,6 @@ class Grid<T> {
     return grid;
   }
 
-  bool equals(Grid<T> other) {
-    return
-      width == other.width &&
-      height == other.height &&
-      defaultValue == other.defaultValue &&
-      DeepCollectionEquality().equals(_cells, other._cells);
-  }
-
   T cell(Vec2 p) => _cells[p.yInt][p.xInt];
   void setCell(Vec2 p, T value) => _cells[p.yInt][p.xInt] = value;
 
@@ -126,6 +118,30 @@ class Grid<T> {
     offsets
       .map((Vec2 o) => p + o)
       .where(validCell);
+
+  static final deepEq = DeepCollectionEquality();
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other.runtimeType != runtimeType) {
+      return false;
+    }
+    return other is Grid<T>
+      && other.width == width
+      && other.height == height
+      && other.defaultValue == defaultValue
+      && deepEq.equals(other._cells, _cells);
+  }
+
+  @override
+  int get hashCode =>
+    width.hashCode ^
+    height.hashCode ^
+    defaultValue.hashCode ^
+    deepEq.hash(_cells);
 
   @override
   String toString() => _cells.map((List<T> r) => r.join(' ')).join('\n');

@@ -34,7 +34,7 @@ class Day11 extends AdventDay {
     var equilibrium = false;
     while (!equilibrium) {
       final nextSeats = rules(seats);
-      equilibrium = seats.equals(nextSeats);
+      equilibrium = seats == nextSeats;
       seats = nextSeats;
     }
     return seats.cellsWhere(isSeatOccupied).length;
