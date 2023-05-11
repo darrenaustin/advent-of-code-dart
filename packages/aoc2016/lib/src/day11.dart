@@ -65,7 +65,7 @@ class Day11 extends AdventDay {
   }
 }
 
-class Pair extends Comparable<Pair> {
+class Pair implements Comparable<Pair> {
   Pair(this.chip, this.generator);
 
   final int chip;
