@@ -9,7 +9,7 @@ import 'package:aoc2021/aoc2021.dart';
 import 'package:aoc2022/aoc2022.dart';
 import 'package:aoc2023/aoc2023.dart';
 
-final allYearDays = <int, Map<int, AdventDay>>{
+final allYearDays = <int, Map<int, AdventDay>> {
   2015: aoc2015Days,
   2016: aoc2016Days,
   2017: aoc2017Days,
