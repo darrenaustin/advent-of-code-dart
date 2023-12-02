@@ -25,6 +25,8 @@ dependencies:
     path: packages/aoc2021
   aoc2022:
     path: packages/aoc2022
+  aoc2023:
+    path: packages/aoc2023
 
   args: ^2.2.0
   collection: ^1.15.0

@@ -7,8 +7,9 @@ import 'package:aoc2019/aoc2019.dart';
 import 'package:aoc2020/aoc2020.dart';
 import 'package:aoc2021/aoc2021.dart';
 import 'package:aoc2022/aoc2022.dart';
+import 'package:aoc2023/aoc2023.dart';
 
-final allYearDays = <int, Map<int, AdventDay>> {
+final allYearDays = <int, Map<int, AdventDay>>{
   2015: aoc2015Days,
   2016: aoc2016Days,
   2017: aoc2017Days,
@@ -17,6 +18,7 @@ final allYearDays = <int, Map<int, AdventDay>> {
   2020: aoc2020Days,
   2021: aoc2021Days,
   2022: aoc2022Days,
+  2023: aoc2023Days,
 };
 
 final List<AdventDay> allDays = <AdventDay>[
@@ -28,4 +30,5 @@ final List<AdventDay> allDays = <AdventDay>[
   ...aoc2020Days.values,
   ...aoc2021Days.values,
   ...aoc2022Days.values,
+  ...aoc2023Days.values,
 ];

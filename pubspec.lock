@@ -80,6 +80,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  aoc2023:
+    dependency: "direct main"
+    description:
+      path: "packages/aoc2023"
+      relative: true
+    source: path
+    version: "1.0.0"
   args:
     dependency: "direct main"
     description:
