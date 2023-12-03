@@ -11,7 +11,7 @@ import 'package:collection/collection.dart';
 main() => Day03().solve();
 
 class Day03 extends AdventDay {
-  Day03() : super(2023, 3, name: '');
+  Day03() : super(2023, 3, name: 'Gear Ratios');
 
   static RegExp symbolRegExp = RegExp(r'[^\.0-9]', multiLine: true);
   static RegExp gearRegExp = RegExp(r'\*', multiLine: true);
