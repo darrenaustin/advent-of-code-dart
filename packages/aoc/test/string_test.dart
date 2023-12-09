@@ -12,6 +12,12 @@ main() {
       expect('123\nabc\n10'.lines, ['123', 'abc', '10']);
       expect('\nabc\n\n10\n'.lines, ['', 'abc', '', '10', '']);
     });
+
+    test('numbers', () {
+      expect('1 2 3 4'.numbers(), [1, 2, 3, 4]);
+      expect('prefix: -5   6 7 9 infix 10 12 -19393 sufix'.numbers(),
+          [-5, 6, 7, 9, 10, 12, -19393]);
+    });
   });
 
   group('RegExp extensions', () {

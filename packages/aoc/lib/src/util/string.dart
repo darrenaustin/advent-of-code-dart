@@ -2,6 +2,9 @@ extension StringExtension on String {
   List<String> get chars => split('');
 
   List<String> get lines => split('\n');
+
+  List<int> numbers() =>
+      RegExp(r'-?\d+').allStringMatches(this).map(int.parse).toList();
 }
 
 extension RegExpExtension on RegExp {
