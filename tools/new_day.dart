@@ -7,7 +7,6 @@ import 'package:path/path.dart' as path;
 import 'update_days.dart';
 
 void main(List<String> arguments) async {
-
   final ArgParser parser = ArgParser();
   parser.addOption('year', abbr: 'y', mandatory: true);
   parser.addOption('day', abbr: 'd', mandatory: true);
@@ -16,17 +15,18 @@ void main(List<String> arguments) async {
   final int? yearNum = int.tryParse(parsed['year']);
   final int? dayNum = int.tryParse(parsed['day']);
   if (yearNum == null) {
-    throw('Invalid year: $yearNum');
+    throw ('Invalid year: $yearNum');
   }
   if (dayNum == null) {
-    throw('Invalid day: $dayNum');
+    throw ('Invalid day: $dayNum');
   }
 
   String year = yearNum.toString();
   String day = dayNum.toString().padLeft(2, '0');
 
   // Create the skeleton for the day's solution
-  final dayFilePath = path.join(packagesPath, 'aoc$year', 'lib', 'src', 'day$day.dart');
+  final dayFilePath =
+      path.join(packagesPath, 'aoc$year', 'lib', 'src', 'day$day.dart');
   final dayFile = File(dayFilePath);
   if (!dayFile.existsSync()) {
     dayFile.createSync(recursive: true);
@@ -61,8 +61,9 @@ void main(List<String> arguments) async {
   Directory.current = path.join(packagesPath, 'aoc$year');
 
   // Create an empty input file
-  final inputFile = File(path.join(AdventDay.inputRepoBase, year, '${day}_input.txt'));
-  if (!inputFile.existsSync()) {
+  final inputFile =
+      File(path.join(AdventDay.inputRepoBase, year, '${day}_input.txt'));
+  if (!inputFile.existsSync() || inputFile.lengthSync() == 0) {
     inputFile.createSync(recursive: true);
 
     // Try to copy the input file from the website.
@@ -73,7 +74,8 @@ void main(List<String> arguments) async {
     if (sessionId == null) {
       print('No session data found, unable to download input file');
     } else {
-      final inputURL = Uri.parse("https://adventofcode.com/$year/day/$dayNum/input");
+      final inputURL =
+          Uri.parse("https://adventofcode.com/$year/day/$dayNum/input");
       print('Fetching input data: $inputURL');
       final client = HttpClient();
       try {
@@ -95,10 +97,11 @@ void main(List<String> arguments) async {
   }
 
   // Create an empty answer file
-  final answerFile = File(path.join(AdventDay.inputRepoBase, year, '${day}_answer.json'));
+  final answerFile =
+      File(path.join(AdventDay.inputRepoBase, year, '${day}_answer.json'));
   if (!answerFile.existsSync()) {
     answerFile.createSync(recursive: true);
-    answerFile.writeAsStringSync('{\n}\n');
+    answerFile.writeAsStringSync('{\n  "answer1": ,\n  "answer2": \n}\n');
   }
 
   exit(0);
