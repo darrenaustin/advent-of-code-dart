@@ -10,6 +10,7 @@ import 'src/day06.dart' show Day06;
 import 'src/day07.dart' show Day07;
 import 'src/day08.dart' show Day08;
 import 'src/day09.dart' show Day09;
+import 'src/day10.dart' show Day10;
 
 final aoc2023Days = <int, AdventDay>{
   01: Day01(),
@@ -21,4 +22,5 @@ final aoc2023Days = <int, AdventDay>{
   07: Day07(),
   08: Day08(),
   09: Day09(),
+  10: Day10(),
 };
