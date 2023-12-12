@@ -5,6 +5,9 @@ extension StringExtension on String {
 
   List<int> numbers() =>
       RegExp(r'-?\d+').allStringMatches(this).map(int.parse).toList();
+
+  String repeat(int times, [String seperator = '']) =>
+      List.generate(times, (_) => this).join(seperator);
 }
 
 extension RegExpExtension on RegExp {

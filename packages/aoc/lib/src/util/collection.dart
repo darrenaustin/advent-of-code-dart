@@ -2,14 +2,14 @@ extension IterableIntExtension on Iterable<int> {
   int get product => fold<int>(1, (int p, int e) => p * e);
 
   int minBy(Comparator<int> comparator) =>
-    reduce((int m, int e) => comparator(e, m) < 0 ? e : m);
+      reduce((int m, int e) => comparator(e, m) < 0 ? e : m);
 }
 
 extension IterableDoubleExtension on Iterable<double> {
   double get product => fold<double>(1, (double p, double e) => p * e);
 
   double minBy(Comparator<double> comparator) =>
-    reduce((double m, double e) => comparator(e, m) < 0 ? e : m);
+      reduce((double m, double e) => comparator(e, m) < 0 ? e : m);
 }
 
 extension IterableExtensions<T> on Iterable<T> {
@@ -37,7 +37,7 @@ extension IterableExtensions<T> on Iterable<T> {
 
 extension IterableComparableExtension<T extends Comparable<T>> on Iterable<T> {
   T minBy(Comparator<T> comparator) =>
-    reduce((T m, T e) => comparator(e, m) < 0 ? e : m);
+      reduce((T m, T e) => comparator(e, m) < 0 ? e : m);
 }
 
 Iterable<int> range(int startOrEnd, [int? end, int? step]) sync* {
@@ -72,10 +72,10 @@ extension DefaultMap<K, V> on Map<K, V> {
 
 /// Returns a map of element to element count for the given iterable.
 Map<T, int> frequencies<T>(Iterable<T> elements) {
-    return elements.fold({}, (counts, element) {
-      counts[element] = (counts[element] ?? 0) + 1;
-      return counts;
-    });
+  return elements.fold({}, (counts, element) {
+    counts[element] = (counts[element] ?? 0) + 1;
+    return counts;
+  });
 }
 
 extension ListExtension<T> on List<T> {
@@ -88,4 +88,8 @@ extension ListExtension<T> on List<T> {
     }
     return indices;
   }
+
+  List<T> repeat(int times) => [
+        for (int i = 0; i < times; i++) ...this,
+      ];
 }

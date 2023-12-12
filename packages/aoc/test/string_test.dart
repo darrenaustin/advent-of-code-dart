@@ -18,6 +18,13 @@ main() {
       expect('prefix: -5   6 7 9 infix 10 12 -19393 sufix'.numbers(),
           [-5, 6, 7, 9, 10, 12, -19393]);
     });
+
+    test('repeat', () {
+      expect('abc'.repeat(3), 'abcabcabc');
+      expect(''.repeat(10), '');
+      expect('abc'.repeat(3, '_'), 'abc_abc_abc');
+      expect('_'.repeat(3, 'abc'), '_abc_abc_');
+    });
   });
 
   group('RegExp extensions', () {
