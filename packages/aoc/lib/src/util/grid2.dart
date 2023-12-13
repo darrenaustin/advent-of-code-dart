@@ -1,12 +1,12 @@
+import 'package:aoc/util/string.dart';
 import 'package:collection/collection.dart';
 
 import 'vec2.dart';
 
 class Grid<T> {
-  Grid(this.width, int height, this.defaultValue)
-    : _height = height {
-    _cells = List<List<T>>.generate(height,
-      (_) => List<T>.generate(width, (_) => defaultValue));
+  Grid(this.width, int height, this.defaultValue) : _height = height {
+    _cells = List<List<T>>.generate(
+        height, (_) => List<T>.generate(width, (_) => defaultValue));
   }
 
   factory Grid.from(List<List<T>> values, T defaultValue) {
@@ -21,7 +21,10 @@ class Grid<T> {
   }
 
   factory Grid.emptyFrom(Grid<T> other) =>
-    Grid<T>(other.width, other.height, other.defaultValue);
+      Grid<T>(other.width, other.height, other.defaultValue);
+
+  static Grid<String> fromString(String input, [String defaultValue = '.']) =>
+      Grid<String>.from(input.lines.map((l) => l.chars).toList(), defaultValue);
 
   final int width;
   int get height => _height;
@@ -64,8 +67,8 @@ class Grid<T> {
     }
   }
 
-  Iterable<Vec2> locationsWhere(bool Function(T) test)=>
-    locations().where((p) => test(cell(p)));
+  Iterable<Vec2> locationsWhere(bool Function(T) test) =>
+      locations().where((p) => test(cell(p)));
 
   void updateCells(T Function(T) update) {
     for (int row = 0; row < height; row++) {
@@ -102,22 +105,17 @@ class Grid<T> {
     return rows;
   }
 
-  String printRows(int startRow, int numRows) =>
-    _cells
+  String printRows(int startRow, int numRows) => _cells
       .sublist(startRow, startRow + numRows)
       .map((List<T> r) => r.join(' '))
       .join('\n');
 
   Iterable<T> neighbors(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) =>
-    offsets
-      .map((Vec2 o) => p + o)
-      .where(validCell)
-      .map(cell);
+      offsets.map((Vec2 o) => p + o).where(validCell).map(cell);
 
-  Iterable<Vec2> neighborLocations(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) =>
-    offsets
-      .map((Vec2 o) => p + o)
-      .where(validCell);
+  Iterable<Vec2> neighborLocations(Vec2 p,
+          [List<Vec2> offsets = Vec2.aroundDirs]) =>
+      offsets.map((Vec2 o) => p + o).where(validCell);
 
   static final deepEq = DeepCollectionEquality();
 
@@ -129,19 +127,19 @@ class Grid<T> {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is Grid<T>
-      && other.width == width
-      && other.height == height
-      && other.defaultValue == defaultValue
-      && deepEq.equals(other._cells, _cells);
+    return other is Grid<T> &&
+        other.width == width &&
+        other.height == height &&
+        other.defaultValue == defaultValue &&
+        deepEq.equals(other._cells, _cells);
   }
 
   @override
   int get hashCode =>
-    width.hashCode ^
-    height.hashCode ^
-    defaultValue.hashCode ^
-    deepEq.hash(_cells);
+      width.hashCode ^
+      height.hashCode ^
+      defaultValue.hashCode ^
+      deepEq.hash(_cells);
 
   @override
   String toString() => _cells.map((List<T> r) => r.join(' ')).join('\n');
