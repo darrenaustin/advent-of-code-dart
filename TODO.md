@@ -33,4 +33,4 @@ Just some ideas for future improvements:
 - [ ] Calculate a better upper bound for vy in 2021 17.
 - [ ] Find a general solution for the cube folding in 2022 22.
 - [ ] Find a way to speed up the combinatorics of 2023 11.
-
+- [ ] Clean up 2023 14

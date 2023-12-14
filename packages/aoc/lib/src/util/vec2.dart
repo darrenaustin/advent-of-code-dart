@@ -6,7 +6,9 @@ import 'math.dart';
 class Vec2 {
   const Vec2(this.x, this.y);
 
-  Vec2.int(int x, int y) : x = x.toDouble(), y = y.toDouble();
+  Vec2.int(int x, int y)
+      : x = x.toDouble(),
+        y = y.toDouble();
 
   final double x;
   final double y;
@@ -23,21 +25,46 @@ class Vec2 {
   static const Vec2 downLeft = Vec2(-1, 1);
   static const Vec2 left = Vec2(-1, 0);
   static const Vec2 upLeft = Vec2(-1, -1);
+  static const Vec2 north = up;
+  static const Vec2 west = left;
+  static const Vec2 east = right;
+  static const Vec2 south = down;
+
+  static final orthoganalOpposite = <Vec2, Vec2>{
+    up: down,
+    down: up,
+    left: right,
+    right: left,
+  };
 
   static const List<Vec2> cardinalDirs = <Vec2>[
-    Vec2.upLeft,   Vec2.up,   Vec2.upRight,
-    Vec2.left,     Vec2.zero, Vec2.right,
-    Vec2.downLeft, Vec2.down, Vec2.downRight,
+    Vec2.upLeft,
+    Vec2.up,
+    Vec2.upRight,
+    Vec2.left,
+    Vec2.zero,
+    Vec2.right,
+    Vec2.downLeft,
+    Vec2.down,
+    Vec2.downRight,
   ];
 
   static const List<Vec2> aroundDirs = <Vec2>[
-    Vec2.upLeft,   Vec2.up,   Vec2.upRight,
-    Vec2.left,                Vec2.right,
-    Vec2.downLeft, Vec2.down, Vec2.downRight,
+    Vec2.upLeft,
+    Vec2.up,
+    Vec2.upRight,
+    Vec2.left,
+    Vec2.right,
+    Vec2.downLeft,
+    Vec2.down,
+    Vec2.downRight,
   ];
 
   static const List<Vec2> orthogonalDirs = [
-    Vec2.up, Vec2.down, Vec2.left, Vec2.right,
+    Vec2.up,
+    Vec2.down,
+    Vec2.left,
+    Vec2.right,
   ];
 
   double get magnitude => sqrt(x * x + y * y);
@@ -55,7 +82,7 @@ class Vec2 {
   double squaredDistanceTo(Vec2 other) => (this - other).squaredMagnitude;
 
   double manhattanDistanceTo(Vec2 other) =>
-    (x - other.x).abs() + (y - other.y).abs();
+      (x - other.x).abs() + (y - other.y).abs();
 
   double crossProduct(Vec2 other) => x * other.y - y * other.x;
 
@@ -81,11 +108,11 @@ class Vec2 {
 
   @override
   bool operator ==(Object other) =>
-    identical(other, this) ||
-      (other is Vec2
-        && other.runtimeType == runtimeType
-        && other.x == x
-        && other.y == y);
+      identical(other, this) ||
+      (other is Vec2 &&
+          other.runtimeType == runtimeType &&
+          other.x == x &&
+          other.y == y);
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode;
@@ -140,12 +167,14 @@ class LineSegment2 {
     if (m.isInfinite) {
       // vertical line
       final int inc = (to.y - from.y).sign.toInt();
-      for (final int y in range(from.y.truncate(), to.y.truncate() + inc, inc)) {
+      for (final int y
+          in range(from.y.truncate(), to.y.truncate() + inc, inc)) {
         yield Vec2(from.x, y.toDouble());
       }
     } else {
       final int inc = (to.x - from.x).sign.toInt();
-      for (final int x in range(from.x.truncate(), to.x.truncate() + inc, inc)) {
+      for (final int x
+          in range(from.x.truncate(), to.x.truncate() + inc, inc)) {
         final double y = m * x + b;
         if ((y - y.truncateToDouble()).abs() < epsilon) {
           yield Vec2(x.toDouble(), y.truncateToDouble());
