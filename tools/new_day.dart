@@ -101,7 +101,7 @@ void main(List<String> arguments) async {
       File(path.join(AdventDay.inputRepoBase, year, '${day}_answer.json'));
   if (!answerFile.existsSync()) {
     answerFile.createSync(recursive: true);
-    answerFile.writeAsStringSync('{\n  "answer1": ,\n  "answer2": \n}\n');
+    answerFile.writeAsStringSync('{\n\n}\n');
   }
 
   exit(0);

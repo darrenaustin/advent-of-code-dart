@@ -20,13 +20,13 @@ List<String> activeYears() {
   final yearPackagePattern = RegExp(r'aoc\d{4}');
   final packages = Directory(packagesPath);
   return packages
-    .listSync()
-    .whereType<Directory>()
-    .map((d) => path.basename(d.path))
-    .where((p) => yearPackagePattern.hasMatch(p))
-    .map((s) => s.substring(3))
-    .sorted()
-    .toList();
+      .listSync()
+      .whereType<Directory>()
+      .map((d) => path.basename(d.path))
+      .where((p) => yearPackagePattern.hasMatch(p))
+      .map((s) => s.substring(3))
+      .sorted()
+      .toList();
 }
 
 Future<void> updateYearFiles(String year) async {
@@ -35,11 +35,12 @@ Future<void> updateYearFiles(String year) async {
   final yearTestPath = path.join(packagesPath, 'aoc$year', 'test');
   final dayDir = Directory(yearSrcPath);
   final RegExp dayRegexp = RegExp(r'day(\d\d).dart');
-  final List<String> days = dayDir.listSync()
-    .whereType<File>()
-    .where((d) => dayRegexp.hasMatch(path.basename(d.path)))
-    .map((d) => dayRegexp.firstMatch(path.basename(d.path))!.group(1)!)
-    .toList()
+  final List<String> days = dayDir
+      .listSync()
+      .whereType<File>()
+      .where((d) => dayRegexp.hasMatch(path.basename(d.path)))
+      .map((d) => dayRegexp.firstMatch(path.basename(d.path))!.group(1)!)
+      .toList()
     ..sort();
 
   final packageFile = File(path.join(yearLibPath, 'aoc$year.dart'));
@@ -108,18 +109,21 @@ Future<void> writeTestFile(String dirPath, String year, String day) async {
   out.writeln();
   out.writeln("main() {");
   out.writeln("  group('$year Day $day', () {");
+  out.writeln("    final exampleInput = '''");
+  out.writeln("    ''';");
+  out.writeln();
   out.writeln("    group('part 1', () {");
-  out.writeln("      // test('example', () {");
-  out.writeln("      //   expect(Day$day().part1(exampleInput), 0); ");
-  out.writeln("      // });");
+  out.writeln("      test('example', () {");
+  out.writeln("        expect(Day$day().part1(exampleInput), 0); ");
+  out.writeln("      });");
   out.writeln();
   out.writeln("      test('solution', () => Day$day().testPart1());");
   out.writeln("    });");
   out.writeln();
   out.writeln("    group('part 2', () {");
-  out.writeln("      // test('example', () {");
-  out.writeln("      //   expect(Day$day().part2(exampleInput), 0); ");
-  out.writeln("      // });");
+  out.writeln("      test('example', () {");
+  out.writeln("        expect(Day$day().part2(exampleInput), 0); ");
+  out.writeln("      });");
   out.writeln();
   out.writeln("      test('solution', () => Day$day().testPart2());");
   out.writeln("    });");
