@@ -47,4 +47,15 @@ main() {
       expect([1, 2, 3].repeat(-1), []);
     });
   });
+
+  group('Set extensions', () {
+    test('removeFirst', () {
+      final s = {1, 2, 3};
+      final origFirst = s.first;
+      final removedFirst = s.removeFirst();
+      expect(removedFirst, origFirst);
+      expect(s.contains(origFirst), isFalse);
+      expect(s.length, 2);
+    });
+  });
 }

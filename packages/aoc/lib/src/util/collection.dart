@@ -93,3 +93,11 @@ extension ListExtension<T> on List<T> {
         for (int i = 0; i < times; i++) ...this,
       ];
 }
+
+extension SetExtension<T> on Set<T> {
+  T removeFirst() {
+    final value = first;
+    remove(value);
+    return value;
+  }
+}
