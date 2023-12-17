@@ -110,7 +110,7 @@ Future<void> writeTestFile(String dirPath, String year, String day) async {
   out.writeln("main() {");
   out.writeln("  group('$year Day $day', () {");
   out.writeln("    final exampleInput = '''");
-  out.writeln("    ''';");
+  out.writeln("''';");
   out.writeln();
   out.writeln("    group('part 1', () {");
   out.writeln("      test('example', () {");
