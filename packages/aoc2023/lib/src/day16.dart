@@ -44,10 +44,9 @@ class Day16 extends AdventDay {
     final beams = {(pos, dir)};
     while (beams.isNotEmpty) {
       final beam = beams.removeFirst();
-      if (seenBeams.contains(beam)) {
+      if (!seenBeams.add(beam)) {
         continue;
       }
-      seenBeams.add(beam);
 
       final (pos, dir) = beam;
       if (grid.validCell(pos)) {

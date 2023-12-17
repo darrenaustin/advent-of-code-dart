@@ -34,4 +34,4 @@ Just some ideas for future improvements:
 - [ ] Find a general solution for the cube folding in 2022 22.
 - [x] Find a way to speed up the combinatorics of 2023 11.
 - [ ] Clean up 2023 14
-- [ ] Speed up 2023 17
+- [x] Speed up 2023 17
