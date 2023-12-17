@@ -2,10 +2,12 @@
 // https://adventofcode.com/2023/day/17
 
 import 'package:aoc/aoc.dart';
+import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/grid2.dart';
-import 'package:aoc/util/pathfinding.dart';
+import 'package:aoc/util/math.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
+import 'package:collection/collection.dart';
 
 main() => Day17().solve();
 
@@ -17,34 +19,37 @@ class Day17 extends AdventDay {
     final data =
         input.lines.map((l) => l.chars.map(int.parse).toList()).toList();
     final grid = Grid<int>.from(data, 0);
-    final start = Beam(Vec2.zero, Dir.right, 0);
+    final start = HeatPathNode(0, Vec2.zero, Dir.right, 0);
     var goal = Vec2.int(grid.width - 1, grid.height - 1);
 
-    double costTo(Beam a, Beam b) => grid.cell(b.pos).toDouble();
+    final dist = <PathNode, int>{start.node: 0};
+    final queue = PriorityQueue<HeatPathNode>()..add(start);
 
-    Iterable<Beam> neighborsOf(Beam a) {
-      final ns = <Beam>[];
-      final dirs = [...a.dir.rightTurns(), if (a.steps < 3) a.dir];
+    while (queue.isNotEmpty) {
+      var current = queue.removeFirst();
+      if (current.node.pos == goal) {
+        return current.heatLoss;
+      }
+      final neighbors = <HeatPathNode>[];
+      final dirs = [
+        if (current.node.steps < 3) current.node.dir,
+        ...current.node.dir.rightTurns()
+      ];
       for (final d in dirs) {
-        final newPos = a.pos + d.vec;
+        final newPos = current.node.pos + d.vec;
         if (grid.validCell(newPos)) {
-          if (d == a.dir) {
-            ns.add(Beam(newPos, d, a.steps + 1));
-          } else {
-            ns.add(Beam(newPos, d, 1));
-          }
+          final steps = (current.node.dir == d) ? current.node.steps + 1 : 1;
+          neighbors.add(HeatPathNode(
+              current.heatLoss + grid.cell(newPos), newPos, d, steps));
         }
       }
-      return ns;
+      for (final neighbor in neighbors) {
+        if (neighbor.heatLoss < (dist.getOrElse(neighbor.node, maxInt))) {
+          dist[neighbor.node] = neighbor.heatLoss;
+          queue.add(neighbor);
+        }
+      }
     }
-
-    return dijkstraLowestCost(
-      start: start,
-      isGoal: (p) => p.pos == goal,
-      costTo: costTo,
-      neighborsOf: neighborsOf,
-    )!
-        .toInt();
   }
 
   @override
@@ -52,46 +57,44 @@ class Day17 extends AdventDay {
     final data =
         input.lines.map((l) => l.chars.map(int.parse).toList()).toList();
     final grid = Grid<int>.from(data, 0);
-    final start = Beam(Vec2.zero, Dir.right, 0);
+    final start = HeatPathNode(0, Vec2.zero, Dir.right, 0);
     var goal = Vec2.int(grid.width - 1, grid.height - 1);
 
-    double costTo(Beam a, Beam b) {
-      var current = b.pos;
-      double cost = 0;
-      while (current != a.pos) {
-        cost += grid.cell(current);
-        current -= b.dir.vec;
-      }
-      return cost;
-    }
+    final dist = <PathNode, int>{start.node: 0};
+    final queue = PriorityQueue<HeatPathNode>()..add(start);
 
-    Iterable<Beam> neighborsOf(Beam a) {
-      final ns = <Beam>[];
-      final dirs = [...a.dir.rightTurns(), if (a.steps < 10) a.dir];
-      for (final d in dirs) {
-        if (d == a.dir) {
-          final newPos = a.pos + d.vec;
-          if (grid.validCell(newPos)) {
-            ns.add(Beam(newPos, d, a.steps + 1));
-          }
-        } else {
-          final newPos = a.pos + (d.vec * 4);
-          if (grid.validCell(newPos)) {
-            ns.add(Beam(newPos, d, 4));
-          }
+    while (queue.isNotEmpty) {
+      var current = queue.removeFirst();
+      if (current.node.pos == goal) {
+        return current.heatLoss;
+      }
+      final neighbors = <HeatPathNode>[];
+      if (current.node.steps < 10) {
+        final newPos = current.node.pos + current.node.dir.vec;
+        if (grid.validCell(newPos)) {
+          neighbors.add(HeatPathNode(current.heatLoss + grid.cell(newPos),
+              newPos, current.node.dir, current.node.steps + 1));
         }
       }
-      return ns;
+      for (final d in current.node.dir.rightTurns()) {
+        final newPos = current.node.pos + (d.vec * 4);
+        if (grid.validCell(newPos)) {
+          var cost = 0;
+          var step = newPos;
+          while (step != current.node.pos) {
+            cost += grid.cell(step);
+            step -= d.vec;
+          }
+          neighbors.add(HeatPathNode(current.heatLoss + cost, newPos, d, 4));
+        }
+      }
+      for (final neighbor in neighbors) {
+        if (neighbor.heatLoss < (dist.getOrElse(neighbor.node, maxInt))) {
+          dist[neighbor.node] = neighbor.heatLoss;
+          queue.add(neighbor);
+        }
+      }
     }
-
-    return dijkstraLowestCost(
-      start: start,
-      isGoal: (p) => p.pos == goal,
-      // estimatedDistance: (p) => p.pos.manhattanDistanceTo(goal),
-      costTo: costTo,
-      neighborsOf: neighborsOf,
-    )!
-        .toInt();
   }
 }
 
@@ -118,15 +121,15 @@ enum Dir {
   }
 }
 
-class Beam {
+class PathNode {
   final Vec2 pos;
   final Dir dir;
   final int steps;
 
-  Beam(this.pos, this.dir, this.steps);
+  PathNode(this.pos, this.dir, this.steps);
 
   @override
-  bool operator ==(covariant Beam other) {
+  bool operator ==(covariant PathNode other) {
     if (identical(this, other)) return true;
 
     return other.pos == pos && other.dir == dir && other.steps == steps;
@@ -134,7 +137,15 @@ class Beam {
 
   @override
   int get hashCode => pos.hashCode ^ dir.hashCode ^ steps.hashCode;
+}
+
+class HeatPathNode implements Comparable {
+  final int heatLoss;
+  final PathNode node;
+
+  HeatPathNode(this.heatLoss, Vec2 pos, Dir dir, int steps)
+      : node = PathNode(pos, dir, steps);
 
   @override
-  String toString() => 'Beam(pos: $pos, dir: $dir, steps: $steps)';
+  int compareTo(other) => heatLoss.compareTo((other as HeatPathNode).heatLoss);
 }

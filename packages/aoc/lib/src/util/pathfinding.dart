@@ -132,7 +132,6 @@ double? dijkstraLowestCost<L>({
   required Iterable<L> Function(L) neighborsOf,
 }) {
   final dist = <L, double>{start: 0};
-  final prev = <L, L>{};
   int compareByDist(L a, L b) =>
       (dist[a] ?? double.infinity).compareTo(dist[b] ?? double.infinity);
   final queue = PriorityQueue<L>(compareByDist)..add(start);
@@ -147,7 +146,6 @@ double? dijkstraLowestCost<L>({
       final score = dist[current]! + costTo(current, neighbor);
       if (score < (dist[neighbor] ?? double.infinity)) {
         dist[neighbor] = score;
-        prev[neighbor] = current;
         queue.add(neighbor);
       }
     }
