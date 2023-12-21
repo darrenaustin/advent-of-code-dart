@@ -25,6 +25,18 @@ main() {
       expect('abc'.repeat(3, '_'), 'abc_abc_abc');
       expect('_'.repeat(3, 'abc'), '_abc_abc_');
     });
+
+    test('isLowerCase', () {
+      expect('abcd'.isLowerCase(), isTrue);
+      expect('Abcd'.isLowerCase(), isFalse);
+      expect('--abcd!!'.isLowerCase(), isFalse);
+    });
+
+    test('isUpperCase', () {
+      expect('ABCD'.isUpperCase(), isTrue);
+      expect('Abcd'.isUpperCase(), isFalse);
+      expect('--ABCD!!'.isUpperCase(), isFalse);
+    });
   });
 
   group('RegExp extensions', () {

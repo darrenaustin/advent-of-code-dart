@@ -8,6 +8,16 @@ extension StringExtension on String {
 
   String repeat(int times, [String seperator = '']) =>
       List.generate(times, (_) => this).join(seperator);
+
+  static final int _lowerA = 'a'.codeUnits[0];
+  static final int _lowerZ = 'z'.codeUnits[0];
+  static final int _upperA = 'A'.codeUnits[0];
+  static final int _upperZ = 'Z'.codeUnits[0];
+
+  bool isLowerCase() => chars
+      .every((c) => _lowerA <= c.codeUnits[0] && c.codeUnits[0] <= _lowerZ);
+  bool isUpperCase() => chars
+      .every((c) => _upperA <= c.codeUnits[0] && c.codeUnits[0] <= _upperZ);
 }
 
 extension RegExpExtension on RegExp {
