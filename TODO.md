@@ -35,3 +35,4 @@ Just some ideas for future improvements:
 - [x] Find a way to speed up the combinatorics of 2023 11.
 - [ ] Clean up 2023 14
 - [x] Speed up 2023 17
+- [ ] Speed up 2018 05
