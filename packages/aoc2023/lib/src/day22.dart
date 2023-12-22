@@ -6,191 +6,162 @@ import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
+// Orig times for part2: 3622, 3839, 3993
+
 main() => Day22().solve();
 
 class Day22 extends AdventDay {
   Day22() : super(2023, 22, name: 'Sand Slabs');
 
   @override
-  dynamic part1(String input) {
-    final lines = input.lines.mapIndexed((i, l) => Line('$i', l)).toList();
-    final space = Space();
-    for (final l in lines) {
-      space.addLine(l);
-    }
-    dropLines(space, lines);
-
-    final canNuke = <Line>[];
-    for (final nuked in lines) {
-      space.removeLine(nuked);
-      if (lines.every((l) => l == nuked || !space.canDrop(l))) {
-        canNuke.add(nuked);
-      }
-      space.addLine(nuked);
-    }
-    return canNuke.length;
-  }
+  dynamic part1(String input) =>
+      (BrickSpace(input)..dropBricks()).numSafelyDisintegrate();
 
   @override
   dynamic part2(String input) {
-    final lines = input.lines.mapIndexed((i, l) => Line('$i', l)).toList();
-    final space = Space();
-    for (final l in lines) {
-      space.addLine(l);
-    }
-    dropLines(space, lines);
+    final space = BrickSpace(input)..dropBricks();
 
     int sumFallingBricks = 0;
-    for (int i = 0; i < lines.length; i++) {
-      final num = distintegrate(space, lines, i);
-      sumFallingBricks += num.length;
+    for (final b in space.bricks) {
+      sumFallingBricks += BrickSpace.from(space).distintegrate(b);
     }
     return sumFallingBricks;
   }
-
-  void dropLines(Space space, List<Line> lines) {
-    bool linesDropped = true;
-    while (linesDropped) {
-      linesDropped = false;
-      for (final l in lines) {
-        while (space.dropLine(l)) {
-          linesDropped = true;
-        }
-      }
-    }
-  }
-
-  List<String> distintegrate(Space space, List<Line> lines, int index) {
-    space = Space.from(space);
-    space.removeLine(lines[index]);
-    final tempLines = [
-      ...lines.where((l) => l != lines[index]).map((l) => Line.from(l))
-    ];
-    assert(tempLines.length == lines.length - 1);
-    final dropped = <String>{};
-    bool linesDropped = true;
-    while (linesDropped) {
-      linesDropped = false;
-      for (final l in tempLines) {
-        while (space.dropLine(l)) {
-          dropped.add(l.id);
-          linesDropped = true;
-        }
-      }
-    }
-    return dropped.toList();
-  }
 }
 
-class Line {
-  factory Line(String id, String input) {
+class Brick {
+  factory Brick(String id, String input) {
     final ns = input.numbers();
-    final start = Vec3.int(ns[0], ns[1], ns[2]);
-    final end = Vec3.int(ns[3], ns[4], ns[5]);
-    return Line._(id, start, end);
-  }
-
-  Line._(this.id, this.start, this.end)
-      : _verticalBottom = (start.x == end.x && start.y == end.y)
-            ? (start.z > end.z)
-                ? end
-                : start
-            : null;
-
-  factory Line.from(Line other) => Line._(other.id, other.start, other.end);
-
-  final String id;
-  Vec3 start;
-  Vec3 end;
-
-  Vec3? _verticalBottom;
-  bool get isVertical => _verticalBottom != null;
-
-  int get bottom => _verticalBottom?.zInt ?? start.zInt;
-
-  Vec3 direction() => start.directionTo(end);
-
-  List<Vec3> points() {
-    if (start == end) {
-      return [start];
+    var start = Vec3.int(ns[0], ns[1], ns[2]);
+    var end = Vec3.int(ns[3], ns[4], ns[5]);
+    if (start.zInt > end.zInt) {
+      (start, end) = (end, start);
     }
-    final ps = <Vec3>[];
-    final dir = direction();
+
+    final points = <Vec3>[];
+    final dir = start.directionTo(end);
     var pos = start;
     while (pos != end) {
-      ps.add(pos);
+      points.add(pos);
       pos += dir;
     }
-    ps.add(end);
-    return ps;
+    points.add(end);
+
+    return Brick._(id, points);
   }
 
-  List<Vec3> bottomPoints() {
-    if (_verticalBottom != null) {
-      return [_verticalBottom!];
-    }
-    return points();
+  Brick._(this.id, this._points)
+      : _vertical = _points.first.x == _points.last.x &&
+            _points.first.y == _points.last.y;
+
+  factory Brick.from(Brick other) => Brick._(other.id, other._points);
+
+  final String id;
+  List<Vec3> _points;
+  Iterable<Vec3> get points => _points;
+  Vec3 get start => _points.first;
+  Vec3 get end => _points.last;
+
+  final bool _vertical;
+  bool get isVertical => _vertical;
+
+  int get bottom => start.zInt;
+
+  Iterable<Vec3> bottomPoints() => (isVertical) ? [start] : points;
+
+  void move(Vec3 delta) {
+    _points = _points.map((p) => p + delta).toList();
   }
-
-  void update(Vec3 delta) {
-    start += delta;
-    end += delta;
-    if (_verticalBottom != null) {
-      _verticalBottom = (start.z > end.z) ? end : start;
-    }
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Line &&
-        other.id == id &&
-        other.start == start &&
-        other.end == end;
-  }
-
-  @override
-  int get hashCode => id.hashCode ^ start.hashCode ^ end.hashCode;
 
   @override
   String toString() => '$id: [$start -> $end]';
 }
 
-class Space {
-  Space();
+class BrickSpace {
+  factory BrickSpace(String input) {
+    final bricks = input.lines.mapIndexed((i, l) => Brick('$i', l)).toList();
+    final occupied = <Vec3>{};
+    for (final b in bricks) {
+      occupied.addAll(b.points);
+    }
+    return BrickSpace._(bricks, occupied);
+  }
 
-  factory Space.from(Space other) => Space().._locs.addAll(other._locs);
+  BrickSpace._(this._bricks, this._occupied);
 
-  final _locs = <Vec3>{};
+  factory BrickSpace.from(BrickSpace other) => BrickSpace._(
+      other.bricks.map((b) => Brick.from(b)).toList(),
+      Set.from(other._occupied));
 
-  void addLine(Line l) => _locs.addAll(l.points());
+  final List<Brick> _bricks;
+  Iterable<Brick> get bricks => _bricks;
 
-  void removeLine(Line l) => _locs.removeAll(l.points());
+  final Set<Vec3> _occupied;
 
   static final Vec3 down = Vec3(0, 0, -1);
 
-  bool canDrop(Line line) {
-    if (line.bottom == 1) {
-      return false;
+  void _addBrick(Brick b) => _occupied.addAll(b.points);
+  void _removeBrick(Brick b) => _occupied.removeAll(b.points);
+
+  Set<String> dropBricks() {
+    final dropped = <String>{};
+    bool brickDropped = true;
+    while (brickDropped) {
+      brickDropped = false;
+      for (final b in bricks) {
+        if (_dropBrick(b)) {
+          dropped.add(b.id);
+          brickDropped = true;
+        }
+      }
     }
-    return line
-        .bottomPoints()
-        .map((p) => p + down)
-        .every((p) => !_locs.contains(p));
+    return dropped;
   }
 
-  bool dropLine(Line line) {
-    if (line.bottom == 1) {
-      return false;
+  bool _canDrop(Brick brick) {
+    return (brick.bottom == 1)
+        ? false
+        : brick
+            .bottomPoints()
+            .map((p) => p + down)
+            .every((p) => !_occupied.contains(p));
+  }
+
+  bool _dropBrick(Brick brick) {
+    bool dropped = false;
+    bool droppable = true;
+
+    while (droppable) {
+      if (brick.bottom == 1) {
+        return dropped;
+      }
+      final below = brick.bottomPoints().map((p) => p + down);
+      if (below.every((p) => !_occupied.contains(p))) {
+        _removeBrick(brick);
+        brick.move(down);
+        _addBrick(brick);
+        dropped = true;
+      } else {
+        droppable = false;
+      }
     }
-    final below = line.bottomPoints().map((p) => p + down);
-    if (below.every((p) => !_locs.contains(p))) {
-      removeLine(line);
-      line.update(down);
-      addLine(line);
-      return true;
-    }
-    return false;
+    return dropped;
+  }
+
+  bool canSafelyDisintegrate(Brick brick) {
+    _removeBrick(brick);
+    final canDisintegrate =
+        bricks.every((b) => b.id == brick.id || !_canDrop(b));
+    _addBrick(brick);
+    return canDisintegrate;
+  }
+
+  int numSafelyDisintegrate() =>
+      bricks.where((b) => canSafelyDisintegrate(b)).length;
+
+  int distintegrate(Brick brick) {
+    _removeBrick(brick);
+    _bricks.removeWhere((b) => b.id == brick.id);
+    return dropBricks().length;
   }
 }
