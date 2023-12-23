@@ -6,8 +6,6 @@ import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
-// Orig times for part2: 3622, 3839, 3993
-
 main() => Day22().solve();
 
 class Day22 extends AdventDay {
@@ -30,7 +28,7 @@ class Day22 extends AdventDay {
 }
 
 class Brick {
-  factory Brick(String id, String input) {
+  factory Brick(id, String input) {
     final ns = input.numbers();
     var start = Vec3.int(ns[0], ns[1], ns[2]);
     var end = Vec3.int(ns[3], ns[4], ns[5]);
@@ -56,7 +54,7 @@ class Brick {
 
   factory Brick.from(Brick other) => Brick._(other.id, other._points);
 
-  final String id;
+  final int id;
   List<Vec3> _points;
   Iterable<Vec3> get points => _points;
   Vec3 get start => _points.first;
@@ -70,6 +68,10 @@ class Brick {
   Iterable<Vec3> bottomPoints() => (isVertical) ? [start] : points;
 
   void move(Vec3 delta) {
+    // TODO: sort out why we can't replace the list in place.
+    // for (int i = 0; i < _points.length; i++) {
+    //   _points[i] += delta;
+    // }
     _points = _points.map((p) => p + delta).toList();
   }
 
@@ -79,7 +81,8 @@ class Brick {
 
 class BrickSpace {
   factory BrickSpace(String input) {
-    final bricks = input.lines.mapIndexed((i, l) => Brick('$i', l)).toList();
+    final bricks = input.lines.mapIndexed((i, l) => Brick(i, l)).toList()
+      ..sortBy<num>((b) => b.bottom);
     final occupied = <Vec3>{};
     for (final b in bricks) {
       occupied.addAll(b.points);
@@ -103,18 +106,15 @@ class BrickSpace {
   void _addBrick(Brick b) => _occupied.addAll(b.points);
   void _removeBrick(Brick b) => _occupied.removeAll(b.points);
 
-  Set<String> dropBricks() {
-    final dropped = <String>{};
-    bool brickDropped = true;
-    while (brickDropped) {
-      brickDropped = false;
-      for (final b in bricks) {
-        if (_dropBrick(b)) {
-          dropped.add(b.id);
-          brickDropped = true;
-        }
+  Set<int> dropBricks([List<Brick>? bricks]) {
+    bricks ??= _bricks;
+    final dropped = <int>{};
+    for (final b in bricks) {
+      if (_dropBrick(b)) {
+        dropped.add(b.id);
       }
     }
+    _sortBricks();
     return dropped;
   }
 
@@ -161,7 +161,12 @@ class BrickSpace {
 
   int distintegrate(Brick brick) {
     _removeBrick(brick);
-    _bricks.removeWhere((b) => b.id == brick.id);
-    return dropBricks().length;
+    final index = _bricks.indexWhere((b) => b.id == brick.id);
+    _bricks.removeAt(index);
+    return dropBricks(_bricks.sublist(index)).length;
+  }
+
+  void _sortBricks() {
+    _bricks.sortBy<num>((b) => b.bottom);
   }
 }
