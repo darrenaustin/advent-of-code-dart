@@ -117,6 +117,20 @@ class Grid<T> {
           [List<Vec2> offsets = Vec2.aroundDirs]) =>
       offsets.map((Vec2 o) => p + o).where(validCell);
 
+  Iterable<(Vec2, T)> column(int col) sync* {
+    for (int r = 0; r < height; r++) {
+      final pos = Vec2.int(col, r);
+      yield (pos, cell(pos));
+    }
+  }
+
+  Iterable<(Vec2, T)> row(int row) sync* {
+    for (int c = 0; c < width; c++) {
+      final pos = Vec2.int(c, row);
+      yield (pos, cell(pos));
+    }
+  }
+
   static final deepEq = DeepCollectionEquality();
 
   @override

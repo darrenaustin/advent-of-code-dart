@@ -30,13 +30,6 @@ class Vec2 {
   static const Vec2 east = right;
   static const Vec2 south = down;
 
-  static final orthoganalOpposite = <Vec2, Vec2>{
-    up: down,
-    down: up,
-    left: right,
-    right: left,
-  };
-
   static const List<Vec2> cardinalDirs = <Vec2>[
     Vec2.upLeft,
     Vec2.up,
