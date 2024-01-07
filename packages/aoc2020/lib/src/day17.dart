@@ -14,15 +14,15 @@ class Day17 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    cycleWorld(parseWorld(input), 6, _adjacentOffets3d)
-      .whereCells(isActive)
-      .length;
+      cycleWorld(parseWorld(input), 6, _adjacentOffets3d)
+          .whereCells(isActive)
+          .length;
 
   @override
   dynamic part2(String input) =>
-    cycleWorld(parseWorld(input), 6, _adjacentOffets4d)
-      .whereCells(isActive)
-      .length;
+      cycleWorld(parseWorld(input), 6, _adjacentOffets4d)
+          .whereCells(isActive)
+          .length;
 
   World<String> parseWorld(String input) {
     final rows = input.lines.map((e) => e.chars).toList();
@@ -39,7 +39,8 @@ class Day17 extends AdventDay {
 
   bool isActive(String cell) => cell == '#';
 
-  World<String> cycleWorld(World<String> world, int cycles, Iterable<Vec4> adjacentOffsets) {
+  World<String> cycleWorld(
+      World<String> world, int cycles, Iterable<Vec4> adjacentOffsets) {
     for (var cycle = 0; cycle < cycles; cycle++) {
       final nextWorld = World<String>(defaultValue: world.defaultValue);
 
@@ -50,7 +51,9 @@ class Day17 extends AdventDay {
           for (double y = minPoint.y; y <= maxPoint.y; y++) {
             for (double x = minPoint.x; x <= maxPoint.x; x++) {
               final p = Vec4(x, y, z, w);
-              final numActiveNeighbors = adjacentOffsets.where((o) => isActive(world.cell(p + o))).length;
+              final numActiveNeighbors = adjacentOffsets
+                  .where((o) => isActive(world.cell(p + o)))
+                  .length;
               final cell = world.cell(p);
               if (isActive(cell)) {
                 if (numActiveNeighbors == 2 || numActiveNeighbors == 3) {
@@ -71,7 +74,8 @@ class Day17 extends AdventDay {
   }
 
   static final _adjacentOffets3d = _offsets(Vec4(-1, -1, -1), Vec4(1, 1, 1));
-  static final _adjacentOffets4d = _offsets(Vec4(-1, -1, -1, -1), Vec4(1, 1, 1, 1));
+  static final _adjacentOffets4d =
+      _offsets(Vec4(-1, -1, -1, -1), Vec4(1, 1, 1, 1));
 
   static Iterable<Vec4> _offsets(Vec4 min, Vec4 max) {
     final offsets = <Vec4>[];
@@ -92,11 +96,10 @@ class Day17 extends AdventDay {
 }
 
 class World<T> {
-  World({
-    required this.defaultValue
-  }) : _cells = {},
-       _min = Vec4.zero,
-       _max = Vec4.zero;
+  World({required this.defaultValue})
+      : _cells = {},
+        _min = Vec4.zero,
+        _max = Vec4.zero;
 
   final T defaultValue;
 
@@ -130,11 +133,14 @@ class World<T> {
     z[p.yInt] = y;
     w[p.zInt] = z;
     _cells[p.wInt] = w;
-    _min = Vec4(min(_min.x, p.x), min(_min.y, p.y), min(_min.z, p.z), min(_min.w, p.w));
-    _max = Vec4(max(_max.x, p.x), max(_max.y, p.y), max(_max.z, p.z), max(_max.w, p.w));
+    _min = Vec4(
+        min(_min.x, p.x), min(_min.y, p.y), min(_min.z, p.z), min(_min.w, p.w));
+    _max = Vec4(
+        max(_max.x, p.x), max(_max.y, p.y), max(_max.z, p.z), max(_max.w, p.w));
   }
 
-  Iterable<T> whereCells(bool Function(T) test, [Vec4? minP, Vec4? maxP]) sync* {
+  Iterable<T> whereCells(bool Function(T) test,
+      [Vec4? minP, Vec4? maxP]) sync* {
     final min = minP ?? minPoint;
     final max = maxP ?? maxPoint;
     for (double w = min.w; w <= max.w; w++) {

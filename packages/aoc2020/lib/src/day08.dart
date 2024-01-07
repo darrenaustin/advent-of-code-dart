@@ -18,14 +18,12 @@ class Day08 extends AdventDay {
   @override
   dynamic part2(String input) {
     bool canPatch(Instruction instruction) =>
-      instruction.operation == OpCode.nop || instruction.operation == OpCode.jmp;
+        instruction.operation == OpCode.nop ||
+        instruction.operation == OpCode.jmp;
 
-    Instruction patch(Instruction instruction) =>
-      Instruction(instruction.operation == OpCode.nop
-          ? OpCode.jmp
-          : OpCode.nop,
-        instruction.argument
-      );
+    Instruction patch(Instruction instruction) => Instruction(
+        instruction.operation == OpCode.nop ? OpCode.jmp : OpCode.nop,
+        instruction.argument);
 
     final program = parseProgram(input);
     int? patchAddress;
@@ -54,10 +52,7 @@ class Day08 extends AdventDay {
   }
 
   List<Instruction> parseProgram(String input) =>
-    input
-      .lines
-      .map(Instruction.parse)
-      .toList();
+      input.lines.map(Instruction.parse).toList();
 
   bool runUntilCycleDetected(Machine machine) {
     final executedAddressess = <int>{};
@@ -71,7 +66,9 @@ class Day08 extends AdventDay {
 }
 
 enum OpCode {
-  acc('acc'), jmp('jmp'), nop('nop');
+  acc('acc'),
+  jmp('jmp'),
+  nop('nop');
 
   const OpCode(this.name);
   final String name;
@@ -95,9 +92,9 @@ class Instruction {
   final int argument;
 
   static Instruction parse(String text) {
-      final opCode = OpCode.parse(text.substring(0, 3));
-      final argument = int.parse(text.substring(4));
-      return Instruction(opCode, argument);
+    final opCode = OpCode.parse(text.substring(0, 3));
+    final argument = int.parse(text.substring(4));
+    return Instruction(opCode, argument);
   }
 
   @override
@@ -105,7 +102,6 @@ class Instruction {
 }
 
 class Machine {
-
   Machine(this.program);
 
   final List<Instruction> program;

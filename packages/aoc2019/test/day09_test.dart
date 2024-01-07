@@ -6,7 +6,8 @@ main() {
   group('2019 Day 09', () {
     group('part 1', () {
       test('example1', () {
-        final exampleInput = '109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99';
+        final exampleInput =
+            '109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99';
         final machine = Intcode.from(program: exampleInput);
         while (!machine.execute()) {}
         final output = machine.output.join(',');

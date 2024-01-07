@@ -15,18 +15,17 @@ class Day23 extends AdventDay {
   @override
   dynamic part1(String input) {
     // By hand... :)
-    return
-      5 * A +
-      5 * A +
-      2 * C +
-      6 * B +
-      3 * C +
-      4 * C +
-      7 * B +
-      9 * D +
-      9 * D +
-      3 * A +
-      3 * A;
+    return 5 * A +
+        5 * A +
+        2 * C +
+        6 * B +
+        3 * C +
+        4 * C +
+        7 * B +
+        9 * D +
+        9 * D +
+        3 * A +
+        3 * A;
   }
 
   @override
@@ -38,7 +37,6 @@ class Day23 extends AdventDay {
 //   #.#B#C#D#
 //   #.#B#C#D#
 //   #########
-
 
 // Original
 // #############

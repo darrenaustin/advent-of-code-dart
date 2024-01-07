@@ -45,19 +45,21 @@ class Day04 extends AdventDay {
   }
 
   Iterable<int> parseDrawNumbers(String input) =>
-    input.lines.first.split(',').map(int.parse);
+      input.lines.first.split(',').map(int.parse);
 
   List<Grid<int?>> parseBoards(String input) => input
-    .split('\n\n')
-    .skip(1)
-    .map((boardData) => Grid<int?>.from(boardData
-        .lines
-        .map((l) => l.trim().split(RegExp(r'\s+'))
-        .map((n) => int.parse(n.trim())).toList())
-        .toList(),
-      null
-    ))
-    .toList();
+      .split('\n\n')
+      .skip(1)
+      .map((boardData) => Grid<int?>.from(
+          boardData.lines
+              .map((l) => l
+                  .trim()
+                  .split(RegExp(r'\s+'))
+                  .map((n) => int.parse(n.trim()))
+                  .toList())
+              .toList(),
+          null))
+      .toList();
 
   final List<List<Vec2>> winningGroups = [
     // Diagonals don't count, so just lines for rows and columns.
@@ -66,11 +68,11 @@ class Day04 extends AdventDay {
   ];
 
   void removeNumber(Grid<int?> board, int number) =>
-    board.updateCellsWhere((n) => n == number, (_) => null);
+      board.updateCellsWhere((n) => n == number, (_) => null);
 
   bool winning(Grid<int?> board) =>
-    winningGroups.any((g) => g.every((p) => board.cell(p) == null));
+      winningGroups.any((g) => g.every((p) => board.cell(p) == null));
 
   int score(Grid<int?> board, int winningNumber) =>
-    board.cells().whereNotNull().sum * winningNumber;
+      board.cells().whereNotNull().sum * winningNumber;
 }

@@ -30,8 +30,7 @@ class Day21 extends AdventDay {
   }
 
   @override
-  dynamic part2(String input) {
-  }
+  dynamic part2(String input) {}
 }
 
 class DeterministicDie {

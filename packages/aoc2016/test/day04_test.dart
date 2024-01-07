@@ -16,10 +16,8 @@ main() {
 
     group('part 2', () {
       test('example', () {
-        expect(
-          Room.parse('qzmt-zixmtkozy-ivhz-343[zimth]').decryptedName(),
-          'very encrypted name'
-        ); 
+        expect(Room.parse('qzmt-zixmtkozy-ivhz-343[zimth]').decryptedName(),
+            'very encrypted name');
       });
 
       test('solution', () => Day04().testPart2());

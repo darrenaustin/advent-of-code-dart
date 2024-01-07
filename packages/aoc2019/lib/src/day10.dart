@@ -41,32 +41,22 @@ class Day10 extends AdventDay {
 
   Grid<String> parseMap(String input) {
     return Grid<String>.from(
-      input
-        .lines
-        .map((l) => l.chars.toList())
-        .toList(),
-      '.'
-    );
+        input.lines.map((l) => l.chars.toList()).toList(), '.');
   }
 
   int numAsteroidsDetectedFrom(Vec2 p, Iterable<Vec2> asteroids) =>
-    asteroids
-      .whereNot((a) => a == p)
-      .map((a) => p.angle(a))
-      .toSet()
-      .length;
+      asteroids.whereNot((a) => a == p).map((a) => p.angle(a)).toSet().length;
 
   Iterable<Vec2> asteroidsDetectedFrom(Vec2 p, Iterable<Vec2> asteroids) {
     // Convert angle to clockwise with 0 pointing up
     double convertAngle(double a) => (a + 5 * pi / 2) % twoPi;
 
-    return Map.fromEntries(
-      asteroids
-        .whereNot((a) => a == p)
-        .map((a) => MapEntry(convertAngle(p.angle(a)), a))
-    )
-      .entries
-      .sortedBy<num>((e) => e.key).map((e) => e.value);
+    return Map.fromEntries(asteroids
+            .whereNot((a) => a == p)
+            .map((a) => MapEntry(convertAngle(p.angle(a)), a)))
+        .entries
+        .sortedBy<num>((e) => e.key)
+        .map((e) => e.value);
   }
 
   Vec2 bestStationLocation(Iterable<Vec2> asteroids) {
@@ -83,5 +73,5 @@ class Day10 extends AdventDay {
   }
 
   Iterable<Vec2> asteroidPositions(Grid<String> map) =>
-    map.locationsWhere((c) => c == '#');
+      map.locationsWhere((c) => c == '#');
 }

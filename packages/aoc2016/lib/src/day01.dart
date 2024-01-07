@@ -38,23 +38,29 @@ class Day01 extends AdventDay {
 }
 
 enum Turn { left, right }
+
 enum Direction {
   // Ensure they are in clockwise order.
-  north, east, south, west;
+  north,
+  east,
+  south,
+  west;
 
   Direction turn(Turn turn) {
     switch (turn) {
-      case Turn.left: return values[(index - 1) % values.length];
-      case Turn.right: return values[(index + 1) % values.length];
+      case Turn.left:
+        return values[(index - 1) % values.length];
+      case Turn.right:
+        return values[(index + 1) % values.length];
     }
   }
 }
 
 const Map<Direction, Vec2> directions = {
   Direction.north: Vec2.up,
-  Direction.east:  Vec2.right,
+  Direction.east: Vec2.right,
   Direction.south: Vec2.down,
-  Direction.west:  Vec2.left,
+  Direction.west: Vec2.left,
 };
 
 class Move {
@@ -64,7 +70,7 @@ class Move {
   final int length;
 
   static Move parse(String input) => Move(
-      input.startsWith('R') ? Turn.right : Turn.left,
-      int.parse(input.substring(1)),
-    );
+        input.startsWith('R') ? Turn.right : Turn.left,
+        int.parse(input.substring(1)),
+      );
 }

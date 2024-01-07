@@ -31,7 +31,7 @@ main() {
 .....
 #####
 ....#
-...##''';  
+...##''';
       final exampleInput2 = '''
 ......#.#.
 #..#.#....
@@ -79,7 +79,7 @@ main() {
 
     group('part 2', () {
       test('example', () {
-        expect(Day10().part2(largeExample), 802); 
+        expect(Day10().part2(largeExample), 802);
       });
 
       test('solution', () => Day10().testPart2());

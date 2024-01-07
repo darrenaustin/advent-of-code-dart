@@ -27,5 +27,5 @@ class Day01 extends AdventDay {
   }
 
   List<int> frequencies(String input) =>
-    input.split(RegExp(r'\s+')).map(int.parse).toList();
+      input.split(RegExp(r'\s+')).map(int.parse).toList();
 }

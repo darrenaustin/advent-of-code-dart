@@ -18,20 +18,17 @@ class Day20 extends AdventDay {
 
   static int _charToPixel(String c) => c == '#' ? 1 : 0;
 
-  List<int> parseAlgorithm(String line) => line
-    .split('')
-    .map(_charToPixel)
-    .toList();
+  List<int> parseAlgorithm(String line) =>
+      line.split('').map(_charToPixel).toList();
 
   Grid<int> parseGrid(List<String> lines) {
-    final pixels = lines.map(
-      (line) => line.chars.map(_charToPixel).toList()
-    ).toList();
+    final pixels =
+        lines.map((line) => line.chars.map(_charToPixel).toList()).toList();
     return Grid.from(pixels, 0);
   }
 
   static final _areaOffsets =
-    Vec2.cardinalDirs.map((o) => o + Vec2.int(-2, -2));
+      Vec2.cardinalDirs.map((o) => o + Vec2.int(-2, -2));
 
   int _litAfterEnhancement(String input, int numEnhancements) {
     final inputLines = input.lines;
@@ -39,8 +36,8 @@ class Day20 extends AdventDay {
     final grid = parseGrid(inputLines.sublist(2));
 
     return _enhance(algo: algo, grid: grid, numTimes: numEnhancements)
-      .cellsWhere((l) => l == 1)
-      .length;
+        .cellsWhere((l) => l == 1)
+        .length;
   }
 
   Grid<int> _enhance({

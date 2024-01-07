@@ -17,11 +17,8 @@ class Day05 extends AdventDay {
 
   int diagnosticCode(int systemId, String program) {
     final output = <int>[];
-    final machine = Intcode.from(
-      program: program,
-      input: [systemId],
-      output: output
-    );
+    final machine =
+        Intcode.from(program: program, input: [systemId], output: output);
     while (!machine.execute()) {}
     return output.last;
   }

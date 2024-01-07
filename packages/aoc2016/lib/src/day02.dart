@@ -22,11 +22,11 @@ class Day02 extends AdventDay {
   @override
   dynamic part2(String input) {
     const List<List<String>> touchPad = [
-      [  '',  '', '1',  '',  ''],
-      [  '', '2', '3', '4',  ''],
-      [ '5', '6', '7', '8', '9'],
-      [  '', 'A', 'B', 'C',  ''],
-      [  '',  '', 'D',  '',  ''],
+      ['', '', '1', '', ''],
+      ['', '2', '3', '4', ''],
+      ['5', '6', '7', '8', '9'],
+      ['', 'A', 'B', 'C', ''],
+      ['', '', 'D', '', ''],
     ];
     return keycode(touchPad, Vec2(0, 2), directions(input));
   }
@@ -41,11 +41,14 @@ class Day02 extends AdventDay {
     return input.lines.map((s) => s.split('').map((d) => dirVec[d]!));
   }
 
-  String keycode(List<List<String>> touchPad, Vec2 keyPosition, Iterable<Iterable<Vec2>> directions) {
+  String keycode(List<List<String>> touchPad, Vec2 keyPosition,
+      Iterable<Iterable<Vec2>> directions) {
     bool validPos(Vec2 pos) =>
-      0 <= pos.x && pos.x < touchPad[0].length &&
-      0 <= pos.y && pos.y < touchPad.length &&
-      touchPad[pos.y.toInt()][pos.x.toInt()].isNotEmpty;
+        0 <= pos.x &&
+        pos.x < touchPad[0].length &&
+        0 <= pos.y &&
+        pos.y < touchPad.length &&
+        touchPad[pos.y.toInt()][pos.x.toInt()].isNotEmpty;
 
     final pressed = [];
     for (final line in directions) {
@@ -60,4 +63,3 @@ class Day02 extends AdventDay {
     return pressed.join();
   }
 }
-

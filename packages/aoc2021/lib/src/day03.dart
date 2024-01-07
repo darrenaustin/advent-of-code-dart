@@ -24,7 +24,7 @@ class Day03 extends AdventDay {
     }
 
     return int.parse(gammaBits.join(), radix: 2) *
-           int.parse(epsilonBits.join(), radix: 2);
+        int.parse(epsilonBits.join(), radix: 2);
   }
 
   @override
@@ -51,5 +51,5 @@ class Day03 extends AdventDay {
   }
 
   Iterable<List<String>> parseDiagnostics(String input) =>
-    input.lines.map((l) => l.chars);
+      input.lines.map((l) => l.chars);
 }

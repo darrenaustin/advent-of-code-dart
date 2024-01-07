@@ -29,15 +29,12 @@ class Day10 extends AdventDay {
   @override
   dynamic part2(String input) => numArrangements(parseAdapters(input));
 
-  List<int> parseAdapters(String input) =>
-    input
-      .lines
-      .map(int.parse)
-      .toList()
-      ..add(0)
-      ..sort();
+  List<int> parseAdapters(String input) => input.lines.map(int.parse).toList()
+    ..add(0)
+    ..sort();
 
-  int numArrangements(List<int> adapters, [int fromIndex = 0, Map<int, int>? cache]) {
+  int numArrangements(List<int> adapters,
+      [int fromIndex = 0, Map<int, int>? cache]) {
     cache ??= <int, int>{};
     if (cache.containsKey(fromIndex)) {
       return cache[fromIndex]!;
@@ -47,7 +44,8 @@ class Day10 extends AdventDay {
     }
     var arrangements = 0;
     var nextIndex = fromIndex + 1;
-    while (nextIndex < adapters.length && adapters[nextIndex] - adapters[fromIndex] <= 3) {
+    while (nextIndex < adapters.length &&
+        adapters[nextIndex] - adapters[fromIndex] <= 3) {
       arrangements += numArrangements(adapters, nextIndex, cache);
       nextIndex++;
     }

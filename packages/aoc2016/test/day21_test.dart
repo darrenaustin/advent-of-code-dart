@@ -38,7 +38,6 @@ rotate based on position of letter d''';
         expect('abcedf'.reversePositions(1, 4), 'adecbf');
         expect('abcedf'.reversePositions(1, 2), 'acbedf');
         expect('abcedf'.reversePositions(1, 3), 'aecbdf');
-
       });
       test('movePosition', () {
         expect('bcdea'.movePosition(1, 4), 'bdeac');

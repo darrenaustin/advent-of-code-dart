@@ -11,18 +11,12 @@ class Day04 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    return input
-      .lines
-      .where(validPassphrase)
-      .length;
+    return input.lines.where(validPassphrase).length;
   }
 
   @override
   dynamic part2(String input) {
-    return input
-      .lines
-      .where(validAnagramPassphrase)
-      .length;
+    return input.lines.where(validAnagramPassphrase).length;
   }
 
   static bool validPassphrase(String phrase) {

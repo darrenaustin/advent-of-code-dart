@@ -18,8 +18,8 @@ class Day06 extends AdventDay {
     final lights = Grid<bool>(1000, 1000, false);
 
     bool apply(Command command, bool light) =>
-      command.type == CommandType.turnOn ||
-      (command.type == CommandType.toggle && !light);
+        command.type == CommandType.turnOn ||
+        (command.type == CommandType.toggle && !light);
 
     for (final command in input.lines.map(parseCommand)) {
       for (final loc in Vec2.range(command.p1, command.p2 + Vec2.downRight)) {
@@ -35,9 +35,12 @@ class Day06 extends AdventDay {
 
     int apply(Command command, int light) {
       switch (command.type) {
-        case CommandType.turnOn: return light + 1;
-        case CommandType.toggle: return light + 2;
-        case CommandType.turnOff: return max(light - 1, 0);
+        case CommandType.turnOn:
+          return light + 1;
+        case CommandType.toggle:
+          return light + 2;
+        case CommandType.turnOff:
+          return max(light - 1, 0);
       }
     }
 
@@ -50,12 +53,11 @@ class Day06 extends AdventDay {
   }
 
   static final RegExp _commandRegex =
-    RegExp(r'^(turn on|toggle|turn off) (\d+),(\d+) through (\d+),(\d+)$');
+      RegExp(r'^(turn on|toggle|turn off) (\d+),(\d+) through (\d+),(\d+)$');
 
   static Command parseCommand(String line) {
     final match = _commandRegex.firstMatch(line)!;
-    final type =
-      match.group(1)! == 'turn on'
+    final type = match.group(1)! == 'turn on'
         ? CommandType.turnOn
         : match.group(1)! == 'toggle'
             ? CommandType.toggle

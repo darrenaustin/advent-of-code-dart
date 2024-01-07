@@ -12,28 +12,27 @@ class Day14 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    (SandMap(input.lines)..dropAllSand()).numSand();
+      (SandMap(input.lines)..dropAllSand()).numSand();
 
   @override
   dynamic part2(String input) =>
-    (SandMap(input.lines, floor: true)..dropAllSand()).numSand();
+      (SandMap(input.lines, floor: true)..dropAllSand()).numSand();
 }
 
 class SandMap {
-
   static final sand = 'o';
   static final rock = '#';
   static final space = ' ';
   static final sandSource = Vec2(500, 0);
   static final dropDirections = [Vec2.down, Vec2.downLeft, Vec2.downRight];
 
-  SandMap(List<String> rockData, { bool floor = false })
-    : _grid = SparseGrid<String>(defaultValue: space) {
+  SandMap(List<String> rockData, {bool floor = false})
+      : _grid = SparseGrid<String>(defaultValue: space) {
     for (final line in rockData) {
       final rockPath = line
-        .split(' -> ')
-        .map((p) => p.split(','))
-        .map((v) => Vec2(double.parse(v.first), double.parse(v.last)));
+          .split(' -> ')
+          .map((p) => p.split(','))
+          .map((v) => Vec2(double.parse(v.first), double.parse(v.last)));
       _drawPath(rockPath, rock);
     }
     _floor = floor ? _grid.maxLocation.y + 2 : null;
@@ -57,9 +56,8 @@ class SandMap {
         // Falls forever
         return true;
       }
-      final spotContents = spot.y < (_floor ?? double.infinity)
-        ? _grid.cell(spot)
-        : rock;
+      final spotContents =
+          spot.y < (_floor ?? double.infinity) ? _grid.cell(spot) : rock;
       if (spotContents == space) {
         return dropSand(spot);
       }

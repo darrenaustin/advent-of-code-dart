@@ -13,31 +13,29 @@ class Day13 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    return input
-      .lines
-      .where((l) => l.isNotEmpty)
-      .slices(2)
-      .map((pair) => pair.map(parsePacket))
-      .mapIndexed((index, pair) =>
-        comparePackets(pair.first, pair.last) == -1
-          ? index + 1
-          : null)
-      .whereNotNull()
-      .sum;
+    return input.lines
+        .where((l) => l.isNotEmpty)
+        .slices(2)
+        .map((pair) => pair.map(parsePacket))
+        .mapIndexed((index, pair) =>
+            comparePackets(pair.first, pair.last) == -1 ? index + 1 : null)
+        .whereNotNull()
+        .sum;
   }
 
   @override
   dynamic part2(String input) {
-    final div1 = [[2]];
-    final div2 = [[6]];
-    final packets = input
-      .lines
-      .where((l) => l.isNotEmpty)
-      .map(parsePacket)
-      .toList()
-      ..add(div1)
-      ..add(div2)
-      ..sort(comparePackets);
+    final div1 = [
+      [2]
+    ];
+    final div2 = [
+      [6]
+    ];
+    final packets =
+        input.lines.where((l) => l.isNotEmpty).map(parsePacket).toList()
+          ..add(div1)
+          ..add(div2)
+          ..sort(comparePackets);
     return (packets.indexOf(div1) + 1) * (packets.indexOf(div2) + 1);
   }
 

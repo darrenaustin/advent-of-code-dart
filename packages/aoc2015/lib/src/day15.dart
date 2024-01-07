@@ -15,24 +15,24 @@ class Day15 extends AdventDay {
   @override
   dynamic part1(String input) {
     final ingredients = inputIngredients(input);
-    final combos = sumCombinations(List<int>.filled(ingredients.length, 0), 100);
-    return combos
-      .map((c) => cookieScore(ingredients, c))
-      .max;
+    final combos =
+        sumCombinations(List<int>.filled(ingredients.length, 0), 100);
+    return combos.map((c) => cookieScore(ingredients, c)).max;
   }
 
   @override
   dynamic part2(String input) {
     final ingredients = inputIngredients(input);
-    final combos = sumCombinations(List<int>.filled(ingredients.length, 0), 100);
+    final combos =
+        sumCombinations(List<int>.filled(ingredients.length, 0), 100);
     return combos
-      .where((c) => calories(ingredients, c) == 500)
-      .map((e) => cookieScore(ingredients, e))
-      .max;
+        .where((c) => calories(ingredients, c) == 500)
+        .map((e) => cookieScore(ingredients, e))
+        .max;
   }
 
   static final _ingredientPattern = RegExp(r'(\S+) (-?\d+)');
-  
+
   static List<Map<String, int>> inputIngredients(String input) {
     return input.lines.map((String l) {
       final ingredients = l.substring(l.indexOf(':') + 2).split(', ');
@@ -43,7 +43,8 @@ class Day15 extends AdventDay {
     }).toList();
   }
 
-  static int cookieScore(List<Map<String, int>> ingredients, List<int> ingredientQuantities) {
+  static int cookieScore(
+      List<Map<String, int>> ingredients, List<int> ingredientQuantities) {
     final totals = <String, int>{};
     for (final i in range(ingredients.length)) {
       ingredients[i].forEach((String name, int value) {
@@ -55,13 +56,15 @@ class Day15 extends AdventDay {
     return totals.values.map((v) => max(v, 0)).product;
   }
 
-  static int calories(List<Map<String, int>> ingredients, List<int> ingredientQuantities) {
+  static int calories(
+      List<Map<String, int>> ingredients, List<int> ingredientQuantities) {
     return range(ingredients.length)
-      .map((i) => ingredients[i]['calories']! * ingredientQuantities[i])
-      .sum;
+        .map((i) => ingredients[i]['calories']! * ingredientQuantities[i])
+        .sum;
   }
 
-  Iterable<List<int>> sumCombinations(List<int> start, int sum, [int len = 0]) sync* {
+  Iterable<List<int>> sumCombinations(List<int> start, int sum,
+      [int len = 0]) sync* {
     final int remaining = sum - start.sum;
     if (len == start.length - 1) {
       yield List<int>.from(start)..[len] = remaining;

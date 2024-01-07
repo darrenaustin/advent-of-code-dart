@@ -10,7 +10,7 @@ class Day09 extends AdventDay {
 
   @override
   dynamic part1(String input, [int preambleLength = 25]) =>
-    firstInvalidNum(parseMessage(input), preambleLength);
+      firstInvalidNum(parseMessage(input), preambleLength);
 
   @override
   dynamic part2(String input, [int preambleLength = 25]) {
@@ -18,8 +18,7 @@ class Day09 extends AdventDay {
     return findWeakness(message, firstInvalidNum(message, preambleLength)!);
   }
 
-  List<int> parseMessage(String input) =>
-    input.lines.map(int.parse).toList();
+  List<int> parseMessage(String input) => input.lines.map(int.parse).toList();
 
   int? firstInvalidNum(List<int> nums, int preambleLength) {
     bool validSum(int sum, Set<int> previous) {

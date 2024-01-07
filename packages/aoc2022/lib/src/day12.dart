@@ -19,11 +19,11 @@ class Day12 extends AdventDay {
   dynamic part2(String input) {
     final heightmap = Heightmap.from(input.lines);
     return heightmap
-      .locationsWhere((p) => p == 'a')
-      .map((s) => heightmap.leastStepsToGoal(s))
-      .whereNotNull()
-      .map((d) => d.toInt())
-      .min;
+        .locationsWhere((p) => p == 'a')
+        .map((s) => heightmap.leastStepsToGoal(s))
+        .whereNotNull()
+        .map((d) => d.toInt())
+        .min;
   }
 }
 
@@ -31,9 +31,7 @@ class Heightmap {
   Heightmap._(this._grid, this.start, this.goal);
 
   factory Heightmap.from(List<String> lines) {
-    final data = lines
-      .map((s) => s.split('').toList())
-      .toList();
+    final data = lines.map((s) => s.split('').toList()).toList();
     final grid = Grid<String>.from(data, '');
     final start = grid.locationsWhere((p) => p == 'S').first;
     final goal = grid.locationsWhere((p) => p == 'E').first;
@@ -47,13 +45,14 @@ class Heightmap {
       start: start ?? this.start,
       goal: goal,
       costTo: (_, __) => 1,
-      neighborsOf: (l) => _grid
-        .neighborLocations(l, Vec2.orthogonalDirs)
-        .where((e) => _grid.cell(e).codeUnitAt(0) - _grid.cell(l).codeUnitAt(0) <= 1),
+      neighborsOf: (l) => _grid.neighborLocations(l, Vec2.orthogonalDirs).where(
+          (e) =>
+              _grid.cell(e).codeUnitAt(0) - _grid.cell(l).codeUnitAt(0) <= 1),
     )?.toInt();
   }
 
-  Iterable<Vec2> locationsWhere(bool Function(String) test) => _grid.locationsWhere(test);
+  Iterable<Vec2> locationsWhere(bool Function(String) test) =>
+      _grid.locationsWhere(test);
 
   final Grid<String> _grid;
   final Vec2 start;

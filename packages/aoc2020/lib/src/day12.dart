@@ -25,10 +25,8 @@ class Day12 extends AdventDay {
     return ship.manhattanDistance;
   }
 
-  List<NavInstruction> parseInstructions(String input) => input
-      .lines
-      .map(NavInstruction.from)
-      .toList();
+  List<NavInstruction> parseInstructions(String input) =>
+      input.lines.map(NavInstruction.from).toList();
 }
 
 // Ensure the order is in clockwise so the values can be used for rotation
@@ -37,7 +35,6 @@ enum Direction { north, east, south, west }
 enum NavAction { north, south, east, west, left, right, forward }
 
 class NavInstruction {
-
   NavInstruction(this.action, this.value);
 
   static final _actions = <String, NavAction>{
@@ -50,19 +47,21 @@ class NavInstruction {
     'F': NavAction.forward,
   };
 
-  static NavInstruction from(String text) =>
-    NavInstruction(_actions[text.substring(0, 1)]!, int.parse(text.substring(1)));
+  static NavInstruction from(String text) => NavInstruction(
+      _actions[text.substring(0, 1)]!, int.parse(text.substring(1)));
 
   final NavAction action;
   final int value;
 
   @override
   String toString() =>
-    '${action.toString().split('.').last.substring(0, 1)} ${value.toString()}';
+      '${action.toString().split('.').last.substring(0, 1)} ${value.toString()}';
 }
 
 class Ship {
-  Ship() : position = Vec2.zero, direction = Direction.east;
+  Ship()
+      : position = Vec2.zero,
+        direction = Direction.east;
 
   Vec2 position;
   Direction direction;
@@ -118,13 +117,15 @@ class Ship {
     assert(angle % 90 == 0);
     final rotations = (clockwise ? angle : -angle) ~/ 90;
     final directions = Direction.values;
-    direction = directions[(directions.indexOf(direction) + rotations) % directions.length];
+    direction = directions[
+        (directions.indexOf(direction) + rotations) % directions.length];
   }
 }
 
 class WaypointShip extends Ship {
-
-  WaypointShip() : waypoint = Vec2(10, 1), super();
+  WaypointShip()
+      : waypoint = Vec2(10, 1),
+        super();
 
   Vec2 waypoint;
 

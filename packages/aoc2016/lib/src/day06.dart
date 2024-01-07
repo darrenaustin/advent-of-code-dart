@@ -12,25 +12,24 @@ class Day06 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    errorCorrectedMessage(input.lines, numMaxComparator);
+      errorCorrectedMessage(input.lines, numMaxComparator);
 
   @override
   dynamic part2(String input) =>
-    errorCorrectedMessage(input.lines, numMinComparator);
+      errorCorrectedMessage(input.lines, numMinComparator);
 
-  String errorCorrectedMessage(Iterable<String> recorded, Comparator<int> freqCompare) {
+  String errorCorrectedMessage(
+      Iterable<String> recorded, Comparator<int> freqCompare) {
     final message = StringBuffer();
     for (int i = 0; i < recorded.first.length; i++) {
       final charFrequency = <String, int>{};
       for (final c in recorded) {
         charFrequency[c[i]] = (charFrequency[c[i]] ?? 0) + 1;
       }
-      final sortedChars = charFrequency
-        .keys
-        .sorted((k1, k2) => freqCompare(charFrequency[k1]!, charFrequency[k2]!));
+      final sortedChars = charFrequency.keys.sorted(
+          (k1, k2) => freqCompare(charFrequency[k1]!, charFrequency[k2]!));
       message.write(sortedChars.first);
     }
     return message.toString();
   }
-
 }

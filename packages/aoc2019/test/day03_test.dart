@@ -15,9 +15,9 @@ U98,R91,D20,R16,D67,R40,U7,R15,U6,R7''';
 
     group('part 1', () {
       test('examples', () {
-        expect(Day03().part1(exampleInput1), 6); 
-        expect(Day03().part1(exampleInput2), 159); 
-        expect(Day03().part1(exampleInput3), 135); 
+        expect(Day03().part1(exampleInput1), 6);
+        expect(Day03().part1(exampleInput2), 159);
+        expect(Day03().part1(exampleInput3), 135);
       });
 
       test('solution', () => Day03().testPart1());
@@ -25,9 +25,9 @@ U98,R91,D20,R16,D67,R40,U7,R15,U6,R7''';
 
     group('part 2', () {
       test('examples', () {
-        expect(Day03().part2(exampleInput1), 30); 
-        expect(Day03().part2(exampleInput2), 610); 
-        expect(Day03().part2(exampleInput3), 410); 
+        expect(Day03().part2(exampleInput1), 30);
+        expect(Day03().part2(exampleInput2), 610);
+        expect(Day03().part2(exampleInput3), 410);
       });
 
       test('solution', () => Day03().testPart2());

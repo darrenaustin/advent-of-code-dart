@@ -17,19 +17,12 @@ class Day10 extends AdventDay {
   };
 
   @override
-  dynamic part1(String input) => input
-    .lines
-    .map(corruptedScore)
-    .whereNotNull()
-    .sum;
+  dynamic part1(String input) =>
+      input.lines.map(corruptedScore).whereNotNull().sum;
 
   @override
   dynamic part2(String input) {
-    final scores = input
-      .lines
-      .map(incompleteScore)
-      .whereNotNull()
-      .toList()
+    final scores = input.lines.map(incompleteScore).whereNotNull().toList()
       ..sort();
     return scores[scores.length ~/ 2];
   }
@@ -76,8 +69,7 @@ class Day10 extends AdventDay {
         }
       }
     }
-    return openStack
-      .reversed
-      .fold<int>(0, (score, closer) => score * 5 + scores[closer]!);
+    return openStack.reversed
+        .fold<int>(0, (score, closer) => score * 5 + scores[closer]!);
   }
 }

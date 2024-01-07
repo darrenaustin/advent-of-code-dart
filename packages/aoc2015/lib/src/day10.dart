@@ -17,7 +17,7 @@ class Day10 extends AdventDay {
   dynamic part2(String input) => lookAndSay('3113322113', 50).length;
 
   static String lookAndSay(String text, int rounds) =>
-    iterate(say, text).skip(rounds).first;
+      iterate(say, text).skip(rounds).first;
 
   static String say(String text) {
     final buffer = StringBuffer();

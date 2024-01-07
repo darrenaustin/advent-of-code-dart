@@ -53,5 +53,4 @@ class Day02 extends AdventDay {
     }
     return differentIndex;
   }
-
 }

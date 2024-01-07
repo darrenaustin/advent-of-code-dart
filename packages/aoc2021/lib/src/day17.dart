@@ -46,8 +46,8 @@ class Day17 extends AdventDay {
   Region parseRegion(String input) {
     final match = RegExp(r'x=(.*)\.\.(.*), y=(.*)\.\.(.*)').firstMatch(input)!;
     return Region(
-       Vec2(double.parse(match.group(1)!), double.parse(match.group(3)!)),
-       Vec2(double.parse(match.group(2)!), double.parse(match.group(4)!)),
+      Vec2(double.parse(match.group(1)!), double.parse(match.group(3)!)),
+      Vec2(double.parse(match.group(2)!), double.parse(match.group(4)!)),
     );
   }
 
@@ -76,6 +76,5 @@ class Region {
   final Vec2 max;
 
   bool contains(int px, int py) =>
-    min.x <= px && px <= max.x &&
-    min.y <= py && py <= max.y;
+      min.x <= px && px <= max.x && min.y <= py && py <= max.y;
 }

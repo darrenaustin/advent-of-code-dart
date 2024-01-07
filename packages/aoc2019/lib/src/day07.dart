@@ -17,7 +17,8 @@ class Day07 extends AdventDay {
     int runAmps(Iterable<int> phases, [initialInput = 0]) {
       int inputSignal = initialInput;
       for (final phase in phases) {
-        final machine = Intcode.from(program: input, input: [phase, inputSignal]);
+        final machine =
+            Intcode.from(program: input, input: [phase, inputSignal]);
         while (!machine.execute()) {}
         inputSignal = machine.output.last;
       }
@@ -36,8 +37,7 @@ class Day07 extends AdventDay {
         machines.add(Intcode.from(
             program: input,
             input: inputs[i],
-            output: inputs[(i + 1) % phases.length]
-        ));
+            output: inputs[(i + 1) % phases.length]));
       }
       inputs[0].add(initialInput);
       while (!machines.every((m) => m.complete)) {

@@ -37,8 +37,7 @@ class Day11 extends AdventDay {
     }
   }
 
-  int monkeyBusiness(List<Monkey> monkeys) =>
-    monkeys
+  int monkeyBusiness(List<Monkey> monkeys) => monkeys
       .map((m) => m.numInspected)
       .sorted((a, b) => b - a)
       .take(2)
@@ -46,10 +45,7 @@ class Day11 extends AdventDay {
 
   List<Monkey> parseMonkeys(String input) {
     List<Monkey> monkeys = [];
-    final monkeyData = input
-      .split('Monkey ')
-      .skip(1)
-      .map((s) => s.split('\n'));
+    final monkeyData = input.split('Monkey ').skip(1).map((s) => s.split('\n'));
     for (final data in monkeyData) {
       monkeys.add(Monkey(
         id: int.parse(data[0].split(':')[0]),
@@ -82,19 +78,18 @@ class Day11 extends AdventDay {
           return (x) => x * x;
         }
     }
-    throw('Unknown operation: $operationStr');
+    throw ('Unknown operation: $operationStr');
   }
 }
 
 class Monkey {
-  Monkey({
-    required this.id,
-    required this.items,
-    required this.operation,
-    required this.testMod,
-    required this.trueMonkey,
-    required this.falseMonkey
-  });
+  Monkey(
+      {required this.id,
+      required this.items,
+      required this.operation,
+      required this.testMod,
+      required this.trueMonkey,
+      required this.falseMonkey});
 
   final int id;
   final List<int> items;
@@ -105,7 +100,8 @@ class Monkey {
 
   int numInspected = 0;
 
-  void inspectItems(void Function(int item, int monkey) throwItem, int? easeMod) {
+  void inspectItems(
+      void Function(int item, int monkey) throwItem, int? easeMod) {
     while (items.isNotEmpty) {
       int item = operation(items.removeAt(0));
       if (easeMod != null) {

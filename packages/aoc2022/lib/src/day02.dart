@@ -8,48 +8,51 @@ main() => Day02().solve();
 // This is probably overkill for this problem, but I wanted
 // to play with the new enum features.
 enum Shape {
-  rock(1), paper(2), scissors(3);
+  rock(1),
+  paper(2),
+  scissors(3);
 
   const Shape(this.score);
   final int score;
 
   static Shape shapeFor(String s) => {
-    'A': Shape.rock,
-    'B': Shape.paper,
-    'C': Shape.scissors,
-    'X': Shape.rock,
-    'Y': Shape.paper,
-    'Z': Shape.scissors,
-  }[s]!;
+        'A': Shape.rock,
+        'B': Shape.paper,
+        'C': Shape.scissors,
+        'X': Shape.rock,
+        'Y': Shape.paper,
+        'Z': Shape.scissors,
+      }[s]!;
 
   Shape get beats => {
-    Shape.rock: Shape.scissors,
-    Shape.paper: Shape.rock,
-    Shape.scissors: Shape.paper,
-  }[this]!;
+        Shape.rock: Shape.scissors,
+        Shape.paper: Shape.rock,
+        Shape.scissors: Shape.paper,
+      }[this]!;
 
   Shape get losesTo => {
-    Shape.rock: Shape.paper,
-    Shape.paper: Shape.scissors,
-    Shape.scissors: Shape.rock,
-  }[this]!;
+        Shape.rock: Shape.paper,
+        Shape.paper: Shape.scissors,
+        Shape.scissors: Shape.rock,
+      }[this]!;
 }
 
 enum Result {
-  lose(0), draw(3), win(6);
+  lose(0),
+  draw(3),
+  win(6);
 
   const Result(this.score);
   final int score;
 
   static Result desiredResult(String s) => {
-    'X': Result.lose,
-    'Y': Result.draw,
-    'Z': Result.win,
-  }[s]!;
+        'X': Result.lose,
+        'Y': Result.draw,
+        'Z': Result.win,
+      }[s]!;
 }
 
 class Day02 extends AdventDay {
-
   Day02() : super(2022, 2, name: 'Rock Paper Scissors');
 
   @override
@@ -76,12 +79,14 @@ class Day02 extends AdventDay {
 
   Result round(Shape opponent, Shape player) {
     return opponent == player
-      ? Result.draw
-      : player.beats == opponent ? Result.win : Result.lose;
+        ? Result.draw
+        : player.beats == opponent
+            ? Result.win
+            : Result.lose;
   }
 
   int score(Shape opponent, Shape player) =>
-    player.score + round(opponent, player).score;
+      player.score + round(opponent, player).score;
 
   Shape playFor(Shape opponent, Result result) {
     switch (result) {

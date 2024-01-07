@@ -18,7 +18,7 @@ class Day06 extends AdventDay {
   }
 
   int? firstMarker(String s, int markerLength) {
-    for (int i = markerLength; i <  s.length; i++) {
+    for (int i = markerLength; i < s.length; i++) {
       final marker = s.substring(i - markerLength, i).split('').toSet();
       if (marker.length == markerLength) {
         return i;

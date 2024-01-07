@@ -15,20 +15,16 @@ class Day11 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    numOccupiedSeatsAtEquilibrium(parseSeatChart(input), adjacentSeatRules);
+      numOccupiedSeatsAtEquilibrium(parseSeatChart(input), adjacentSeatRules);
 
   @override
-  int? part2(String input) =>
-    numOccupiedSeatsAtEquilibrium(parseSeatChart(input), visiblyAdjacentSeatRules);
+  int? part2(String input) => numOccupiedSeatsAtEquilibrium(
+      parseSeatChart(input), visiblyAdjacentSeatRules);
 
-  Grid<String> parseSeatChart(String input) =>
-    Grid<String>.from(
-      input
-        .lines
-        .map((e) => e.chars)
-        .toList(),
-      '.',
-    );
+  Grid<String> parseSeatChart(String input) => Grid<String>.from(
+        input.lines.map((e) => e.chars).toList(),
+        '.',
+      );
 
   dynamic numOccupiedSeatsAtEquilibrium(Grid<String> seats, SeatRules rules) {
     var equilibrium = false;
@@ -80,7 +76,10 @@ class Day11 extends AdventDay {
         case '#':
           // If there are at least 5 visibly occupied adjacent seats, it becomes empty
           // if (seats.visiblyAdjacent(x, y, isSpace).where(isSeatOccupied).length >= 5) {
-          if (visiblyAdjacent(seats, loc, isSpace).where(isSeatOccupied).length >= 5) {
+          if (visiblyAdjacent(seats, loc, isSpace)
+                  .where(isSeatOccupied)
+                  .length >=
+              5) {
             nextSeats.setCell(loc, 'L');
           }
           break;
@@ -89,8 +88,8 @@ class Day11 extends AdventDay {
     return nextSeats;
   }
 
-  Iterable<String> visiblyAdjacent(Grid<String> seats, Vec2 location, bool Function(String) invisibleTest) {
-
+  Iterable<String> visiblyAdjacent(
+      Grid<String> seats, Vec2 location, bool Function(String) invisibleTest) {
     String? firstVisibleInDirection(Vec2 directionOffset) {
       Vec2 closest = location + directionOffset;
       while (seats.validCell(closest) && invisibleTest(seats.cell(closest))) {
@@ -100,7 +99,7 @@ class Day11 extends AdventDay {
     }
 
     return Vec2.aroundDirs
-      .map((p) => firstVisibleInDirection(p))
-      .whereNotNull();
+        .map((p) => firstVisibleInDirection(p))
+        .whereNotNull();
   }
 }

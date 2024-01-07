@@ -13,20 +13,20 @@ class Day17 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    Tower(shapes, parseWindDirections(input)).heightAfterShapes(2022);
+      Tower(shapes, parseWindDirections(input)).heightAfterShapes(2022);
 
   @override
-  dynamic part2(String input) =>
-    Tower(shapes, parseWindDirections(input)).heightAfterShapes(1000000000000);
+  dynamic part2(String input) => Tower(shapes, parseWindDirections(input))
+      .heightAfterShapes(1000000000000);
 
   List<Vec2> parseWindDirections(String input) {
     return input
-      .split('')
-      .map((d) => {
-          '<': Vec2.left,
-          '>': Vec2.right,
-        }[d]!)
-      .toList();
+        .split('')
+        .map((d) => {
+              '<': Vec2.left,
+              '>': Vec2.right,
+            }[d]!)
+        .toList();
   }
 
   static final shapes = '''
@@ -46,31 +46,31 @@ class Day17 extends AdventDay {
 #
 
 ##
-##'''.split('\n\n')
+##'''
+      .split('\n\n')
       .map((shape) {
-        final lines = shape.split('\n');
-        final width = lines.first.length;
-        final height = lines.length;
-        final grid = Grid<String>(width, height, '.');
-        for (int row = 0; row < height; row++) {
-          final line = lines[row];
-          for (int col = 0; col < width; col++) {
-            grid.setCell(Vec2.int(col, row), line[col]);
-          }
-        }
-        return grid;
-      })
-      .toList();
+    final lines = shape.split('\n');
+    final width = lines.first.length;
+    final height = lines.length;
+    final grid = Grid<String>(width, height, '.');
+    for (int row = 0; row < height; row++) {
+      final line = lines[row];
+      for (int col = 0; col < width; col++) {
+        grid.setCell(Vec2.int(col, row), line[col]);
+      }
+    }
+    return grid;
+  }).toList();
 }
 
 class Tower {
   Tower(this.shapes, this.winds)
-    : _shapeIndex = 0,
-      _windIndex = 0,
-      _grid = Grid<String>(7, 0, '.'),
-      _floor = 0,
-      _shapePos = Vec2.zero,
-      _cache = {};
+      : _shapeIndex = 0,
+        _windIndex = 0,
+        _grid = Grid<String>(7, 0, '.'),
+        _floor = 0,
+        _shapePos = Vec2.zero,
+        _cache = {};
 
   int get rockHeight => _grid.height - _floor;
 
@@ -102,7 +102,7 @@ class Tower {
   void dropShape() {
     final shape = shapes[_shapeIndex];
     growGridFor(shape);
-    _shapePos = Vec2(2, _floor - shape.height- 3);
+    _shapePos = Vec2(2, _floor - shape.height - 3);
     bool landed = false;
     while (!landed) {
       pushShape();
@@ -127,8 +127,10 @@ class Tower {
   }
 
   bool shapeFits(Grid<String> shape, Vec2 pos) {
-    if (pos.xInt < 0 || pos.xInt + shape.width > _grid.width ||
-        pos.yInt < 0 || pos.yInt + shape.height > _grid.height) {
+    if (pos.xInt < 0 ||
+        pos.xInt + shape.width > _grid.width ||
+        pos.yInt < 0 ||
+        pos.yInt + shape.height > _grid.height) {
       return false;
     }
     for (int row = 0; row < shape.height; row++) {
@@ -208,10 +210,10 @@ class CacheState {
 
   @override
   bool operator ==(Object other) {
-    return other is CacheState
-      && other.rows == rows
-      && other.shapeIndex == shapeIndex
-      && other.windIndex == windIndex;
+    return other is CacheState &&
+        other.rows == rows &&
+        other.shapeIndex == shapeIndex &&
+        other.windIndex == windIndex;
   }
 
   @override

@@ -16,7 +16,8 @@ class Day20 extends AdventDay {
   @override
   dynamic part2(String input) => firstHouseThatGets(int.parse(input), 11, 50);
 
-  int firstHouseThatGets(int target, int elfPresents, [int elfHouseLimit = maxInt]) {
+  int firstHouseThatGets(int target, int elfPresents,
+      [int elfHouseLimit = maxInt]) {
     final size = target ~/ elfPresents;
     final houses = List.generate(size, (_) => 0);
     for (int elf = 1; elf < size; elf++) {

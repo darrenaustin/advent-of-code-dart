@@ -18,16 +18,16 @@ class Day15 extends AdventDay {
     return buttonPressTime(discs);
   }
 
-  Iterable<Disc> parseDiscs(String input) =>
-   input
-      .lines
-      .map((line) {
-        final match = RegExp(r'Disc \#(\d+) has (\d+) positions; .* at position (\d+)').firstMatch(line);
+  Iterable<Disc> parseDiscs(String input) => input.lines.map((line) {
+        final match =
+            RegExp(r'Disc \#(\d+) has (\d+) positions; .* at position (\d+)')
+                .firstMatch(line);
         if (match == null) {
           throw Exception('Unable to parse disc info: $line');
         }
         final depth = int.parse(match.group(1)!);
-        return Disc(depth, int.parse(match.group(2)!), int.parse(match.group(3)!));
+        return Disc(
+            depth, int.parse(match.group(2)!), int.parse(match.group(3)!));
       });
 
   int buttonPressTime(Iterable<Disc> discs) {

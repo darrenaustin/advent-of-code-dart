@@ -31,7 +31,6 @@ class Day23 extends AdventDay {
 }
 
 class Field {
-
   Field(List<String> data) {
     final gridData = data.map((l) => l.split('')).toList();
     for (int y = 0; y < gridData.length; y++) {
@@ -49,8 +48,8 @@ class Field {
 
   bool nextRound() {
     // Find all elves with at least another around them.
-    final movingElves = _elves
-      .where((e) => Vec2.aroundDirs.any((d) => _elves.contains(d + e)));
+    final movingElves =
+        _elves.where((e) => Vec2.aroundDirs.any((d) => _elves.contains(d + e)));
 
     // Determine the plans for all moving elves.
     final plans = <Vec2, Vec2>{};
@@ -58,7 +57,9 @@ class Field {
     final overbooked = <Vec2>{};
     for (final elf in movingElves) {
       for (final dir in _testDirs) {
-        if (dir.checkDirections.map((d) => d + elf).none((p) => _elves.contains(p))) {
+        if (dir.checkDirections
+            .map((d) => d + elf)
+            .none((p) => _elves.contains(p))) {
           final destination = elf + dir.direction;
           if (destinations.contains(destination)) {
             overbooked.add(destination);

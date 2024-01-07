@@ -13,20 +13,17 @@ class Day19 extends AdventDay {
   Day19() : super(2022, 19, name: 'Not Enough Minerals');
 
   @override
-  dynamic part1(String input) => parseBlueprints(input)
-    .map((bp) => maxGeodes(bp, 24) * bp.id)
-    .sum;
+  dynamic part1(String input) =>
+      parseBlueprints(input).map((bp) => maxGeodes(bp, 24) * bp.id).sum;
 
   @override
-  dynamic part2(String input) => parseBlueprints(input)
-    .take(3)
-    .map((bp) => maxGeodes(bp, 32))
-    .product;
+  dynamic part2(String input) =>
+      parseBlueprints(input).take(3).map((bp) => maxGeodes(bp, 32)).product;
 
   int maxGeodes(Blueprint bp, int time) {
-
     // Highest ore cost for a robot.
-    final int maxOreCost = [bp.oreCost, bp.clayOreCost, bp.obsidianOreCost, bp.geodeOreCost].max;
+    final int maxOreCost =
+        [bp.oreCost, bp.clayOreCost, bp.obsidianOreCost, bp.geodeOreCost].max;
 
     // Optimal number of geodes for a given time left.
     final optimalGeodes = range(time + 1).map((t) => (t - 1) * t / 2).toList();
@@ -39,8 +36,10 @@ class Day19 extends AdventDay {
       // then this config will not lead to a maximum.
       if (buyRobot == Robot.ore && f.oreRobots >= maxOreCost ||
           buyRobot == Robot.clay && f.clayRobots >= bp.obsidianClayCost ||
-          buyRobot == Robot.obsidian && f.obsidianRobots >= bp.geodeObsidianCost ||
-          f.geode + f.geodeRobots * f.timeLeft + optimalGeodes[f.timeLeft] <= maxGeodes) {
+          buyRobot == Robot.obsidian &&
+              f.obsidianRobots >= bp.geodeObsidianCost ||
+          f.geode + f.geodeRobots * f.timeLeft + optimalGeodes[f.timeLeft] <=
+              maxGeodes) {
         return;
       }
 
@@ -55,14 +54,28 @@ class Day19 extends AdventDay {
             search(f.nextDay(clayRobots: 1, ore: -bp.clayOreCost), r);
           }
           return;
-        } else if (buyRobot == Robot.obsidian && f.ore >= bp.obsidianOreCost && f.clay >= bp.obsidianClayCost) {
+        } else if (buyRobot == Robot.obsidian &&
+            f.ore >= bp.obsidianOreCost &&
+            f.clay >= bp.obsidianClayCost) {
           for (final r in Robot.values) {
-            search(f.nextDay(obsidianRobots: 1, ore: -bp.obsidianOreCost, clay: -bp.obsidianClayCost), r);
+            search(
+                f.nextDay(
+                    obsidianRobots: 1,
+                    ore: -bp.obsidianOreCost,
+                    clay: -bp.obsidianClayCost),
+                r);
           }
           return;
-        } else if (buyRobot == Robot.geode && f.ore >= bp.geodeOreCost && f.obsidian >= bp.geodeObsidianCost) {
+        } else if (buyRobot == Robot.geode &&
+            f.ore >= bp.geodeOreCost &&
+            f.obsidian >= bp.geodeObsidianCost) {
           for (final r in Robot.values) {
-            search(f.nextDay(geodeRobots: 1, ore: -bp.geodeOreCost, obsidian: -bp.geodeObsidianCost), r);
+            search(
+                f.nextDay(
+                    geodeRobots: 1,
+                    ore: -bp.geodeOreCost,
+                    obsidian: -bp.geodeObsidianCost),
+                r);
           }
           return;
         }
@@ -78,23 +91,22 @@ class Day19 extends AdventDay {
   }
 
   List<Blueprint> parseBlueprints(String input) =>
-    input.lines.map(Blueprint.from).toList();
+      input.lines.map(Blueprint.from).toList();
 }
 
 enum Robot { ore, clay, obsidian, geode }
 
 class Blueprint {
-  Blueprint(this.id,
-    this.oreCost, this.clayOreCost,
-    this.obsidianOreCost, this.obsidianClayCost,
-    this.geodeOreCost, this.geodeObsidianCost);
+  Blueprint(this.id, this.oreCost, this.clayOreCost, this.obsidianOreCost,
+      this.obsidianClayCost, this.geodeOreCost, this.geodeObsidianCost);
 
   factory Blueprint.from(String line) {
     final digits = RegExp(r'\d+')
-      .allMatches(line)
-      .map((m) => int.parse(m.group(0)!))
-      .toList();
-    return Blueprint(digits[0], digits[1], digits[2], digits[3], digits[4], digits[5], digits[6]);
+        .allMatches(line)
+        .map((m) => int.parse(m.group(0)!))
+        .toList();
+    return Blueprint(digits[0], digits[1], digits[2], digits[3], digits[4],
+        digits[5], digits[6]);
   }
 
   final int id;
@@ -128,17 +140,18 @@ class Factory {
     int clay = 0,
     int obsidian = 0,
     int geode = 0,
-  }) => Factory(
-    timeLeft: timeLeft - 1,
-    oreRobots: this.oreRobots + oreRobots,
-    clayRobots: this.clayRobots + clayRobots,
-    obsidianRobots: this.obsidianRobots + obsidianRobots,
-    geodeRobots: this.geodeRobots + geodeRobots,
-    ore: this.ore + this.oreRobots + ore,
-    clay: this.clay + this.clayRobots + clay,
-    obsidian: this.obsidian + this.obsidianRobots + obsidian,
-    geode: this.geode + this.geodeRobots + geode,
-  );
+  }) =>
+      Factory(
+        timeLeft: timeLeft - 1,
+        oreRobots: this.oreRobots + oreRobots,
+        clayRobots: this.clayRobots + clayRobots,
+        obsidianRobots: this.obsidianRobots + obsidianRobots,
+        geodeRobots: this.geodeRobots + geodeRobots,
+        ore: this.ore + this.oreRobots + ore,
+        clay: this.clay + this.clayRobots + clay,
+        obsidian: this.obsidian + this.obsidianRobots + obsidian,
+        geode: this.geode + this.geodeRobots + geode,
+      );
 
   final int timeLeft;
   final int oreRobots;

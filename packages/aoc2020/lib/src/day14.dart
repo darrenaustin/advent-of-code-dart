@@ -13,11 +13,11 @@ class Day14 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    executeBitmask(parseInstructions(input)).values.sum;
+      executeBitmask(parseInstructions(input)).values.sum;
 
   @override
   dynamic part2(String input) =>
-    executeAddressDecode(parseInstructions(input)).values.sum;
+      executeAddressDecode(parseInstructions(input)).values.sum;
 
   Iterable<Instruction> parseInstructions(String input) {
     final maskRegExp = RegExp(r'^mask\s*=\s*([X01]{36})$');
@@ -30,9 +30,8 @@ class Day14 extends AdventDay {
       final memLine = memRegExp.firstMatch(e);
       if (memLine != null) {
         return Instruction(
-          address: int.parse(memLine.group(1)!),
-          value: int.parse(memLine.group(2)!)
-        );
+            address: int.parse(memLine.group(1)!),
+            value: int.parse(memLine.group(2)!));
       }
       throw Exception('Unknown instruction: $e');
     });
@@ -77,7 +76,7 @@ List<String> bits(int num, [int? maxBits]) {
 
 class Instruction {
   Instruction({this.mask, this.address, this.value})
-    : assert(mask != null || (address != null && value != null));
+      : assert(mask != null || (address != null && value != null));
 
   final String? mask;
   final int? address;
@@ -85,9 +84,11 @@ class Instruction {
 }
 
 class DualBitMask {
-  DualBitMask([String maskText = 'X']) :
-    setMask = int.parse(maskText.replaceAll('X', '0'), radix: 2),
-    clearMask = int.parse(maskText.chars.map((e) => e == '0' ? '1' : '0').join(), radix: 2);
+  DualBitMask([String maskText = 'X'])
+      : setMask = int.parse(maskText.replaceAll('X', '0'), radix: 2),
+        clearMask = int.parse(
+            maskText.chars.map((e) => e == '0' ? '1' : '0').join(),
+            radix: 2);
 
   final int setMask;
   final int clearMask;
@@ -96,9 +97,17 @@ class DualBitMask {
 }
 
 class AddressMask {
-  AddressMask([String? mask]) :
-    setMask = (mask != null) ? int.parse(mask.replaceAll('X', '0'), radix: 2) : 0,
-    floatingIndex = (mask != null) ? mask.chars.asMap().entries.where((e) => e.value == 'X').map((kv) => kv.key).toList() : [];
+  AddressMask([String? mask])
+      : setMask =
+            (mask != null) ? int.parse(mask.replaceAll('X', '0'), radix: 2) : 0,
+        floatingIndex = (mask != null)
+            ? mask.chars
+                .asMap()
+                .entries
+                .where((e) => e.value == 'X')
+                .map((kv) => kv.key)
+                .toList()
+            : [];
 
   final int setMask;
   final List<int> floatingIndex;

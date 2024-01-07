@@ -11,7 +11,7 @@ UUUUD''';
 
     group('part 1', () {
       test('example', () {
-        expect(Day02().part1(exampleInput), '1985'); 
+        expect(Day02().part1(exampleInput), '1985');
       });
 
       test('solution', () => Day02().testPart1());

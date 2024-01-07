@@ -13,15 +13,12 @@ class Day14 extends AdventDay {
   Day14() : super(2015, 14, name: 'Reindeer Olympics');
 
   @override
-  dynamic part1(String input) => input
-    .lines
-    .map(Reindeer.parse)
-    .map((r) => r.distance(2503))
-    .max;
+  dynamic part1(String input) =>
+      input.lines.map(Reindeer.parse).map((r) => r.distance(2503)).max;
 
   @override
-  dynamic part2(String input) => 
-    winningScore(input.lines.map(Reindeer.parse).toList(), 2503);
+  dynamic part2(String input) =>
+      winningScore(input.lines.map(Reindeer.parse).toList(), 2503);
 
   static int winningScore(List<Reindeer> reindeer, int seconds) {
     final points = List<int>.generate(reindeer.length, (_) => 0);
@@ -44,7 +41,6 @@ class Day14 extends AdventDay {
     }
     return points.max;
   }
-
 }
 
 class Reindeer {
@@ -55,19 +51,16 @@ class Reindeer {
   final int restTime;
 
   int distance(int duration) {
-    return
-      speed * flightTime * (duration ~/ (flightTime + restTime)) +
-      speed * min(duration % (flightTime + restTime), flightTime);
+    return speed * flightTime * (duration ~/ (flightTime + restTime)) +
+        speed * min(duration % (flightTime + restTime), flightTime);
   }
 
-  static final RegExp _reindeerPattern = RegExp(r'\S+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.');
+  static final RegExp _reindeerPattern = RegExp(
+      r'\S+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.');
 
   static Reindeer parse(String input) {
     final match = _reindeerPattern.firstMatch(input)!;
-    return Reindeer(
-      int.parse(match.group(1)!),
-      int.parse(match.group(2)!),
-      int.parse(match.group(3)!)
-    );
+    return Reindeer(int.parse(match.group(1)!), int.parse(match.group(2)!),
+        int.parse(match.group(3)!));
   }
 }

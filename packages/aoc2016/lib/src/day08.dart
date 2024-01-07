@@ -33,8 +33,8 @@ class Day08 extends AdventDay {
   }
 
   final _rectPattern = RegExp(r'rect (\d+)x(\d+)');
-  final _colPattern =  RegExp(r'rotate column x=(\d+) by (\d+)');
-  final _rowPattern =  RegExp(r'rotate row y=(\d+) by (\d+)');
+  final _colPattern = RegExp(r'rotate column x=(\d+) by (\d+)');
+  final _rowPattern = RegExp(r'rotate row y=(\d+) by (\d+)');
 
   void runInstruction(Screen screen, String instruction) {
     var match = _rectPattern.firstMatch(instruction);
@@ -44,7 +44,8 @@ class Day08 extends AdventDay {
     }
     match = _colPattern.firstMatch(instruction);
     if (match != null) {
-      screen.rotateColumn(int.parse(match.group(1)!), int.parse(match.group(2)!));
+      screen.rotateColumn(
+          int.parse(match.group(1)!), int.parse(match.group(2)!));
       return;
     }
     match = _rowPattern.firstMatch(instruction);

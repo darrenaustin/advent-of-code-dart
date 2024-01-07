@@ -67,10 +67,11 @@ class Range {
 
   // Do they overlap or even just have adjacent first and last values.
   bool touches(Range other) =>
-        (other.first <= first && first <= other.last + 1)
-     || (other.first - 1 <= last && last <= other.last)
-     || (first <= other.first && other.first <= last + 1)
-     || (first - 1 <= other.last && other.last <= last);
+      (other.first <= first && first <= other.last + 1) ||
+      (other.first - 1 <= last && last <= other.last) ||
+      (first <= other.first && other.first <= last + 1) ||
+      (first - 1 <= other.last && other.last <= last);
 
-  Range union(Range other) => Range(min(other.first, first), max(other.last, last));
+  Range union(Range other) =>
+      Range(min(other.first, first), max(other.last, last));
 }

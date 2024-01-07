@@ -1,24 +1,19 @@
 // Intcode virtual machine
 
 class Intcode {
-
   Intcode({
     required List<int> memory,
     List<int>? input,
     List<int>? output,
-  }) : _memory = List.from(memory),
-       input = input ?? <int>[],
-       output = output ?? <int>[];
+  })  : _memory = List.from(memory),
+        input = input ?? <int>[],
+        output = output ?? <int>[];
 
   Intcode.from({
     required String program,
     List<int>? input,
     List<int>? output,
-  }) : this(
-    memory: parseProgram(program),
-    input: input,
-    output: output
-  );
+  }) : this(memory: parseProgram(program), input: input, output: output);
 
   final List<int?> _memory;
 
@@ -158,21 +153,30 @@ class Intcode {
 
   List<int> _parameterModes(int address) {
     final instruction = this[address];
-    return (instruction ~/ 100).toString().padLeft(3, '0').split('').reversed.map(int.parse).toList();
+    return (instruction ~/ 100)
+        .toString()
+        .padLeft(3, '0')
+        .split('')
+        .reversed
+        .map(int.parse)
+        .toList();
   }
 
   int _parameter(int opAddress, int paramIndex, List<int> modes) {
     final param = this[opAddress + paramIndex];
     switch (modes[paramIndex - 1]) {
       // Position mode
-      case 0: return this[param];
+      case 0:
+        return this[param];
       // Immediate mode
-      case 1: return param;
+      case 1:
+        return param;
       // Relative mode
-      case 2: return this[param + _relativeBase];
+      case 2:
+        return this[param + _relativeBase];
 
       default:
-        throw Exception('Unknown parameter mode ${modes[paramIndex -1]}');
+        throw Exception('Unknown parameter mode ${modes[paramIndex - 1]}');
     }
   }
 
@@ -180,19 +184,22 @@ class Intcode {
     final param = this[opAddress + paramIndex];
     switch (modes[paramIndex - 1]) {
       // Position mode
-      case 0: return param;
+      case 0:
+        return param;
       // Immediate mode
-      case 1: throw Exception('Trying to get an immediate mode address');
+      case 1:
+        throw Exception('Trying to get an immediate mode address');
       // Relative mode
-      case 2: return param + _relativeBase;
+      case 2:
+        return param + _relativeBase;
 
       default:
-        throw Exception('Unknown parameter mode ${modes[paramIndex -1]}');
+        throw Exception('Unknown parameter mode ${modes[paramIndex - 1]}');
     }
   }
 
   static List<int> parseProgram(String program) =>
-    program.split(',').map(int.parse).toList();
+      program.split(',').map(int.parse).toList();
 
   static String disassemble(List<int> program, [int? startAddress]) {
     final buffer = StringBuffer();
@@ -203,13 +210,25 @@ class Intcode {
       final address = pc.toString().padLeft(4);
       if (numParams > 0) {
         final params = <String>[];
-        final modes = (program[pc] ~/ 100).toString().padLeft(3, '0').split('').reversed.map(int.parse).toList();
+        final modes = (program[pc] ~/ 100)
+            .toString()
+            .padLeft(3, '0')
+            .split('')
+            .reversed
+            .map(int.parse)
+            .toList();
         for (int p = 0; p < numParams; p++) {
           final paramAddress = (pc + p + 1).toString();
           switch (modes[p]) {
-            case 0: params.add(paramAddress); break;
-            case 1: params.add('#$paramAddress'); break;
-            case 2: params.add('@$paramAddress'); break;
+            case 0:
+              params.add(paramAddress);
+              break;
+            case 1:
+              params.add('#$paramAddress');
+              break;
+            case 2:
+              params.add('@$paramAddress');
+              break;
           }
         }
         buffer.writeln('$address: $opCode ${params.join(', ')}');
@@ -227,17 +246,39 @@ class Intcode {
       final instr = program[pc];
       final opCode = instr - ((instr ~/ 100) * 100);
       switch (opCode) {
-        case 99: instruction('HALT'); break;
-        case 1: instruction('ADD', 3); break;
-        case 2: instruction('MUL', 3); break;
-        case 3: instruction('IN', 1); break;
-        case 4: instruction('OUT', 1); break;
-        case 5: instruction('JZ', 2); break;
-        case 6: instruction('JNZ', 2); break;
-        case 7: instruction('SLT', 3); break;
-        case 8: instruction('SEQ', 3); break;
-        case 9: instruction('INCB', 1); break;
-        default: instruction('DATA [$instr]', 0); break;
+        case 99:
+          instruction('HALT');
+          break;
+        case 1:
+          instruction('ADD', 3);
+          break;
+        case 2:
+          instruction('MUL', 3);
+          break;
+        case 3:
+          instruction('IN', 1);
+          break;
+        case 4:
+          instruction('OUT', 1);
+          break;
+        case 5:
+          instruction('JZ', 2);
+          break;
+        case 6:
+          instruction('JNZ', 2);
+          break;
+        case 7:
+          instruction('SLT', 3);
+          break;
+        case 8:
+          instruction('SEQ', 3);
+          break;
+        case 9:
+          instruction('INCB', 1);
+          break;
+        default:
+          instruction('DATA [$instr]', 0);
+          break;
       }
     }
     return buffer.toString();

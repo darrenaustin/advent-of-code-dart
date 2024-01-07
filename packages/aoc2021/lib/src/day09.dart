@@ -17,21 +17,21 @@ class Day09 extends AdventDay {
   dynamic part1(String input) {
     final grid = parseGrid(input);
     return grid
-      .locations()
-      .map((p) => lowPoint(grid, p) ? grid.cell(p) + 1 : 0)
-      .sum;
+        .locations()
+        .map((p) => lowPoint(grid, p) ? grid.cell(p) + 1 : 0)
+        .sum;
   }
 
   @override
   dynamic part2(String input) {
     final grid = parseGrid(input);
     return grid
-      .locations()
-      .map((p) => lowPoint(grid, p) ? basinSizeFor(grid, p) : null)
-      .whereNotNull()
-      .sorted(numMaxComparator)
-      .take(3)
-      .product;
+        .locations()
+        .map((p) => lowPoint(grid, p) ? basinSizeFor(grid, p) : null)
+        .whereNotNull()
+        .sorted(numMaxComparator)
+        .take(3)
+        .product;
   }
 
   bool lowPoint(Grid<int> grid, Vec2 p) {
@@ -45,26 +45,18 @@ class Day09 extends AdventDay {
     while (edges.isNotEmpty) {
       final edge = edges.removeLast();
       locs.add(edge);
-      edges.addAll(Vec2.orthogonalDirs
-        .map((offset) => edge + offset)
-        .where((newEdge) => grid.validCell(newEdge)
-          && grid.cell(newEdge) != 9
-          && !locs.contains(newEdge))
-      );
+      edges.addAll(Vec2.orthogonalDirs.map((offset) => edge + offset).where(
+          (newEdge) =>
+              grid.validCell(newEdge) &&
+              grid.cell(newEdge) != 9 &&
+              !locs.contains(newEdge)));
     }
     return locs.length;
   }
 
   Grid<int> parseGrid(String input) {
     return Grid.from(
-      input
-        .lines
-        .map((row) => row
-          .chars
-          .map(int.parse)
-          .toList()
-        )
-        .toList(),
-      0);
+        input.lines.map((row) => row.chars.map(int.parse).toList()).toList(),
+        0);
   }
 }

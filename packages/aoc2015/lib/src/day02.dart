@@ -10,30 +10,21 @@ class Day02 extends AdventDay {
   Day02() : super(2015, 2, name: 'I Was Told There Would Be No Math');
 
   @override
-  dynamic part1(String input) => input
-    .lines
-    .map(parsePackage)
-    .map(wrapNeededFor)
-    .sum;
+  dynamic part1(String input) =>
+      input.lines.map(parsePackage).map(wrapNeededFor).sum;
 
   @override
-  dynamic part2(String input) => input
-    .lines
-    .map(parsePackage)
-    .map(ribbonNeededFor)
-    .sum;
+  dynamic part2(String input) =>
+      input.lines.map(parsePackage).map(ribbonNeededFor).sum;
 
-  static List<int> parsePackage(String input) => input
-    .split('x')
-    .map(int.parse)
-    .toList()
-    ..sort();
+  static List<int> parsePackage(String input) =>
+      input.split('x').map(int.parse).toList()..sort();
 
   static int wrapNeededFor(List<int> dimens) =>
-    3 * (dimens[0] * dimens[1]) + // smallest side counts one extra.
-    2 * (dimens[1] * dimens[2]) +
-    2 * (dimens[0] * dimens[2]);
+      3 * (dimens[0] * dimens[1]) + // smallest side counts one extra.
+      2 * (dimens[1] * dimens[2]) +
+      2 * (dimens[0] * dimens[2]);
 
   static int ribbonNeededFor(List<int> dimens) =>
-    2 * (dimens[0] + dimens[1]) + (dimens[0] * dimens[1] * dimens[2]);
+      2 * (dimens[0] + dimens[1]) + (dimens[0] * dimens[1] * dimens[2]);
 }

@@ -9,7 +9,6 @@ London to Belfast = 518
 Dublin to Belfast = 141''';
 
     group('part 1', () {
-
       test('example', () {
         expect(Day09().part1(exampleRoutes), 605);
       });

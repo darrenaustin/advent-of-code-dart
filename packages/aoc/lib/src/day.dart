@@ -25,7 +25,8 @@ abstract class AdventDay {
       final start = DateTime.now();
       final answer = partNum == 1 ? part1(inputText) : part2(inputText);
       final time = DateTime.now().difference(start).inMilliseconds;
-      print('  part $partNum: ${_results(answer, partNum == 1 ? answer1 : answer2, time)}');
+      print(
+          '  part $partNum: ${_results(answer, partNum == 1 ? answer1 : answer2, time)}');
     }
 
     print('$year Day $day: ${name ?? ''}\n');
@@ -56,21 +57,21 @@ abstract class AdventDay {
 
   static const lastStarSolution = '🎄 Got em all! 🎉';
 
-  static final inputRepoBase =
-    String.fromEnvironment('INPUT_REPO', defaultValue: '../../../advent_of_code_input');
+  static final inputRepoBase = String.fromEnvironment('INPUT_REPO',
+      defaultValue: '../../../advent_of_code_input');
 
   String get _inputFileName =>
-    '$inputRepoBase/$year/${day.toString().padLeft(2, '0')}_input.txt';
+      '$inputRepoBase/$year/${day.toString().padLeft(2, '0')}_input.txt';
 
   String _results(dynamic answer, dynamic expected, int time) {
     if (answer == null) {
       return 'not yet implemented';
     }
     final String correct = expected != null
-      ? expected == answer
-        ? 'correct, '
-        : 'INCORRECT, '
-      : '';
+        ? expected == answer
+            ? 'correct, '
+            : 'INCORRECT, '
+        : '';
     return '${_format(answer)}, ($correct$time ms)';
   }
 
@@ -82,12 +83,12 @@ abstract class AdventDay {
   }
 
   static Map<String, dynamic> _loadAnswers(int year, int day) {
-    final answerFile = File(path.join(inputRepoBase, year.toString(), '${day.toString().padLeft(2, '0')}_answer.json'));
+    final answerFile = File(path.join(inputRepoBase, year.toString(),
+        '${day.toString().padLeft(2, '0')}_answer.json'));
     if (answerFile.existsSync()) {
       try {
         return jsonDecode(answerFile.readAsStringSync());
-      } catch (_) {
-      }
+      } catch (_) {}
     }
     return {};
   }

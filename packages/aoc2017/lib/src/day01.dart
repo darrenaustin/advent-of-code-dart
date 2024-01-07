@@ -13,8 +13,8 @@ class Day01 extends AdventDay {
     final captcha = input.split('').map(int.parse).toList();
     final length = captcha.length;
     return captcha
-      .whereIndexed((i, d) => captcha[i] == captcha[(i + 1) % length])
-      .sum;
+        .whereIndexed((i, d) => captcha[i] == captcha[(i + 1) % length])
+        .sum;
   }
 
   @override
@@ -23,7 +23,7 @@ class Day01 extends AdventDay {
     final length = captcha.length;
     final halfway = length ~/ 2;
     return captcha
-      .whereIndexed((i, d) => captcha[i] == captcha[(i + halfway) % length])
-      .sum;
+        .whereIndexed((i, d) => captcha[i] == captcha[(i + halfway) % length])
+        .sum;
   }
 }

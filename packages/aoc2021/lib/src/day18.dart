@@ -11,11 +11,8 @@ class Day18 extends AdventDay {
   Day18() : super(2021, 18, name: 'Snailfish');
 
   @override
-  dynamic part1(String input) => input
-    .lines
-    .map(Pair.from)
-    .reduce((sum, pair) => sum + pair)
-    .magnitude();
+  dynamic part1(String input) =>
+      input.lines.map(Pair.from).reduce((sum, pair) => sum + pair).magnitude();
 
   @override
   dynamic part2(String input) {
@@ -33,10 +30,10 @@ class Day18 extends AdventDay {
 
 class Pair {
   Pair(dynamic left, dynamic right)
-    : assert(left is int || left is Pair),
-      assert(right is int || right is Pair),
-      _left = left,
-      _right = right;
+      : assert(left is int || left is Pair),
+        assert(right is int || right is Pair),
+        _left = left,
+        _right = right;
 
   dynamic get left => _left;
   int? get leftNumber => _left is int ? _left as int : null;
@@ -45,6 +42,7 @@ class Pair {
     assert(value is int || value is Pair);
     _left = value;
   }
+
   dynamic _left;
 
   dynamic get right => _right;
@@ -54,6 +52,7 @@ class Pair {
     assert(value is int || value is Pair);
     _right = value;
   }
+
   dynamic _right;
 
   factory Pair.copy(Pair other) {
@@ -95,17 +94,18 @@ class Pair {
       }
       return Pair(left, right);
     }
+
     return parsePair(string.split(''));
   }
 
-  factory Pair.split(int value) => Pair((value  / 2).floor(), (value / 2).ceil());
+  factory Pair.split(int value) =>
+      Pair((value / 2).floor(), (value / 2).ceil());
 
   void reduce() {
     while (_explodeIfNeeded(this) || _splitIfNeeded(this)) {}
   }
 
   bool _explodeIfNeeded(Pair p) {
-
     void addToLeftMost(int value, Pair p) {
       while (p.left is Pair) {
         p = p.leftPair!;
@@ -172,6 +172,7 @@ class Pair {
       }
       return false;
     }
+
     return explode(p, []);
   }
 
@@ -200,12 +201,11 @@ class Pair {
   }
 
   int magnitude() {
-    return
-      3 * (leftNumber ?? leftPair!.magnitude()) +
-      2 * (rightNumber ?? rightPair!.magnitude());
+    return 3 * (leftNumber ?? leftPair!.magnitude()) +
+        2 * (rightNumber ?? rightPair!.magnitude());
   }
 
-  Pair operator+ (Pair other) {
+  Pair operator +(Pair other) {
     return Pair(Pair.copy(this), Pair.copy(other))..reduce();
   }
 

@@ -11,17 +11,11 @@ class Day18 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    input
-      .lines
-      .map((exp) => evaluate(exp, samePrecedence))
-      .sum;
+      input.lines.map((exp) => evaluate(exp, samePrecedence)).sum;
 
   @override
   dynamic part2(String input) =>
-    input
-      .lines
-      .map((exp) => evaluate(exp, additionHigherPrecedence))
-      .sum;
+      input.lines.map((exp) => evaluate(exp, additionHigherPrecedence)).sum;
 
   Iterable<Token> tokenize(String text) sync* {
     final tokenPatterns = <TokenType, RegExp>{
@@ -48,7 +42,8 @@ class Day18 extends AdventDay {
     }
   }
 
-  Iterable<Token> parse(String expressionText, Comparator<TokenType> operatorPrecedence) sync* {
+  Iterable<Token> parse(
+      String expressionText, Comparator<TokenType> operatorPrecedence) sync* {
     final tokens = tokenize(expressionText).iterator;
     final opStack = <Token>[];
     while (tokens.moveNext()) {
@@ -60,8 +55,8 @@ class Day18 extends AdventDay {
         case TokenType.plus:
         case TokenType.times:
           while (opStack.isNotEmpty &&
-                 opStack.last.type != TokenType.openParen &&
-                 operatorPrecedence(opStack.last.type, current.type) <= 0) {
+              opStack.last.type != TokenType.openParen &&
+              operatorPrecedence(opStack.last.type, current.type) <= 0) {
             yield opStack.removeLast();
           }
           opStack.add(current);
@@ -80,7 +75,8 @@ class Day18 extends AdventDay {
     yield* opStack.reversed;
   }
 
-  int evaluate(String expressionText, Comparator<TokenType> operatorPrecedence) {
+  int evaluate(
+      String expressionText, Comparator<TokenType> operatorPrecedence) {
     final tokens = parse(expressionText, operatorPrecedence).iterator;
     final stack = <int>[];
 

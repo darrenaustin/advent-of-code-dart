@@ -10,20 +10,19 @@ class Day17 extends AdventDay {
   Day17() : super(2015, 17, name: 'No Such Thing as Too Much');
 
   @override
-  dynamic part1(String input) => 
-    containersThatSumTo(containers(input), 150).length;
+  dynamic part1(String input) =>
+      containersThatSumTo(containers(input), 150).length;
 
   @override
   dynamic part2(String input) => numMinFill(containers(input), 150);
 
   Iterable<int> containers(String input) =>
-    input.lines.map(int.parse).sorted(Comparable.compare);
+      input.lines.map(int.parse).sorted(Comparable.compare);
 
   // Returns all combinations of containers that can fit the sum.
   // Assumes the containers are storted.
   static Iterable<Iterable<int>> containersThatSumTo(
-    Iterable<int> containers, int sum
-  ) sync* {
+      Iterable<int> containers, int sum) sync* {
     if (sum == 0) {
       yield <int>[];
     } else if (containers.isNotEmpty) {

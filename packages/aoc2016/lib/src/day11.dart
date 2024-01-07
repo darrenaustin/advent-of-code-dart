@@ -16,24 +16,22 @@ class Day11 extends AdventDay {
   dynamic part1(String input) {
     final building = parseBuilding(input);
     return aStarLowestCost<Building>(
-      start: building,
-      goal: building.goal(),
-      estimatedDistance: Building.distanceToGoal,
-      costTo: (b1, b2) => 1,
-      neighborsOf: (b) => b.nextSteps()
-    )?.toInt();
+        start: building,
+        goal: building.goal(),
+        estimatedDistance: Building.distanceToGoal,
+        costTo: (b1, b2) => 1,
+        neighborsOf: (b) => b.nextSteps())?.toInt();
   }
 
   @override
   dynamic part2(String input) {
     final building = parseBuilding(input, [Pair(1, 1), Pair(1, 1)]);
     return aStarLowestCost<Building>(
-      start: building,
-      goal: building.goal(),
-      estimatedDistance: Building.distanceToGoal,
-      costTo: (b1, b2) => 1,
-      neighborsOf: (b) => b.nextSteps()
-    )?.toInt();
+        start: building,
+        goal: building.goal(),
+        estimatedDistance: Building.distanceToGoal,
+        costTo: (b1, b2) => 1,
+        neighborsOf: (b) => b.nextSteps())?.toInt();
   }
 
   Building parseBuilding(String input, [List<Pair>? extraPairs]) {
@@ -41,12 +39,14 @@ class Day11 extends AdventDay {
     final generators = <String, int>{};
     int floor = 1;
     for (final floorText in input.lines) {
-      final chipMatches = RegExp(r'a (\w+)-compatible microchip').allMatches(floorText);
+      final chipMatches =
+          RegExp(r'a (\w+)-compatible microchip').allMatches(floorText);
       for (final chipMatch in chipMatches) {
         final name = chipMatch.group(1)!;
         chips[name] = floor;
       }
-      final generatorMatches = RegExp(r'a (\w+) generator').allMatches(floorText);
+      final generatorMatches =
+          RegExp(r'a (\w+) generator').allMatches(floorText);
       for (final generatorMatch in generatorMatches) {
         final name = generatorMatch.group(1)!;
         generators[name] = floor;
@@ -79,9 +79,7 @@ class Pair implements Comparable<Pair> {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is Pair
-      && other.chip == chip
-      && other.generator == generator;
+    return other is Pair && other.chip == chip && other.generator == generator;
   }
 
   @override
@@ -93,10 +91,10 @@ class Pair implements Comparable<Pair> {
     late final generatorSign = (generator - other.generator).sign;
 
     return chipSign == 0
-      ? generatorSign == 0
-        ? 0
-        : generatorSign
-      : chipSign;
+        ? generatorSign == 0
+            ? 0
+            : generatorSign
+        : chipSign;
   }
 
   @override
@@ -112,17 +110,18 @@ class Building {
   final List<Pair> pairs;
 
   Building goal() =>
-    Building(4, List<Pair>.generate(pairs.length, (_) => Pair(4, 4)));
+      Building(4, List<Pair>.generate(pairs.length, (_) => Pair(4, 4)));
 
   static double distanceToGoal(Building b) =>
-    4.0 - b.elevator +
-    b.pairs.map((p) => 4 - p.chip + 4 - p.generator).sum;
+      4.0 - b.elevator + b.pairs.map((p) => 4 - p.chip + 4 - p.generator).sum;
 
   Iterable<Building> nextSteps() sync* {
     final elevatorDirections = [if (elevator != 4) 1, if (elevator != 1) -1];
     final floorItems = <Item>[
       ...pairs.indicesWhere((p) => p.chip == elevator).map((i) => Item.chip(i)),
-      ...pairs.indicesWhere((p) => p.generator == elevator).map((i) => Item.generator(i))
+      ...pairs
+          .indicesWhere((p) => p.generator == elevator)
+          .map((i) => Item.generator(i))
     ];
 
     final possibleMovingItems = <Iterable<Item>>[
@@ -134,7 +133,8 @@ class Building {
       final movedElevator = elevator + dir;
       for (final items in possibleMovingItems) {
         final movedPairs = move(items, movedElevator);
-        if (validFloor(movedPairs, elevator) && validFloor(movedPairs, movedElevator)) {
+        if (validFloor(movedPairs, elevator) &&
+            validFloor(movedPairs, movedElevator)) {
           yield Building(movedElevator, movedPairs);
         }
       }
@@ -146,8 +146,8 @@ class Building {
     for (final item in items) {
       final oldPair = movedPairs.removeAt(item.pairIndex);
       final newPair = item.type == ItemType.chip
-        ? Pair(newFloor, oldPair.generator)
-        : Pair(oldPair.chip, newFloor);
+          ? Pair(newFloor, oldPair.generator)
+          : Pair(oldPair.chip, newFloor);
       movedPairs.insert(item.pairIndex, newPair);
     }
     return movedPairs;
@@ -157,7 +157,8 @@ class Building {
     final chips = pairs.indicesWhere((p) => p.chip == floor);
     final generators = pairs.indicesWhere((p) => p.generator == floor).toSet();
 
-    return generators.isEmpty || chips.every((chipIndex) => generators.contains(chipIndex));
+    return generators.isEmpty ||
+        chips.every((chipIndex) => generators.contains(chipIndex));
   }
 
   @override
@@ -168,9 +169,9 @@ class Building {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is Building
-      && other.elevator == elevator
-      && deepEq.equals(other.pairs, pairs);
+    return other is Building &&
+        other.elevator == elevator &&
+        deepEq.equals(other.pairs, pairs);
   }
 
   @override
@@ -190,5 +191,6 @@ class Item {
   final ItemType type;
 
   @override
-  String toString() => type == ItemType.chip ? 'chip($pairIndex)' : 'generator($pairIndex)';
+  String toString() =>
+      type == ItemType.chip ? 'chip($pairIndex)' : 'generator($pairIndex)';
 }

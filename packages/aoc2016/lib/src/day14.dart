@@ -14,7 +14,7 @@ class Day14 extends AdventDay {
   dynamic part1(String input) => indexOfKey(MD5Stream(input), 64);
 
   @override
-  dynamic part2(String input) =>  indexOfKey(MD5Stream(input, 2016), 64);
+  dynamic part2(String input) => indexOfKey(MD5Stream(input, 2016), 64);
 
   static int indexOfKey(MD5Stream stream, int maxKey) {
     int keys = 0;
@@ -35,10 +35,10 @@ class Day14 extends AdventDay {
   }
 
   static String? firstTriplet(String s) =>
-    RegExp(r'(.)\1\1').firstMatch(s)?.group(1);
+      RegExp(r'(.)\1\1').firstMatch(s)?.group(1);
 
   static bool has5of(String s, String c) =>
-    RegExp('($c)\\1\\1\\1\\1').hasMatch(s);
+      RegExp('($c)\\1\\1\\1\\1').hasMatch(s);
 }
 
 class MD5Stream {

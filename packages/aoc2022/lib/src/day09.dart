@@ -25,9 +25,9 @@ class Day09 extends AdventDay {
 }
 
 class Rope {
-  Rope(int knots) :
-    _knot = List.generate(knots, (_) => Vec2.zero),
-    _tailVisited = <Vec2>{Vec2.zero};
+  Rope(int knots)
+      : _knot = List.generate(knots, (_) => Vec2.zero),
+        _tailVisited = <Vec2>{Vec2.zero};
 
   final List<Vec2> _knot;
   final Set<Vec2> _tailVisited;
@@ -50,12 +50,10 @@ class Rope {
       for (int k = 1; k < _knot.length; k++) {
         final Vec2 leader = _knot[k - 1];
         if (!Vec2.cardinalDirs.any((l) => (leader + l) == _knot[k])) {
-            // Not in any of the surrounding spaces of the leader, so
-            // move the knot in the direction of the leader.
-            _knot[k] += Vec2.int(
-              leader.x.compareTo(_knot[k].x),
-              leader.y.compareTo(_knot[k].y)
-            );
+          // Not in any of the surrounding spaces of the leader, so
+          // move the knot in the direction of the leader.
+          _knot[k] += Vec2.int(
+              leader.x.compareTo(_knot[k].x), leader.y.compareTo(_knot[k].y));
         }
       }
       _tailVisited.add(_knot.last);
@@ -63,9 +61,9 @@ class Rope {
   }
 
   static final dirs = {
-    'R' : Vec2.right,
-    'L' : Vec2.left,
-    'U' : Vec2.up,
-    'D' : Vec2.down,
+    'R': Vec2.right,
+    'L': Vec2.left,
+    'U': Vec2.up,
+    'D': Vec2.down,
   };
 }

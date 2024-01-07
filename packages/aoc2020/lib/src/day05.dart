@@ -23,7 +23,8 @@ class Day05 extends AdventDay {
     }
   }
 
-  static int partitionValue<T>(List<T> codes, T lowerCode, T upperCode, int size) {
+  static int partitionValue<T>(
+      List<T> codes, T lowerCode, T upperCode, int size) {
     var lowerBound = 0;
     var upperBound = size - 1;
 

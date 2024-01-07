@@ -11,11 +11,11 @@ class Day04 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    parsePasswords(input).where(hasRequiredFields).length;
+      parsePasswords(input).where(hasRequiredFields).length;
 
   @override
   dynamic part2(String input) =>
-    parsePasswords(input).where(hasValidRequiredFields).length;
+      parsePasswords(input).where(hasValidRequiredFields).length;
 
   static List<Map<String, String>> parsePasswords(String input) {
     final keyValueRegexp = RegExp(r'(\S+):(\S+)');
@@ -23,8 +23,7 @@ class Day04 extends AdventDay {
     return entries.map((entry) {
       final keyValues = keyValueRegexp.allMatches(entry);
       return Map.fromEntries(
-        keyValues.map((kv) => MapEntry(kv.group(1)!, kv.group(2)!))
-      );
+          keyValues.map((kv) => MapEntry(kv.group(1)!, kv.group(2)!)));
     }).toList();
   }
 
@@ -35,9 +34,9 @@ class Day04 extends AdventDay {
 
   static bool hasValidRequiredFields(Map<String, String> entry) {
     FieldValidator validYear(int startYear, int endYear) => (value) {
-      final year = int.tryParse(value);
-      return year != null && startYear <= year && year <= endYear;
-    };
+          final year = int.tryParse(value);
+          return year != null && startYear <= year && year <= endYear;
+        };
 
     final requiredFields = <String, FieldValidator>{
       'byr': validYear(1920, 2002),
@@ -65,6 +64,7 @@ class Day04 extends AdventDay {
     };
 
     return requiredFields.entries.every((keyValue) =>
-       entry.containsKey(keyValue.key) && keyValue.value(entry[keyValue.key]!));
+        entry.containsKey(keyValue.key) &&
+        keyValue.value(entry[keyValue.key]!));
   }
 }

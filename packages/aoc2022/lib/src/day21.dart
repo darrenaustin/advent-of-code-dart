@@ -10,7 +10,7 @@ class Day21 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    eval('root', parseExpressions(input), <String, int>{});
+      eval('root', parseExpressions(input), <String, int>{});
 
   @override
   dynamic part2(String input) {
@@ -21,34 +21,42 @@ class Day21 extends AdventDay {
     expressions['humn'] = ['?'];
 
     // Calculate the value that will make the variable equal the goal.
-    int valueFor(String variable, int goal)  {
+    int valueFor(String variable, int goal) {
       final expr = expressions[variable]!;
       if (expr.length == 1) {
         if (expr.first == '?') {
           return goal;
         }
-        throw('Can not change a constant value');
+        throw ('Can not change a constant value');
       } else {
         assert(expr.length == 3);
         final op1 = eval(expr[0], expressions, values);
         final op2 = eval(expr[2], expressions, values);
         if (op1 != null && op2 == null) {
           switch (expr[1]) {
-            case '+': return valueFor(expr[2], goal - op1);
-            case '-': return valueFor(expr[2], op1 - goal);
-            case '*': return valueFor(expr[2], goal ~/ op1);
-            case '/': return valueFor(expr[2], op1 ~/ goal);
+            case '+':
+              return valueFor(expr[2], goal - op1);
+            case '-':
+              return valueFor(expr[2], op1 - goal);
+            case '*':
+              return valueFor(expr[2], goal ~/ op1);
+            case '/':
+              return valueFor(expr[2], op1 ~/ goal);
           }
         } else if (op1 == null && op2 != null) {
           switch (expr[1]) {
-            case '+': return valueFor(expr[0], goal - op2);
-            case '-': return valueFor(expr[0], goal + op2);
-            case '*': return valueFor(expr[0], goal ~/ op2);
-            case '/': return valueFor(expr[0], goal * op2);
+            case '+':
+              return valueFor(expr[0], goal - op2);
+            case '-':
+              return valueFor(expr[0], goal + op2);
+            case '*':
+              return valueFor(expr[0], goal ~/ op2);
+            case '/':
+              return valueFor(expr[0], goal * op2);
           }
         }
       }
-      throw('No solution');
+      throw ('No solution');
     }
 
     final rootOp1 = eval(rootExpr[0], expressions, values);
@@ -56,14 +64,15 @@ class Day21 extends AdventDay {
 
     if (rootOp1 != null) {
       return valueFor(rootExpr[2], rootOp1);
-    } if (rootOp2 != null) {
+    }
+    if (rootOp2 != null) {
       return valueFor(rootExpr[0], rootOp2);
     }
-    throw('No solution');
+    throw ('No solution');
   }
 
-  int? eval(String variable,
-      Map<String, List<String>> expressions, Map<String, dynamic> values) {
+  int? eval(String variable, Map<String, List<String>> expressions,
+      Map<String, dynamic> values) {
     if (values.containsKey(variable)) {
       return values[variable]!;
     }
@@ -77,10 +86,18 @@ class Day21 extends AdventDay {
       final op2 = eval(expr[2], expressions, values);
       if (op1 != null && op2 != null) {
         switch (expr[1]) {
-          case '+': result = op1 + op2; break;
-          case '-': result = op1 - op2; break;
-          case '*': result = op1 * op2; break;
-          case '/': result = op1 ~/ op2; break;
+          case '+':
+            result = op1 + op2;
+            break;
+          case '-':
+            result = op1 - op2;
+            break;
+          case '*':
+            result = op1 * op2;
+            break;
+          case '/':
+            result = op1 ~/ op2;
+            break;
         }
       } else {
         result = null;
@@ -93,8 +110,8 @@ class Day21 extends AdventDay {
   }
 
   Map<String, List<String>> parseExpressions(String input) =>
-    Map.fromEntries(input.lines.map((line) {
-      final parts = line.split(': ');
-      return MapEntry(parts.first, parts.last.split(' '));
-    }));
+      Map.fromEntries(input.lines.map((line) {
+        final parts = line.split(': ');
+        return MapEntry(parts.first, parts.last.split(' '));
+      }));
 }

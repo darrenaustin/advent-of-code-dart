@@ -14,17 +14,12 @@ class Day01 extends AdventDay {
 
   @override
   dynamic part2(String input) =>
-    (parseCalories(input)..sort(numMaxComparator))
-      .take(3)
-      .sum;
+      (parseCalories(input)..sort(numMaxComparator)).take(3).sum;
 
   List<int> parseCalories(String input) {
     return input
-      .split('\n\n')
-      .map((String group) => group
-        .split('\n')
-        .map(int.parse)
-        .sum)
-      .toList();
+        .split('\n\n')
+        .map((String group) => group.split('\n').map(int.parse).sum)
+        .toList();
   }
 }

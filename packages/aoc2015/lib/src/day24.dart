@@ -14,11 +14,11 @@ class Day24 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    smallestFirstGroupEntanglement(packages(input), 3);
+      smallestFirstGroupEntanglement(packages(input), 3);
 
   @override
-  dynamic part2(String input) => 
-    smallestFirstGroupEntanglement(packages(input), 4);
+  dynamic part2(String input) =>
+      smallestFirstGroupEntanglement(packages(input), 4);
 
   List<int> packages(String input) =>
       input.lines.map(int.parse).toList()..sort(numMaxComparator);
@@ -27,8 +27,8 @@ class Day24 extends AdventDay {
     final weight = packages.sum ~/ numGroups;
     for (int n = 0; n < packages.length; n++) {
       final Iterable<int> shortestProducts = combinations<int>(packages, n)
-        .where((packageGroup) => packageGroup.sum == weight)
-        .map((packageGroup) => packageGroup.product);
+          .where((packageGroup) => packageGroup.sum == weight)
+          .map((packageGroup) => packageGroup.product);
       if (shortestProducts.isNotEmpty) {
         return shortestProducts.min;
       }

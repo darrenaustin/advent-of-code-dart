@@ -63,7 +63,7 @@ class Packet {
             // Total number of children.
             final numChildren = bits.next(11);
             children = [];
-            for (int i = 0; i < numChildren; i++){
+            for (int i = 0; i < numChildren; i++) {
               children.add(Packet.parse(bits));
             }
             break;
@@ -71,7 +71,8 @@ class Packet {
         break;
     }
 
-    return Packet(version: version, type: type, value: value, children: children);
+    return Packet(
+        version: version, type: type, value: value, children: children);
   }
 
   final int version;
@@ -153,16 +154,14 @@ class Packet {
 }
 
 class BitStream {
-
   BitStream(String hexDigits) : _bits = [] {
     for (final d in hexDigits.split('')) {
       int value = int.parse(d, radix: 16);
       _bits.addAll(value
-        .toRadixString(2)
-        .padLeft(4, '0')
-        .split('')
-        .map((b) => b == '1' ? 1 : 0)
-      );
+          .toRadixString(2)
+          .padLeft(4, '0')
+          .split('')
+          .map((b) => b == '1' ? 1 : 0));
     }
   }
 

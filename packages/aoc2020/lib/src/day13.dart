@@ -41,25 +41,22 @@ class Day13 extends AdventDay {
   int parseTimestamp(String input) => int.parse(input.lines[0]);
 
   Iterable<int> parseBusIds(String input) =>
-    input.lines[1]
-      .split(',')
-      .where((e) => e != 'x')
-      .map(int.parse);
+      input.lines[1].split(',').where((e) => e != 'x').map(int.parse);
 
   Iterable<int?> parseAllBusIds(String input) =>
-    input.lines[1]
-      .split(',')
-      .map((e) => e == 'x' ? null : int.parse(e));
+      input.lines[1].split(',').map((e) => e == 'x' ? null : int.parse(e));
 
-  Iterable<BusOffset> parseBusOffsets(String input) =>
-    parseAllBusIds(input).toList().asMap().entries
+  Iterable<BusOffset> parseBusOffsets(String input) => parseAllBusIds(input)
+      .toList()
+      .asMap()
+      .entries
       // Remove any entries that had an 'x' (which were translated into null ids)
       .where((kv) => kv.value != null)
       // The index for each entry is the offset for the timestamp (or the remainder)
       .map((kv) => BusOffset(kv.value!, kv.key));
 
   int waitTime(int bus, int timestamp) =>
-    ((timestamp ~/ bus) + 1) * bus - timestamp;
+      ((timestamp ~/ bus) + 1) * bus - timestamp;
 }
 
 class BusOffset {

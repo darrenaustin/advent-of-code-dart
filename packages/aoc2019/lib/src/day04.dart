@@ -13,9 +13,8 @@ class Day04 extends AdventDay {
   dynamic part1(String input) {
     bool possiblePassword(int n) {
       final digits = n.toString().split('');
-      return
-        digits.slicesWhere(isGreaterThan).length == 1 &&
-        digits.slicesWhere(isNotEqual).any((l) => l.length > 1);
+      return digits.slicesWhere(isGreaterThan).length == 1 &&
+          digits.slicesWhere(isNotEqual).any((l) => l.length > 1);
     }
 
     return inputRange(input).where(possiblePassword).length;
@@ -25,9 +24,8 @@ class Day04 extends AdventDay {
   dynamic part2(String input) {
     bool possiblePassword(int n) {
       final digits = n.toString().split('');
-      return
-        digits.slicesWhere(isGreaterThan).length == 1 &&
-        digits.slicesWhere(isNotEqual).any((l) => l.length == 2);
+      return digits.slicesWhere(isGreaterThan).length == 1 &&
+          digits.slicesWhere(isNotEqual).any((l) => l.length == 2);
     }
 
     return inputRange(input).where(possiblePassword).length;

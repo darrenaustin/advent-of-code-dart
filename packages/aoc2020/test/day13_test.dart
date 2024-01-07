@@ -18,7 +18,7 @@ main() {
     group('part 2', () {
       test('example', () {
         expect(Day13().part2(exampleInput), 1068781);
-        expect(Day13().part2('\n17,x,13,19'''), 3417);
+        expect(Day13().part2('\n17,x,13,19' ''), 3417);
         expect(Day13().part2('\n67,7,59,61'), 754018);
         expect(Day13().part2('\n67,x,7,59,61'), 779210);
         expect(Day13().part2('\n67,7,x,59,61'), 1261476);

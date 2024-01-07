@@ -11,7 +11,7 @@ jio a, +2
 tpl a
 inc a''';
         final machine = Machine(Day23.instructions(exampleInput))..execute();
-        expect(machine.registers[Register.a], 2); 
+        expect(machine.registers[Register.a], 2);
       });
 
       test('solution', () => Day23().testPart1());

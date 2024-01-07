@@ -6,9 +6,9 @@ import 'vec2.dart';
 class SparseGrid<T> {
   SparseGrid({
     required this.defaultValue,
-  }) : _cells = <Vec2, T>{},
-       _min = Vec2.zero,
-       _max = Vec2.zero;
+  })  : _cells = <Vec2, T>{},
+        _min = Vec2.zero,
+        _max = Vec2.zero;
 
   final T defaultValue;
 
@@ -35,7 +35,7 @@ class SparseGrid<T> {
   int numSetCells() => _cells.length;
 
   int numSetCellsWhere(bool Function(T) test) =>
-    _cells.values.where(test).length;
+      _cells.values.where(test).length;
 
   Iterable<Vec2> locationsWhere(bool Function(T) test) {
     return _cells.keys.where((p) => test(cell(p)));
@@ -43,14 +43,11 @@ class SparseGrid<T> {
 
   @override
   String toString() {
-    return
-      range(_min.yInt, _max.yInt + 1)
-        .map((int y) => range(_min.xInt, _max.xInt + 1)
-          .map((int x) {
-            final Vec2 p = Vec2.int(x, y);
-            return isSet(p) ? cell(p).toString() : defaultValue;
-          })
-          .join(''))
+    return range(_min.yInt, _max.yInt + 1)
+        .map((int y) => range(_min.xInt, _max.xInt + 1).map((int x) {
+              final Vec2 p = Vec2.int(x, y);
+              return isSet(p) ? cell(p).toString() : defaultValue;
+            }).join(''))
         .join('\n');
   }
 }

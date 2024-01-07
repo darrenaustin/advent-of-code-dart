@@ -17,16 +17,13 @@ class Day23 extends AdventDay {
   @override
   dynamic part2(String input) {
     final machine = Machine(instructions(input))
-     ..registers[Register.a] = 1
-     ..execute();
+      ..registers[Register.a] = 1
+      ..execute();
     return machine.registers[Register.b];
   }
 
   static List<Instruction> instructions(String input) =>
-    input
-      .lines
-      .map(Instruction.parse)
-      .toList();
+      input.lines.map(Instruction.parse).toList();
 }
 
 enum Register { a, b }
@@ -41,8 +38,8 @@ class Instruction {
 
     RegExpMatch? match = RegExp(r'hlf (a|b)').firstMatch(s);
     if (match != null) {
-      return Instruction(OpCode.hlf, 
-        register: match.group(1)! == 'a' ? Register.a : Register.b);
+      return Instruction(OpCode.hlf,
+          register: match.group(1)! == 'a' ? Register.a : Register.b);
     }
     match = RegExp(r'tpl (a|b)').firstMatch(s);
     if (match != null) {
@@ -59,14 +56,14 @@ class Instruction {
     match = RegExp(r'jie (a|b), ((\+|-)\d+)').firstMatch(s);
     if (match != null) {
       return Instruction(OpCode.jie,
-        register: registerFor(match.group(1)!),
-        offset: int.parse(match.group(2)!));
+          register: registerFor(match.group(1)!),
+          offset: int.parse(match.group(2)!));
     }
     match = RegExp(r'jio (a|b), ((\+|-)\d+)').firstMatch(s);
     if (match != null) {
       return Instruction(OpCode.jio,
-        register: registerFor(match.group(1)!),
-        offset: int.parse(match.group(2)!));
+          register: registerFor(match.group(1)!),
+          offset: int.parse(match.group(2)!));
     }
     throw Exception('Illegal instruction: $s');
   }
@@ -77,8 +74,8 @@ class Instruction {
 }
 
 class Machine {
-  Machine(this.program) :
-    registers = Map.fromEntries(Register.values.map((r) => MapEntry(r, 0)));
+  Machine(this.program)
+      : registers = Map.fromEntries(Register.values.map((r) => MapEntry(r, 0)));
 
   final List<Instruction> program;
   final Map<Register, int> registers;
@@ -89,15 +86,18 @@ class Machine {
       final instruction = program[pc];
       switch (instruction.op) {
         case OpCode.hlf:
-          registers[instruction.register!] = registers[instruction.register!]! ~/ 2;
+          registers[instruction.register!] =
+              registers[instruction.register!]! ~/ 2;
           pc++;
           break;
         case OpCode.tpl:
-          registers[instruction.register!] = registers[instruction.register!]! * 3;
+          registers[instruction.register!] =
+              registers[instruction.register!]! * 3;
           pc++;
           break;
         case OpCode.inc:
-          registers[instruction.register!] = registers[instruction.register!]! + 1;
+          registers[instruction.register!] =
+              registers[instruction.register!]! + 1;
           pc++;
           break;
         case OpCode.jmp:

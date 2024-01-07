@@ -80,7 +80,8 @@ main() {
 
         test('expression', () {
           // 1 + 3 = 2 * 2
-          expect(Packet.parse(BitStream('9C0141080250320F1802104A08')).eval(), 1);
+          expect(
+              Packet.parse(BitStream('9C0141080250320F1802104A08')).eval(), 1);
         });
       });
     });

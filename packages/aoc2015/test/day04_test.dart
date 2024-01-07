@@ -5,8 +5,8 @@ main() {
   group('2015 Day 04', () {
     group('part 1', () {
       test('examples', () {
-        expect(Day04().part1('abcdef'), 609043); 
-        expect(Day04().part1('pqrstuv'), 1048970); 
+        expect(Day04().part1('abcdef'), 609043);
+        expect(Day04().part1('pqrstuv'), 1048970);
       });
 
       test('solution', () => Day04().testPart1());

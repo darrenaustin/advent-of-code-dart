@@ -33,12 +33,9 @@ class Day02 extends AdventDay {
       'up': Vec2.up,
       'down': Vec2.down,
     };
-    return input
-      .lines
-      .map((line) {
-        final parts = line.split(' ');
-        return dirVec[parts[0]]! * int.parse(parts[1]);
-      })
-      .toList();
+    return input.lines.map((line) {
+      final parts = line.split(' ');
+      return dirVec[parts[0]]! * int.parse(parts[1]);
+    }).toList();
   }
 }

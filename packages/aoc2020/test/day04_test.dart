@@ -4,7 +4,6 @@ import 'package:test/test.dart';
 
 main() {
   group('2020 Day 04', () {
-
     group('part 1', () {
       test('example', () {
         final exampleInput = '''

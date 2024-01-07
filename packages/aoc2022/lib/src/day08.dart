@@ -19,11 +19,13 @@ class Day08 extends AdventDay {
     final Set<Vec2> visible = {};
     for (int col = 0; col < grid.width; col++) {
       visible.addAll(seenInDirection(grid, Vec2.int(col, 0), Vec2.down));
-      visible.addAll(seenInDirection(grid, Vec2.int(col, grid.height -1), Vec2.up));
+      visible.addAll(
+          seenInDirection(grid, Vec2.int(col, grid.height - 1), Vec2.up));
     }
     for (int row = 0; row < grid.height; row++) {
       visible.addAll(seenInDirection(grid, Vec2.int(0, row), Vec2.right));
-      visible.addAll(seenInDirection(grid, Vec2.int(grid.width - 1, row), Vec2.left));
+      visible.addAll(
+          seenInDirection(grid, Vec2.int(grid.width - 1, row), Vec2.left));
     }
     return visible.length;
   }
@@ -31,9 +33,8 @@ class Day08 extends AdventDay {
   @override
   dynamic part2(String input) {
     final grid = parseGrid(input);
-    int score(Vec2 tree) => Vec2.orthogonalDirs
-      .map((d) => numSeenFromTree(grid, tree, d))
-      .product;
+    int score(Vec2 tree) =>
+        Vec2.orthogonalDirs.map((d) => numSeenFromTree(grid, tree, d)).product;
     return grid.locations().map(score).max;
   }
 
@@ -66,13 +67,8 @@ class Day08 extends AdventDay {
   }
 
   Grid<int> parseGrid(String input) {
-    final data = input
-      .lines
-      .map((l) => l
-        .chars
-        .map(int.parse)
-        .toList())
-      .toList();
+    final data =
+        input.lines.map((l) => l.chars.map(int.parse).toList()).toList();
     return Grid<int>.from(data, 0);
   }
 }

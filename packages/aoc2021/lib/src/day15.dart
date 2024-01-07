@@ -17,11 +17,11 @@ class Day15 extends AdventDay {
   @override
   dynamic part2(String input) => _lowestRisk(_expandGrid(parseGrid(input)));
 
-  Grid<int> parseGrid(String input) =>
-    Grid<int>.from(input.lines
-      .map((l) => l.split('').map((n) => int.parse(n)).toList())
-      .toList(),
-    0);
+  Grid<int> parseGrid(String input) => Grid<int>.from(
+      input.lines
+          .map((l) => l.split('').map((n) => int.parse(n)).toList())
+          .toList(),
+      0);
 
   double? _lowestRisk(Grid<int> grid) {
     final start = Vec2.zero;
@@ -40,7 +40,8 @@ class Day15 extends AdventDay {
     for (int gridX = 0; gridX < 5; gridX++) {
       for (int gridY = 0; gridY < 5; gridY++) {
         final riskIncrease = gridX + gridY;
-        final gridOrigin = Vec2.int(gridX * source.width, gridY * source.height);
+        final gridOrigin =
+            Vec2.int(gridX * source.width, gridY * source.height);
         for (int x = 0; x < source.width; x++) {
           for (int y = 0; y < source.height; y++) {
             final cellLoc = Vec2.int(x, y);

@@ -23,7 +23,7 @@ enarar''';
 
     group('part 1', () {
       test('example', () {
-        expect(Day06().part1(exampleInput), 'easter'); 
+        expect(Day06().part1(exampleInput), 'easter');
       });
 
       test('solution', () => Day06().testPart1());
@@ -31,7 +31,7 @@ enarar''';
 
     group('part 2', () {
       test('example', () {
-        expect(Day06().part2(exampleInput), 'advent'); 
+        expect(Day06().part2(exampleInput), 'advent');
       });
 
       test('solution', () => Day06().testPart2());

@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 main() {
   group('2015 Day 24', () {
     group('part 1', () {
-    test('example', () {
+      test('example', () {
         final exampleInput = '''
 1
 2
@@ -24,7 +24,7 @@ main() {
 
     group('part 2', () {
       // test('examples', () {
-      //   expect(Day24().part2(''), 0); 
+      //   expect(Day24().part2(''), 0);
       // });
 
       test('solution', () => Day24().testPart2());

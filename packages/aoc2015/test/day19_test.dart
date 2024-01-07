@@ -9,7 +9,7 @@ main() {
 H => HO
 H => OH
 O => HH''';
-        expect(Day19().part1(exampleInput), 4); 
+        expect(Day19().part1(exampleInput), 4);
       });
 
       test('solution', () => Day19().testPart1());
@@ -23,8 +23,13 @@ e => O
 H => HO
 H => OH
 O => HH''';
-        expect(Day19().part2(exampleInput, 'HOH',), 3); 
-        expect(Day19().part2(exampleInput, 'HOHOHO'), 6); 
+        expect(
+            Day19().part2(
+              exampleInput,
+              'HOH',
+            ),
+            3);
+        expect(Day19().part2(exampleInput, 'HOHOHO'), 6);
       });
 
       test('solution', () => Day19().testPart2());

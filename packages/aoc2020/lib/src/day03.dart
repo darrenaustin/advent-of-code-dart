@@ -18,9 +18,7 @@ class Day03 extends AdventDay {
   dynamic part2(String input) {
     final grid = parseGrid(input);
     final slopes = [Vec2(1, 1), Vec2(3, 1), Vec2(5, 1), Vec2(7, 1), Vec2(1, 2)];
-    return slopes
-      .map((slope) => treesHit(grid, slope))
-      .product;
+    return slopes.map((slope) => treesHit(grid, slope)).product;
   }
 
   Grid<String> parseGrid(String input) {
@@ -36,7 +34,8 @@ class Day03 extends AdventDay {
       if (grid.cell(position) == '#') {
         numTreesHit++;
       }
-      position = Vec2((position.x + slope.x) % grid.width, position.y + slope.y);
+      position =
+          Vec2((position.x + slope.x) % grid.width, position.y + slope.y);
     }
     return numTreesHit;
   }

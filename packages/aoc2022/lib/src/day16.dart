@@ -30,11 +30,13 @@ class Day16 extends AdventDay {
   dynamic part1(String input) => Volcano(input.lines, 'AA', 30).maxPressure();
 
   @override
-  dynamic part2(String input) => Volcano(input.lines, 'AA', 26, 2).maxPressure();
+  dynamic part2(String input) =>
+      Volcano(input.lines, 'AA', 26, 2).maxPressure();
 }
 
 class Volcano {
-  Volcano(List<String> input, String startValve, int time, [int numAgents = 1]) {
+  Volcano(List<String> input, String startValve, int time,
+      [int numAgents = 1]) {
     _time = time;
     _numAgents = numAgents;
 
@@ -57,11 +59,13 @@ class Volcano {
     for (final valve in range(_ids.length)) {
       if (_flow[valve] == 0 && valve != _startValve) continue;
 
-      _distance[valve] = { valve: 0, _startValve: 0 };
+      _distance[valve] = {valve: 0, _startValve: 0};
       final Set<int> visited = {};
 
       // Until we have records with destructuring: [valve, currentDistance]
-      final List<List<int>> toVisit = [[valve, 0]];
+      final List<List<int>> toVisit = [
+        [valve, 0]
+      ];
 
       while (toVisit.isNotEmpty) {
         final current = toVisit.removeAt(0);
@@ -89,10 +93,9 @@ class Volcano {
         }
       }
       _bestValvesForTime.add(valveData
-        .sorted((a, b) => (b[2] * (t - b[1])).compareTo(a[2] * (t - a[1])))
-        .map((data) => data[0])
-        .toList()
-      );
+          .sorted((a, b) => (b[2] * (t - b[1])).compareTo(a[2] * (t - a[1])))
+          .map((data) => data[0])
+          .toList());
     }
   }
 
@@ -109,9 +112,13 @@ class Volcano {
     final Set<_CacheState> searched = {};
 
     int maxPressure = 0;
-    final initialState = _CacheState(List<_Agent>.generate(_numAgents, (_) => _Agent(_startValve, _time)), 0, 0);
-    final searchPaths = PriorityQueue<_BoundEstimateState>(_BoundEstimateState.compare)
-      ..add(_BoundEstimateState(initialState, maxInt));
+    final initialState = _CacheState(
+        List<_Agent>.generate(_numAgents, (_) => _Agent(_startValve, _time)),
+        0,
+        0);
+    final searchPaths =
+        PriorityQueue<_BoundEstimateState>(_BoundEstimateState.compare)
+          ..add(_BoundEstimateState(initialState, maxInt));
 
     while (searchPaths.isNotEmpty) {
       final path = searchPaths.removeFirst();
@@ -131,7 +138,8 @@ class Volcano {
           // We have time and the next valve is not yet opened.
           final nextTime = agent.time - distance;
           final nextState = _CacheState(
-            [_Agent(nextValve, nextTime), ...path.state.agents.skip(1)].sorted(Comparable.compare),
+            [_Agent(nextValve, nextTime), ...path.state.agents.skip(1)]
+                .sorted(Comparable.compare),
             path.state.pressure + _flow[nextValve] * nextTime,
             opened | nextValveBit,
           );
@@ -143,7 +151,7 @@ class Volcano {
         }
       }
     }
-    throw('No solution found');
+    throw ('No solution found');
   }
 
   int _estimateUpperBound(_CacheState state) {
@@ -174,7 +182,7 @@ class Volcano {
 
 class _CacheState {
   _CacheState(List<_Agent> agents, this.pressure, this.opened)
-    : agents = agents.sorted(Comparable.compare);
+      : agents = agents.sorted(Comparable.compare);
 
   final List<_Agent> agents;
   final int pressure;
@@ -188,9 +196,9 @@ class _CacheState {
       return true;
     }
     return other is _CacheState &&
-      _agentsEquality.equals(other.agents, agents) &&
-      other.pressure == pressure &&
-      other.opened == opened;
+        _agentsEquality.equals(other.agents, agents) &&
+        other.pressure == pressure &&
+        other.opened == opened;
   }
 
   @override
@@ -203,7 +211,7 @@ class _BoundEstimateState {
   final _CacheState state;
 
   static int compare(_BoundEstimateState a, _BoundEstimateState b) =>
-    b.upperBound.compareTo(a.upperBound);
+      b.upperBound.compareTo(a.upperBound);
 
   @override
   bool operator ==(Object other) {
@@ -211,8 +219,8 @@ class _BoundEstimateState {
       return true;
     }
     return other is _BoundEstimateState &&
-      other.upperBound == upperBound &&
-      other.state == state;
+        other.upperBound == upperBound &&
+        other.state == state;
   }
 
   @override
@@ -229,9 +237,7 @@ class _Agent implements Comparable<_Agent> {
     if (identical(this, other)) {
       return true;
     }
-    return other is _Agent &&
-      other.position == position &&
-      other.time == time;
+    return other is _Agent && other.position == position && other.time == time;
   }
 
   @override

@@ -17,8 +17,8 @@ class Day13 extends AdventDay {
     final rules = happinessRules(input);
     final guests = rules.keys.toSet();
     return permutations(guests)
-      .map((seatingOrder) => happiness(seatingOrder, rules))
-      .max;
+        .map((seatingOrder) => happiness(seatingOrder, rules))
+        .max;
   }
 
   @override
@@ -30,16 +30,17 @@ class Day13 extends AdventDay {
     for (final guest in rules.keys) {
       rules[guest]!['Me'] = 0;
     }
-    rules['Me'] = Map<String, int>.fromEntries(guests.map((g) => MapEntry(g, 0)));
+    rules['Me'] =
+        Map<String, int>.fromEntries(guests.map((g) => MapEntry(g, 0)));
     guests.add('Me');
 
     return permutations(guests)
-      .map((seatingOrder) => happiness(seatingOrder, rules))
-      .max;
+        .map((seatingOrder) => happiness(seatingOrder, rules))
+        .max;
   }
 
-  final RegExp _rulePattern = 
-    RegExp(r'^(.+) would (gain|lose) (\d+) happiness units by sitting next to (.+).$');
+  final RegExp _rulePattern = RegExp(
+      r'^(.+) would (gain|lose) (\d+) happiness units by sitting next to (.+).$');
 
   Rules happinessRules(String input) {
     final rules = <String, Map<String, int>>{};
@@ -48,8 +49,7 @@ class Day13 extends AdventDay {
       final person1 = match.group(1)!;
       final person2 = match.group(4)!;
       final happiness =
-        int.parse(match.group(3)!) *
-        (match.group(2) == 'lose' ? -1 : 1);
+          int.parse(match.group(3)!) * (match.group(2) == 'lose' ? -1 : 1);
       (rules[person1] ??= {})[person2] = happiness;
     }
     return rules;

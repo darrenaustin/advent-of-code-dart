@@ -43,9 +43,10 @@ class Dock {
     }
 
     moves = instructionInput
-     .map((m) => RegExp(r'move (\d+) from (\d+) to (\d+)').firstMatch(m)!)
-     .map((m) => Move(int.parse(m.group(1)!), int.parse(m.group(2)!), int.parse(m.group(3)!)))
-     .toList();
+        .map((m) => RegExp(r'move (\d+) from (\d+) to (\d+)').firstMatch(m)!)
+        .map((m) => Move(int.parse(m.group(1)!), int.parse(m.group(2)!),
+            int.parse(m.group(3)!)))
+        .toList();
   }
 
   late final List<List<String>> stacks;

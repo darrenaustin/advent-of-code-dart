@@ -10,8 +10,7 @@ class Day07 extends AdventDay {
   Day07() : super(2022, 7, name: 'No Space Left On Device');
 
   @override
-  dynamic part1(String input) =>
-    fileSystem(input)
+  dynamic part1(String input) => fileSystem(input)
       .allNodes()
       .where((n) => n.isDir)
       .map((n) => n.size)
@@ -25,10 +24,10 @@ class Day07 extends AdventDay {
     final int targetSpace = 30000000 - freeSpace;
 
     return root
-      .allNodes()
-      .where((n) => n.isDir && n.size >= targetSpace)
-      .map((n) => n.size)
-      .min;
+        .allNodes()
+        .where((n) => n.isDir && n.size >= targetSpace)
+        .map((n) => n.size)
+        .min;
   }
 
   FSEntry fileSystem(String input) {
@@ -66,7 +65,9 @@ class FSEntry {
   final FSEntry? parent;
   Map<String, FSEntry>? children;
 
-  FSEntry.dir(this.name, this.parent) : size = 0, children = {};
+  FSEntry.dir(this.name, this.parent)
+      : size = 0,
+        children = {};
   FSEntry.file(this.name, this.parent, this.size) {
     parent?._increaseSize(size);
   }
@@ -76,7 +77,7 @@ class FSEntry {
 
   // List all nodes in depth first order.
   Iterable<FSEntry> allNodes() sync* {
-    yield(this);
+    yield (this);
     if (children != null) {
       for (final child in children!.values) {
         for (final n in child.allNodes()) {

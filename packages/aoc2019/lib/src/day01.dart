@@ -21,7 +21,7 @@ class Day01 extends AdventDay {
     return inputMasses(input).map(totalFuelFor).sum;
   }
 
-  Iterable<int>inputMasses(String input) => input.lines.map(int.parse);
+  Iterable<int> inputMasses(String input) => input.lines.map(int.parse);
 
   static int fuelFor(int mass) => mass ~/ 3 - 2;
 

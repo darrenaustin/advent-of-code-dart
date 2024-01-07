@@ -17,14 +17,12 @@ class Day01 extends AdventDay {
   @override
   dynamic part2(String input) {
     final measurements = parseMeasurements(input);
-    return increases(
-      range(measurements.length - 2)
-        .map((i) => measurements[i] + measurements[i + 1] + measurements[i + 2])
-    );
+    return increases(range(measurements.length - 2).map(
+        (i) => measurements[i] + measurements[i + 1] + measurements[i + 2]));
   }
 
   List<int> parseMeasurements(String input) =>
-    input.lines.map((s) => int.parse(s)).toList();
+      input.lines.map((s) => int.parse(s)).toList();
 
   int increases(Iterable<int> measurements) {
     int? previous;

@@ -12,7 +12,7 @@ class Day03 extends AdventDay {
   @override
   dynamic part1(String input) {
     Vec2 current = Vec2.zero;
-    final housesVisited = <Vec2>{ current };
+    final housesVisited = <Vec2>{current};
     for (final dir in input.chars.map((c) => _directionOffset[c]!)) {
       current += dir;
       housesVisited.add(current);
@@ -25,7 +25,7 @@ class Day03 extends AdventDay {
     Vec2 santa = Vec2.zero;
     Vec2 robotSanta = Vec2.zero;
     bool santaTurn = true;
-    final housesVisited = <Vec2>{ santa };
+    final housesVisited = <Vec2>{santa};
 
     for (final dir in input.chars.map((c) => _directionOffset[c]!)) {
       if (santaTurn) {

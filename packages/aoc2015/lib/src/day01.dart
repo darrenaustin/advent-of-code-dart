@@ -10,10 +10,8 @@ class Day01 extends AdventDay {
   Day01() : super(2015, 1, name: 'Not Quite Lisp');
 
   @override
-  dynamic part1(String input) => input
-    .chars
-    .map((dir) => dir == '(' ? 1 : -1)
-    .sum;
+  dynamic part1(String input) =>
+      input.chars.map((dir) => dir == '(' ? 1 : -1).sum;
 
   @override
   dynamic part2(String input) {

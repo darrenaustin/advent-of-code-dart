@@ -21,9 +21,7 @@ class Day13 extends AdventDay {
   dynamic part1(String input) {
     final machine = Intcode.from(program: input);
     while (!machine.execute()) {}
-    return machine.output.slices(3)
-      .where((p) => p.last == block)
-      .length;
+    return machine.output.slices(3).where((p) => p.last == block).length;
   }
 
   @override

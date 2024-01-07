@@ -28,17 +28,17 @@ class Day25 extends AdventDay {
     Vec2 southOf(Vec2 l) => Vec2(l.x, (l.y + 1) % grid.height);
 
     final eastMoves = grid
-      .locationsWhere((c) => c == '>')
-      .where((l) => grid.cell(eastOf(l)) == '.')
-      .toList();
+        .locationsWhere((c) => c == '>')
+        .where((l) => grid.cell(eastOf(l)) == '.')
+        .toList();
     for (final loc in eastMoves) {
       grid.setCell(loc, '.');
       grid.setCell(eastOf(loc), '>');
     }
     final southMoves = grid
-      .locationsWhere((c) => c == 'v')
-      .where((l) => grid.cell(southOf(l)) == '.')
-      .toList();
+        .locationsWhere((c) => c == 'v')
+        .where((l) => grid.cell(southOf(l)) == '.')
+        .toList();
     for (final loc in southMoves) {
       grid.setCell(loc, '.');
       grid.setCell(southOf(loc), 'v');
@@ -47,5 +47,5 @@ class Day25 extends AdventDay {
   }
 
   Grid<String> parseGrid(String input) =>
-     Grid.from(input.lines.map((l) => l.chars.toList()).toList(), '.');
+      Grid.from(input.lines.map((l) => l.chars.toList()).toList(), '.');
 }

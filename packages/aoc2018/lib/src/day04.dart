@@ -12,11 +12,10 @@ class Day04 extends AdventDay {
   @override
   dynamic part1(String input) {
     final guardSleepTimes = parseGuardSleepTimes(input);
-    final mostSleepyGuard = guardSleepTimes
-      .entries
-      .map((e) => MapEntry(e.key, e.value.sum))
-      .reduce((kv, ekv) => kv.value < ekv.value ? ekv : kv)
-      .key;
+    final mostSleepyGuard = guardSleepTimes.entries
+        .map((e) => MapEntry(e.key, e.value.sum))
+        .reduce((kv, ekv) => kv.value < ekv.value ? ekv : kv)
+        .key;
     final minutes = guardSleepTimes[mostSleepyGuard]!;
     final mostSleptMinute = minutes.indexOf(minutes.max);
     return mostSleepyGuard * mostSleptMinute;
@@ -25,11 +24,10 @@ class Day04 extends AdventDay {
   @override
   dynamic part2(String input) {
     final guardSleepTimes = parseGuardSleepTimes(input);
-    final mostSleepyGuard = guardSleepTimes
-      .entries
-      .map((e) => MapEntry(e.key, e.value.max))
-      .reduce((kv, ekv) => kv.value < ekv.value ? ekv : kv)
-      .key;
+    final mostSleepyGuard = guardSleepTimes.entries
+        .map((e) => MapEntry(e.key, e.value.max))
+        .reduce((kv, ekv) => kv.value < ekv.value ? ekv : kv)
+        .key;
     final minutes = guardSleepTimes[mostSleepyGuard]!;
     final mostSleptMinute = minutes.indexOf(minutes.max);
     return mostSleepyGuard * mostSleptMinute;
@@ -42,9 +40,11 @@ class Day04 extends AdventDay {
     int? lastSleepTime;
     for (final record in input.lines..sort()) {
       final statusText = record.substring(19);
-      final minute = int.parse(RegExp(r':([\d]+)]').firstMatch(record)!.group(1)!);
+      final minute =
+          int.parse(RegExp(r':([\d]+)]').firstMatch(record)!.group(1)!);
       if (statusText.startsWith('Guard')) {
-        guard = int.parse(RegExp(r'#([\d]+)').firstMatch(statusText)!.group(1)!);
+        guard =
+            int.parse(RegExp(r'#([\d]+)').firstMatch(statusText)!.group(1)!);
         if (!sleepTimes.containsKey(guard)) {
           sleepTimes[guard] = List<int>.generate(60, (_) => 0);
         }

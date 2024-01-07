@@ -12,17 +12,15 @@ class Day05 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    numHotSpots(parseVents(input).where((v) => v.isOrthogonal));
+      numHotSpots(parseVents(input).where((v) => v.isOrthogonal));
 
   @override
   dynamic part2(String input) => numHotSpots(parseVents(input));
 
-  Iterable<LineSegment2> parseVents(String input) => input
-    .lines
-    .map((s) {
-      final nums = s.split(RegExp(r'\D+')).map(double.parse).toList();
-      return LineSegment2(Vec2(nums[0], nums[1]), Vec2(nums[2], nums[3]));
-    });
+  Iterable<LineSegment2> parseVents(String input) => input.lines.map((s) {
+        final nums = s.split(RegExp(r'\D+')).map(double.parse).toList();
+        return LineSegment2(Vec2(nums[0], nums[1]), Vec2(nums[2], nums[3]));
+      });
 
   int numHotSpots(Iterable<LineSegment2> vents) {
     final grid = SparseGrid<int>(defaultValue: 0);

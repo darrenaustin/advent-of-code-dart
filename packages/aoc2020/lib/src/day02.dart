@@ -12,9 +12,11 @@ class Day02 extends AdventDay {
   @override
   dynamic part1(String input) {
     bool validPassword(Password p) {
-      final numMatchingLetters = p.password.chars.quantify((c) => c == p.letter);
+      final numMatchingLetters =
+          p.password.chars.quantify((c) => c == p.letter);
       return p.policy1 <= numMatchingLetters && numMatchingLetters <= p.policy2;
     }
+
     return parsePasswords(input).quantify(validPassword);
   }
 
@@ -25,11 +27,12 @@ class Day02 extends AdventDay {
       final occursInSecondPos = pw.password[pw.policy2 - 1] == pw.letter;
       return occursInFirstPos ^ occursInSecondPos;
     }
+
     return parsePasswords(input).quantify(validPassword);
   }
 
   List<Password> parsePasswords(String input) =>
-    input.lines.map(Password.parse).toList();
+      input.lines.map(Password.parse).toList();
 }
 
 class Password {

@@ -45,13 +45,14 @@ class Day06 extends AdventDay {
     return connections;
   }
 
-  int? minTransfers(String from, String to, Map<String, Set<String>> connections) {
-
+  int? minTransfers(
+      String from, String to, Map<String, Set<String>> connections) {
     final cache = <String, int?>{};
 
-    int? cachedTransfers(String from, String to, Map<String, Set<String>> connections, Set<String> visited) {
-
-      int? transfers(String from, String to, Map<String, Set<String>> connections, Set<String> visited) {
+    int? cachedTransfers(String from, String to,
+        Map<String, Set<String>> connections, Set<String> visited) {
+      int? transfers(String from, String to,
+          Map<String, Set<String>> connections, Set<String> visited) {
         if (from == to) {
           return 0;
         }
@@ -60,7 +61,8 @@ class Day06 extends AdventDay {
         }
         final transfers = connections[from]!
             .where((b) => !visited.contains(b))
-            .map((b) => cachedTransfers(b, to, connections, visited.union({from})))
+            .map((b) =>
+                cachedTransfers(b, to, connections, visited.union({from})))
             .whereNotNull();
         return transfers.isNotEmpty ? 1 + transfers.min : null;
       }

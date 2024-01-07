@@ -8,15 +8,17 @@ class Day16 extends AdventDay {
   Day16() : super(2016, 16, name: 'Dragon Checksum');
 
   @override
-  dynamic part1(String input, [int length = 272]) => checksum(fill(input, length));
+  dynamic part1(String input, [int length = 272]) =>
+      checksum(fill(input, length));
 
   @override
-  dynamic part2(String input, [int length = 35651584]) => checksum(fill(input, length));
+  dynamic part2(String input, [int length = 35651584]) =>
+      checksum(fill(input, length));
 
   String next(String a) {
     StringBuffer buf = StringBuffer(a);
     buf.write('0');
-    for (int i = a.length -1; i >= 0; i--) {
+    for (int i = a.length - 1; i >= 0; i--) {
       buf.write(a[i] == '0' ? '1' : '0');
     }
     return buf.toString();

@@ -54,8 +54,16 @@ class Valley {
     final height = grid.height - 2;
     _wrapPeriod = lcm(width, height);
 
-    entrance = range(grid.width).map((x) => Vec2.int(x, 0)).where((p) => grid.cell(p) == '.').first + Vec2.upLeft;
-    exit = range(grid.width).map((x) => Vec2.int(x, grid.height - 1)).where((p) => grid.cell(p) == '.').first + Vec2.upLeft;
+    entrance = range(grid.width)
+            .map((x) => Vec2.int(x, 0))
+            .where((p) => grid.cell(p) == '.')
+            .first +
+        Vec2.upLeft;
+    exit = range(grid.width)
+            .map((x) => Vec2.int(x, grid.height - 1))
+            .where((p) => grid.cell(p) == '.')
+            .first +
+        Vec2.upLeft;
 
     // Compute all spaces and find the blizzards.
     final Set<Vec2> allSpaces = {entrance, exit};
@@ -67,10 +75,18 @@ class Valley {
         allSpaces.add(pos);
         final cell = grid.cell(gridPos);
         switch (cell) {
-          case '>': blizzards.add(Blizzard(pos, Vec2.right)); break;
-          case '<': blizzards.add(Blizzard(pos, Vec2.left)); break;
-          case '^': blizzards.add(Blizzard(pos, Vec2.up)); break;
-          case 'v': blizzards.add(Blizzard(pos, Vec2.down)); break;
+          case '>':
+            blizzards.add(Blizzard(pos, Vec2.right));
+            break;
+          case '<':
+            blizzards.add(Blizzard(pos, Vec2.left));
+            break;
+          case '^':
+            blizzards.add(Blizzard(pos, Vec2.up));
+            break;
+          case 'v':
+            blizzards.add(Blizzard(pos, Vec2.down));
+            break;
         }
       }
     }
@@ -79,10 +95,8 @@ class Valley {
     for (final _ in range(_wrapPeriod)) {
       final Set<Vec2> occupied = blizzards.map((b) => b.pos).toSet();
       for (final b in blizzards) {
-        b.pos = Vec2.int(
-          (b.pos.xInt + b.dir.xInt) % width,
-          (b.pos.yInt + b.dir.yInt) % height
-        );
+        b.pos = Vec2.int((b.pos.xInt + b.dir.xInt) % width,
+            (b.pos.yInt + b.dir.yInt) % height);
       }
       _clearPositions.add(allSpaces.difference(occupied));
     }
@@ -95,9 +109,9 @@ class Valley {
   final List<Set<Vec2>> _clearPositions = [];
 
   Iterable<Vec2> clearNeighbors(Vec2 pos, int time) =>
-    [...Vec2.orthogonalDirs, Vec2.zero]
-      .map((d) => pos + d)
-      .where((p) => _clearPositions[time % _wrapPeriod].contains(p));
+      [...Vec2.orthogonalDirs, Vec2.zero]
+          .map((d) => pos + d)
+          .where((p) => _clearPositions[time % _wrapPeriod].contains(p));
 }
 
 class Blizzard {

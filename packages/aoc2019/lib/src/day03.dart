@@ -19,9 +19,8 @@ class Day03 extends AdventDay {
 
     final intersections = <Vec2>{};
     for (final s1 in wire1) {
-      intersections.addAll(
-        wire2.map((s2) => s1.intersection(s2)).whereNotNull()
-      );
+      intersections
+          .addAll(wire2.map((s2) => s1.intersection(s2)).whereNotNull());
     }
     intersections.remove(origin);
     return intersections.map((v) => v.manhattanDistanceTo(origin)).min.toInt();
@@ -36,15 +35,14 @@ class Day03 extends AdventDay {
 
     final intersections = <Vec2>{};
     for (final s1 in wire1) {
-      intersections.addAll(
-          wire2.map((s2) => s1.intersection(s2)).whereNotNull()
-      );
+      intersections
+          .addAll(wire2.map((s2) => s1.intersection(s2)).whereNotNull());
     }
     intersections.remove(origin);
     return intersections
-      .map((v) => distanceTo(v, wire1) + distanceTo(v, wire2))
-      .min
-      .toInt();
+        .map((v) => distanceTo(v, wire1) + distanceTo(v, wire2))
+        .min
+        .toInt();
   }
 
   static final _dirVec2s = {
@@ -54,13 +52,8 @@ class Day03 extends AdventDay {
     'R': Vec2.right,
   };
 
-  Iterable<Iterable<Vec2>> wirePaths(String input) =>
-    input
-      .lines
-      .map((line) =>
-        line
-          .split(',')
-          .map((v) => _dirVec2s[v[0]]! * int.parse(v.substring(1))));
+  Iterable<Iterable<Vec2>> wirePaths(String input) => input.lines.map((line) =>
+      line.split(',').map((v) => _dirVec2s[v[0]]! * int.parse(v.substring(1))));
 
   Iterable<LineSegment2> segmentsFrom(Vec2 origin, Iterable<Vec2> path) {
     final segments = <LineSegment2>[];

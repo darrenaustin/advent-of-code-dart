@@ -51,7 +51,8 @@ class Day11 extends AdventDay {
       final paint = machine.output.removeAt(0);
       hull.setCell(location, paint == 0 ? black : white);
       final rotation = machine.output.removeAt(0);
-      direction = rotation == 0 ? rotateLeft[direction]! : rotateRight[direction]!;
+      direction =
+          rotation == 0 ? rotateLeft[direction]! : rotateRight[direction]!;
       location += direction;
       machine.input.add(hull.cell(location) == black ? 0 : 1);
     }

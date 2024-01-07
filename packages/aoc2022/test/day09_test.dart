@@ -5,7 +5,7 @@ main() {
   group('2022 Day 09', () {
     group('part 1', () {
       test('example', () {
-          final exampleInput = '''
+        final exampleInput = '''
 R 4
 U 4
 L 3
@@ -22,7 +22,7 @@ R 2''';
 
     group('part 2', () {
       test('example', () {
-          final exampleInput = '''
+        final exampleInput = '''
 R 5
 U 8
 L 8

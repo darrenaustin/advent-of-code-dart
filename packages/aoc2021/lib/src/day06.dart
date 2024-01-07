@@ -21,7 +21,8 @@ class Day06 extends AdventDay {
     // Compute an array where the value at a given index is the number
     // of fish that have index as their internal timer. This way we
     // just keep track of the fish counts for each internal timer setting.
-    List<int> fishCounts = List.generate(9, (i) => fish.quantify((n) => i == n));
+    List<int> fishCounts =
+        List.generate(9, (i) => fish.quantify((n) => i == n));
     List<int> newCounts = List.filled(9, 0);
     for (final _ in range(numDays)) {
       newCounts[8] = fishCounts[0];
@@ -40,7 +41,5 @@ class Day06 extends AdventDay {
     return fishCounts.sum;
   }
 
-  List<int> parseFish(String input) =>
-    input.split(',').map(int.parse).toList();
+  List<int> parseFish(String input) => input.split(',').map(int.parse).toList();
 }
-

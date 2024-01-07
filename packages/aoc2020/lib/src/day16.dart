@@ -34,7 +34,8 @@ class Day16 extends AdventDay {
       final candidateNums = notes.nearbyTickets.map((ticket) => ticket[f]);
       for (var rule in notes.rules) {
         if (candidateNums.every((n) => rule.validNum(n))) {
-          validFieldIndices[rule.name] = (validFieldIndices[rule.name] ?? <int>{})..add(f);
+          validFieldIndices[rule.name] =
+              (validFieldIndices[rule.name] ?? <int>{})..add(f);
         }
       }
     }
@@ -42,17 +43,25 @@ class Day16 extends AdventDay {
     // Remove determined fields (where there is only one possible index) from
     // the other fields possibilities, until there is only one field for each
     // index
-    var determinedFields = validFieldIndices.values.where((v) => v.length == 1).map((e) => e.first).toSet();
+    var determinedFields = validFieldIndices.values
+        .where((v) => v.length == 1)
+        .map((e) => e.first)
+        .toSet();
     while (determinedFields.length < numFields) {
       for (var indices in validFieldIndices.values) {
         if (indices.length != 1) {
           indices.removeAll(determinedFields);
         }
       }
-      determinedFields = validFieldIndices.values.where((v) => v.length == 1).map((e) => e.first).toSet();
+      determinedFields = validFieldIndices.values
+          .where((v) => v.length == 1)
+          .map((e) => e.first)
+          .toSet();
     }
 
-    final departureIndices = validFieldIndices.entries.where((kv) => kv.key.startsWith('departure')).map((kv) => kv.value.first);
+    final departureIndices = validFieldIndices.entries
+        .where((kv) => kv.key.startsWith('departure'))
+        .map((kv) => kv.value.first);
     final departureValues = departureIndices.map((i) => notes.myTicket[i]);
     return departureValues.product;
   }
@@ -66,26 +75,22 @@ class Day16 extends AdventDay {
       if (ruleMatch == null) {
         throw Exception('Unable to parse ticket rule: $e');
       }
-      return TicketRule(ruleMatch.group(1)!,
-        Range(int.parse(ruleMatch.group(2)!), int.parse(ruleMatch.group(3)!)),
-        Range(int.parse(ruleMatch.group(4)!), int.parse(ruleMatch.group(5)!))
-      );
+      return TicketRule(
+          ruleMatch.group(1)!,
+          Range(int.parse(ruleMatch.group(2)!), int.parse(ruleMatch.group(3)!)),
+          Range(
+              int.parse(ruleMatch.group(4)!), int.parse(ruleMatch.group(5)!)));
     }).toList();
 
-    final myTicket = textGroups[1]
-      .lines
-      .skip(1)
-      .first
-      .split(',')
-      .map(int.parse)
-      .toList();
+    final myTicket =
+        textGroups[1].lines.skip(1).first.split(',').map(int.parse).toList();
 
     final nearbyTickets = textGroups[2]
-      .lines
-      .skip(1)
-      .where((e) => e.isNotEmpty)
-      .map((e) => e.split(',').map(int.parse).toList())
-      .toList();
+        .lines
+        .skip(1)
+        .where((e) => e.isNotEmpty)
+        .map((e) => e.split(',').map(int.parse).toList())
+        .toList();
 
     return TicketNotes(rules, myTicket, nearbyTickets);
   }
@@ -99,18 +104,18 @@ class TicketNotes {
   final List<List<int>> nearbyTickets;
 
   Set<int> validNumbers() {
-    return rules.fold(<int>{},
-      (Set<int>validNums, rule) =>
-        validNums
+    return rules.fold(
+        <int>{},
+        (Set<int> validNums, rule) => validNums
           ..addAll(rule.range1.values())
-          ..addAll(rule.range2.values())
-    );
+          ..addAll(rule.range2.values()));
   }
 
   void removeInvalidTickets() {
     // Remove any tickets with invalid numbers
     final validNums = validNumbers();
-    nearbyTickets.removeWhere((ticket) => ticket.any((n) => !validNums.contains(n)));
+    nearbyTickets
+        .removeWhere((ticket) => ticket.any((n) => !validNums.contains(n)));
   }
 }
 

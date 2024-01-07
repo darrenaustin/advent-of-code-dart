@@ -14,7 +14,7 @@ class Day09 extends AdventDay {
   dynamic part2(String input) => decompressedLength(input, recursive: true);
 
   final _whitespace = RegExp(r'\s*');
-  final  _markerRegexp = RegExp(r'(\d+)x(\d+)');
+  final _markerRegexp = RegExp(r'(\d+)x(\d+)');
 
   int decompressedLength(String s, {bool recursive = false}) {
     s = s.replaceAll(_whitespace, '');

@@ -68,8 +68,10 @@ String passwordFromHashIndex(String id) {
 
   while (digitsFound.length < 8) {
     final digest = md5.convert(encoded);
-    if (digest.bytes[0] == 0 && digest.bytes[1] == 0 &&
-        digest.bytes[2] < 8 && !digitsFound.contains(digest.bytes[2])) {
+    if (digest.bytes[0] == 0 &&
+        digest.bytes[1] == 0 &&
+        digest.bytes[2] < 8 &&
+        !digitsFound.contains(digest.bytes[2])) {
       int index = digest.bytes[2];
       int char = digest.bytes[3] >> 4;
       password |= char << ((7 - index) << 2);

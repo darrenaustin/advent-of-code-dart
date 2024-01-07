@@ -59,19 +59,21 @@ class Day22 extends AdventDay {
     }
 
     bool validLocation(Vec2 loc) =>
-      0 <= loc.x && loc.x <= width &&
-      0 <= loc.y && loc.y <= height &&
-      !invalidLocations.contains(loc);
+        0 <= loc.x &&
+        loc.x <= width &&
+        0 <= loc.y &&
+        loc.y <= height &&
+        !invalidLocations.contains(loc);
 
     final start = GoalData(Vec2.int(width, 0), empty);
     return aStarLowestCost<GoalData>(
       start: start,
       isGoal: (g) => g.goal == Vec2.zero,
       estimatedDistance: (g) =>
-        g.goal.manhattanDistanceTo(Vec2.zero) + g.goal.manhattanDistanceTo(g.empty),
+          g.goal.manhattanDistanceTo(Vec2.zero) +
+          g.goal.manhattanDistanceTo(g.empty),
       costTo: (g1, g2) => 1,
-      neighborsOf: (g) =>
-        Vec2.orthogonalDirs
+      neighborsOf: (g) => Vec2.orthogonalDirs
           .map((d) => g.empty + d)
           .where(validLocation)
           .map((p) => p == g.goal ? GoalData(g.empty, p) : GoalData(g.goal, p)),
@@ -79,11 +81,7 @@ class Day22 extends AdventDay {
   }
 
   List<Node> parseNodes(String input) =>
-    input
-      .lines
-      .skip(2)
-      .map(Node.parse)
-      .toList();
+      input.lines.skip(2).map(Node.parse).toList();
 }
 
 class Node {
@@ -107,13 +105,13 @@ class Node {
   int get available => size - used;
 
   bool viableWith(Node other) {
-    return
-      (used > 0 && other.available >= used) ||
-      (other.used > 0 && available >= other.used);
+    return (used > 0 && other.available >= used) ||
+        (other.used > 0 && available >= other.used);
   }
 
   @override
-  String toString() => 'Node $position size = $size, used = $used, available = $available';
+  String toString() =>
+      'Node $position size = $size, used = $used, available = $available';
 }
 
 class GoalData {
@@ -133,8 +131,6 @@ class GoalData {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is GoalData
-      && other.goal == goal
-      && other.empty == empty;
+    return other is GoalData && other.goal == goal && other.empty == empty;
   }
 }

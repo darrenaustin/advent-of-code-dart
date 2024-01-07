@@ -3,7 +3,6 @@ import 'package:test/test.dart';
 
 main() {
   group('2021 Day 25', () {
-
     final exampleInput = '''
 v...>>.vv>
 .vv>>.vv..

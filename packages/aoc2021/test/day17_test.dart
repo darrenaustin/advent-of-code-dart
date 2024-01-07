@@ -3,7 +3,6 @@ import 'package:test/test.dart';
 
 main() {
   group('2021 Day 17', () {
-
     final exampleInput = 'target area: x=20..30, y=-10..-5';
 
     group('part 1', () {

@@ -11,15 +11,14 @@ class Day10 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    Factory(input.lines).runInstructions(<int>{61, 17});
+      Factory(input.lines).runInstructions(<int>{61, 17});
 
   @override
   dynamic part2(String input) {
     final factory = Factory(input.lines)..runInstructions();
-    return
-      factory.output[0]!.first *
-      factory.output[1]!.first *
-      factory.output[2]!.first;
+    return factory.output[0]!.first *
+        factory.output[1]!.first *
+        factory.output[2]!.first;
   }
 }
 
@@ -48,7 +47,8 @@ class Factory {
   int? runInstructions([Set<int>? targetComparison]) {
     bool done = false;
     while (!done) {
-      final fullBots = (bots.entries.where((kv) => kv.value.length > 1)).map((kv) => kv.key);
+      final fullBots =
+          (bots.entries.where((kv) => kv.value.length > 1)).map((kv) => kv.key);
       if (fullBots.isNotEmpty) {
         final bot = fullBots.first;
         final rule = rules[bot]!;
@@ -69,13 +69,16 @@ class Factory {
           bots[rule.lowBot!] = bots.getOrElse(rule.lowBot!, [])..add(lowChip);
         }
         if (rule.lowOutput != null) {
-          output[rule.lowOutput!] = output.getOrElse(rule.lowOutput!, [])..add(lowChip);
+          output[rule.lowOutput!] = output.getOrElse(rule.lowOutput!, [])
+            ..add(lowChip);
         }
         if (rule.highBot != null) {
-          bots[rule.highBot!] = bots.getOrElse(rule.highBot!, [])..add(highChip);
+          bots[rule.highBot!] = bots.getOrElse(rule.highBot!, [])
+            ..add(highChip);
         }
         if (rule.highOutput != null) {
-          output[rule.highOutput!] = output.getOrElse(rule.highOutput!, [])..add(highChip);
+          output[rule.highOutput!] = output.getOrElse(rule.highOutput!, [])
+            ..add(highChip);
         }
         bots.remove(bot);
       } else {
@@ -100,9 +103,12 @@ class Rule {
     final highOutput = data.group(4) == "output";
     final high = int.parse(data.group(5)!);
 
-    return Rule(bot,
-      lowOutput ? null : low, highOutput ? null : high,
-      lowOutput ? low : null, highOutput ? high : null,
+    return Rule(
+      bot,
+      lowOutput ? null : low,
+      highOutput ? null : high,
+      lowOutput ? low : null,
+      highOutput ? high : null,
     );
   }
 
@@ -112,5 +118,6 @@ class Rule {
   final int? lowOutput;
   final int? highOutput;
 
-  static final RegExp _rulePattern = RegExp(r'bot (\d+) gives low to (output|bot) (\d+) and high to (output|bot) (\d+)');
+  static final RegExp _rulePattern = RegExp(
+      r'bot (\d+) gives low to (output|bot) (\d+) and high to (output|bot) (\d+)');
 }

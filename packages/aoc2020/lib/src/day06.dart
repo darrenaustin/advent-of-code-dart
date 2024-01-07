@@ -10,25 +10,20 @@ class Day06 extends AdventDay {
   Day06() : super(2020, 6, name: 'Custom Customs');
 
   @override
-  dynamic part1(String input) => parseAnswers(input)
-    .map(numAnsweredQuestions)
-    .sum;
+  dynamic part1(String input) =>
+      parseAnswers(input).map(numAnsweredQuestions).sum;
 
   @override
-  dynamic part2(String input) => parseAnswers(input)
-    .map(numFullyAnsweredQuestions)
-    .sum;
+  dynamic part2(String input) =>
+      parseAnswers(input).map(numFullyAnsweredQuestions).sum;
 
-  List<List<String>> parseAnswers(String input) => input
-    .split('\n\n')
-    .map((group) => group.lines.toList())
-    .toList();
+  List<List<String>> parseAnswers(String input) =>
+      input.split('\n\n').map((group) => group.lines.toList()).toList();
 
   int numAnsweredQuestions(List<String> groupAnswers) =>
-    groupAnswers.join().chars.toSet().length;
+      groupAnswers.join().chars.toSet().length;
 
-  int numFullyAnsweredQuestions(List<String> groupAnswers) =>
-    groupAnswers
+  int numFullyAnsweredQuestions(List<String> groupAnswers) => groupAnswers
       .map((answers) => answers.chars.toSet())
       .reduce((common, answers) => common.intersection(answers))
       .length;

@@ -11,25 +11,24 @@ class Day16 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    return input
-      .lines
-      .map(parseAuntItems)
-      .mapIndexed((i, auntItems) => auntHasCompounds(auntItems) ? i + 1 : null)
-      .whereNotNull()
-      .first;
+    return input.lines
+        .map(parseAuntItems)
+        .mapIndexed(
+            (i, auntItems) => auntHasCompounds(auntItems) ? i + 1 : null)
+        .whereNotNull()
+        .first;
   }
 
   @override
   dynamic part2(String input) {
     final greaterThan = {'cats', 'trees'};
     final lessThan = {'pomeranians', 'goldfish'};
-    return input
-      .lines
-      .map(parseAuntItems)
-      .mapIndexed((i, auntItems) =>
-        auntHasCompounds(auntItems, greaterThan, lessThan) ? i + 1 : null)
-      .whereNotNull()
-      .first;
+    return input.lines
+        .map(parseAuntItems)
+        .mapIndexed((i, auntItems) =>
+            auntHasCompounds(auntItems, greaterThan, lessThan) ? i + 1 : null)
+        .whereNotNull()
+        .first;
   }
 
   final compounds = <String, int>{
@@ -46,27 +45,25 @@ class Day16 extends AdventDay {
   };
 
   static Map<String, int> parseAuntItems(String input) {
-      final match = RegExp(r'^Sue \d+: (.+)$').firstMatch(input)!;
-      final aunt = <String, int>{};
-      match.group(1)!.split(', ').forEach((String c) {
-        final nameValue = c.split(': ');
-        aunt[nameValue.first] = int.parse(nameValue.last);
-      });
-      return aunt;
+    final match = RegExp(r'^Sue \d+: (.+)$').firstMatch(input)!;
+    final aunt = <String, int>{};
+    match.group(1)!.split(', ').forEach((String c) {
+      final nameValue = c.split(': ');
+      aunt[nameValue.first] = int.parse(nameValue.last);
+    });
+    return aunt;
   }
 
   bool auntHasCompounds(Map<String, int> aunt,
-   [Set<String>? greaterThan, Set<String>? lessThan]
-  ) {
-    return aunt.entries
-      .every((e) {
-        if (greaterThan != null && greaterThan.contains(e.key)) {
-          return compounds[e.key]! < e.value;
-        }
-        if (lessThan != null && lessThan.contains(e.key)) {
-          return compounds[e.key]! > e.value;
-        }
-        return compounds[e.key] == e.value;
-      });
+      [Set<String>? greaterThan, Set<String>? lessThan]) {
+    return aunt.entries.every((e) {
+      if (greaterThan != null && greaterThan.contains(e.key)) {
+        return compounds[e.key]! < e.value;
+      }
+      if (lessThan != null && lessThan.contains(e.key)) {
+        return compounds[e.key]! > e.value;
+      }
+      return compounds[e.key] == e.value;
+    });
   }
 }

@@ -62,7 +62,6 @@ class CPU {
 }
 
 class CRT {
-
   CRT({
     this.width = 40,
     this.onPixel = '#',

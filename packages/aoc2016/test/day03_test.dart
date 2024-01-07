@@ -5,7 +5,7 @@ main() {
   group('2016 Day 03', () {
     group('part 1', () {
       test('example', () {
-        expect(Day03().part1('5 10 25'), 0); 
+        expect(Day03().part1('5 10 25'), 0);
       });
 
       test('solution', () => Day03().testPart1());
@@ -20,7 +20,7 @@ main() {
 201 401 601
 202 402 602
 203 403 603''';
-        expect(Day03().part2(exampleInput), 6); 
+        expect(Day03().part2(exampleInput), 6);
       });
 
       test('solution', () => Day03().testPart2());

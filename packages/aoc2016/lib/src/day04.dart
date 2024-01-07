@@ -13,18 +13,15 @@ class Day04 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    return inputRooms(input)
-      .where((r) => r.isReal)
-      .map((r) => r.sectorID)
-      .sum;
+    return inputRooms(input).where((r) => r.isReal).map((r) => r.sectorID).sum;
   }
 
   @override
   dynamic part2(String input) {
     // Name determined by manually inspecting all the decrypted names.
     return inputRooms(input)
-      .firstWhere((r) => r.decryptedName() == 'northpole object storage')
-      .sectorID;
+        .firstWhere((r) => r.decryptedName() == 'northpole object storage')
+        .sectorID;
   }
 
   Iterable<Room> inputRooms(String input) => input.lines.map(Room.parse);
@@ -42,22 +39,17 @@ class Room {
   String computedChecksum() {
     final nameChars = name.split('-').join().split('')..sort();
     final groups = nameChars
-      .slicesWhere(isNotEqual)
-      .sorted((a, b) => b.length.compareTo(a.length));
-    return groups
-      .take(5)
-      .map((g) => g.first)
-      .join();
+        .slicesWhere(isNotEqual)
+        .sorted((a, b) => b.length.compareTo(a.length));
+    return groups.take(5).map((g) => g.first).join();
   }
 
   static final _charA = 'a'.codeUnits[0];
   static final _charDash = '-'.codeUnits[0];
   static final _charSpace = ' '.codeUnits[0];
 
-  String decryptedName() =>
-    String.fromCharCodes(name.codeUnits.map((c) => c == _charDash
-      ? _charSpace
-      : (c - _charA + sectorID) % 26 + _charA));
+  String decryptedName() => String.fromCharCodes(name.codeUnits.map((c) =>
+      c == _charDash ? _charSpace : (c - _charA + sectorID) % 26 + _charA));
 
   static final _roomRegexp = RegExp(r'([a-z\-]+)-(\d+)\[([a-z]+)\]');
 

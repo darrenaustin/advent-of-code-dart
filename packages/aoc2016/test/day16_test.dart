@@ -16,7 +16,6 @@ main() {
       });
     });
 
-
     group('part 1', () {
       test('example', () {
         expect(Day16().part1('10000', 20), '01100');

@@ -23,16 +23,13 @@ class Day15 extends AdventDay {
       maxX = max(maxX, s.pos.xInt + s.distance);
     }
 
-    bool noBeacon(Vec2 p) =>
-      sensors.any((s) =>
-        p != s.beacon &&
-        s.pos.manhattanDistanceTo(p) <= s.distance
-      );
+    bool noBeacon(Vec2 p) => sensors.any(
+        (s) => p != s.beacon && s.pos.manhattanDistanceTo(p) <= s.distance);
 
     return range(minX, maxX + 1)
-      .map((col) => Vec2.int(col, row))
-      .where(noBeacon)
-      .length;
+        .map((col) => Vec2.int(col, row))
+        .where(noBeacon)
+        .length;
   }
 
   @override
@@ -48,14 +45,15 @@ class Day15 extends AdventDay {
     // sensor.
     for (final sensor in sensors) {
       final distance = sensor.distance;
-      for (final dir in diamondDirs)  {
+      for (final dir in diamondDirs) {
         for (int dx = 0; dx <= distance; dx++) {
           final dy = distance - dx + 1;
           final x = sensor.pos.x + dir.x * dx;
           final y = sensor.pos.y + dir.y * dy;
           if (minGrid <= x && x <= maxGrid && minGrid <= y && y <= maxGrid) {
             final p = Vec2(x, y);
-            if (!sensors.any((s) => s.pos.manhattanDistanceTo(p) <= s.distance)) {
+            if (!sensors
+                .any((s) => s.pos.manhattanDistanceTo(p) <= s.distance)) {
               return p.xInt * 4000000 + p.yInt;
             }
           }
@@ -65,12 +63,15 @@ class Day15 extends AdventDay {
   }
 
   List<Sensor> parseSensors(String input) {
-    final sensorPattern = RegExp(r'Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)');
+    final sensorPattern = RegExp(
+        r'Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)');
     final List<Sensor> sensors = [];
     for (final line in input.lines) {
       final match = sensorPattern.firstMatch(line)!;
-      final Vec2 pos = Vec2.int(int.parse(match.group(1)!), int.parse(match.group(2)!));
-      final Vec2 beacon = Vec2.int(int.parse(match.group(3)!), int.parse(match.group(4)!));
+      final Vec2 pos =
+          Vec2.int(int.parse(match.group(1)!), int.parse(match.group(2)!));
+      final Vec2 beacon =
+          Vec2.int(int.parse(match.group(3)!), int.parse(match.group(4)!));
       sensors.add(Sensor(pos, beacon));
     }
     return sensors;

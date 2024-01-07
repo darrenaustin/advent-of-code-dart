@@ -13,20 +13,20 @@ class Day18 extends AdventDay {
 
   @override
   dynamic part1(String input, [int steps = 100]) =>
-    iterate(animate, lightGrid(input))
-      .elementAt(steps)
-      .cellsWhere(lightOn)
-      .length;
+      iterate(animate, lightGrid(input))
+          .elementAt(steps)
+          .cellsWhere(lightOn)
+          .length;
 
   @override
   dynamic part2(String input, [int steps = 100]) =>
-    iterate(cornersOnAnimate, turnCornersOn(lightGrid(input)))
-      .elementAt(steps)
-      .cellsWhere(lightOn)
-      .length;
+      iterate(cornersOnAnimate, turnCornersOn(lightGrid(input)))
+          .elementAt(steps)
+          .cellsWhere(lightOn)
+          .length;
 
   static Grid<String> lightGrid(String input) =>
-    Grid.from(input.lines.map((s) => s.chars).toList(), '.');
+      Grid.from(input.lines.map((s) => s.chars).toList(), '.');
 
   static bool lightOn(String l) => l == '#';
 
@@ -45,7 +45,7 @@ class Day18 extends AdventDay {
   }
 
   static Grid<String> cornersOnAnimate(Grid<String> lights) =>
-    turnCornersOn(animate(lights));
+      turnCornersOn(animate(lights));
 
   static Grid<String> turnCornersOn(Grid<String> lights) {
     lights.setCell(Vec2.zero, '#');

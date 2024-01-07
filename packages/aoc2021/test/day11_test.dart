@@ -28,7 +28,6 @@ main() {
         expect(Day11().part2(exampleInput), 195);
       });
 
-
       test('solution', () => Day11().testPart2());
     });
   });

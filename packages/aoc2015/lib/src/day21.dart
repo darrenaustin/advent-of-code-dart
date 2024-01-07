@@ -13,18 +13,18 @@ class Day21 extends AdventDay {
   dynamic part1(String input) {
     final boss = Character.parse(input, 'Boss');
     return _equipmentPermutations()
-      .where((items) => _equipPlayer(items).winsBattle(boss))
-      .map(_equipmentCost)
-      .min;
+        .where((items) => _equipPlayer(items).winsBattle(boss))
+        .map(_equipmentCost)
+        .min;
   }
 
   @override
   dynamic part2(String input) {
     final boss = Character.parse(input, 'Boss');
     return _equipmentPermutations()
-      .where((items) => !_equipPlayer(items).winsBattle(boss))
-      .map(_equipmentCost)
-      .max;
+        .where((items) => !_equipPlayer(items).winsBattle(boss))
+        .map(_equipmentCost)
+        .max;
   }
 
   Iterable<Iterable<Item>> _equipmentPermutations() sync* {
@@ -102,7 +102,11 @@ class Item {
 }
 
 class Character {
-  const Character({required this.name, this.hitPoints = 0, this.damage = 0, this.armor = 0});
+  const Character(
+      {required this.name,
+      this.hitPoints = 0,
+      this.damage = 0,
+      this.armor = 0});
 
   final String name;
   final int hitPoints;
@@ -114,7 +118,7 @@ class Character {
     final damageMatch = RegExp(r'Damage: (\d+)').firstMatch(input)!;
     final armorMatch = RegExp(r'Armor: (\d+)').firstMatch(input)!;
     return Character(
-      name: name, 
+      name: name,
       hitPoints: int.parse(hitPointMatch.group(1)!),
       damage: int.parse(damageMatch.group(1)!),
       armor: int.parse(armorMatch.group(1)!),

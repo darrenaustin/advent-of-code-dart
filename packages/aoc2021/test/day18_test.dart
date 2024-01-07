@@ -45,21 +45,30 @@ main() {
 [[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]''';
 
     group('part 1', () {
-
       test('magnitude', () {
         expect(Pair.from('[[1,2],[[3,4],5]]').magnitude(), 143);
-        expect(Pair.from('[[[[0,7],4],[[7,8],[6,0]]],[8,1]]').magnitude(), 1384);
+        expect(
+            Pair.from('[[[[0,7],4],[[7,8],[6,0]]],[8,1]]').magnitude(), 1384);
         expect(Pair.from('[[[[1,1],[2,2]],[3,3]],[4,4]]').magnitude(), 445);
         expect(Pair.from('[[[[3,0],[5,3]],[4,4]],[5,5]]').magnitude(), 791);
         expect(Pair.from('[[[[5,0],[7,4]],[5,5]],[6,6]]').magnitude(), 1137);
-        expect(Pair.from('[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]').magnitude(), 3488);
+        expect(
+            Pair.from('[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]')
+                .magnitude(),
+            3488);
       });
 
       test('examples', () {
-        expect(Day18().part1(exampleInput1), Pair.from('[[[[1,1],[2,2]],[3,3]],[4,4]]').magnitude());
-        expect(Day18().part1(exampleInput2), Pair.from('[[[[3,0],[5,3]],[4,4]],[5,5]]').magnitude());
-        expect(Day18().part1(exampleInput3), Pair.from('[[[[5,0],[7,4]],[5,5]],[6,6]]').magnitude());
-        expect(Day18().part1(exampleInput4), Pair.from('[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]').magnitude());
+        expect(Day18().part1(exampleInput1),
+            Pair.from('[[[[1,1],[2,2]],[3,3]],[4,4]]').magnitude());
+        expect(Day18().part1(exampleInput2),
+            Pair.from('[[[[3,0],[5,3]],[4,4]],[5,5]]').magnitude());
+        expect(Day18().part1(exampleInput3),
+            Pair.from('[[[[5,0],[7,4]],[5,5]],[6,6]]').magnitude());
+        expect(
+            Day18().part1(exampleInput4),
+            Pair.from('[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]')
+                .magnitude());
         expect(Day18().part1(exampleInput5), 4140);
       });
 

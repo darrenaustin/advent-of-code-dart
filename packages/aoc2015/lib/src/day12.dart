@@ -16,20 +16,15 @@ class Day12 extends AdventDay {
 
   @override
   dynamic part2(String input) {
-    final dynamic doc = 
-      jsonDecode(input,
+    final dynamic doc = jsonDecode(input,
         reviver: (key, value) =>
-          (value is Map && value.values.any((v) => v == 'red')) ? 0 : value
-      );
+            (value is Map && value.values.any((v) => v == 'red')) ? 0 : value);
     return _sumOfInts(doc.toString());
   }
 
   static final _numberPattern = RegExp(r'-?\d+');
 
   static int _sumOfInts(String text) {
-    return _numberPattern
-      .allStringMatches(text)
-      .map(int.parse)
-      .sum;
+    return _numberPattern.allStringMatches(text).map(int.parse).sum;
   }
 }

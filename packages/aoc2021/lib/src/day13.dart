@@ -13,31 +13,26 @@ class Day13 extends AdventDay {
   dynamic part1(String input) {
     final folds = parseFolds(input);
     return parseDotCoords(input)
-      .map((d) => foldDot(d, folds.first))
-      .toSet()
-      .length;
+        .map((d) => foldDot(d, folds.first))
+        .toSet()
+        .length;
   }
 
   @override
   dynamic part2(String input) {
-    final foldedDots = parseFolds(input)
-      .fold(parseDotCoords(input),
-        (dots, fold) => dots.map((d) => foldDot(d, fold)).toSet()
-      );
+    final foldedDots = parseFolds(input).fold(parseDotCoords(input),
+        (dots, fold) => dots.map((d) => foldDot(d, fold)).toSet());
     printDots(foldedDots);
 
     // Have no easy way to automate this (look into OCR?)
     return 'HEJHJRCJ';
   }
 
-  Iterable<Vec2> parseDotCoords(String input) => input
-    .split('\n\n')
-    .first
-    .split('\n')
-    .map((l) {
-      final coords = l.split(',');
-      return Vec2.int(int.parse(coords[0]), int.parse(coords[1]));
-    });
+  Iterable<Vec2> parseDotCoords(String input) =>
+      input.split('\n\n').first.split('\n').map((l) {
+        final coords = l.split(',');
+        return Vec2.int(int.parse(coords[0]), int.parse(coords[1]));
+      });
 
   Iterable<Fold> parseFolds(String input) {
     final foldLines = input.split('\n\n').last.split('\n');
@@ -49,13 +44,9 @@ class Day13 extends AdventDay {
 
   Vec2 foldDot(Vec2 dot, Fold fold) {
     if (fold.vertical) {
-      return (dot.y < fold.line)
-        ? dot
-        : Vec2(dot.x, 2 * fold.line - dot.y);
+      return (dot.y < fold.line) ? dot : Vec2(dot.x, 2 * fold.line - dot.y);
     } else {
-      return (dot.x < fold.line)
-        ? dot
-        : Vec2(2 * fold.line - dot.x, dot.y);
+      return (dot.x < fold.line) ? dot : Vec2(2 * fold.line - dot.x, dot.y);
     }
   }
 

@@ -23,8 +23,8 @@ class Day13 extends AdventDay {
       estimatedDistance: (p) => p.manhattanDistanceTo(goal),
       costTo: (from, to) => from.manhattanDistanceTo(to),
       neighborsOf: (p) => Vec2.orthogonalDirs
-        .map((d) => p + d)
-        .where((p) => p.x >= 0 && p.y >= 0 && maze.isSpace(p)),
+          .map((d) => p + d)
+          .where((p) => p.x >= 0 && p.y >= 0 && maze.isSpace(p)),
     )?.toInt();
   }
 
@@ -37,8 +37,8 @@ class Day13 extends AdventDay {
       if (steps <= 50 && (!visited.containsKey(pos) || visited[pos]! > steps)) {
         visited[pos] = steps;
         final nextLocations = Vec2.orthogonalDirs
-          .map((d) => pos + d)
-          .where((p) => p.x >= 0 && p.y >=0 && maze.isSpace(p));
+            .map((d) => pos + d)
+            .where((p) => p.x >= 0 && p.y >= 0 && maze.isSpace(p));
         for (final next in nextLocations) {
           visit(next, steps + 1);
         }

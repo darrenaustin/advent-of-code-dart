@@ -13,7 +13,7 @@ main() {
 
     group('part 2', () {
       test('examples', () {
-        expect(Day05().part2('abc'), '05ace8e3'); 
+        expect(Day05().part2('abc'), '05ace8e3');
       });
 
       test('solution', () => Day05().testPart2());

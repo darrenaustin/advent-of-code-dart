@@ -13,7 +13,8 @@ class Day20 extends AdventDay {
   dynamic part1(String input) => coordinateSum(mix(parseNumbers(input)));
 
   @override
-  dynamic part2(String input) => coordinateSum(mix(parseNumbers(input, 811589153), 10));
+  dynamic part2(String input) =>
+      coordinateSum(mix(parseNumbers(input, 811589153), 10));
 
   List<IndexedInt> mix(List<IndexedInt> numbers, [int numTimes = 1]) {
     final length = numbers.length;
@@ -33,16 +34,15 @@ class Day20 extends AdventDay {
     final length = numbers.length;
     final zeroIndex = numbers.indexWhere((n) => n.value == 0);
     return [1000, 2000, 3000]
-      .map((e) => numbers[(e + zeroIndex) % length].value)
-      .sum;
+        .map((e) => numbers[(e + zeroIndex) % length].value)
+        .sum;
   }
 
   List<IndexedInt> parseNumbers(String input, [int decryptKey = 1]) {
-    return input
-      .lines
-      .map(int.parse)
-      .mapIndexed((i, value) => IndexedInt(value * decryptKey, i))
-      .toList();
+    return input.lines
+        .map(int.parse)
+        .mapIndexed((i, value) => IndexedInt(value * decryptKey, i))
+        .toList();
   }
 }
 
@@ -55,9 +55,7 @@ class IndexedInt {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is IndexedInt
-        && other.value == value
-        && other.index == index;
+    return other is IndexedInt && other.value == value && other.index == index;
   }
 
   @override

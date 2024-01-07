@@ -16,11 +16,9 @@ class Day22 extends AdventDay {
       if (battle.applyEffects()) {
         return battle.playerWon ? battle.player.manaSpent : null;
       }
-      final availableSpells = battle.player.spells!
-        .where((s) => 
+      final availableSpells = battle.player.spells!.where((s) =>
           s.cost <= battle.player.mana &&
-          !battle.activeEffects.containsKey(s.name)
-        );
+          !battle.activeEffects.containsKey(s.name));
       for (final spell in availableSpells) {
         final nextBattle = Battle.from(battle);
         if (nextBattle.playerTurn(spell) ||
@@ -29,14 +27,17 @@ class Day22 extends AdventDay {
           if (nextBattle.playerWon) {
             lowestMana = minOrNull(lowestMana, nextBattle.player.manaSpent);
           }
-        } else if (lowestMana == null || nextBattle.player.manaSpent < lowestMana) {
-          lowestMana = minOrNull(lowestMana, lowestManaCostWin(nextBattle, lowestMana));
+        } else if (lowestMana == null ||
+            nextBattle.player.manaSpent < lowestMana) {
+          lowestMana =
+              minOrNull(lowestMana, lowestManaCostWin(nextBattle, lowestMana));
         }
       }
       return lowestMana;
     }
 
-    return lowestManaCostWin(Battle(startingPlayer(), Character.parse(input, 'Boss')));
+    return lowestManaCostWin(
+        Battle(startingPlayer(), Character.parse(input, 'Boss')));
   }
 
   @override
@@ -48,11 +49,9 @@ class Day22 extends AdventDay {
       if (battle.applyEffects()) {
         return battle.playerWon ? battle.player.manaSpent : null;
       }
-      final availableSpells = battle.player.spells!
-        .where((s) =>
-          s.cost <= battle.player.mana && 
-          !battle.activeEffects.containsKey(s.name)
-        );
+      final availableSpells = battle.player.spells!.where((s) =>
+          s.cost <= battle.player.mana &&
+          !battle.activeEffects.containsKey(s.name));
       for (final Spell spell in availableSpells) {
         final Battle nextBattle = Battle.from(battle);
         if (nextBattle.playerTurn(spell) ||
@@ -63,7 +62,8 @@ class Day22 extends AdventDay {
           }
         } else {
           if (lowestMana == null || nextBattle.player.manaSpent < lowestMana) {
-            lowestMana = minOrNull(lowestMana, lowestManaCostWin(nextBattle, lowestMana));
+            lowestMana = minOrNull(
+                lowestMana, lowestManaCostWin(nextBattle, lowestMana));
           }
         }
       }
@@ -75,40 +75,49 @@ class Day22 extends AdventDay {
   }
 
   Character startingPlayer() =>
-    Character(name: 'Player', hitPoints: 50, mana: 500, spells: [
-      Spell(
-        name: 'Magic Missile', cost: 53,
-        effect: (caster, enemy) => enemy.hitPoints -= 4,
-      ),
-      Spell(
-        name: 'Drain', cost: 73,
-        effect: (caster, enemy) {
-          enemy.hitPoints -= 2;
-          caster.hitPoints += 2;
-        },
-      ),
-      Spell(
-        name: 'Shield', cost: 113, duration: 6,
-        effect: (caster, enemy) => caster.armor = 7,
-      ),
-      Spell(
-        name: 'Poison', cost: 173, duration: 6,
-        effect: (caster, enemy) => enemy.hitPoints -= 3,
-      ),
-      Spell(
-        name: 'Recharge', cost: 229, duration: 5,
-        effect: (caster, enemy) => caster.mana += 101,
-      ),
-    ]);
+      Character(name: 'Player', hitPoints: 50, mana: 500, spells: [
+        Spell(
+          name: 'Magic Missile',
+          cost: 53,
+          effect: (caster, enemy) => enemy.hitPoints -= 4,
+        ),
+        Spell(
+          name: 'Drain',
+          cost: 73,
+          effect: (caster, enemy) {
+            enemy.hitPoints -= 2;
+            caster.hitPoints += 2;
+          },
+        ),
+        Spell(
+          name: 'Shield',
+          cost: 113,
+          duration: 6,
+          effect: (caster, enemy) => caster.armor = 7,
+        ),
+        Spell(
+          name: 'Poison',
+          cost: 173,
+          duration: 6,
+          effect: (caster, enemy) => enemy.hitPoints -= 3,
+        ),
+        Spell(
+          name: 'Recharge',
+          cost: 229,
+          duration: 5,
+          effect: (caster, enemy) => caster.mana += 101,
+        ),
+      ]);
 }
 
 class Battle {
   Battle(this.player, this.boss) : activeEffects = <String, SpellEffect>{};
-  
-  Battle.from(Battle other) :
-    player = other.player.copy(),
-    boss = other.boss.copy(),
-    activeEffects = other.activeEffects.map((n, e) => MapEntry(n, e.copy()));
+
+  Battle.from(Battle other)
+      : player = other.player.copy(),
+        boss = other.boss.copy(),
+        activeEffects =
+            other.activeEffects.map((n, e) => MapEntry(n, e.copy()));
 
   final Character player;
   final Character boss;
@@ -152,11 +161,8 @@ class SpellEffect {
   SpellEffect(this.name, this.effect, this.duration);
 
   SpellEffect copy({String? name, Effect? effect, int? duration}) =>
-    SpellEffect(
-      name ?? this.name,
-      effect ?? this.effect,
-      duration ?? this.duration
-    );
+      SpellEffect(
+          name ?? this.name, effect ?? this.effect, duration ?? this.duration);
 
   final String name;
   final Effect effect;
@@ -164,12 +170,11 @@ class SpellEffect {
 }
 
 class Spell {
-  Spell({
-   required this.name, 
-   required this.cost,
-   this.duration = 0,
-   required this.effect
-  });
+  Spell(
+      {required this.name,
+      required this.cost,
+      this.duration = 0,
+      required this.effect});
 
   final String name;
   final int cost;
@@ -191,21 +196,20 @@ class Spell {
 }
 
 class Character {
-  Character({
-    this.name = '',
-    this.hitPoints = 0,
-    this.damage = 0,
-    this.armor = 0,
-    this.mana = 0,
-    this.spells,
-    this.manaSpent = 0
-  });
+  Character(
+      {this.name = '',
+      this.hitPoints = 0,
+      this.damage = 0,
+      this.armor = 0,
+      this.mana = 0,
+      this.spells,
+      this.manaSpent = 0});
 
   factory Character.parse(String input, String name) {
     final hitPointMatch = RegExp(r'Hit Points: (\d+)').firstMatch(input)!;
     final damageMatch = RegExp(r'Damage: (\d+)').firstMatch(input)!;
     return Character(
-      name: name, 
+      name: name,
       hitPoints: int.parse(hitPointMatch.group(1)!),
       damage: int.parse(damageMatch.group(1)!),
     );
@@ -220,15 +224,15 @@ class Character {
     List<Spell>? spells,
     int? manaSpent,
   }) =>
-    Character(
-      name: name ?? this.name,
-      hitPoints: hitPoints ?? this.hitPoints,
-      damage: damage ?? this.damage,
-      armor: armor ?? this.armor,
-      mana: mana ?? this.mana,
-      spells: spells ?? (this.spells != null ? List.from(this.spells!) : null),
-      manaSpent: manaSpent ?? this.manaSpent
-    );
+      Character(
+          name: name ?? this.name,
+          hitPoints: hitPoints ?? this.hitPoints,
+          damage: damage ?? this.damage,
+          armor: armor ?? this.armor,
+          mana: mana ?? this.mana,
+          spells:
+              spells ?? (this.spells != null ? List.from(this.spells!) : null),
+          manaSpent: manaSpent ?? this.manaSpent);
 
   String name;
   int hitPoints;

@@ -29,9 +29,12 @@ class Day12 extends AdventDay {
     final zCycle = CycleDetector();
 
     while (!xCycle.detected || !yCycle.detected || !zCycle.detected) {
-      xCycle.update(moons.map((m) => m.position.x), moons.map((m) => m.velocity.x));
-      yCycle.update(moons.map((m) => m.position.y), moons.map((m) => m.velocity.y));
-      zCycle.update(moons.map((m) => m.position.z), moons.map((m) => m.velocity.z));
+      xCycle.update(
+          moons.map((m) => m.position.x), moons.map((m) => m.velocity.x));
+      yCycle.update(
+          moons.map((m) => m.position.y), moons.map((m) => m.velocity.y));
+      zCycle.update(
+          moons.map((m) => m.position.z), moons.map((m) => m.velocity.z));
       simulate(moons);
     }
     return [xCycle.cycle!, yCycle.cycle!, zCycle.cycle!].reduce(lcm);
@@ -41,7 +44,8 @@ class Day12 extends AdventDay {
     return input.lines.map((l) {
       final match = RegExp(r'<x=(-?\d+), y=(-?\d+), z=(-?\d+)>').firstMatch(l)!;
       return Moon(
-        Vec3.int(int.parse(match.group(1)!), int.parse(match.group(2)!), int.parse(match.group(3)!)),
+        Vec3.int(int.parse(match.group(1)!), int.parse(match.group(2)!),
+            int.parse(match.group(3)!)),
         Vec3(0, 0, 0),
       );
     }).toList();
@@ -60,7 +64,8 @@ class Day12 extends AdventDay {
 
   void applyGravity(Moon m1, Moon m2) {
     final positionDelta = m2.position - m1.position;
-    final m1VelocityDelta = Vec3(positionDelta.x.sign, positionDelta.y.sign, positionDelta.z.sign);
+    final m1VelocityDelta =
+        Vec3(positionDelta.x.sign, positionDelta.y.sign, positionDelta.z.sign);
     m1.velocity += m1VelocityDelta;
     m2.velocity -= m1VelocityDelta;
   }
@@ -68,8 +73,10 @@ class Day12 extends AdventDay {
   void applyVelocity(Moon m) => m.position += m.velocity;
 
   num energy(Moon m) {
-    final potential = m.position.x.abs() + m.position.y.abs() + m.position.z.abs();
-    final kinetic = m.velocity.x.abs() + m.velocity.y.abs() + m.velocity.z.abs();
+    final potential =
+        m.position.x.abs() + m.position.y.abs() + m.position.z.abs();
+    final kinetic =
+        m.velocity.x.abs() + m.velocity.y.abs() + m.velocity.z.abs();
     return potential * kinetic;
   }
 }
@@ -81,7 +88,6 @@ class Moon {
 }
 
 class CycleDetector {
-
   late final List<double> _positions;
   late final List<double> _velocities;
 
@@ -98,7 +104,8 @@ class CycleDetector {
         _positions = List.from(positions);
         _velocities = List.from(velocities);
         _count = 1;
-      } else if (_iterEq(_positions, positions) && _iterEq(_velocities, velocities)) {
+      } else if (_iterEq(_positions, positions) &&
+          _iterEq(_velocities, velocities)) {
         cycle = _count;
       } else {
         _count++;

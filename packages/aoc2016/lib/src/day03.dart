@@ -13,7 +13,8 @@ class Day03 extends AdventDay {
   dynamic part1(String input) => triangles(input).where(validTriangle).length;
 
   @override
-  dynamic part2(String input) => verticalTriangles(input).where(validTriangle).length;
+  dynamic part2(String input) =>
+      verticalTriangles(input).where(validTriangle).length;
 
   bool validTriangle(Iterable<int> vertices) {
     List<int> sorted = List.from(vertices)..sort();
@@ -21,10 +22,10 @@ class Day03 extends AdventDay {
   }
 
   Iterable<int> parseNumbers(String s) =>
-    s.trim().split(RegExp(r'\W+')).map((n) => int.parse(n));
+      s.trim().split(RegExp(r'\W+')).map((n) => int.parse(n));
 
-  Iterable<Iterable<int>> triangles(String input) => 
-    input.lines.map(parseNumbers);
+  Iterable<Iterable<int>> triangles(String input) =>
+      input.lines.map(parseNumbers);
 
   Iterable<Iterable<int>> verticalTriangles(String input) {
     // Break the input into 3 line groups and then

@@ -47,4 +47,4 @@ void main(List<String> arguments) {
 }
 
 void cdPackagePath(int year) =>
-  Directory.current = path.join(packageDir, 'aoc$year');
+    Directory.current = path.join(packageDir, 'aoc$year');

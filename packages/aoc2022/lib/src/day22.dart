@@ -105,8 +105,16 @@ class Day22 extends AdventDay {
     };
 
     Vec2 mapPos(Vec2 pos, Vec2 fromDir, Vec2 toDir) {
-      final wrappedX = pos.xInt < 0 ? faceSize - 1 : pos.xInt >= faceSize ? 0 : pos.xInt;
-      final wrappedY = pos.yInt < 0 ? faceSize - 1 : pos.yInt >= faceSize ? 0 : pos.yInt;
+      final wrappedX = pos.xInt < 0
+          ? faceSize - 1
+          : pos.xInt >= faceSize
+              ? 0
+              : pos.xInt;
+      final wrappedY = pos.yInt < 0
+          ? faceSize - 1
+          : pos.yInt >= faceSize
+              ? 0
+              : pos.yInt;
       final wrapped = Vec2.int(wrappedX, wrappedY);
       if (fromDir == toDir) {
         return wrapped;
@@ -115,31 +123,32 @@ class Day22 extends AdventDay {
         if (toDir == Vec2.right) {
           return Vec2(0, wrapped.x);
         }
-        throw('Huh?');
+        throw ('Huh?');
       } else if (fromDir == Vec2.down) {
         if (toDir == Vec2.left) {
           return Vec2(faceSize - 1, wrapped.x);
         }
-        throw('Huh?');
+        throw ('Huh?');
       } else if (fromDir == Vec2.left) {
         if (toDir == Vec2.down) {
           return Vec2(wrapped.y, 0);
         } else if (toDir == Vec2.right) {
           return Vec2(0, faceSize - wrapped.y - 1);
         }
-        throw('Huh?');
+        throw ('Huh?');
       } else if (fromDir == Vec2.right) {
         if (toDir == Vec2.up) {
           return Vec2.int(wrapped.yInt, faceSize - 1);
         } else if (toDir == Vec2.left) {
           return Vec2.int(faceSize - 1, faceSize - wrapped.yInt - 1);
         }
-        throw('Huh?');
+        throw ('Huh?');
       }
-      throw('Huh?');
+      throw ('Huh?');
     }
 
-    bool validFaceCell(Vec2 p) => (0 <= p.x && p.x < faceSize && 0 <= p.y && p.y < faceSize);
+    bool validFaceCell(Vec2 p) =>
+        (0 <= p.x && p.x < faceSize && 0 <= p.y && p.y < faceSize);
 
     CubePos newPos(CubePos start) {
       final nextPos = start.pos + start.facing;
@@ -147,7 +156,8 @@ class Day22 extends AdventDay {
         return CubePos(start.face, nextPos, start.facing);
       }
       final edge = edges[start.face]![start.facing]!;
-      return CubePos(edge.face, mapPos(nextPos, start.facing, edge.facing), edge.facing);
+      return CubePos(
+          edge.face, mapPos(nextPos, start.facing, edge.facing), edge.facing);
     }
 
     String cellAt(CubePos pos) => grid.cell(faceOffset[pos.face]! + pos.pos);
@@ -187,7 +197,8 @@ class Day22 extends AdventDay {
   }
 
   Grid<String> parseGrid(String input) {
-    final gridData = input.split('\n\n').first.split('\n').map((l) => l.split('')).toList();
+    final gridData =
+        input.split('\n\n').first.split('\n').map((l) => l.split('')).toList();
     final width = gridData.map((r) => r.length).max;
     final height = gridData.length;
     final grid = Grid<String>(width, height, ' ');
@@ -206,11 +217,19 @@ class Day22 extends AdventDay {
     final pathData = input.split('\n\n').last.trim();
     final pathReg = RegExp(r'(\d+)([RL])?');
     final matches = pathReg.allMatches(pathData);
-    return matches.map((m) => Path(int.parse(m.group(1)!),
-      m.group(2) == null ? Vec2.zero : m.group(2)! == 'L' ? Vec2.left : Vec2.right)).toList();
+    return matches
+        .map((m) => Path(
+            int.parse(m.group(1)!),
+            m.group(2) == null
+                ? Vec2.zero
+                : m.group(2)! == 'L'
+                    ? Vec2.left
+                    : Vec2.right))
+        .toList();
   }
 
-  int password(Vec2 pos, Vec2 facing) => 1000 * (pos.yInt + 1) + 4 * (pos.xInt + 1) + dirs.indexOf(facing);
+  int password(Vec2 pos, Vec2 facing) =>
+      1000 * (pos.yInt + 1) + 4 * (pos.xInt + 1) + dirs.indexOf(facing);
 
   Vec2 wrapped(Grid<String> grid, Vec2 pos) {
     return Vec2.int(pos.xInt % grid.width, pos.yInt % grid.height);

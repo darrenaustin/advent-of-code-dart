@@ -16,10 +16,8 @@ class Day18 extends AdventDay {
   dynamic part1(String input) {
     final cubes = parseCubes(input);
     return cubes
-      .map((c) => _dirs
-        .whereNot((d) => cubes.contains(c + d))
-        .length)
-      .sum;
+        .map((c) => _dirs.whereNot((d) => cubes.contains(c + d)).length)
+        .sum;
   }
 
   @override
@@ -28,17 +26,23 @@ class Day18 extends AdventDay {
     Vec3 minV = Vec3.zero;
     Vec3 maxV = Vec3.zero;
     for (final cube in cubes) {
-      minV = Vec3(min(minV.x, cube.x), min(minV.y, cube.y), min(minV.z, cube.z));
-      maxV = Vec3(max(maxV.x, cube.x), max(maxV.y, cube.y), max(maxV.z, cube.z));
+      minV =
+          Vec3(min(minV.x, cube.x), min(minV.y, cube.y), min(minV.z, cube.z));
+      maxV =
+          Vec3(max(maxV.x, cube.x), max(maxV.y, cube.y), max(maxV.z, cube.z));
     }
 
     bool inside(Vec3 p) =>
-        minV.x <= p.x && p.x <= maxV.x &&
-        minV.y <= p.y && p.y <= maxV.y &&
-        minV.z <= p.z && p.z <= maxV.z;
+        minV.x <= p.x &&
+        p.x <= maxV.x &&
+        minV.y <= p.y &&
+        p.y <= maxV.y &&
+        minV.z <= p.z &&
+        p.z <= maxV.z;
 
     bool expandConnected(Set<Vec3> group) {
-      final seeds = Set.from(group.map((p) => _dirs.map((d) => p + d)).flattened);
+      final seeds =
+          Set.from(group.map((p) => _dirs.map((d) => p + d)).flattened);
       bool groupExposed = false;
       while (seeds.isNotEmpty) {
         final seed = seeds.first;
@@ -52,8 +56,8 @@ class Day18 extends AdventDay {
         }
         group.add(seed);
         seeds.addAll(_dirs
-          .map((d) => seed + d)
-          .where((v) => !group.contains(v) && !cubes.contains(v)));
+            .map((d) => seed + d)
+            .where((v) => !group.contains(v) && !cubes.contains(v)));
       }
       return groupExposed;
     }
@@ -64,8 +68,10 @@ class Day18 extends AdventDay {
       for (int y = minV.yInt; y <= maxV.yInt; y++) {
         for (int x = minV.xInt; x <= maxV.xInt; x++) {
           final pos = Vec3.int(x, y, z);
-          if (!cubes.contains(pos) && !trapped.contains(pos) && !exposed.contains(pos)) {
-            Set<Vec3> group = { pos };
+          if (!cubes.contains(pos) &&
+              !trapped.contains(pos) &&
+              !exposed.contains(pos)) {
+            Set<Vec3> group = {pos};
             if (expandConnected(group)) {
               exposed.addAll(group);
             } else {
@@ -80,26 +86,23 @@ class Day18 extends AdventDay {
     cubes.addAll(trapped);
 
     return cubes
-      .map((c) => _dirs
-        .whereNot((d) => cubes.contains(c + d))
-        .length)
-      .sum;
+        .map((c) => _dirs.whereNot((d) => cubes.contains(c + d)).length)
+        .sum;
   }
 
   Set<Vec3> parseCubes(String input) {
-    return input
-      .lines
-      .map((s) => s.split(',').map(int.parse).toList())
-      .map((v) => Vec3.int(v[0], v[1], v[2]))
-      .toSet();
+    return input.lines
+        .map((s) => s.split(',').map(int.parse).toList())
+        .map((v) => Vec3.int(v[0], v[1], v[2]))
+        .toSet();
   }
 
   static const _dirs = <Vec3>[
-    Vec3( 0,  1,  0), // Up
-    Vec3( 0, -1,  0), // Down
-    Vec3(-1,  0,  0), // Left
-    Vec3( 1,  0,  0), // Right
-    Vec3( 0,  0,  1), // Forward
-    Vec3( 0 , 0, -1), // Backward
+    Vec3(0, 1, 0), // Up
+    Vec3(0, -1, 0), // Down
+    Vec3(-1, 0, 0), // Left
+    Vec3(1, 0, 0), // Right
+    Vec3(0, 0, 1), // Forward
+    Vec3(0, 0, -1), // Backward
   ];
 }

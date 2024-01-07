@@ -12,7 +12,7 @@ inc a
 dec a
 jnz a 2
 dec a''';
-        expect(Day12().part1(exampleInput), 42); 
+        expect(Day12().part1(exampleInput), 42);
       });
 
       test('solution', () => Day12().testPart1());

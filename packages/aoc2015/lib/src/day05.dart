@@ -20,18 +20,15 @@ class Day05 extends AdventDay {
   static final _hasNaughtyPairs = RegExp(r'ab|cd|pq|xy');
 
   static bool niceStringPart1(String text) {
-    return
-      _threeVowels.hasMatch(text) &&
-      _atLeastOneDupe.hasMatch(text) &&
-      !_hasNaughtyPairs.hasMatch(text);
+    return _threeVowels.hasMatch(text) &&
+        _atLeastOneDupe.hasMatch(text) &&
+        !_hasNaughtyPairs.hasMatch(text);
   }
 
   static final _hasPairOfDupes = RegExp(r'(..).*\1');
   static final _pairSandwich = RegExp(r'(.).\1');
 
   static bool niceStringPart2(String text) {
-    return
-      _hasPairOfDupes.hasMatch(text) &&
-      _pairSandwich.hasMatch(text);
+    return _hasPairOfDupes.hasMatch(text) && _pairSandwich.hasMatch(text);
   }
 }

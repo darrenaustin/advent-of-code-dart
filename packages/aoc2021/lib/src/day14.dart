@@ -25,19 +25,17 @@ class Day14 extends AdventDay {
     return polymerStrength(template, rules, 40);
   }
 
-  int polymerStrength(List<String> template, Map<String, String> rules, int steps) {
+  int polymerStrength(
+      List<String> template, Map<String, String> rules, int steps) {
     // Compute a map of pairs to new pairs that will be created from
     // the insertion of a given rule. (I.e. CH -> B => {'CH': ['CB', 'BH']} if
     // 'CB' and 'BH' also have rules for them).
     final rulePairs = Map.fromEntries(rules.entries.map((rule) {
       final chars = rule.key.split('');
-      return MapEntry(rule.key,
-        [
-          chars[0] + rule.value,
-          rule.value + chars[1]
-        ]
-        .where(rules.keys.contains)
-      );
+      return MapEntry(
+          rule.key,
+          [chars[0] + rule.value, rule.value + chars[1]]
+              .where(rules.keys.contains));
     }));
 
     // Instead of doing list insertions, we just keep track of the current
@@ -72,8 +70,8 @@ class Day14 extends AdventDay {
   List<String> parseTemplate(List<String> lines) => lines.first.split('');
 
   Map<String, String> parseRules(List<String> lines) =>
-    Map.fromEntries(lines.skip(2).map((l)  {
-      final parts = l.split(' -> ');
-      return MapEntry(parts[0], parts[1]);
-    }));
+      Map.fromEntries(lines.skip(2).map((l) {
+        final parts = l.split(' -> ');
+        return MapEntry(parts[0], parts[1]);
+      }));
 }

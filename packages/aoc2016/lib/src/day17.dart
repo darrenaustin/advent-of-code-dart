@@ -14,9 +14,7 @@ main() => Day17().solve();
 class Day17 extends AdventDay {
   Day17() : super(2016, 17, name: 'Two Steps Forward');
 
-  static List<Vec2> directions = [
-    Vec2.up, Vec2.down, Vec2.left, Vec2.right
-  ];
+  static List<Vec2> directions = [Vec2.up, Vec2.down, Vec2.left, Vec2.right];
 
   static Map<Vec2, String> directionCode = {
     Vec2.up: 'U',
@@ -34,7 +32,10 @@ class Day17 extends AdventDay {
       estimatedDistance: (pos) => goal.manhattanDistanceTo(pos.pos),
       costTo: (pos1, pos2) => 1,
       neighborsOf: nextPositions,
-    )!.last.path.substring(input.length);
+    )!
+        .last
+        .path
+        .substring(input.length);
   }
 
   @override
@@ -65,15 +66,16 @@ class Day17 extends AdventDay {
   Iterable<Vec2> openDirections(Position pos) {
     final dirHashes = textMD5(pos.path).substring(0, 4);
     return directions
-      .whereIndexed((index, d) => dirHashes[index].codeUnitAt(0) > 'a'.codeUnitAt(0))
-      .where((d) => validMove(pos, d));
+        .whereIndexed(
+            (index, d) => dirHashes[index].codeUnitAt(0) > 'a'.codeUnitAt(0))
+        .where((d) => validMove(pos, d));
   }
 
   Position move(Position pos, Vec2 dir) =>
-    Position(pos.path + directionCode[dir]!, pos.pos + dir);
+      Position(pos.path + directionCode[dir]!, pos.pos + dir);
 
   Iterable<Position> nextPositions(Position pos) =>
-    openDirections(pos).map((d) => move(pos, d));
+      openDirections(pos).map((d) => move(pos, d));
 }
 
 class Position {
@@ -90,9 +92,7 @@ class Position {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is Position
-      && other.path == path
-      && other.pos == pos;
+    return other is Position && other.path == path && other.pos == pos;
   }
 
   @override

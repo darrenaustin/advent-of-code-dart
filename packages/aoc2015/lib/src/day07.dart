@@ -14,7 +14,7 @@ class Day07 extends AdventDay {
   @override
   dynamic part2(String input) {
     Circuit c = circuit(input);
-    c['b'] = Gate(GateOp.assign, 'b',  signal('a', c).toString());
+    c['b'] = Gate(GateOp.assign, 'b', signal('a', c).toString());
     return signal('a', c);
   }
 
@@ -40,7 +40,8 @@ class Day07 extends AdventDay {
       return Gate(opMap[gateParts[1]]!, output, gateParts[0], gateParts[2]);
     });
 
-    return Circuit.fromEntries(gates.map((g) => MapEntry<String, Gate>(g.output, g)));
+    return Circuit.fromEntries(
+        gates.map((g) => MapEntry<String, Gate>(g.output, g)));
   }
 
   static int signal(String wire, Circuit circuit) {

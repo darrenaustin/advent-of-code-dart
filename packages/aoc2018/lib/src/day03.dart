@@ -47,18 +47,15 @@ class Claim {
   Claim(this.id, this.rect);
 
   static Claim parse(String s) {
-    final match = RegExp(r'#([\d]+) @ ([\d]+),([\d]+): ([\d]+)x([\d]+)').firstMatch(s);
+    final match =
+        RegExp(r'#([\d]+) @ ([\d]+),([\d]+): ([\d]+)x([\d]+)').firstMatch(s);
     if (match == null) {
       throw Exception('unable to parse claim from $s');
     }
     return Claim(
-      int.parse(match.group(1)!),
-      Rect(
-        int.parse(match.group(2)!),
-        int.parse(match.group(3)!),
-        int.parse(match.group(4)!),
-        int.parse(match.group(5)!)
-      ));
+        int.parse(match.group(1)!),
+        Rect(int.parse(match.group(2)!), int.parse(match.group(3)!),
+            int.parse(match.group(4)!), int.parse(match.group(5)!)));
   }
 
   final int id;
@@ -77,6 +74,6 @@ class Rect {
   int get bottom => y + height;
 
   bool intersects(Rect other) =>
-    max(x, other.x) < min(right, other.right) &&
-    max(y, other.y) < min(bottom, other.bottom);
+      max(x, other.x) < min(right, other.right) &&
+      max(y, other.y) < min(bottom, other.bottom);
 }

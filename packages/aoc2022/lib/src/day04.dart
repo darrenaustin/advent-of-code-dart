@@ -10,20 +10,12 @@ class Day04 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    return input
-      .lines
-      .map(RangePair.from)
-      .where(RangePair.contained)
-      .length;
+    return input.lines.map(RangePair.from).where(RangePair.contained).length;
   }
 
   @override
   dynamic part2(String input) {
-    return input
-      .lines
-      .map(RangePair.from)
-      .where(RangePair.intersecting)
-      .length;
+    return input.lines.map(RangePair.from).where(RangePair.intersecting).length;
   }
 }
 
@@ -39,10 +31,10 @@ class RangePair {
   final Range second;
 
   static bool contained(RangePair rp) =>
-    rp.first.contains(rp.second) || rp.second.contains(rp.first);
+      rp.first.contains(rp.second) || rp.second.contains(rp.first);
 
   static bool intersecting(RangePair rp) =>
-    rp.first.intersects(rp.second) || rp.second.intersects(rp.first);
+      rp.first.intersects(rp.second) || rp.second.intersects(rp.first);
 }
 
 class Range {
@@ -59,6 +51,6 @@ class Range {
   bool contains(Range other) => start <= other.start && end >= other.end;
 
   bool intersects(Range other) =>
-    (other.start <= start && start <= other.end) ||
-    (other.start <= end && end <= other.end);
+      (other.start <= start && start <= other.end) ||
+      (other.start <= end && end <= other.end);
 }

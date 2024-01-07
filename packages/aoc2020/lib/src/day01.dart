@@ -12,20 +12,17 @@ class Day01 extends AdventDay {
 
   @override
   dynamic part1(String input) => pairs(expenseReport(input))
-    .where((pair) => pair.sum == 2020)
-    .first
-    .product;
+      .where((pair) => pair.sum == 2020)
+      .first
+      .product;
 
   @override
   dynamic part2(String input) => triples(expenseReport(input))
-    .where((triple) => triple.sum == 2020)
-    .first
-    .product;
+      .where((triple) => triple.sum == 2020)
+      .first
+      .product;
 
-  List<int> expenseReport(String input) => input
-    .lines
-    .map(int.parse)
-    .toList();
+  List<int> expenseReport(String input) => input.lines.map(int.parse).toList();
 
   Iterable<List<int>> pairs(List<int> l) sync* {
     for (int i = 0; i < l.length - 1; i++) {

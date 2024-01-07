@@ -15,9 +15,7 @@ class Day11 extends AdventDay {
   @override
   dynamic part1(String input) {
     final grid = parseGrid(input);
-    return range(100)
-      .map((_) => stepGrid(grid))
-      .sum;
+    return range(100).map((_) => stepGrid(grid)).sum;
   }
 
   @override
@@ -54,12 +52,6 @@ class Day11 extends AdventDay {
     return flashes.length;
   }
 
-  Grid<int> parseGrid(String input) =>
-    Grid.from(
-      input
-        .lines
-        .map((l) => l.chars.map(int.parse).toList())
-        .toList(),
-      0
-    );
+  Grid<int> parseGrid(String input) => Grid.from(
+      input.lines.map((l) => l.chars.map(int.parse).toList()).toList(), 0);
 }

@@ -9,16 +9,16 @@ class Day25 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-    codeAt(20151125, inputRow(input), inputColumn(input));
+      codeAt(20151125, inputRow(input), inputColumn(input));
 
   @override
   dynamic part2(String input) => AdventDay.lastStarSolution;
 
   int inputRow(String input) =>
-    int.parse(RegExp(r'\brow (\d+)').firstMatch(input)!.group(1)!);
+      int.parse(RegExp(r'\brow (\d+)').firstMatch(input)!.group(1)!);
 
   int inputColumn(String input) =>
-    int.parse(RegExp(r'\bcolumn (\d+)').firstMatch(input)!.group(1)!);
+      int.parse(RegExp(r'\bcolumn (\d+)').firstMatch(input)!.group(1)!);
 
   int nextCode(int previousCode) => previousCode * 252533 % 33554393;
 

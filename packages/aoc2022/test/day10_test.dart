@@ -170,7 +170,8 @@ noop''';
 ######......######......######......####
 #######.......#######.......#######.....''';
         final crt = CRT(offPixel: '.');
-        CPU((int _, int x) => crt.tick(x)).executeInstructions(exampleInput.lines);
+        CPU((int _, int x) => crt.tick(x))
+            .executeInstructions(exampleInput.lines);
         expect(crt.toString(), exampleOutput);
       });
 

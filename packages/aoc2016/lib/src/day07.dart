@@ -24,14 +24,13 @@ class Day07 extends AdventDay {
 
   static bool supportsTLS(String s) {
     final address = IPAddress(s);
-    return 
-      address.hypernetSequences.none(_hasABBA) &&
-      address.supernetSequences.any(_hasABBA);
+    return address.hypernetSequences.none(_hasABBA) &&
+        address.supernetSequences.any(_hasABBA);
   }
 
   static final RegExp _abaRegExp = RegExp(r'(?=(.)(?!\1)(.)\1)');
   static Iterable<String> _abaS(String s) =>
-     _abaRegExp.allMatches(s).map((m) => '${m[1]!}${m[2]!}${m[1]!}');
+      _abaRegExp.allMatches(s).map((m) => '${m[1]!}${m[2]!}${m[1]!}');
   static String _bab(String aba) => '${aba[1]}${aba[0]}${aba[1]}';
 
   static bool supportsSSL(String s) {
