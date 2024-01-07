@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:collection/collection.dart';
 
@@ -26,7 +27,7 @@ class Day19 extends AdventDay {
         [bp.oreCost, bp.clayOreCost, bp.obsidianOreCost, bp.geodeOreCost].max;
 
     // Optimal number of geodes for a given time left.
-    final optimalGeodes = range(time + 1).map((t) => (t - 1) * t / 2).toList();
+    final optimalGeodes = rangeinc(time).map((t) => (t - 1) * t / 2).toList();
 
     int maxGeodes = 0;
 

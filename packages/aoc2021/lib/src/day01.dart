@@ -1,7 +1,7 @@
 // https://adventofcode.com/2021/day/1
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 
 main() => Day01().solve();
@@ -25,10 +25,10 @@ class Day01 extends AdventDay {
       input.lines.map((s) => int.parse(s)).toList();
 
   int increases(Iterable<int> measurements) {
-    int? previous;
+    int previous = measurements.first;
     int increases = 0;
-    for (final int measurement in measurements) {
-      if (previous != null && measurement > previous) {
+    for (final int measurement in measurements.skip(1)) {
+      if (measurement > previous) {
         increases++;
       }
       previous = measurement;

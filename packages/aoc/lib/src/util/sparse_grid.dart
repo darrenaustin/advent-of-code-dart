@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'collection.dart';
+import 'range.dart';
 import 'vec2.dart';
 
 class SparseGrid<T> {
@@ -43,8 +43,8 @@ class SparseGrid<T> {
 
   @override
   String toString() {
-    return range(_min.yInt, _max.yInt + 1)
-        .map((int y) => range(_min.xInt, _max.xInt + 1).map((int x) {
+    return rangeinc(_min.yInt, _max.yInt)
+        .map((int y) => rangeinc(_min.xInt, _max.xInt).map((int x) {
               final Vec2 p = Vec2.int(x, y);
               return isSet(p) ? cell(p).toString() : defaultValue;
             }).join(''))

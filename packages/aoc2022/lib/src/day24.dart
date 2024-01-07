@@ -1,9 +1,9 @@
 // https://adventofcode.com/2022/day/24
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/math.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 
@@ -74,19 +74,15 @@ class Valley {
         final pos = gridPos + Vec2.upLeft;
         allSpaces.add(pos);
         final cell = grid.cell(gridPos);
-        switch (cell) {
-          case '>':
-            blizzards.add(Blizzard(pos, Vec2.right));
-            break;
-          case '<':
-            blizzards.add(Blizzard(pos, Vec2.left));
-            break;
-          case '^':
-            blizzards.add(Blizzard(pos, Vec2.up));
-            break;
-          case 'v':
-            blizzards.add(Blizzard(pos, Vec2.down));
-            break;
+        final dir = switch (cell) {
+          '>' => Vec2.right,
+          '<' => Vec2.left,
+          '^' => Vec2.up,
+          'v' => Vec2.down,
+          _ => null,
+        };
+        if (dir != null) {
+          blizzards.add(Blizzard(pos, dir));
         }
       }
     }

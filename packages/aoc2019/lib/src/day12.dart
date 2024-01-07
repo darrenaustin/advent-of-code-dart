@@ -1,8 +1,8 @@
 // https://adventofcode.com/2019/day/12
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/math.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';

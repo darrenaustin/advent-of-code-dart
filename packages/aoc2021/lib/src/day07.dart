@@ -1,7 +1,7 @@
 // https://adventofcode.com/2021/day/7
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/range.dart';
 import 'package:collection/collection.dart';
 
 main() => Day07().solve();
@@ -12,13 +12,13 @@ class Day07 extends AdventDay {
   @override
   dynamic part1(String input) {
     final List<int> crabs = parseCrabs(input);
-    return range(crabs.min, crabs.max + 1).map((t) => fuelUsed(crabs, t)).min;
+    return rangeinc(crabs.min, crabs.max).map((t) => fuelUsed(crabs, t)).min;
   }
 
   @override
   dynamic part2(String input) {
     final crabs = parseCrabs(input);
-    return range(crabs.min, crabs.max + 1)
+    return rangeinc(crabs.min, crabs.max)
         .map((t) => acceleratingFuelUsed(crabs, t))
         .min;
   }

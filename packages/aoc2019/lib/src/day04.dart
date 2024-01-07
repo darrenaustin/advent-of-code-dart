@@ -3,6 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/comparison.dart';
+import 'package:aoc/util/range.dart';
 
 main() => Day04().solve();
 
@@ -32,7 +33,7 @@ class Day04 extends AdventDay {
   }
 
   Iterable<int> inputRange(String input) {
-    final parts = input.split('-');
-    return range(int.parse(parts[0]), int.parse(parts[1]));
+    final [start, end] = input.split('-');
+    return range(int.parse(start), int.parse(end));
   }
 }

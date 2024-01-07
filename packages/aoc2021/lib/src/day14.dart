@@ -2,6 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 
 main() => Day14().solve();
@@ -42,7 +43,7 @@ class Day14 extends AdventDay {
     // counts for each character and the counts of pairs that will cause
     // insertions on the next step.
     Map<String, int> charCounts = frequencies(template);
-    final initialPairs = range(0, template.length - 1)
+    final initialPairs = range(template.length - 1)
         .map((i) => template[i] + template[i + 1])
         .where(rules.containsKey)
         .toList();

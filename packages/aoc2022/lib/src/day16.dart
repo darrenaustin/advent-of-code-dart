@@ -3,8 +3,8 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/math.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:collection/collection.dart';
 
@@ -83,7 +83,7 @@ class Volcano {
     }
 
     // Sort the valves by biggest payoff for a given time left.
-    for (final t in range(_time + 1)) {
+    for (final t in rangeinc(_time)) {
       // Until we have records with destructuring: [valve, minDistance, flow]
       List<List<int>> valveData = [];
       for (final valve in _distance.keys) {

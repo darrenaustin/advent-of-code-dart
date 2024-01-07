@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:collection/collection.dart';
 
@@ -22,7 +22,7 @@ class Day14 extends AdventDay {
 
   static int winningScore(List<Reindeer> reindeer, int seconds) {
     final points = List<int>.generate(reindeer.length, (_) => 0);
-    for (final seconds in range(1, seconds + 1)) {
+    for (final seconds in rangeinc(1, seconds)) {
       int leadDistance = 0;
       final leadersIndices = [];
       for (final r in range(reindeer.length)) {

@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 
@@ -26,7 +26,7 @@ class Day15 extends AdventDay {
     bool noBeacon(Vec2 p) => sensors.any(
         (s) => p != s.beacon && s.pos.manhattanDistanceTo(p) <= s.distance);
 
-    return range(minX, maxX + 1)
+    return rangeinc(minX, maxX)
         .map((col) => Vec2.int(col, row))
         .where(noBeacon)
         .length;

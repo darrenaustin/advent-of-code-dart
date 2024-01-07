@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 
@@ -90,7 +89,6 @@ class Day17 extends AdventDay {
         }
       }
     }
-    range(1);
     return offsets;
   }
 }

@@ -1,4 +1,4 @@
-import 'collection.dart';
+import 'range.dart';
 
 Iterable<Iterable<T>> combinations<T>(Iterable<T> elements, int length) sync* {
   if (elements.isEmpty && length != 0) {

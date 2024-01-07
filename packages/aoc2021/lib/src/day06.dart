@@ -2,6 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
+import 'package:aoc/util/range.dart';
 import 'package:collection/collection.dart';
 
 main() => Day06().solve();

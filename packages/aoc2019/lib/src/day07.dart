@@ -1,8 +1,8 @@
 // https://adventofcode.com/2019/day/7
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/combinatorics.dart';
+import 'package:aoc/util/range.dart';
 import 'package:collection/collection.dart';
 
 import 'intcode.dart';

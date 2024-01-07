@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'collection.dart';
 import 'math.dart';
+import 'range.dart';
 
 class Vec2 {
   const Vec2(this.x, this.y);
@@ -159,15 +159,11 @@ class LineSegment2 {
     final double b = intercept;
     if (m.isInfinite) {
       // vertical line
-      final int inc = (to.y - from.y).sign.toInt();
-      for (final int y
-          in range(from.y.truncate(), to.y.truncate() + inc, inc)) {
+      for (final int y in rangeinc(from.y.truncate(), to.y.truncate())) {
         yield Vec2(from.x, y.toDouble());
       }
     } else {
-      final int inc = (to.x - from.x).sign.toInt();
-      for (final int x
-          in range(from.x.truncate(), to.x.truncate() + inc, inc)) {
+      for (final int x in rangeinc(from.x.truncate(), to.x.truncate())) {
         final double y = m * x + b;
         if ((y - y.truncateToDouble()).abs() < epsilon) {
           yield Vec2(x.toDouble(), y.truncateToDouble());
