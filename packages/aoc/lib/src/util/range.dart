@@ -21,7 +21,7 @@ class Range {
 
   int get _step => (end - start).sign;
 
-  bool contains(int value) =>
+  bool contains(num value) =>
       _step > 0 ? start <= value && value < end : end < value && value <= start;
 
   Iterable<int> iterable() sync* {

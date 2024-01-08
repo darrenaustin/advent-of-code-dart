@@ -38,3 +38,9 @@ Iterable<int> divisors(int n, [bool proper = false]) {
   }
   return divisors;
 }
+
+extension NumExtention on num {
+  bool get isInteger => this is int || this == truncateToDouble();
+
+  bool get effectivelyZero => abs() < epsilon;
+}
