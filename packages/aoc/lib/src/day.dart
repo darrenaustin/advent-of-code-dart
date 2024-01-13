@@ -19,7 +19,7 @@ abstract class AdventDay {
 
   dynamic part2(String input);
 
-  void solve() {
+  void solve() async {
     void part(int partNum) {
       final inputText = input();
       final start = DateTime.now();
