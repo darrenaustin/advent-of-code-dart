@@ -81,6 +81,21 @@ extension ListExtension<T> on List<T> {
 }
 
 extension SetExtension<T> on Set<T> {
+  bool equals(Set<T> other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (length != other.length) {
+      return false;
+    }
+    for (final value in this) {
+      if (!other.contains(value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   T removeFirst() {
     final value = first;
     remove(value);

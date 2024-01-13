@@ -28,6 +28,17 @@ main() {
   });
 
   group('Set extensions', () {
+    test('equals', () {
+      expect({1, 2, 3}.equals({1, 2, 3}), isTrue);
+      expect({1, 2, 3, 4}.equals({1, 2, 3}), isFalse);
+      expect({1, 2, 3}.equals({0, 1, 2, 3}), isFalse);
+      expect(<int>{}.equals({}), isTrue);
+      expect(<int>{}.equals({1}), isFalse);
+      final a = {1, 2, 3};
+      a.remove(2);
+      expect(a.equals({1, 3}), isTrue);
+    });
+
     test('removeFirst', () {
       final s = {1, 2, 3};
       final origFirst = s.first;
