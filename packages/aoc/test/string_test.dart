@@ -37,6 +37,14 @@ main() {
       expect('Abcd'.isUpperCase(), isFalse);
       expect('--ABCD!!'.isUpperCase(), isFalse);
     });
+
+    test('isDigit', () {
+      expect('1'.isDigit, true);
+      expect('11'.isDigit, false);
+      expect('a'.isDigit, false);
+      expect('-'.isDigit, false);
+      expect('9'.isDigit, true);
+    });
   });
 
   group('RegExp extensions', () {

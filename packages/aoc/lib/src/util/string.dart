@@ -18,6 +18,10 @@ extension StringExtension on String {
       .every((c) => _lowerA <= c.codeUnits[0] && c.codeUnits[0] <= _lowerZ);
   bool isUpperCase() => chars
       .every((c) => _upperA <= c.codeUnits[0] && c.codeUnits[0] <= _upperZ);
+
+  static final _digitChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+  bool get isDigit => length == 1 && _digitChars.contains(this);
 }
 
 extension RegExpExtension on RegExp {
