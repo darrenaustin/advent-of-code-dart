@@ -1,8 +1,9 @@
 class Assembunny {
-  Assembunny(List<String> instructions)
+  Assembunny(List<String> instructions, [this.output])
       : instructions = instructions.map(Instruction.parse).toList();
 
   final List<Instruction> instructions;
+  final bool Function(int)? output;
   final Map<String, int> registers = {'a': 0, 'b': 0, 'c': 0, 'd': 0};
   int pc = 0;
 
@@ -10,8 +11,15 @@ class Assembunny {
     while (pc < instructions.length) {
       _performPeepholeOpt();
       final instruction = instructions[pc];
-      // print('[$pc]: $instruction');
       switch (instruction.opCode) {
+        case OpCode.out:
+          if (output != null) {
+            if (output!(value(instruction.op1))) {
+              return;
+            }
+          }
+          pc += 1;
+          break;
         case OpCode.cpy:
           assert(instruction.op2!.type == OperandType.register);
           registers[instruction.op2!.register] = value(instruction.op1);
@@ -42,6 +50,10 @@ class Assembunny {
             final targetInstruction = instructions[addr];
             final Instruction toggledInstruction;
             switch (targetInstruction.opCode) {
+              case OpCode.out:
+                toggledInstruction =
+                    Instruction(OpCode.inc, targetInstruction.op1);
+                break;
               case OpCode.cpy:
                 toggledInstruction = Instruction(
                     OpCode.jnz, targetInstruction.op1, targetInstruction.op2);
@@ -178,7 +190,7 @@ class Operand {
       type == OperandType.constant ? constant.toString() : register;
 }
 
-enum OpCode { cpy, inc, dec, jnz, tgl }
+enum OpCode { out, cpy, inc, dec, jnz, tgl }
 
 class Instruction {
   const Instruction(this.opCode, this.op1, [this.op2]);
@@ -188,6 +200,7 @@ class Instruction {
   final Operand? op2;
 
   static final _opCode = {
+    'out': OpCode.out,
     'cpy': OpCode.cpy,
     'inc': OpCode.inc,
     'dec': OpCode.dec,
