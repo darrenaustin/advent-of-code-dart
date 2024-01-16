@@ -10,9 +10,7 @@ class Day02 extends AdventDay {
   Day02() : super(2017, 2, name: 'Corruption Checksum');
 
   @override
-  dynamic part1(String input) {
-    return inputRows(input).map((r) => r.max - r.min).sum;
-  }
+  dynamic part1(String input) => inputRows(input).map((r) => r.max - r.min).sum;
 
   @override
   dynamic part2(String input) {
@@ -27,7 +25,6 @@ class Day02 extends AdventDay {
     }).sum;
   }
 
-  List<List<int>> inputRows(String input) => input.lines
-      .map((l) => l.split(RegExp(r'\W+')).map(int.parse).toList())
-      .toList();
+  List<List<int>> inputRows(String input) =>
+      input.lines.map((l) => l.numbers()).toList();
 }
