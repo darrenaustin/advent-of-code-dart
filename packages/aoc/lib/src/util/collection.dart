@@ -80,6 +80,18 @@ extension ListExtension<T> on List<T> {
       ];
 }
 
+extension ListComparableExtension<T extends Comparable> on List<T> {
+  int maxIndex() {
+    int maxIndex = 0;
+    for (int i = 1; i < length; i++) {
+      if (this[maxIndex].compareTo(this[i]) < 0) {
+        maxIndex = i;
+      }
+    }
+    return maxIndex;
+  }
+}
+
 extension SetExtension<T> on Set<T> {
   bool equals(Set<T> other) {
     if (identical(this, other)) {
