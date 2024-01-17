@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 extension IterableIntExtension on Iterable<int> {
   int get product => fold<int>(1, (int p, int e) => p * e);
 
@@ -33,6 +35,35 @@ extension IterableExtensions<T> on Iterable<T> {
       yield slice;
     }
   }
+
+  (T, T)? onlyDifference() {
+    final diffs = {...this};
+    if (diffs.length != 2) {
+      return null;
+    }
+    if (length == 2) {
+      return (first, last);
+    }
+
+    // Determine which is the odd one out
+    int matchFirst = 0;
+    int matchLast = 0;
+    for (final e in this) {
+      if (e == diffs.first) {
+        matchFirst++;
+      } else {
+        matchLast++;
+      }
+      if (matchFirst > 1 || matchLast > 1) {
+        return (matchFirst > 1)
+            ? (diffs.last, diffs.first)
+            : (diffs.first, diffs.last);
+      }
+    }
+    return null;
+  }
+
+  bool allSame() => {...this}.length < 2;
 }
 
 extension IterableComparableExtension<T extends Comparable<T>> on Iterable<T> {

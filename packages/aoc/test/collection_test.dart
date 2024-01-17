@@ -2,6 +2,28 @@ import 'package:aoc/util/collection.dart';
 import 'package:test/test.dart';
 
 main() {
+  group('Iterable extensions', () {
+    test('firstDifference', () {
+      expect([].onlyDifference(), isNull);
+      expect([1].onlyDifference(), isNull);
+      expect([1, 2].onlyDifference(), (1, 2));
+      expect([2, 1].onlyDifference(), (2, 1));
+      expect([1, 1, 1, 1, 1].onlyDifference(), isNull);
+      expect([1, 1, 2, 1, 1].onlyDifference(), (2, 1));
+      expect([2, 1, 1, 1, 1].onlyDifference(), (2, 1));
+      expect([1, 1, 2, 1, 3].onlyDifference(), isNull);
+      expect([1, 1, 1, 1, 3].onlyDifference(), (3, 1));
+    });
+
+    test('allSame', () {
+      expect([].allSame(), isTrue);
+      expect([1].allSame(), isTrue);
+      expect([1, 1].allSame(), isTrue);
+      expect([1, 1, 1, 1, 1].allSame(), isTrue);
+      expect([1, 1, 2, 1, 1].allSame(), isFalse);
+    });
+  });
+
   group('frequencies', () {
     test('with characters', () {
       expect(frequencies(<String>[]), {});
