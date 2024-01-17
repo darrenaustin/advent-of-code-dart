@@ -37,3 +37,4 @@ Just some ideas for future improvements:
 - [x] Speed up 2023 17
 - [ ] Speed up 2023 23
 - [ ] Speed up 2018 05
+- [ ] Look into switching most of Vec2 over to num instead of double or int.

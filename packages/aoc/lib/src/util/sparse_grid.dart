@@ -6,11 +6,13 @@ import 'vec2.dart';
 class SparseGrid<T> {
   SparseGrid({
     required this.defaultValue,
+    this.cellPrintWidth = 2,
   })  : _cells = <Vec2, T>{},
         _min = Vec2.zero,
         _max = Vec2.zero;
 
   final T defaultValue;
+  final int cellPrintWidth;
 
   final Map<Vec2, T> _cells;
 
@@ -46,7 +48,8 @@ class SparseGrid<T> {
     return rangeinc(_min.yInt, _max.yInt)
         .map((int y) => rangeinc(_min.xInt, _max.xInt).map((int x) {
               final Vec2 p = Vec2.int(x, y);
-              return isSet(p) ? cell(p).toString() : defaultValue;
+              return (isSet(p) ? cell(p).toString() : '')
+                  .padLeft(cellPrintWidth);
             }).join(''))
         .join('\n');
   }
