@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day03().solve();
 
@@ -11,8 +11,8 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    Vec2 current = Vec2.zero;
-    final housesVisited = <Vec2>{current};
+    Vec current = Vec.zero;
+    final housesVisited = <Vec>{current};
     for (final dir in input.chars.map((c) => _directionOffset[c]!)) {
       current += dir;
       housesVisited.add(current);
@@ -22,10 +22,10 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part2(String input) {
-    Vec2 santa = Vec2.zero;
-    Vec2 robotSanta = Vec2.zero;
+    Vec santa = Vec.zero;
+    Vec robotSanta = Vec.zero;
     bool santaTurn = true;
-    final housesVisited = <Vec2>{santa};
+    final housesVisited = <Vec>{santa};
 
     for (final dir in input.chars.map((c) => _directionOffset[c]!)) {
       if (santaTurn) {
@@ -40,10 +40,10 @@ class Day03 extends AdventDay {
     return housesVisited.length;
   }
 
-  static const _directionOffset = <String, Vec2>{
-    '^': Vec2.up,
-    '>': Vec2.right,
-    'v': Vec2.down,
-    '<': Vec2.left,
+  static const _directionOffset = <String, Vec>{
+    '^': Vec.up,
+    '>': Vec.right,
+    'v': Vec.down,
+    '<': Vec.left,
   };
 }

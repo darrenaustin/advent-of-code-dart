@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/sparse_grid.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day03().solve();
@@ -14,7 +14,7 @@ class Day03 extends AdventDay {
   dynamic part1(String input) => spiralPositions()
       .skip(int.parse(input) - 1)
       .first
-      .manhattanDistanceTo(Vec2.zero);
+      .manhattanDistanceTo(Vec.zero);
 
   @override
   dynamic part2(String input) {
@@ -23,10 +23,10 @@ class Day03 extends AdventDay {
         defaultValue: 0, cellPrintWidth: input.trim().length + 1);
     final spiral = spiralPositions().skip(1).iterator;
     int n = 1;
-    grid.setCell(Vec2.zero, n);
+    grid.setCell(Vec.zero, n);
     while (n <= goal && spiral.moveNext()) {
       final pos = spiral.current;
-      n = Vec2.aroundDirs
+      n = Vec.aroundDirs
           .map((d) => pos + d)
           .where((p) => grid.isSet(p))
           .map((p) => grid.cell(p))
@@ -36,9 +36,9 @@ class Day03 extends AdventDay {
     return n;
   }
 
-  Iterable<Vec2> spiralPositions() sync* {
+  Iterable<Vec> spiralPositions() sync* {
     final dirs = spiralDirs();
-    Vec2 pos = dirs.first;
+    Vec pos = dirs.first;
     yield pos;
 
     for (final dir in dirs.skip(1)) {
@@ -47,17 +47,17 @@ class Day03 extends AdventDay {
     }
   }
 
-  Iterable<Vec2> spiralDirs() sync* {
+  Iterable<Vec> spiralDirs() sync* {
     int ring = 0;
-    yield Vec2.zero;
+    yield Vec.zero;
     while (true) {
       ring += 2;
 
-      yield Vec2.right;
-      yield* List.filled(ring - 1, Vec2.up);
-      yield* List.filled(ring, Vec2.left);
-      yield* List.filled(ring, Vec2.down);
-      yield* List.filled(ring, Vec2.right);
+      yield Vec.right;
+      yield* List.filled(ring - 1, Vec.up);
+      yield* List.filled(ring, Vec.left);
+      yield* List.filled(ring, Vec.down);
+      yield* List.filled(ring, Vec.right);
     }
   }
 }

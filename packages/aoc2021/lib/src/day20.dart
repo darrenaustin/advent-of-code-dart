@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day20().solve();
 
@@ -27,8 +27,7 @@ class Day20 extends AdventDay {
     return Grid.from(pixels, 0);
   }
 
-  static final _areaOffsets =
-      Vec2.cardinalDirs.map((o) => o + Vec2.int(-2, -2));
+  static final _areaOffsets = Vec.cardinalDirs.map((o) => o + Vec.int(-2, -2));
 
   int _litAfterEnhancement(String input, int numEnhancements) {
     final inputLines = input.lines;
@@ -50,7 +49,7 @@ class Day20 extends AdventDay {
       final newGrid = Grid<int>(grid.width + 4, grid.height + 4, 0);
       for (int y = 0; y < newGrid.height; y++) {
         for (int x = 0; x < newGrid.width; x++) {
-          final center = Vec2.int(x, y);
+          final center = Vec.int(x, y);
           final areaValues = _areaOffsets.map((o) {
             final l = o + center;
             return grid.validCell(l) ? grid.cell(l) : outerValue;

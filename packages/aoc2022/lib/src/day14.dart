@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/sparse_grid.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day14().solve();
 
@@ -23,8 +23,8 @@ class SandMap {
   static final sand = 'o';
   static final rock = '#';
   static final space = ' ';
-  static final sandSource = Vec2(500, 0);
-  static final dropDirections = [Vec2.down, Vec2.downLeft, Vec2.downRight];
+  static final sandSource = Vec(500, 0);
+  static final dropDirections = [Vec.down, Vec.downLeft, Vec.downRight];
 
   SandMap(List<String> rockData, {bool floor = false})
       : _grid = SparseGrid<String>(defaultValue: space) {
@@ -32,7 +32,7 @@ class SandMap {
       final rockPath = line
           .split(' -> ')
           .map((p) => p.split(','))
-          .map((v) => Vec2(double.parse(v.first), double.parse(v.last)));
+          .map((v) => Vec(double.parse(v.first), double.parse(v.last)));
       _drawPath(rockPath, rock);
     }
     _floor = floor ? _grid.maxLocation.y + 2 : null;
@@ -45,7 +45,7 @@ class SandMap {
     while (!dropSand(sandSource)) {}
   }
 
-  bool dropSand(Vec2 from) {
+  bool dropSand(Vec from) {
     if (_grid.cell(from) != space) {
       // Source is covered, so we are done.
       return true;
@@ -69,18 +69,18 @@ class SandMap {
 
   int numSand() => _grid.numSetCellsWhere((p) => p == sand);
 
-  void _drawPath(Iterable<Vec2> path, String value) {
-    Vec2 current = path.first;
+  void _drawPath(Iterable<Vec> path, String value) {
+    Vec current = path.first;
     for (final dest in path.skip(1)) {
       _drawLine(current, dest, rock);
       current = dest;
     }
   }
 
-  void _drawLine(Vec2 from, Vec2 to, String value) {
+  void _drawLine(Vec from, Vec to, String value) {
     final diff = to - from;
-    final delta = Vec2(diff.x.sign, diff.y.sign);
-    for (Vec2 current = from; current != to; current += delta) {
+    final delta = Vec(diff.x.sign, diff.y.sign);
+    for (Vec current = from; current != to; current += delta) {
       _grid.setCell(current, value);
     }
     _grid.setCell(to, value);

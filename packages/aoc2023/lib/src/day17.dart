@@ -6,7 +6,7 @@ import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/math.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day17().solve();
@@ -19,8 +19,8 @@ class Day17 extends AdventDay {
     final data =
         input.lines.map((l) => l.chars.map(int.parse).toList()).toList();
     final grid = Grid<int>.from(data, 0);
-    final start = HeatPathNode(0, Vec2.zero, Dir.right, 0);
-    var goal = Vec2.int(grid.width - 1, grid.height - 1);
+    final start = HeatPathNode(0, Vec.zero, Dir.right, 0);
+    var goal = Vec.int(grid.width - 1, grid.height - 1);
 
     final dist = <PathNode, int>{start.node: 0};
     final queue = PriorityQueue<HeatPathNode>()..add(start);
@@ -57,8 +57,8 @@ class Day17 extends AdventDay {
     final data =
         input.lines.map((l) => l.chars.map(int.parse).toList()).toList();
     final grid = Grid<int>.from(data, 0);
-    final start = HeatPathNode(0, Vec2.zero, Dir.right, 0);
-    var goal = Vec2.int(grid.width - 1, grid.height - 1);
+    final start = HeatPathNode(0, Vec.zero, Dir.right, 0);
+    var goal = Vec.int(grid.width - 1, grid.height - 1);
 
     final dist = <PathNode, int>{start.node: 0};
     final queue = PriorityQueue<HeatPathNode>()..add(start);
@@ -99,12 +99,12 @@ class Day17 extends AdventDay {
 }
 
 enum Dir {
-  up(Vec2.up),
-  down(Vec2.down),
-  left(Vec2.left),
-  right(Vec2.right);
+  up(Vec.up),
+  down(Vec.down),
+  left(Vec.left),
+  right(Vec.right);
 
-  final Vec2 vec;
+  final Vec vec;
 
   const Dir(this.vec);
 
@@ -122,7 +122,7 @@ enum Dir {
 }
 
 class PathNode {
-  final Vec2 pos;
+  final Vec pos;
   final Dir dir;
   final int steps;
 
@@ -143,7 +143,7 @@ class HeatPathNode implements Comparable {
   final int heatLoss;
   final PathNode node;
 
-  HeatPathNode(this.heatLoss, Vec2 pos, Dir dir, int steps)
+  HeatPathNode(this.heatLoss, Vec pos, Dir dir, int steps)
       : node = PathNode(pos, dir, steps);
 
   @override

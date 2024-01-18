@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day15().solve();
 
@@ -23,11 +23,11 @@ class Day15 extends AdventDay {
       maxX = max(maxX, s.pos.xInt + s.distance);
     }
 
-    bool noBeacon(Vec2 p) => sensors.any(
+    bool noBeacon(Vec p) => sensors.any(
         (s) => p != s.beacon && s.pos.manhattanDistanceTo(p) <= s.distance);
 
     return rangeinc(minX, maxX)
-        .map((col) => Vec2.int(col, row))
+        .map((col) => Vec.int(col, row))
         .where(noBeacon)
         .length;
   }
@@ -36,7 +36,7 @@ class Day15 extends AdventDay {
   dynamic part2(String input, [int maxGrid = 4000000]) {
     final sensors = parseSensors(input);
     final minGrid = 0;
-    final diamondDirs = [Vec2(-1, -1), Vec2(-1, 1), Vec2(1, -1), Vec2(1, 1)];
+    final diamondDirs = [Vec(-1, -1), Vec(-1, 1), Vec(1, -1), Vec(1, 1)];
 
     // Given that there is only one beacon that isn't seen by all sensors
     // in the grid, it must be at most sensor.distance+1 from all sensors.
@@ -51,7 +51,7 @@ class Day15 extends AdventDay {
           final x = sensor.pos.x + dir.x * dx;
           final y = sensor.pos.y + dir.y * dy;
           if (minGrid <= x && x <= maxGrid && minGrid <= y && y <= maxGrid) {
-            final p = Vec2(x, y);
+            final p = Vec(x, y);
             if (!sensors
                 .any((s) => s.pos.manhattanDistanceTo(p) <= s.distance)) {
               return p.xInt * 4000000 + p.yInt;
@@ -68,10 +68,10 @@ class Day15 extends AdventDay {
     final List<Sensor> sensors = [];
     for (final line in input.lines) {
       final match = sensorPattern.firstMatch(line)!;
-      final Vec2 pos =
-          Vec2.int(int.parse(match.group(1)!), int.parse(match.group(2)!));
-      final Vec2 beacon =
-          Vec2.int(int.parse(match.group(3)!), int.parse(match.group(4)!));
+      final Vec pos =
+          Vec.int(int.parse(match.group(1)!), int.parse(match.group(2)!));
+      final Vec beacon =
+          Vec.int(int.parse(match.group(3)!), int.parse(match.group(4)!));
       sensors.add(Sensor(pos, beacon));
     }
     return sensors;
@@ -83,8 +83,8 @@ class Sensor {
     distance = pos.manhattanDistanceTo(beacon).toInt();
   }
 
-  final Vec2 pos;
-  final Vec2 beacon;
+  final Vec pos;
+  final Vec beacon;
   late final int distance;
 }
 
@@ -95,7 +95,7 @@ class Sensor {
 //
 // import 'package:aoc/aoc.dart';
 // import 'package:aoc/util/collection.dart';
-// import 'package:aoc/util/vec2.dart';
+// import 'package:aoc/util/vec.dart';
 //
 // class Day15 extends AdventDay {
 //   Day15() : super(2022, 15);

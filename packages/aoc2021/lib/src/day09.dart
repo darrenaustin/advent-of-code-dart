@@ -5,7 +5,7 @@ import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/comparison.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day09().solve();
@@ -34,18 +34,18 @@ class Day09 extends AdventDay {
         .product;
   }
 
-  bool lowPoint(Grid<int> grid, Vec2 p) {
+  bool lowPoint(Grid<int> grid, Vec p) {
     final n = grid.cell(p);
-    return grid.neighbors(p, Vec2.orthogonalDirs).every((e) => n < e);
+    return grid.neighbors(p, Vec.orthogonalDirs).every((e) => n < e);
   }
 
-  int basinSizeFor(Grid<int> grid, Vec2 p) {
-    final locs = <Vec2>{};
+  int basinSizeFor(Grid<int> grid, Vec p) {
+    final locs = <Vec>{};
     final edges = [p];
     while (edges.isNotEmpty) {
       final edge = edges.removeLast();
       locs.add(edge);
-      edges.addAll(Vec2.orthogonalDirs.map((offset) => edge + offset).where(
+      edges.addAll(Vec.orthogonalDirs.map((offset) => edge + offset).where(
           (newEdge) =>
               grid.validCell(newEdge) &&
               grid.cell(newEdge) != 9 &&

@@ -4,7 +4,7 @@ import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day18().solve();
 
@@ -48,10 +48,10 @@ class Day18 extends AdventDay {
       turnCornersOn(animate(lights));
 
   static Grid<String> turnCornersOn(Grid<String> lights) {
-    lights.setCell(Vec2.zero, '#');
-    lights.setCell(Vec2(lights.width - 1, 0), '#');
-    lights.setCell(Vec2(0, lights.height - 1), '#');
-    lights.setCell(Vec2(lights.width - 1, lights.height - 1), '#');
+    lights.setCell(Vec.zero, '#');
+    lights.setCell(Vec(lights.width - 1, 0), '#');
+    lights.setCell(Vec(0, lights.height - 1), '#');
+    lights.setCell(Vec(lights.width - 1, lights.height - 1), '#');
     return lights;
   }
 }

@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day09().solve();
 
@@ -26,11 +26,11 @@ class Day09 extends AdventDay {
 
 class Rope {
   Rope(int knots)
-      : _knot = List.generate(knots, (_) => Vec2.zero),
-        _tailVisited = <Vec2>{Vec2.zero};
+      : _knot = List.generate(knots, (_) => Vec.zero),
+        _tailVisited = <Vec>{Vec.zero};
 
-  final List<Vec2> _knot;
-  final Set<Vec2> _tailVisited;
+  final List<Vec> _knot;
+  final Set<Vec> _tailVisited;
 
   int numTailVisited() {
     return _tailVisited.length;
@@ -44,15 +44,15 @@ class Rope {
     }
   }
 
-  void moveHead(Vec2 dir, int amount) {
+  void moveHead(Vec dir, int amount) {
     for (int i = 0; i < amount; i++) {
       _knot[0] += dir;
       for (int k = 1; k < _knot.length; k++) {
-        final Vec2 leader = _knot[k - 1];
-        if (!Vec2.cardinalDirs.any((l) => (leader + l) == _knot[k])) {
+        final Vec leader = _knot[k - 1];
+        if (!Vec.cardinalDirs.any((l) => (leader + l) == _knot[k])) {
           // Not in any of the surrounding spaces of the leader, so
           // move the knot in the direction of the leader.
-          _knot[k] += Vec2.int(
+          _knot[k] += Vec.int(
               leader.x.compareTo(_knot[k].x), leader.y.compareTo(_knot[k].y));
         }
       }
@@ -61,9 +61,9 @@ class Rope {
   }
 
   static final dirs = {
-    'R': Vec2.right,
-    'L': Vec2.left,
-    'U': Vec2.up,
-    'D': Vec2.down,
+    'R': Vec.right,
+    'L': Vec.left,
+    'U': Vec.up,
+    'D': Vec.down,
   };
 }

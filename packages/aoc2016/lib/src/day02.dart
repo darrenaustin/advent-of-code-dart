@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day02().solve();
 
@@ -16,7 +16,7 @@ class Day02 extends AdventDay {
       ['4', '5', '6'],
       ['7', '8', '9'],
     ];
-    return keycode(touchPad, Vec2(1, 1), directions(input));
+    return keycode(touchPad, Vec(1, 1), directions(input));
   }
 
   @override
@@ -28,22 +28,22 @@ class Day02 extends AdventDay {
       ['', 'A', 'B', 'C', ''],
       ['', '', 'D', '', ''],
     ];
-    return keycode(touchPad, Vec2(0, 2), directions(input));
+    return keycode(touchPad, Vec(0, 2), directions(input));
   }
 
-  Iterable<Iterable<Vec2>> directions(String input) {
-    const Map<String, Vec2> dirVec = {
-      'U': Vec2.up,
-      'D': Vec2.down,
-      'L': Vec2.left,
-      'R': Vec2.right,
+  Iterable<Iterable<Vec>> directions(String input) {
+    const Map<String, Vec> dirVec = {
+      'U': Vec.up,
+      'D': Vec.down,
+      'L': Vec.left,
+      'R': Vec.right,
     };
     return input.lines.map((s) => s.split('').map((d) => dirVec[d]!));
   }
 
-  String keycode(List<List<String>> touchPad, Vec2 keyPosition,
-      Iterable<Iterable<Vec2>> directions) {
-    bool validPos(Vec2 pos) =>
+  String keycode(List<List<String>> touchPad, Vec keyPosition,
+      Iterable<Iterable<Vec>> directions) {
+    bool validPos(Vec pos) =>
         0 <= pos.x &&
         pos.x < touchPad[0].length &&
         0 <= pos.y &&

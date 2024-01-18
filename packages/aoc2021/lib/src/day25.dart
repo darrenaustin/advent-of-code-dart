@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day25().solve();
 
@@ -24,8 +24,8 @@ class Day25 extends AdventDay {
   dynamic part2(String input) => AdventDay.lastStarSolution;
 
   int step(Grid<String> grid) {
-    Vec2 eastOf(Vec2 l) => Vec2((l.x + 1) % grid.width, l.y);
-    Vec2 southOf(Vec2 l) => Vec2(l.x, (l.y + 1) % grid.height);
+    Vec eastOf(Vec l) => Vec((l.x + 1) % grid.width, l.y);
+    Vec southOf(Vec l) => Vec(l.x, (l.y + 1) % grid.height);
 
     final eastMoves = grid
         .locationsWhere((c) => c == '>')

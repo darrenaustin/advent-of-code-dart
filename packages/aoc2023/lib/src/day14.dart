@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day14().solve();
@@ -13,7 +13,7 @@ class Day14 extends AdventDay {
   @override
   dynamic part1(String input) {
     Grid<String> grid = Grid.fromString(input);
-    tilt(grid, Vec2.up);
+    tilt(grid, Vec.up);
     return load(grid);
   }
 
@@ -49,12 +49,12 @@ class Day14 extends AdventDay {
       g.locationsWhere((c) => c == 'O').map((l) => g.height - l.yInt).sum;
 
   void cycle(Grid<String> g) {
-    for (final d in [Vec2.north, Vec2.west, Vec2.south, Vec2.east]) {
+    for (final d in [Vec.north, Vec.west, Vec.south, Vec.east]) {
       tilt(g, d);
     }
   }
 
-  void tilt(Grid<String> g, Vec2 dir) {
+  void tilt(Grid<String> g, Vec dir) {
     // Get the locations of all rocks and sort them by x or y component
     // increasing in the reverse direction given. This assumes unit orthongonal
     // directions.

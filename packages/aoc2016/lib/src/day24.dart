@@ -5,7 +5,7 @@ import 'package:aoc/util/combinatorics.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day24().solve();
@@ -23,16 +23,16 @@ class Day24 extends AdventDay {
     final grid = Grid.fromString(input);
 
     // BFS search between to grid postions
-    int? distanceBetween(Vec2 from, Vec2 to) {
-      final queue = <(Vec2, int)>[(from, 0)];
-      final visited = <Vec2>{from};
+    int? distanceBetween(Vec from, Vec to) {
+      final queue = <(Vec, int)>[(from, 0)];
+      final visited = <Vec>{from};
 
       while (queue.isNotEmpty) {
         final (node, dist) = queue.removeAt(0);
         if (node == to) {
           return dist;
         }
-        for (final dir in Vec2.orthogonalDirs) {
+        for (final dir in Vec.orthogonalDirs) {
           final next = node + dir;
           if (grid.validCell(next) &&
               grid.cell(next) != '#' &&

@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/grid2.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day16().solve();
@@ -13,34 +13,34 @@ class Day16 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-      energizedBy(Grid.fromString(input), Vec2.zero, Dir.right);
+      energizedBy(Grid.fromString(input), Vec.zero, Dir.right);
 
   @override
   dynamic part2(String input) {
     final grid = Grid.fromString(input);
-    return <(Vec2, Dir)>[
+    return <(Vec, Dir)>[
       for (int x = 1; x < grid.width - 1; x++) ...[
-        (Vec2.int(x, 0), Dir.down),
-        (Vec2.int(x, grid.height - 1), Dir.up)
+        (Vec.int(x, 0), Dir.down),
+        (Vec.int(x, grid.height - 1), Dir.up)
       ],
       for (int y = 1; y < grid.height - 1; y++) ...[
-        (Vec2.int(0, y), Dir.right),
-        (Vec2.int(grid.width - 1, y), Dir.left)
+        (Vec.int(0, y), Dir.right),
+        (Vec.int(grid.width - 1, y), Dir.left)
       ],
-      (Vec2.zero, Dir.down),
-      (Vec2.zero, Dir.right),
-      (Vec2.int(grid.width - 1, 0), Dir.down),
-      (Vec2.int(grid.width - 1, 0), Dir.left),
-      (Vec2.int(0, grid.height - 1), Dir.up),
-      (Vec2.int(0, grid.height - 1), Dir.left),
-      (Vec2.int(grid.width - 1, grid.height - 1), Dir.up),
-      (Vec2.int(grid.width - 1, grid.height - 1), Dir.right),
+      (Vec.zero, Dir.down),
+      (Vec.zero, Dir.right),
+      (Vec.int(grid.width - 1, 0), Dir.down),
+      (Vec.int(grid.width - 1, 0), Dir.left),
+      (Vec.int(0, grid.height - 1), Dir.up),
+      (Vec.int(0, grid.height - 1), Dir.left),
+      (Vec.int(grid.width - 1, grid.height - 1), Dir.up),
+      (Vec.int(grid.width - 1, grid.height - 1), Dir.right),
     ].map((s) => energizedBy(grid, s.$1, s.$2)).max;
   }
 
-  int energizedBy(Grid<String> grid, Vec2 pos, Dir dir) {
-    final energized = <Vec2>{};
-    final seenBeams = <(Vec2, Dir)>{};
+  int energizedBy(Grid<String> grid, Vec pos, Dir dir) {
+    final energized = <Vec>{};
+    final seenBeams = <(Vec, Dir)>{};
     final beams = {(pos, dir)};
     while (beams.isNotEmpty) {
       final beam = beams.removeFirst();
@@ -89,12 +89,12 @@ class Day16 extends AdventDay {
 }
 
 enum Dir {
-  up(Vec2.up),
-  down(Vec2.down),
-  left(Vec2.left),
-  right(Vec2.right);
+  up(Vec.up),
+  down(Vec.down),
+  left(Vec.left),
+  right(Vec.right);
 
-  final Vec2 vec;
+  final Vec vec;
 
   const Dir(this.vec);
 }

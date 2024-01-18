@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day04().solve();
@@ -61,10 +61,10 @@ class Day04 extends AdventDay {
           null))
       .toList();
 
-  final List<List<Vec2>> winningGroups = [
+  final List<List<Vec>> winningGroups = [
     // Diagonals don't count, so just lines for rows and columns.
-    ...List.generate(5, (r) => List.generate(5, (c) => Vec2.int(c, r))),
-    ...List.generate(5, (c) => List.generate(5, (r) => Vec2.int(c, r))),
+    ...List.generate(5, (r) => List.generate(5, (c) => Vec.int(c, r))),
+    ...List.generate(5, (c) => List.generate(5, (r) => Vec.int(c, r))),
   ];
 
   void removeNumber(Grid<int?> board, int number) =>

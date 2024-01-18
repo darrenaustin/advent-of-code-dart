@@ -1,7 +1,7 @@
 // https://adventofcode.com/2019/day/13
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 import 'intcode.dart';
@@ -28,8 +28,8 @@ class Day13 extends AdventDay {
   dynamic part2(String input) {
     final machine = Intcode.from(program: input);
     int score = 0;
-    Vec2 ballPos = Vec2.zero;
-    Vec2 paddlePos = Vec2.zero;
+    Vec ballPos = Vec.zero;
+    Vec paddlePos = Vec.zero;
 
     machine[0] = 2;
     while (!machine.execute() || machine.output.isNotEmpty) {
@@ -39,10 +39,10 @@ class Day13 extends AdventDay {
         } else {
           switch (command[2]) {
             case ball:
-              ballPos = Vec2.int(command[0], command[1]);
+              ballPos = Vec.int(command[0], command[1]);
               break;
             case paddle:
-              paddlePos = Vec2.int(command[0], command[1]);
+              paddlePos = Vec.int(command[0], command[1]);
               break;
           }
         }

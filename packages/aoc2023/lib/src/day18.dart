@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day18().solve();
 
@@ -11,8 +11,8 @@ class Day18 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    var current = Vec2.zero;
-    final points = <Vec2>[current];
+    var current = Vec.zero;
+    final points = <Vec>[current];
     for (final l in input.lines) {
       final parts = l.split(' ');
       final dir = dirVecs[parts[0]]!;
@@ -25,8 +25,8 @@ class Day18 extends AdventDay {
 
   @override
   dynamic part2(String input) {
-    var current = Vec2.zero;
-    final points = <Vec2>[current];
+    var current = Vec.zero;
+    final points = <Vec>[current];
     for (final l in input.lines) {
       final match = RegExp(r'.*\(#(.*)\)').firstMatch(l)!;
       final hex = match.group(1)!;
@@ -38,7 +38,7 @@ class Day18 extends AdventDay {
     return shoelaceArea(points);
   }
 
-  int shoelaceArea(List<Vec2> points) {
+  int shoelaceArea(List<Vec> points) {
     double perimeter = 0;
     double area = 0;
     for (int i = 0; i < points.length - 1; i++) {
@@ -49,16 +49,16 @@ class Day18 extends AdventDay {
   }
 
   static final dirVecs = {
-    'R': Vec2.right,
-    'D': Vec2.down,
-    'L': Vec2.left,
-    'U': Vec2.up,
+    'R': Vec.right,
+    'D': Vec.down,
+    'L': Vec.left,
+    'U': Vec.up,
   };
 
   static final hexDirVecs = {
-    '0': Vec2.right,
-    '1': Vec2.down,
-    '2': Vec2.left,
-    '3': Vec2.up,
+    '0': Vec.right,
+    '1': Vec.down,
+    '2': Vec.left,
+    '3': Vec.up,
   };
 }

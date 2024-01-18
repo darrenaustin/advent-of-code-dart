@@ -1,35 +1,35 @@
 import 'dart:math';
 
 import 'range.dart';
-import 'vec2.dart';
+import 'vec.dart';
 
 class SparseGrid<T> {
   SparseGrid({
     required this.defaultValue,
     this.cellPrintWidth = 2,
-  })  : _cells = <Vec2, T>{},
-        _min = Vec2.zero,
-        _max = Vec2.zero;
+  })  : _cells = <Vec, T>{},
+        _min = Vec.zero,
+        _max = Vec.zero;
 
   final T defaultValue;
   final int cellPrintWidth;
 
-  final Map<Vec2, T> _cells;
+  final Map<Vec, T> _cells;
 
-  Vec2 get minLocation => _min;
-  Vec2 _min;
+  Vec get minLocation => _min;
+  Vec _min;
 
-  Vec2 get maxLocation => _max;
-  Vec2 _max;
+  Vec get maxLocation => _max;
+  Vec _max;
 
-  bool isSet(Vec2 p) => _cells.containsKey(p);
+  bool isSet(Vec p) => _cells.containsKey(p);
 
-  T cell(Vec2 p) => _cells[p] ?? defaultValue;
+  T cell(Vec p) => _cells[p] ?? defaultValue;
 
-  void setCell(Vec2 p, T value) {
+  void setCell(Vec p, T value) {
     if (!isSet(p)) {
-      _min = Vec2(min(_min.x, p.x), min(_min.y, p.y));
-      _max = Vec2(max(_max.x, p.x), max(_max.y, p.y));
+      _min = Vec(min(_min.x, p.x), min(_min.y, p.y));
+      _max = Vec(max(_max.x, p.x), max(_max.y, p.y));
     }
     _cells[p] = value;
   }
@@ -39,7 +39,7 @@ class SparseGrid<T> {
   int numSetCellsWhere(bool Function(T) test) =>
       _cells.values.where(test).length;
 
-  Iterable<Vec2> locationsWhere(bool Function(T) test) {
+  Iterable<Vec> locationsWhere(bool Function(T) test) {
     return _cells.keys.where((p) => test(cell(p)));
   }
 
@@ -47,7 +47,7 @@ class SparseGrid<T> {
   String toString() {
     return rangeinc(_min.yInt, _max.yInt)
         .map((int y) => rangeinc(_min.xInt, _max.xInt).map((int x) {
-              final Vec2 p = Vec2.int(x, y);
+              final Vec p = Vec.int(x, y);
               return (isSet(p) ? cell(p).toString() : '')
                   .padLeft(cellPrintWidth);
             }).join(''))

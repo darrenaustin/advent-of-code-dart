@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day03().solve();
@@ -12,12 +12,12 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    final origin = Vec2.zero;
+    final origin = Vec.zero;
     final wireSegments = wirePaths(input).map((p) => segmentsFrom(origin, p));
     final wire1 = wireSegments.first;
     final wire2 = wireSegments.last;
 
-    final intersections = <Vec2>{};
+    final intersections = <Vec>{};
     for (final s1 in wire1) {
       intersections
           .addAll(wire2.map((s2) => s1.intersection(s2)).whereNotNull());
@@ -28,12 +28,12 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part2(String input) {
-    final origin = Vec2.zero;
+    final origin = Vec.zero;
     final wireSegments = wirePaths(input).map((p) => segmentsFrom(origin, p));
     final wire1 = wireSegments.first;
     final wire2 = wireSegments.last;
 
-    final intersections = <Vec2>{};
+    final intersections = <Vec>{};
     for (final s1 in wire1) {
       intersections
           .addAll(wire2.map((s2) => s1.intersection(s2)).whereNotNull());
@@ -46,16 +46,16 @@ class Day03 extends AdventDay {
   }
 
   static final _dirVec2s = {
-    'U': Vec2.up,
-    'D': Vec2.down,
-    'L': Vec2.left,
-    'R': Vec2.right,
+    'U': Vec.up,
+    'D': Vec.down,
+    'L': Vec.left,
+    'R': Vec.right,
   };
 
-  Iterable<Iterable<Vec2>> wirePaths(String input) => input.lines.map((line) =>
+  Iterable<Iterable<Vec>> wirePaths(String input) => input.lines.map((line) =>
       line.split(',').map((v) => _dirVec2s[v[0]]! * int.parse(v.substring(1))));
 
-  Iterable<LineSegment2> segmentsFrom(Vec2 origin, Iterable<Vec2> path) {
+  Iterable<LineSegment2> segmentsFrom(Vec origin, Iterable<Vec> path) {
     final segments = <LineSegment2>[];
     for (final p in path) {
       final end = origin + p;
@@ -65,7 +65,7 @@ class Day03 extends AdventDay {
     return segments;
   }
 
-  double distanceTo(Vec2 intersection, Iterable<LineSegment2> path) {
+  double distanceTo(Vec intersection, Iterable<LineSegment2> path) {
     var distance = 0;
     for (final segment in path) {
       final distanceAlong = segment.distanceAlong(intersection);
@@ -81,7 +81,7 @@ class Day03 extends AdventDay {
 // https://adventofcode.com/2019/day/3
 //
 // import 'package:aoc/aoc.dart';
-// import 'package:aoc/util/vec2.dart';
+// import 'package:aoc/util/vec.dart';
 // import 'package:collection/collection.dart';
 //
 // class Day03 extends AdventDay {

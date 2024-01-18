@@ -1,7 +1,7 @@
 import 'package:aoc/util/string.dart';
 import 'package:collection/collection.dart';
 
-import 'vec2.dart';
+import 'vec.dart';
 
 class Grid<T> {
   Grid(this.width, int height, this.defaultValue) : _height = height {
@@ -14,7 +14,7 @@ class Grid<T> {
     for (int row = 0; row < grid.height; row++) {
       for (int col = 0; col < grid.width; col++) {
         final rowLine = values[row];
-        grid.setCell(Vec2.int(col, row), rowLine[col]);
+        grid.setCell(Vec.int(col, row), rowLine[col]);
       }
     }
     return grid;
@@ -40,12 +40,12 @@ class Grid<T> {
     return grid;
   }
 
-  T cell(Vec2 p) => _cells[p.yInt][p.xInt];
-  void setCell(Vec2 p, T value) => _cells[p.yInt][p.xInt] = value;
+  T cell(Vec p) => _cells[p.yInt][p.xInt];
+  void setCell(Vec p, T value) => _cells[p.yInt][p.xInt] = value;
 
-  bool validCell(Vec2 p) => 0 <= p.x && p.x < width && 0 <= p.y && p.y < height;
+  bool validCell(Vec p) => 0 <= p.x && p.x < width && 0 <= p.y && p.y < height;
 
-  void updateCell(Vec2 p, T Function(T) update) {
+  void updateCell(Vec p, T Function(T) update) {
     setCell(p, update(cell(p)));
   }
 
@@ -59,15 +59,15 @@ class Grid<T> {
 
   Iterable<T> cellsWhere(bool Function(T) test) => cells().where(test);
 
-  Iterable<Vec2> locations() sync* {
+  Iterable<Vec> locations() sync* {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        yield Vec2.int(x, y);
+        yield Vec.int(x, y);
       }
     }
   }
 
-  Iterable<Vec2> locationsWhere(bool Function(T) test) =>
+  Iterable<Vec> locationsWhere(bool Function(T) test) =>
       locations().where((p) => test(cell(p)));
 
   void updateCells(T Function(T) update) {
@@ -110,23 +110,23 @@ class Grid<T> {
       .map((List<T> r) => r.join(' '))
       .join('\n');
 
-  Iterable<T> neighbors(Vec2 p, [List<Vec2> offsets = Vec2.aroundDirs]) =>
-      offsets.map((Vec2 o) => p + o).where(validCell).map(cell);
+  Iterable<T> neighbors(Vec p, [List<Vec> offsets = Vec.aroundDirs]) =>
+      offsets.map((Vec o) => p + o).where(validCell).map(cell);
 
-  Iterable<Vec2> neighborLocations(Vec2 p,
-          [List<Vec2> offsets = Vec2.aroundDirs]) =>
-      offsets.map((Vec2 o) => p + o).where(validCell);
+  Iterable<Vec> neighborLocations(Vec p,
+          [List<Vec> offsets = Vec.aroundDirs]) =>
+      offsets.map((Vec o) => p + o).where(validCell);
 
-  Iterable<(Vec2, T)> column(int col) sync* {
+  Iterable<(Vec, T)> column(int col) sync* {
     for (int r = 0; r < height; r++) {
-      final pos = Vec2.int(col, r);
+      final pos = Vec.int(col, r);
       yield (pos, cell(pos));
     }
   }
 
-  Iterable<(Vec2, T)> row(int row) sync* {
+  Iterable<(Vec, T)> row(int row) sync* {
     for (int c = 0; c < width; c++) {
-      final pos = Vec2.int(c, row);
+      final pos = Vec.int(c, row);
       yield (pos, cell(pos));
     }
   }

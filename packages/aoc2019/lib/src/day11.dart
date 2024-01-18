@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/sparse_grid.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 import 'intcode.dart';
 
@@ -24,18 +24,18 @@ class Day11 extends AdventDay {
     return 'GARPKZUL';
   }
 
-  static Map<Vec2, Vec2> rotateLeft = {
-    Vec2.up: Vec2.left,
-    Vec2.down: Vec2.right,
-    Vec2.left: Vec2.down,
-    Vec2.right: Vec2.up,
+  static Map<Vec, Vec> rotateLeft = {
+    Vec.up: Vec.left,
+    Vec.down: Vec.right,
+    Vec.left: Vec.down,
+    Vec.right: Vec.up,
   };
 
-  static Map<Vec2, Vec2> rotateRight = {
-    Vec2.up: Vec2.right,
-    Vec2.down: Vec2.left,
-    Vec2.left: Vec2.up,
-    Vec2.right: Vec2.down,
+  static Map<Vec, Vec> rotateRight = {
+    Vec.up: Vec.right,
+    Vec.down: Vec.left,
+    Vec.left: Vec.up,
+    Vec.right: Vec.down,
   };
 
   static const String black = ' ';
@@ -44,8 +44,8 @@ class Day11 extends AdventDay {
   SparseGrid<String> paintedHull(String program, String initialPanelColor) {
     final machine = Intcode.from(program: program);
     final hull = SparseGrid<String>(defaultValue: black);
-    Vec2 location = Vec2.zero;
-    Vec2 direction = Vec2.up;
+    Vec location = Vec.zero;
+    Vec direction = Vec.up;
     machine.input.add(initialPanelColor == black ? 0 : 1);
     while (!machine.execute()) {
       final paint = machine.output.removeAt(0);

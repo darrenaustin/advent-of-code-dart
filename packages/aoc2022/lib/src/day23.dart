@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day23().solve();
@@ -37,24 +37,24 @@ class Field {
       for (int x = 0; x < gridData.first.length; x++) {
         final cell = gridData[y][x];
         if (cell == '#') {
-          _elves.add(Vec2.int(x, y));
+          _elves.add(Vec.int(x, y));
         }
       }
     }
   }
 
   int round = 0;
-  final Set<Vec2> _elves = {};
+  final Set<Vec> _elves = {};
 
   bool nextRound() {
     // Find all elves with at least another around them.
     final movingElves =
-        _elves.where((e) => Vec2.aroundDirs.any((d) => _elves.contains(d + e)));
+        _elves.where((e) => Vec.aroundDirs.any((d) => _elves.contains(d + e)));
 
     // Determine the plans for all moving elves.
-    final plans = <Vec2, Vec2>{};
-    final destinations = <Vec2>{};
-    final overbooked = <Vec2>{};
+    final plans = <Vec, Vec>{};
+    final destinations = <Vec>{};
+    final overbooked = <Vec>{};
     for (final elf in movingElves) {
       for (final dir in _testDirs) {
         if (dir.checkDirections
@@ -89,11 +89,11 @@ class Field {
 
   int minimalGridEmptyCells() {
     // Determine minimal grid around elves.
-    Vec2 minS = Vec2.zero;
-    Vec2 maxS = Vec2.zero;
+    Vec minS = Vec.zero;
+    Vec maxS = Vec.zero;
     for (final elf in _elves) {
-      minS = Vec2(min(minS.x, elf.x), min(minS.y, elf.y));
-      maxS = Vec2(max(maxS.x, elf.x), max(maxS.y, elf.y));
+      minS = Vec(min(minS.x, elf.x), min(minS.y, elf.y));
+      maxS = Vec(max(maxS.x, elf.x), max(maxS.y, elf.y));
     }
 
     // Calculate the empty cells in the grid.
@@ -104,15 +104,15 @@ class Field {
 
   // Direction to travel if there are no neighbors in the directions list.
   final List<CheckDirs> _testDirs = [
-    CheckDirs(Vec2.up, [Vec2.upLeft, Vec2.up, Vec2.upRight]),
-    CheckDirs(Vec2.down, [Vec2.downLeft, Vec2.down, Vec2.downRight]),
-    CheckDirs(Vec2.left, [Vec2.upLeft, Vec2.left, Vec2.downLeft]),
-    CheckDirs(Vec2.right, [Vec2.upRight, Vec2.right, Vec2.downRight]),
+    CheckDirs(Vec.up, [Vec.upLeft, Vec.up, Vec.upRight]),
+    CheckDirs(Vec.down, [Vec.downLeft, Vec.down, Vec.downRight]),
+    CheckDirs(Vec.left, [Vec.upLeft, Vec.left, Vec.downLeft]),
+    CheckDirs(Vec.right, [Vec.upRight, Vec.right, Vec.downRight]),
   ];
 }
 
 class CheckDirs {
   CheckDirs(this.direction, this.checkDirections);
-  final Vec2 direction;
-  final List<Vec2> checkDirections;
+  final Vec direction;
+  final List<Vec> checkDirections;
 }

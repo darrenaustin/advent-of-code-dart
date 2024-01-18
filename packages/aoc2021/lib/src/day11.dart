@@ -4,7 +4,7 @@ import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day11().solve();
@@ -31,7 +31,7 @@ class Day11 extends AdventDay {
 
   int stepGrid(Grid<int> grid) {
     grid.updateCells((e) => e + 1);
-    final flashes = <Vec2>{};
+    final flashes = <Vec>{};
     final needFlashes = grid.locationsWhere((v) => v > 9).toList();
     while (needFlashes.isNotEmpty) {
       final flash = needFlashes.removeLast();

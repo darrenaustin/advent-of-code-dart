@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day08().solve();
 
@@ -65,28 +65,28 @@ class Screen {
   void rect(int width, int height) {
     for (int h = 0; h < height; h++) {
       for (int w = 0; w < width; w++) {
-        _grid.setCell(Vec2.int(w, h), '#');
+        _grid.setCell(Vec.int(w, h), '#');
       }
     }
   }
 
   void rotateColumn(int col, int amount) {
     for (int times = 0; times < amount; times++) {
-      final bottom = _grid.cell(Vec2.int(col, _grid.height - 1));
+      final bottom = _grid.cell(Vec.int(col, _grid.height - 1));
       for (int h = _grid.height - 1; h > 0; h--) {
-        _grid.setCell(Vec2.int(col, h), _grid.cell(Vec2.int(col, h - 1)));
+        _grid.setCell(Vec.int(col, h), _grid.cell(Vec.int(col, h - 1)));
       }
-      _grid.setCell(Vec2.int(col, 0), bottom);
+      _grid.setCell(Vec.int(col, 0), bottom);
     }
   }
 
   void rotateRow(int row, int amount) {
     for (int times = 0; times < amount; times++) {
-      final right = _grid.cell(Vec2.int(_grid.width - 1, row));
+      final right = _grid.cell(Vec.int(_grid.width - 1, row));
       for (int w = _grid.width - 1; w > 0; w--) {
-        _grid.setCell(Vec2.int(w, row), _grid.cell(Vec2.int(w - 1, row)));
+        _grid.setCell(Vec.int(w, row), _grid.cell(Vec.int(w - 1, row)));
       }
-      _grid.setCell(Vec2.int(0, row), right);
+      _grid.setCell(Vec.int(0, row), right);
     }
   }
 

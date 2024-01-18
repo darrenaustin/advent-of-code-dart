@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day11().solve();
@@ -89,17 +89,15 @@ class Day11 extends AdventDay {
   }
 
   Iterable<String> visiblyAdjacent(
-      Grid<String> seats, Vec2 location, bool Function(String) invisibleTest) {
-    String? firstVisibleInDirection(Vec2 directionOffset) {
-      Vec2 closest = location + directionOffset;
+      Grid<String> seats, Vec location, bool Function(String) invisibleTest) {
+    String? firstVisibleInDirection(Vec directionOffset) {
+      Vec closest = location + directionOffset;
       while (seats.validCell(closest) && invisibleTest(seats.cell(closest))) {
         closest += directionOffset;
       }
       return seats.validCell(closest) ? seats.cell(closest) : null;
     }
 
-    return Vec2.aroundDirs
-        .map((p) => firstVisibleInDirection(p))
-        .whereNotNull();
+    return Vec.aroundDirs.map((p) => firstVisibleInDirection(p)).whereNotNull();
   }
 }

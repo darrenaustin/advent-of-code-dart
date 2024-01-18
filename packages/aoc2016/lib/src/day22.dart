@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/pathfinding.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day22().solve();
 
@@ -38,8 +38,8 @@ class Day22 extends AdventDay {
 
     int width = 0;
     int height = 0;
-    late Vec2 empty;
-    final invalidLocations = <Vec2>{...nodes.map((n) => n.position)};
+    late Vec empty;
+    final invalidLocations = <Vec>{...nodes.map((n) => n.position)};
 
     for (int i = 0; i < nodes.length; i++) {
       final node = nodes[i];
@@ -58,22 +58,22 @@ class Day22 extends AdventDay {
       }
     }
 
-    bool validLocation(Vec2 loc) =>
+    bool validLocation(Vec loc) =>
         0 <= loc.x &&
         loc.x <= width &&
         0 <= loc.y &&
         loc.y <= height &&
         !invalidLocations.contains(loc);
 
-    final start = GoalData(Vec2.int(width, 0), empty);
+    final start = GoalData(Vec.int(width, 0), empty);
     return aStarLowestCost<GoalData>(
       start: start,
-      isGoal: (g) => g.goal == Vec2.zero,
+      isGoal: (g) => g.goal == Vec.zero,
       estimatedDistance: (g) =>
-          g.goal.manhattanDistanceTo(Vec2.zero) +
+          g.goal.manhattanDistanceTo(Vec.zero) +
           g.goal.manhattanDistanceTo(g.empty),
       costTo: (g1, g2) => 1,
-      neighborsOf: (g) => Vec2.orthogonalDirs
+      neighborsOf: (g) => Vec.orthogonalDirs
           .map((d) => g.empty + d)
           .where(validLocation)
           .map((p) => p == g.goal ? GoalData(g.empty, p) : GoalData(g.goal, p)),
@@ -93,13 +93,13 @@ class Node {
       throw Exception('Unable to parse node info: $input');
     }
     return Node(
-      Vec2(double.parse(match.group(1)!), double.parse(match.group(2)!)),
+      Vec(double.parse(match.group(1)!), double.parse(match.group(2)!)),
       int.parse(match.group(3)!),
       int.parse(match.group(4)!),
     );
   }
 
-  final Vec2 position;
+  final Vec position;
   final int size;
   final int used;
   int get available => size - used;
@@ -117,8 +117,8 @@ class Node {
 class GoalData {
   GoalData(this.goal, this.empty);
 
-  final Vec2 goal;
-  final Vec2 empty;
+  final Vec goal;
+  final Vec empty;
 
   @override
   int get hashCode => goal.hashCode ^ empty.hashCode;

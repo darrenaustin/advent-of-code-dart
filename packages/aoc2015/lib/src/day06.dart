@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day06().solve();
@@ -22,7 +22,7 @@ class Day06 extends AdventDay {
         (command.type == CommandType.toggle && !light);
 
     for (final command in input.lines.map(parseCommand)) {
-      for (final loc in Vec2.range(command.p1, command.p2 + Vec2.downRight)) {
+      for (final loc in Vec.range(command.p1, command.p2 + Vec.downRight)) {
         lights.updateCell(loc, (light) => apply(command, light));
       }
     }
@@ -45,7 +45,7 @@ class Day06 extends AdventDay {
     }
 
     for (final command in input.lines.map(parseCommand)) {
-      for (final loc in Vec2.range(command.p1, command.p2 + Vec2.downRight)) {
+      for (final loc in Vec.range(command.p1, command.p2 + Vec.downRight)) {
         lights.updateCell(loc, (l) => apply(command, l));
       }
     }
@@ -64,8 +64,8 @@ class Day06 extends AdventDay {
             : CommandType.turnOff;
     return Command(
       type,
-      Vec2.int(int.parse(match.group(2)!), int.parse(match.group(3)!)),
-      Vec2.int(int.parse(match.group(4)!), int.parse(match.group(5)!)),
+      Vec.int(int.parse(match.group(2)!), int.parse(match.group(3)!)),
+      Vec.int(int.parse(match.group(4)!), int.parse(match.group(5)!)),
     );
   }
 }
@@ -76,6 +76,6 @@ class Command {
   Command(this.type, this.p1, this.p2);
 
   final CommandType type;
-  final Vec2 p1;
-  final Vec2 p2;
+  final Vec p1;
+  final Vec p2;
 }

@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/sparse_grid.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day05().solve();
 
@@ -19,7 +19,7 @@ class Day05 extends AdventDay {
 
   Iterable<LineSegment2> parseVents(String input) => input.lines.map((s) {
         final nums = s.split(RegExp(r'\D+')).map(double.parse).toList();
-        return LineSegment2(Vec2(nums[0], nums[1]), Vec2(nums[2], nums[3]));
+        return LineSegment2(Vec(nums[0], nums[1]), Vec(nums[2], nums[3]));
       });
 
   int numHotSpots(Iterable<LineSegment2> vents) {

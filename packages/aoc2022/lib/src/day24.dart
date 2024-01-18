@@ -5,7 +5,7 @@ import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/math.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day24().solve();
 
@@ -26,11 +26,11 @@ class Day24 extends AdventDay {
     return minSteps(valley, valley.entrance, valley.exit, trip2);
   }
 
-  int minSteps(Valley valley, Vec2 start, Vec2 goal, int time) {
-    Set<Vec2> possibleMoves = {start};
+  int minSteps(Valley valley, Vec start, Vec goal, int time) {
+    Set<Vec> possibleMoves = {start};
     while (true) {
       time += 1;
-      final nextMoves = <Vec2>{};
+      final nextMoves = <Vec>{};
       for (final m in possibleMoves) {
         final potentialMoves = valley.clearNeighbors(m, time);
         if (potentialMoves.contains(goal)) {
@@ -55,30 +55,30 @@ class Valley {
     _wrapPeriod = lcm(width, height);
 
     entrance = range(grid.width)
-            .map((x) => Vec2.int(x, 0))
+            .map((x) => Vec.int(x, 0))
             .where((p) => grid.cell(p) == '.')
             .first +
-        Vec2.upLeft;
+        Vec.upLeft;
     exit = range(grid.width)
-            .map((x) => Vec2.int(x, grid.height - 1))
+            .map((x) => Vec.int(x, grid.height - 1))
             .where((p) => grid.cell(p) == '.')
             .first +
-        Vec2.upLeft;
+        Vec.upLeft;
 
     // Compute all spaces and find the blizzards.
-    final Set<Vec2> allSpaces = {entrance, exit};
+    final Set<Vec> allSpaces = {entrance, exit};
     final List<Blizzard> blizzards = [];
     for (final y in range(1, grid.height - 1)) {
       for (final x in range(1, grid.width - 1)) {
-        final gridPos = Vec2.int(x, y);
-        final pos = gridPos + Vec2.upLeft;
+        final gridPos = Vec.int(x, y);
+        final pos = gridPos + Vec.upLeft;
         allSpaces.add(pos);
         final cell = grid.cell(gridPos);
         final dir = switch (cell) {
-          '>' => Vec2.right,
-          '<' => Vec2.left,
-          '^' => Vec2.up,
-          'v' => Vec2.down,
+          '>' => Vec.right,
+          '<' => Vec.left,
+          '^' => Vec.up,
+          'v' => Vec.down,
           _ => null,
         };
         if (dir != null) {
@@ -89,23 +89,23 @@ class Valley {
 
     // Compute all clear positions for each time in the wrapping period.
     for (final _ in range(_wrapPeriod)) {
-      final Set<Vec2> occupied = blizzards.map((b) => b.pos).toSet();
+      final Set<Vec> occupied = blizzards.map((b) => b.pos).toSet();
       for (final b in blizzards) {
-        b.pos = Vec2.int((b.pos.xInt + b.dir.xInt) % width,
+        b.pos = Vec.int((b.pos.xInt + b.dir.xInt) % width,
             (b.pos.yInt + b.dir.yInt) % height);
       }
       _clearPositions.add(allSpaces.difference(occupied));
     }
   }
 
-  late final Vec2 entrance;
-  late final Vec2 exit;
+  late final Vec entrance;
+  late final Vec exit;
 
   late final int _wrapPeriod;
-  final List<Set<Vec2>> _clearPositions = [];
+  final List<Set<Vec>> _clearPositions = [];
 
-  Iterable<Vec2> clearNeighbors(Vec2 pos, int time) =>
-      [...Vec2.orthogonalDirs, Vec2.zero]
+  Iterable<Vec> clearNeighbors(Vec pos, int time) =>
+      [...Vec.orthogonalDirs, Vec.zero]
           .map((d) => pos + d)
           .where((p) => _clearPositions[time % _wrapPeriod].contains(p));
 }
@@ -113,6 +113,6 @@ class Valley {
 class Blizzard {
   Blizzard(this.pos, this.dir);
 
-  Vec2 pos;
-  final Vec2 dir;
+  Vec pos;
+  final Vec dir;
 }

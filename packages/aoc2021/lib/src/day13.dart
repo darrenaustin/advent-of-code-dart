@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/sparse_grid.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day13().solve();
 
@@ -28,10 +28,10 @@ class Day13 extends AdventDay {
     return 'HEJHJRCJ';
   }
 
-  Iterable<Vec2> parseDotCoords(String input) =>
+  Iterable<Vec> parseDotCoords(String input) =>
       input.split('\n\n').first.split('\n').map((l) {
         final coords = l.split(',');
-        return Vec2.int(int.parse(coords[0]), int.parse(coords[1]));
+        return Vec.int(int.parse(coords[0]), int.parse(coords[1]));
       });
 
   Iterable<Fold> parseFolds(String input) {
@@ -42,15 +42,15 @@ class Day13 extends AdventDay {
     });
   }
 
-  Vec2 foldDot(Vec2 dot, Fold fold) {
+  Vec foldDot(Vec dot, Fold fold) {
     if (fold.vertical) {
-      return (dot.y < fold.line) ? dot : Vec2(dot.x, 2 * fold.line - dot.y);
+      return (dot.y < fold.line) ? dot : Vec(dot.x, 2 * fold.line - dot.y);
     } else {
-      return (dot.x < fold.line) ? dot : Vec2(2 * fold.line - dot.x, dot.y);
+      return (dot.x < fold.line) ? dot : Vec(2 * fold.line - dot.x, dot.y);
     }
   }
 
-  void printDots(Iterable<Vec2> dots) {
+  void printDots(Iterable<Vec> dots) {
     final grid = SparseGrid(defaultValue: ' ');
     for (final dot in dots) {
       grid.setCell(dot, '#');

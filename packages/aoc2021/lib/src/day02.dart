@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day02().solve();
 
@@ -18,20 +18,20 @@ class Day02 extends AdventDay {
   @override
   dynamic part2(String input) {
     final directions = parseDirections(input);
-    Vec2 destination = Vec2.zero;
+    Vec destination = Vec.zero;
     double aim = 0;
     for (final direction in directions) {
-      destination += Vec2(direction.x, aim * direction.x);
+      destination += Vec(direction.x, aim * direction.x);
       aim += direction.y;
     }
     return destination.x * destination.y;
   }
 
-  List<Vec2> parseDirections(String input) {
+  List<Vec> parseDirections(String input) {
     const dirVec = {
-      'forward': Vec2.right,
-      'up': Vec2.up,
-      'down': Vec2.down,
+      'forward': Vec.right,
+      'up': Vec.up,
+      'down': Vec.down,
     };
     return input.lines.map((line) {
       final parts = line.split(' ');

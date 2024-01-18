@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day13().solve();
@@ -63,7 +63,7 @@ class Day13 extends AdventDay {
           continue;
         }
         for (int y = 0; y < grid.height; y++) {
-          if (grid.cell(Vec2.int(tx, y)) != grid.cell(Vec2.int(mirrorX, y))) {
+          if (grid.cell(Vec.int(tx, y)) != grid.cell(Vec.int(mirrorX, y))) {
             return false;
           }
         }
@@ -90,7 +90,7 @@ class Day13 extends AdventDay {
           continue;
         }
         for (int x = 0; x < grid.width; x++) {
-          if (grid.cell(Vec2.int(x, ty)) != grid.cell(Vec2.int(x, mirrorY))) {
+          if (grid.cell(Vec.int(x, ty)) != grid.cell(Vec.int(x, mirrorY))) {
             return false;
           }
         }

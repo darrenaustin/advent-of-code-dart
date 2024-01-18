@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day12().solve();
 
@@ -60,19 +60,19 @@ class NavInstruction {
 
 class Ship {
   Ship()
-      : position = Vec2.zero,
+      : position = Vec.zero,
         direction = Direction.east;
 
-  Vec2 position;
+  Vec position;
   Direction direction;
 
-  double get manhattanDistance => position.manhattanDistanceTo(Vec2.zero);
+  double get manhattanDistance => position.manhattanDistanceTo(Vec.zero);
 
-  static final _directionOffsets = <Direction, Vec2>{
-    Direction.north: Vec2.down,
-    Direction.south: Vec2.up,
-    Direction.east: Vec2.right,
-    Direction.west: Vec2.left,
+  static final _directionOffsets = <Direction, Vec>{
+    Direction.north: Vec.down,
+    Direction.south: Vec.up,
+    Direction.east: Vec.right,
+    Direction.west: Vec.left,
   };
 
   void navigate(Iterable<NavInstruction> instructions) {
@@ -124,10 +124,10 @@ class Ship {
 
 class WaypointShip extends Ship {
   WaypointShip()
-      : waypoint = Vec2(10, 1),
+      : waypoint = Vec(10, 1),
         super();
 
-  Vec2 waypoint;
+  Vec waypoint;
 
   @override
   void move(Direction dir, int distance) {
@@ -146,6 +146,6 @@ class WaypointShip extends Ship {
     final magnitude = waypoint.magnitude;
     final newX = cos(newAngle) * magnitude;
     final newY = sin(newAngle) * magnitude;
-    waypoint = Vec2.int(newX.round(), newY.round());
+    waypoint = Vec.int(newX.round(), newY.round());
   }
 }

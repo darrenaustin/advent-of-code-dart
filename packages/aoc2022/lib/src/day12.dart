@@ -4,7 +4,7 @@ import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/pathfinding.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day12().solve();
@@ -40,21 +40,21 @@ class Heightmap {
     return Heightmap._(grid, start, goal);
   }
 
-  int? leastStepsToGoal([Vec2? start]) {
-    return dijkstraLowestCost<Vec2>(
+  int? leastStepsToGoal([Vec? start]) {
+    return dijkstraLowestCost<Vec>(
       start: start ?? this.start,
       goal: goal,
       costTo: (_, __) => 1,
-      neighborsOf: (l) => _grid.neighborLocations(l, Vec2.orthogonalDirs).where(
+      neighborsOf: (l) => _grid.neighborLocations(l, Vec.orthogonalDirs).where(
           (e) =>
               _grid.cell(e).codeUnitAt(0) - _grid.cell(l).codeUnitAt(0) <= 1),
     )?.toInt();
   }
 
-  Iterable<Vec2> locationsWhere(bool Function(String) test) =>
+  Iterable<Vec> locationsWhere(bool Function(String) test) =>
       _grid.locationsWhere(test);
 
   final Grid<String> _grid;
-  final Vec2 start;
-  final Vec2 goal;
+  final Vec start;
+  final Vec goal;
 }

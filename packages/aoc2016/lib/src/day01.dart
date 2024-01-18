@@ -1,7 +1,7 @@
 // https://adventofcode.com/2016/day/1
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day01().solve();
 
@@ -10,18 +10,18 @@ class Day01 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    Vec2 position = Vec2.zero;
+    Vec position = Vec.zero;
     Direction direction = Direction.north;
     for (final move in input.split(', ').map(Move.parse)) {
       direction = direction.turn(move.turn);
       position += directions[direction]! * move.length;
     }
-    return position.manhattanDistanceTo(Vec2.zero).toInt();
+    return position.manhattanDistanceTo(Vec.zero).toInt();
   }
 
   @override
   dynamic part2(String input) {
-    Vec2 position = Vec2.zero;
+    Vec position = Vec.zero;
     Direction direction = Direction.north;
     final visited = {position};
     for (final move in input.split(', ').map(Move.parse)) {
@@ -29,7 +29,7 @@ class Day01 extends AdventDay {
       for (int i = 0; i < move.length; i++) {
         position += directions[direction]!;
         if (visited.contains(position)) {
-          return position.manhattanDistanceTo(Vec2.zero).toInt();
+          return position.manhattanDistanceTo(Vec.zero).toInt();
         }
         visited.add(position);
       }
@@ -56,11 +56,11 @@ enum Direction {
   }
 }
 
-const Map<Direction, Vec2> directions = {
-  Direction.north: Vec2.up,
-  Direction.east: Vec2.right,
-  Direction.south: Vec2.down,
-  Direction.west: Vec2.left,
+const Map<Direction, Vec> directions = {
+  Direction.north: Vec.up,
+  Direction.east: Vec.right,
+  Direction.south: Vec.down,
+  Direction.west: Vec.left,
 };
 
 class Move {

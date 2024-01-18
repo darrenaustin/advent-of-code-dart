@@ -5,7 +5,7 @@ import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
 main() => Day03().solve();
@@ -56,15 +56,15 @@ class Day03 extends AdventDay {
     return Grid.from(data, '.');
   }
 
-  Vec2 gridPosFrom(Grid grid, int stringStartIndex) => Vec2.int(
+  Vec gridPosFrom(Grid grid, int stringStartIndex) => Vec.int(
       stringStartIndex % (grid.width + 1),
       stringStartIndex ~/ (grid.height + 1));
 
   PartNumber partNumber(Grid grid, RegExpMatch match) {
     final numDigits = match.end - match.start;
-    final Vec2 start = Vec2.int(
+    final Vec start = Vec.int(
         match.start % (grid.width + 1), match.start ~/ (grid.height + 1));
-    final Vec2 end = start + Vec2.int(numDigits - 1, 0);
+    final Vec end = start + Vec.int(numDigits - 1, 0);
     return PartNumber(match.group(0)!, start, end);
   }
 
@@ -81,24 +81,24 @@ class PartNumber {
   PartNumber(this.text, this.start, this.end);
 
   final String text;
-  final Vec2 start;
-  final Vec2 end;
+  final Vec start;
+  final Vec end;
 
   int get value => int.parse(text);
 
-  Iterable<Vec2> neighborPositions() {
+  Iterable<Vec> neighborPositions() {
     final numDigits = text.length;
     return [
-      start + Vec2.upLeft,
-      for (int x = 0; x <= numDigits; x++) start + Vec2.int(x, -1),
-      start + Vec2.left,
-      start + Vec2.right * numDigits,
-      start + Vec2.downLeft,
-      for (int x = 0; x <= numDigits; x++) start + Vec2.int(x, 1),
+      start + Vec.upLeft,
+      for (int x = 0; x <= numDigits; x++) start + Vec.int(x, -1),
+      start + Vec.left,
+      start + Vec.right * numDigits,
+      start + Vec.downLeft,
+      for (int x = 0; x <= numDigits; x++) start + Vec.int(x, 1),
     ];
   }
 
-  bool inside(Vec2 p) =>
+  bool inside(Vec p) =>
       p.yInt == start.yInt && start.xInt <= p.xInt && p.xInt <= end.xInt;
 
   @override

@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day10().solve();
 
@@ -28,21 +28,21 @@ class Day10 extends AdventDay {
   }
 
   static final pipeDirs = {
-    '|': {Vec2.up: Vec2.up, Vec2.down: Vec2.down},
-    '-': {Vec2.left: Vec2.left, Vec2.right: Vec2.right},
-    'L': {Vec2.down: Vec2.right, Vec2.left: Vec2.up},
-    'J': {Vec2.right: Vec2.up, Vec2.down: Vec2.left},
-    '7': {Vec2.right: Vec2.down, Vec2.up: Vec2.left},
-    'F': {Vec2.up: Vec2.right, Vec2.left: Vec2.down},
+    '|': {Vec.up: Vec.up, Vec.down: Vec.down},
+    '-': {Vec.left: Vec.left, Vec.right: Vec.right},
+    'L': {Vec.down: Vec.right, Vec.left: Vec.up},
+    'J': {Vec.right: Vec.up, Vec.down: Vec.left},
+    '7': {Vec.right: Vec.down, Vec.up: Vec.left},
+    'F': {Vec.up: Vec.right, Vec.left: Vec.down},
   };
 
-  Vec2 findPathStart(Grid<String> grid) =>
+  Vec findPathStart(Grid<String> grid) =>
       grid.locationsWhere((p) => p == 'S').first;
 
-  Iterable<Vec2> findPath(Grid<String> grid) {
+  Iterable<Vec> findPath(Grid<String> grid) {
     final start = findPathStart(grid);
     final possibleDirs =
-        Vec2.orthogonalDirs.where((p) => grid.validCell(p + start));
+        Vec.orthogonalDirs.where((p) => grid.validCell(p + start));
     for (final d in possibleDirs) {
       final path = pathFrom(grid, start, d);
       if (path != null) {
@@ -52,7 +52,7 @@ class Day10 extends AdventDay {
     throw Exception('Unable to find path.');
   }
 
-  Iterable<Vec2>? pathFrom(Grid<String> grid, Vec2 start, Vec2 dir) {
+  Iterable<Vec>? pathFrom(Grid<String> grid, Vec start, Vec dir) {
     final path = [start];
     var current = start + dir;
     while (current != start) {
@@ -76,7 +76,7 @@ class Day10 extends AdventDay {
     return path;
   }
 
-  void removeNonPathPipes(Grid<String> grid, Iterable<Vec2> path) {
+  void removeNonPathPipes(Grid<String> grid, Iterable<Vec> path) {
     final pathLocs = path.toSet();
     for (final loc in grid.locations().where((l) => !pathLocs.contains(l))) {
       grid.setCell(loc, '.');
@@ -84,19 +84,19 @@ class Day10 extends AdventDay {
   }
 
   static final startPipes = {
-    Vec2.up: {Vec2.down: '|', Vec2.left: 'J', Vec2.right: 'L'},
-    Vec2.down: {Vec2.up: '|', Vec2.left: '7', Vec2.right: 'F'},
-    Vec2.left: {Vec2.right: '-', Vec2.up: 'J', Vec2.down: '7'},
-    Vec2.right: {Vec2.left: '-', Vec2.up: 'L', Vec2.down: 'F'},
+    Vec.up: {Vec.down: '|', Vec.left: 'J', Vec.right: 'L'},
+    Vec.down: {Vec.up: '|', Vec.left: '7', Vec.right: 'F'},
+    Vec.left: {Vec.right: '-', Vec.up: 'J', Vec.down: '7'},
+    Vec.right: {Vec.left: '-', Vec.up: 'L', Vec.down: 'F'},
   };
 
-  void updateStartWithPipe(Grid<String> grid, List<Vec2> path) {
+  void updateStartWithPipe(Grid<String> grid, List<Vec> path) {
     final dir1 = path[1] - path[0];
     final dir2 = path.last - path[0];
     grid.setCell(path[0], startPipes[dir1]![dir2]!);
   }
 
-  int numEnclosed(Grid<String> grid, List<Vec2> path) {
+  int numEnclosed(Grid<String> grid, List<Vec> path) {
     var inside = 0;
 
     // Walk the grid, row by row and keep track of up-facing crossings
@@ -106,7 +106,7 @@ class Day10 extends AdventDay {
     for (int y = 0; y < grid.height; y++) {
       var crossings = 0;
       for (int x = 0; x < grid.width; x++) {
-        final loc = Vec2.int(x, y);
+        final loc = Vec.int(x, y);
         switch (grid.cell(loc)) {
           case '.':
             if (crossings % 2 == 1) {

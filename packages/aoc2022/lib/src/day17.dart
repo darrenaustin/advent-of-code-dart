@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/grid2.dart';
-import 'package:aoc/util/vec2.dart';
+import 'package:aoc/util/vec.dart';
 
 main() => Day17().solve();
 
@@ -19,12 +19,12 @@ class Day17 extends AdventDay {
   dynamic part2(String input) => Tower(shapes, parseWindDirections(input))
       .heightAfterShapes(1000000000000);
 
-  List<Vec2> parseWindDirections(String input) {
+  List<Vec> parseWindDirections(String input) {
     return input
         .split('')
         .map((d) => {
-              '<': Vec2.left,
-              '>': Vec2.right,
+              '<': Vec.left,
+              '>': Vec.right,
             }[d]!)
         .toList();
   }
@@ -56,7 +56,7 @@ class Day17 extends AdventDay {
     for (int row = 0; row < height; row++) {
       final line = lines[row];
       for (int col = 0; col < width; col++) {
-        grid.setCell(Vec2.int(col, row), line[col]);
+        grid.setCell(Vec.int(col, row), line[col]);
       }
     }
     return grid;
@@ -69,7 +69,7 @@ class Tower {
         _windIndex = 0,
         _grid = Grid<String>(7, 0, '.'),
         _floor = 0,
-        _shapePos = Vec2.zero,
+        _shapePos = Vec.zero,
         _cache = {};
 
   int get rockHeight => _grid.height - _floor;
@@ -91,7 +91,7 @@ class Tower {
           i += numCycles * cycleLength;
           cycleAddedHeight = numCycles * cycleHeight;
         } else {
-          _cache[state] = Vec2.int(i, rockHeight);
+          _cache[state] = Vec.int(i, rockHeight);
         }
       }
       dropShape();
@@ -102,11 +102,11 @@ class Tower {
   void dropShape() {
     final shape = shapes[_shapeIndex];
     growGridFor(shape);
-    _shapePos = Vec2(2, _floor - shape.height - 3);
+    _shapePos = Vec(2, _floor - shape.height - 3);
     bool landed = false;
     while (!landed) {
       pushShape();
-      final newPos = _shapePos + Vec2.down;
+      final newPos = _shapePos + Vec.down;
       if (!shapeFits(shape, newPos)) {
         landed = true;
         _floor = min(_shapePos.yInt, _floor);
@@ -126,7 +126,7 @@ class Tower {
     }
   }
 
-  bool shapeFits(Grid<String> shape, Vec2 pos) {
+  bool shapeFits(Grid<String> shape, Vec pos) {
     if (pos.xInt < 0 ||
         pos.xInt + shape.width > _grid.width ||
         pos.yInt < 0 ||
@@ -135,7 +135,7 @@ class Tower {
     }
     for (int row = 0; row < shape.height; row++) {
       for (int col = 0; col < shape.width; col++) {
-        final shapePos = Vec2.int(col, row);
+        final shapePos = Vec.int(col, row);
         final pixel = shape.cell(shapePos);
         if (pixel != '.') {
           if (_grid.cell(pos + shapePos) != '.') {
@@ -147,13 +147,13 @@ class Tower {
     return true;
   }
 
-  void drawShape(Grid<String> shape, Vec2 pos) {
+  void drawShape(Grid<String> shape, Vec pos) {
     for (int row = 0; row < shape.height; row++) {
       for (int col = 0; col < shape.width; col++) {
-        final shapePos = Vec2.int(col, row);
+        final shapePos = Vec.int(col, row);
         final pixel = shape.cell(shapePos);
         if (pixel != '.') {
-          Vec2 gridPos = pos + shapePos;
+          Vec gridPos = pos + shapePos;
           _grid.setCell(gridPos, pixel);
         }
       }
@@ -174,7 +174,7 @@ class Tower {
     return shape;
   }
 
-  Vec2 nextWind() {
+  Vec nextWind() {
     final wind = winds[_windIndex];
     _windIndex = (_windIndex + 1) % winds.length;
     return wind;
@@ -186,14 +186,14 @@ class Tower {
   }
 
   List<Grid<String>> shapes;
-  List<Vec2> winds;
+  List<Vec> winds;
   final Grid<String> _grid;
   int _shapeIndex;
   int _windIndex;
-  Vec2 _shapePos;
+  Vec _shapePos;
   int _floor;
 
-  final Map<CacheState, Vec2> _cache;
+  final Map<CacheState, Vec> _cache;
 
   @override
   String toString() {
@@ -226,7 +226,7 @@ class CacheState {
 //
 // import 'package:aoc/aoc.dart';
 // import 'package:aoc/util/grid2.dart';
-// import 'package:aoc/util/vec2.dart';
+// import 'package:aoc/util/vec.dart';
 //
 // class Day17 extends AdventDay {
 //   Day17() : super(2022, 17);
