@@ -31,7 +31,7 @@ class Day13 extends AdventDay {
   Iterable<Vec> parseDotCoords(String input) =>
       input.split('\n\n').first.split('\n').map((l) {
         final coords = l.split(',');
-        return Vec.int(int.parse(coords[0]), int.parse(coords[1]));
+        return Vec(int.parse(coords[0]), int.parse(coords[1]));
       });
 
   Iterable<Fold> parseFolds(String input) {

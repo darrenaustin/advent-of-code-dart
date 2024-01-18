@@ -27,7 +27,7 @@ class Day15 extends AdventDay {
         (s) => p != s.beacon && s.pos.manhattanDistanceTo(p) <= s.distance);
 
     return rangeinc(minX, maxX)
-        .map((col) => Vec.int(col, row))
+        .map((col) => Vec(col, row))
         .where(noBeacon)
         .length;
   }
@@ -69,9 +69,9 @@ class Day15 extends AdventDay {
     for (final line in input.lines) {
       final match = sensorPattern.firstMatch(line)!;
       final Vec pos =
-          Vec.int(int.parse(match.group(1)!), int.parse(match.group(2)!));
+          Vec(int.parse(match.group(1)!), int.parse(match.group(2)!));
       final Vec beacon =
-          Vec.int(int.parse(match.group(3)!), int.parse(match.group(4)!));
+          Vec(int.parse(match.group(3)!), int.parse(match.group(4)!));
       sensors.add(Sensor(pos, beacon));
     }
     return sensors;

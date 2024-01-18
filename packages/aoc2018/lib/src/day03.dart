@@ -19,7 +19,7 @@ class Day03 extends AdventDay {
       final rect = claim.rect;
       for (int x = 0; x < rect.width; x++) {
         for (int y = 0; y < rect.height; y++) {
-          final pos = Vec.int(rect.x + x, rect.y + y);
+          final pos = Vec(rect.x + x, rect.y + y);
           fabric.setCell(pos, fabric.cell(pos) + 1);
         }
       }

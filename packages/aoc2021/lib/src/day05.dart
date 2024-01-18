@@ -1,6 +1,7 @@
 // https://adventofcode.com/2021/day/5
 
 import 'package:aoc/aoc.dart';
+import 'package:aoc/util/line.dart';
 import 'package:aoc/util/sparse_grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
@@ -17,12 +18,12 @@ class Day05 extends AdventDay {
   @override
   dynamic part2(String input) => numHotSpots(parseVents(input));
 
-  Iterable<LineSegment2> parseVents(String input) => input.lines.map((s) {
+  Iterable<Line> parseVents(String input) => input.lines.map((s) {
         final nums = s.split(RegExp(r'\D+')).map(double.parse).toList();
-        return LineSegment2(Vec(nums[0], nums[1]), Vec(nums[2], nums[3]));
+        return Line(Vec(nums[0], nums[1]), Vec(nums[2], nums[3]));
       });
 
-  int numHotSpots(Iterable<LineSegment2> vents) {
+  int numHotSpots(Iterable<Line> vents) {
     final grid = SparseGrid<int>(defaultValue: 0);
     for (final vent in vents) {
       for (final p in vent.discretePointsAlong()) {

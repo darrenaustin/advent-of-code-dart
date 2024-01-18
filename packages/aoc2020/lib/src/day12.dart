@@ -66,7 +66,7 @@ class Ship {
   Vec position;
   Direction direction;
 
-  double get manhattanDistance => position.manhattanDistanceTo(Vec.zero);
+  num get manhattanDistance => position.manhattanDistanceTo(Vec.zero);
 
   static final _directionOffsets = <Direction, Vec>{
     Direction.north: Vec.down,
@@ -146,6 +146,6 @@ class WaypointShip extends Ship {
     final magnitude = waypoint.magnitude;
     final newX = cos(newAngle) * magnitude;
     final newY = sin(newAngle) * magnitude;
-    waypoint = Vec.int(newX.round(), newY.round());
+    waypoint = Vec(newX.round(), newY.round());
   }
 }

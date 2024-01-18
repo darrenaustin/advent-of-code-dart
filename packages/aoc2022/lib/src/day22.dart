@@ -115,7 +115,7 @@ class Day22 extends AdventDay {
           : pos.yInt >= faceSize
               ? 0
               : pos.yInt;
-      final wrapped = Vec.int(wrappedX, wrappedY);
+      final wrapped = Vec(wrappedX, wrappedY);
       if (fromDir == toDir) {
         return wrapped;
       }
@@ -138,9 +138,9 @@ class Day22 extends AdventDay {
         throw ('Huh?');
       } else if (fromDir == Vec.right) {
         if (toDir == Vec.up) {
-          return Vec.int(wrapped.yInt, faceSize - 1);
+          return Vec(wrapped.yInt, faceSize - 1);
         } else if (toDir == Vec.left) {
-          return Vec.int(faceSize - 1, faceSize - wrapped.yInt - 1);
+          return Vec(faceSize - 1, faceSize - wrapped.yInt - 1);
         }
         throw ('Huh?');
       }
@@ -189,8 +189,8 @@ class Day22 extends AdventDay {
     final face = Grid<String>(size, size, ' ');
     for (int row = 0; row < size; row++) {
       for (int col = 0; col < size; col++) {
-        face.setCell(Vec.int(col, row),
-            grid.cell(Vec.int(col + start.xInt, row + start.yInt)));
+        face.setCell(
+            Vec(col, row), grid.cell(Vec(col + start.xInt, row + start.yInt)));
       }
     }
     return face;
@@ -206,7 +206,7 @@ class Day22 extends AdventDay {
       final row = gridData[y];
       for (int x = 0; x < grid.width; x++) {
         if (x < row.length) {
-          grid.setCell(Vec.int(x, y), gridData[y][x]);
+          grid.setCell(Vec(x, y), gridData[y][x]);
         }
       }
     }
@@ -232,7 +232,7 @@ class Day22 extends AdventDay {
       1000 * (pos.yInt + 1) + 4 * (pos.xInt + 1) + dirs.indexOf(facing);
 
   Vec wrapped(Grid<String> grid, Vec pos) {
-    return Vec.int(pos.xInt % grid.width, pos.yInt % grid.height);
+    return Vec(pos.xInt % grid.width, pos.yInt % grid.height);
   }
 
   Vec move(Grid<String> grid, Vec pos, Vec dir, int steps) {

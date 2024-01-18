@@ -55,12 +55,12 @@ class Valley {
     _wrapPeriod = lcm(width, height);
 
     entrance = range(grid.width)
-            .map((x) => Vec.int(x, 0))
+            .map((x) => Vec(x, 0))
             .where((p) => grid.cell(p) == '.')
             .first +
         Vec.upLeft;
     exit = range(grid.width)
-            .map((x) => Vec.int(x, grid.height - 1))
+            .map((x) => Vec(x, grid.height - 1))
             .where((p) => grid.cell(p) == '.')
             .first +
         Vec.upLeft;
@@ -70,7 +70,7 @@ class Valley {
     final List<Blizzard> blizzards = [];
     for (final y in range(1, grid.height - 1)) {
       for (final x in range(1, grid.width - 1)) {
-        final gridPos = Vec.int(x, y);
+        final gridPos = Vec(x, y);
         final pos = gridPos + Vec.upLeft;
         allSpaces.add(pos);
         final cell = grid.cell(gridPos);
@@ -91,7 +91,7 @@ class Valley {
     for (final _ in range(_wrapPeriod)) {
       final Set<Vec> occupied = blizzards.map((b) => b.pos).toSet();
       for (final b in blizzards) {
-        b.pos = Vec.int((b.pos.xInt + b.dir.xInt) % width,
+        b.pos = Vec((b.pos.xInt + b.dir.xInt) % width,
             (b.pos.yInt + b.dir.yInt) % height);
       }
       _clearPositions.add(allSpaces.difference(occupied));

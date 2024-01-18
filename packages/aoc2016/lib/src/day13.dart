@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // https://adventofcode.com/2016/day/13
 
 import 'package:aoc/aoc.dart';
@@ -67,4 +68,14 @@ class Maze extends SparseGrid<int> {
   }
 
   bool isSpace(Vec pos) => cell(pos) == 0;
+
+  @override
+  bool operator ==(covariant Maze other) {
+    if (identical(this, other)) return true;
+
+    return other.designerNumber == designerNumber;
+  }
+
+  @override
+  int get hashCode => designerNumber.hashCode;
 }

@@ -14,7 +14,7 @@ class Grid<T> {
     for (int row = 0; row < grid.height; row++) {
       for (int col = 0; col < grid.width; col++) {
         final rowLine = values[row];
-        grid.setCell(Vec.int(col, row), rowLine[col]);
+        grid.setCell(Vec(col, row), rowLine[col]);
       }
     }
     return grid;
@@ -62,7 +62,7 @@ class Grid<T> {
   Iterable<Vec> locations() sync* {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        yield Vec.int(x, y);
+        yield Vec(x, y);
       }
     }
   }
@@ -119,14 +119,14 @@ class Grid<T> {
 
   Iterable<(Vec, T)> column(int col) sync* {
     for (int r = 0; r < height; r++) {
-      final pos = Vec.int(col, r);
+      final pos = Vec(col, r);
       yield (pos, cell(pos));
     }
   }
 
   Iterable<(Vec, T)> row(int row) sync* {
     for (int c = 0; c < width; c++) {
-      final pos = Vec.int(c, row);
+      final pos = Vec(c, row);
       yield (pos, cell(pos));
     }
   }

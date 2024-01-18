@@ -39,10 +39,10 @@ class Day13 extends AdventDay {
         } else {
           switch (command[2]) {
             case ball:
-              ballPos = Vec.int(command[0], command[1]);
+              ballPos = Vec(command[0], command[1]);
               break;
             case paddle:
-              paddlePos = Vec.int(command[0], command[1]);
+              paddlePos = Vec(command[0], command[1]);
               break;
           }
         }

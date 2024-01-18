@@ -37,7 +37,7 @@ class Field {
       for (int x = 0; x < gridData.first.length; x++) {
         final cell = gridData[y][x];
         if (cell == '#') {
-          _elves.add(Vec.int(x, y));
+          _elves.add(Vec(x, y));
         }
       }
     }

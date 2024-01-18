@@ -49,7 +49,7 @@ class Day10 extends AdventDay {
 
   Iterable<Vec> asteroidsDetectedFrom(Vec p, Iterable<Vec> asteroids) {
     // Convert angle to clockwise with 0 pointing up
-    double convertAngle(double a) => (a + 5 * pi / 2) % twoPi;
+    num convertAngle(num a) => (a + 5 * pi / 2) % twoPi;
 
     return Map.fromEntries(asteroids
             .whereNot((a) => a == p)

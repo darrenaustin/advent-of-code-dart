@@ -63,8 +63,8 @@ class Day04 extends AdventDay {
 
   final List<List<Vec>> winningGroups = [
     // Diagonals don't count, so just lines for rows and columns.
-    ...List.generate(5, (r) => List.generate(5, (c) => Vec.int(c, r))),
-    ...List.generate(5, (c) => List.generate(5, (r) => Vec.int(c, r))),
+    ...List.generate(5, (r) => List.generate(5, (c) => Vec(c, r))),
+    ...List.generate(5, (c) => List.generate(5, (r) => Vec(c, r))),
   ];
 
   void removeNumber(Grid<int?> board, int number) =>

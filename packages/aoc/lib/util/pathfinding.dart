@@ -4,14 +4,14 @@ Iterable<L>? aStarPath<L>({
   required L start,
   L? goal,
   bool Function(L)? isGoal,
-  required double Function(L) estimatedDistance,
-  required double Function(L, L) costTo,
+  required num Function(L) estimatedDistance,
+  required num Function(L, L) costTo,
   required Iterable<L> Function(L) neighborsOf,
 }) {
   assert(goal != null || isGoal != null);
   final cameFrom = <L, L>{};
-  final gScore = <L, double>{start: 0};
-  final fScore = <L, double>{start: estimatedDistance(start)};
+  final gScore = <L, num>{start: 0};
+  final fScore = <L, num>{start: estimatedDistance(start)};
   int compareByScore(L a, L b) =>
       (fScore[a] ?? double.infinity).compareTo(fScore[b] ?? double.infinity);
   final openHeap = PriorityQueue<L>(compareByScore)..add(start);
@@ -46,18 +46,18 @@ Iterable<L>? aStarPath<L>({
   return null;
 }
 
-double? aStarLowestCost<L>({
+num? aStarLowestCost<L>({
   required L start,
   L? goal,
   bool Function(L)? isGoal,
-  required double Function(L) estimatedDistance,
-  required double Function(L, L) costTo,
+  required num Function(L) estimatedDistance,
+  required num Function(L, L) costTo,
   required Iterable<L> Function(L) neighborsOf,
 }) {
   assert(goal != null || isGoal != null);
   final cameFrom = <L, L>{};
-  final gScore = <L, double>{start: 0};
-  final fScore = <L, double>{start: estimatedDistance(start)};
+  final gScore = <L, num>{start: 0};
+  final fScore = <L, num>{start: estimatedDistance(start)};
   int compareByScore(L a, L b) =>
       (fScore[a] ?? double.infinity).compareTo(fScore[b] ?? double.infinity);
   final openHeap = PriorityQueue<L>(compareByScore)..add(start);
@@ -91,10 +91,10 @@ Iterable<L>? dijkstraPath<L>({
   required L start,
   L? goal,
   bool Function(L)? isGoal,
-  required double Function(L, L) costTo,
+  required num Function(L, L) costTo,
   required Iterable<L> Function(L) neighborsOf,
 }) {
-  final dist = <L, double>{start: 0};
+  final dist = <L, num>{start: 0};
   final prev = <L, L>{};
   int compareByDist(L a, L b) =>
       (dist[a] ?? double.infinity).compareTo(dist[b] ?? double.infinity);
@@ -124,14 +124,14 @@ Iterable<L>? dijkstraPath<L>({
   return null;
 }
 
-double? dijkstraLowestCost<L>({
+num? dijkstraLowestCost<L>({
   required L start,
   L? goal,
   bool Function(L)? isGoal,
-  required double Function(L, L) costTo,
+  required num Function(L, L) costTo,
   required Iterable<L> Function(L) neighborsOf,
 }) {
-  final dist = <L, double>{start: 0};
+  final dist = <L, num>{start: 0};
   int compareByDist(L a, L b) =>
       (dist[a] ?? double.infinity).compareTo(dist[b] ?? double.infinity);
   final queue = PriorityQueue<L>(compareByDist)..add(start);

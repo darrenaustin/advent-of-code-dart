@@ -27,7 +27,7 @@ class Day20 extends AdventDay {
     return Grid.from(pixels, 0);
   }
 
-  static final _areaOffsets = Vec.cardinalDirs.map((o) => o + Vec.int(-2, -2));
+  static final _areaOffsets = Vec.cardinalDirs.map((o) => o + Vec(-2, -2));
 
   int _litAfterEnhancement(String input, int numEnhancements) {
     final inputLines = input.lines;
@@ -49,7 +49,7 @@ class Day20 extends AdventDay {
       final newGrid = Grid<int>(grid.width + 4, grid.height + 4, 0);
       for (int y = 0; y < newGrid.height; y++) {
         for (int x = 0; x < newGrid.width; x++) {
-          final center = Vec.int(x, y);
+          final center = Vec(x, y);
           final areaValues = _areaOffsets.map((o) {
             final l = o + center;
             return grid.validCell(l) ? grid.cell(l) : outerValue;

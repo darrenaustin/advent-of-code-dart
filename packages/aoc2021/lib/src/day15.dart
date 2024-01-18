@@ -23,9 +23,9 @@ class Day15 extends AdventDay {
           .toList(),
       0);
 
-  double? _lowestRisk(Grid<int> grid) {
+  num? _lowestRisk(Grid<int> grid) {
     final start = Vec.zero;
-    final goal = Vec.int(grid.width - 1, grid.height - 1);
+    final goal = Vec(grid.width - 1, grid.height - 1);
     return aStarLowestCost<Vec>(
       start: start,
       goal: goal,
@@ -40,10 +40,10 @@ class Day15 extends AdventDay {
     for (int gridX = 0; gridX < 5; gridX++) {
       for (int gridY = 0; gridY < 5; gridY++) {
         final riskIncrease = gridX + gridY;
-        final gridOrigin = Vec.int(gridX * source.width, gridY * source.height);
+        final gridOrigin = Vec(gridX * source.width, gridY * source.height);
         for (int x = 0; x < source.width; x++) {
           for (int y = 0; y < source.height; y++) {
-            final cellLoc = Vec.int(x, y);
+            final cellLoc = Vec(x, y);
             final risk = (source.cell(cellLoc) + riskIncrease - 1) % 9 + 1;
             grid.setCell(gridOrigin + cellLoc, risk);
           }

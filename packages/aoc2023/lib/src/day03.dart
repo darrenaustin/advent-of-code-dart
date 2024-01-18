@@ -56,15 +56,15 @@ class Day03 extends AdventDay {
     return Grid.from(data, '.');
   }
 
-  Vec gridPosFrom(Grid grid, int stringStartIndex) => Vec.int(
+  Vec gridPosFrom(Grid grid, int stringStartIndex) => Vec(
       stringStartIndex % (grid.width + 1),
       stringStartIndex ~/ (grid.height + 1));
 
   PartNumber partNumber(Grid grid, RegExpMatch match) {
     final numDigits = match.end - match.start;
-    final Vec start = Vec.int(
-        match.start % (grid.width + 1), match.start ~/ (grid.height + 1));
-    final Vec end = start + Vec.int(numDigits - 1, 0);
+    final Vec start =
+        Vec(match.start % (grid.width + 1), match.start ~/ (grid.height + 1));
+    final Vec end = start + Vec(numDigits - 1, 0);
     return PartNumber(match.group(0)!, start, end);
   }
 
@@ -90,11 +90,11 @@ class PartNumber {
     final numDigits = text.length;
     return [
       start + Vec.upLeft,
-      for (int x = 0; x <= numDigits; x++) start + Vec.int(x, -1),
+      for (int x = 0; x <= numDigits; x++) start + Vec(x, -1),
       start + Vec.left,
       start + Vec.right * numDigits,
       start + Vec.downLeft,
-      for (int x = 0; x <= numDigits; x++) start + Vec.int(x, 1),
+      for (int x = 0; x <= numDigits; x++) start + Vec(x, 1),
     ];
   }
 

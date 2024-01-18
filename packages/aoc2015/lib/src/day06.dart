@@ -64,8 +64,8 @@ class Day06 extends AdventDay {
             : CommandType.turnOff;
     return Command(
       type,
-      Vec.int(int.parse(match.group(2)!), int.parse(match.group(3)!)),
-      Vec.int(int.parse(match.group(4)!), int.parse(match.group(5)!)),
+      Vec(int.parse(match.group(2)!), int.parse(match.group(3)!)),
+      Vec(int.parse(match.group(4)!), int.parse(match.group(5)!)),
     );
   }
 }

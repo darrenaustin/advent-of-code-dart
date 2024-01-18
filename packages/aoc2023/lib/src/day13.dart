@@ -63,7 +63,7 @@ class Day13 extends AdventDay {
           continue;
         }
         for (int y = 0; y < grid.height; y++) {
-          if (grid.cell(Vec.int(tx, y)) != grid.cell(Vec.int(mirrorX, y))) {
+          if (grid.cell(Vec(tx, y)) != grid.cell(Vec(mirrorX, y))) {
             return false;
           }
         }
@@ -90,7 +90,7 @@ class Day13 extends AdventDay {
           continue;
         }
         for (int x = 0; x < grid.width; x++) {
-          if (grid.cell(Vec.int(x, ty)) != grid.cell(Vec.int(x, mirrorY))) {
+          if (grid.cell(Vec(x, ty)) != grid.cell(Vec(x, mirrorY))) {
             return false;
           }
         }

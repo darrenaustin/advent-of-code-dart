@@ -18,14 +18,12 @@ class Day08 extends AdventDay {
 
     final Set<Vec> visible = {};
     for (int col = 0; col < grid.width; col++) {
-      visible.addAll(seenInDirection(grid, Vec.int(col, 0), Vec.down));
-      visible
-          .addAll(seenInDirection(grid, Vec.int(col, grid.height - 1), Vec.up));
+      visible.addAll(seenInDirection(grid, Vec(col, 0), Vec.down));
+      visible.addAll(seenInDirection(grid, Vec(col, grid.height - 1), Vec.up));
     }
     for (int row = 0; row < grid.height; row++) {
-      visible.addAll(seenInDirection(grid, Vec.int(0, row), Vec.right));
-      visible.addAll(
-          seenInDirection(grid, Vec.int(grid.width - 1, row), Vec.left));
+      visible.addAll(seenInDirection(grid, Vec(0, row), Vec.right));
+      visible.addAll(seenInDirection(grid, Vec(grid.width - 1, row), Vec.left));
     }
     return visible.length;
   }

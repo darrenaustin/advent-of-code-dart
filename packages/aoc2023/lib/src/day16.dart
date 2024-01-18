@@ -20,21 +20,21 @@ class Day16 extends AdventDay {
     final grid = Grid.fromString(input);
     return <(Vec, Dir)>[
       for (int x = 1; x < grid.width - 1; x++) ...[
-        (Vec.int(x, 0), Dir.down),
-        (Vec.int(x, grid.height - 1), Dir.up)
+        (Vec(x, 0), Dir.down),
+        (Vec(x, grid.height - 1), Dir.up)
       ],
       for (int y = 1; y < grid.height - 1; y++) ...[
-        (Vec.int(0, y), Dir.right),
-        (Vec.int(grid.width - 1, y), Dir.left)
+        (Vec(0, y), Dir.right),
+        (Vec(grid.width - 1, y), Dir.left)
       ],
       (Vec.zero, Dir.down),
       (Vec.zero, Dir.right),
-      (Vec.int(grid.width - 1, 0), Dir.down),
-      (Vec.int(grid.width - 1, 0), Dir.left),
-      (Vec.int(0, grid.height - 1), Dir.up),
-      (Vec.int(0, grid.height - 1), Dir.left),
-      (Vec.int(grid.width - 1, grid.height - 1), Dir.up),
-      (Vec.int(grid.width - 1, grid.height - 1), Dir.right),
+      (Vec(grid.width - 1, 0), Dir.down),
+      (Vec(grid.width - 1, 0), Dir.left),
+      (Vec(0, grid.height - 1), Dir.up),
+      (Vec(0, grid.height - 1), Dir.left),
+      (Vec(grid.width - 1, grid.height - 1), Dir.up),
+      (Vec(grid.width - 1, grid.height - 1), Dir.right),
     ].map((s) => energizedBy(grid, s.$1, s.$2)).max;
   }
 

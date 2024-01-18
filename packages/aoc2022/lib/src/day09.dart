@@ -52,7 +52,7 @@ class Rope {
         if (!Vec.cardinalDirs.any((l) => (leader + l) == _knot[k])) {
           // Not in any of the surrounding spaces of the leader, so
           // move the knot in the direction of the leader.
-          _knot[k] += Vec.int(
+          _knot[k] += Vec(
               leader.x.compareTo(_knot[k].x), leader.y.compareTo(_knot[k].y));
         }
       }

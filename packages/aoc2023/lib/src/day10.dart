@@ -106,7 +106,7 @@ class Day10 extends AdventDay {
     for (int y = 0; y < grid.height; y++) {
       var crossings = 0;
       for (int x = 0; x < grid.width; x++) {
-        final loc = Vec.int(x, y);
+        final loc = Vec(x, y);
         switch (grid.cell(loc)) {
           case '.':
             if (crossings % 2 == 1) {

@@ -56,7 +56,7 @@ class Day17 extends AdventDay {
     for (int row = 0; row < height; row++) {
       final line = lines[row];
       for (int col = 0; col < width; col++) {
-        grid.setCell(Vec.int(col, row), line[col]);
+        grid.setCell(Vec(col, row), line[col]);
       }
     }
     return grid;
@@ -91,7 +91,7 @@ class Tower {
           i += numCycles * cycleLength;
           cycleAddedHeight = numCycles * cycleHeight;
         } else {
-          _cache[state] = Vec.int(i, rockHeight);
+          _cache[state] = Vec(i, rockHeight);
         }
       }
       dropShape();
@@ -135,7 +135,7 @@ class Tower {
     }
     for (int row = 0; row < shape.height; row++) {
       for (int col = 0; col < shape.width; col++) {
-        final shapePos = Vec.int(col, row);
+        final shapePos = Vec(col, row);
         final pixel = shape.cell(shapePos);
         if (pixel != '.') {
           if (_grid.cell(pos + shapePos) != '.') {
@@ -150,7 +150,7 @@ class Tower {
   void drawShape(Grid<String> shape, Vec pos) {
     for (int row = 0; row < shape.height; row++) {
       for (int col = 0; col < shape.width; col++) {
-        final shapePos = Vec.int(col, row);
+        final shapePos = Vec(col, row);
         final pixel = shape.cell(shapePos);
         if (pixel != '.') {
           Vec gridPos = pos + shapePos;

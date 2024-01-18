@@ -65,7 +65,7 @@ class Day22 extends AdventDay {
         loc.y <= height &&
         !invalidLocations.contains(loc);
 
-    final start = GoalData(Vec.int(width, 0), empty);
+    final start = GoalData(Vec(width, 0), empty);
     return aStarLowestCost<GoalData>(
       start: start,
       isGoal: (g) => g.goal == Vec.zero,

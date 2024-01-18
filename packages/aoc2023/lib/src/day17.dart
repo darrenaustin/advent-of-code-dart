@@ -20,7 +20,7 @@ class Day17 extends AdventDay {
         input.lines.map((l) => l.chars.map(int.parse).toList()).toList();
     final grid = Grid<int>.from(data, 0);
     final start = HeatPathNode(0, Vec.zero, Dir.right, 0);
-    var goal = Vec.int(grid.width - 1, grid.height - 1);
+    var goal = Vec(grid.width - 1, grid.height - 1);
 
     final dist = <PathNode, int>{start.node: 0};
     final queue = PriorityQueue<HeatPathNode>()..add(start);
@@ -58,7 +58,7 @@ class Day17 extends AdventDay {
         input.lines.map((l) => l.chars.map(int.parse).toList()).toList();
     final grid = Grid<int>.from(data, 0);
     final start = HeatPathNode(0, Vec.zero, Dir.right, 0);
-    var goal = Vec.int(grid.width - 1, grid.height - 1);
+    var goal = Vec(grid.width - 1, grid.height - 1);
 
     final dist = <PathNode, int>{start.node: 0};
     final queue = PriorityQueue<HeatPathNode>()..add(start);

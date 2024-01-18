@@ -47,7 +47,7 @@ class SparseGrid<T> {
   String toString() {
     return rangeinc(_min.yInt, _max.yInt)
         .map((int y) => rangeinc(_min.xInt, _max.xInt).map((int x) {
-              final Vec p = Vec.int(x, y);
+              final Vec p = Vec(x, y);
               return (isSet(p) ? cell(p).toString() : '')
                   .padLeft(cellPrintWidth);
             }).join(''))
