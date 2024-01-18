@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec.dart';
+import 'package:aoc/util/vec2.dart';
 import 'package:collection/collection.dart';
 
 main() => Day03().solve();
@@ -81,7 +81,7 @@ class Day03 extends AdventDay {
 // https://adventofcode.com/2019/day/3
 //
 // import 'package:aoc/aoc.dart';
-// import 'package:aoc/util/vec.dart';
+// import 'package:aoc/util/vec2.dart';
 // import 'package:collection/collection.dart';
 //
 // class Day03 extends AdventDay {

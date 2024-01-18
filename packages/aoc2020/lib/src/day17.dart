@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec.dart';
+import 'package:aoc/util/vec4.dart';
 
 main() => Day17().solve();
 

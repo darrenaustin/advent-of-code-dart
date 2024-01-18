@@ -3,7 +3,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec.dart';
+import 'package:aoc/util/vec3.dart';
 import 'package:collection/collection.dart';
 
 main() => Day22().solve();

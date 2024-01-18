@@ -1,4 +1,4 @@
-import 'package:aoc/src/util/linear.dart';
+import 'package:aoc/util/linear.dart';
 import 'package:test/test.dart';
 
 main() {

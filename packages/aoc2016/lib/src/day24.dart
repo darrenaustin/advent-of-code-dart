@@ -5,7 +5,7 @@ import 'package:aoc/util/combinatorics.dart';
 import 'package:aoc/util/grid2.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
-import 'package:aoc/util/vec.dart';
+import 'package:aoc/util/vec2.dart';
 import 'package:collection/collection.dart';
 
 main() => Day24().solve();

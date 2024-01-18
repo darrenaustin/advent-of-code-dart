@@ -1,5 +1,5 @@
-import 'package:aoc/src/util/string.dart';
 import 'package:aoc/util/combinatorics.dart';
+import 'package:aoc/util/string.dart';
 import 'package:test/test.dart';
 
 main() {

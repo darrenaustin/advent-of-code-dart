@@ -1,4 +1,4 @@
-import 'package:aoc/util/vec.dart';
+import 'package:aoc/util/vec2.dart';
 import 'package:aoc2016/src/day13.dart';
 import 'package:test/test.dart';
 

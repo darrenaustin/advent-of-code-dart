@@ -5,7 +5,7 @@ import 'dart:math';
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/pathfinding.dart';
-import 'package:aoc/util/vec.dart';
+import 'package:aoc/util/vec2.dart';
 import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 

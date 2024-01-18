@@ -1,7 +1,7 @@
 // https://adventofcode.com/2016/day/1
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/vec.dart';
+import 'package:aoc/util/vec2.dart';
 
 main() => Day01().solve();
 
