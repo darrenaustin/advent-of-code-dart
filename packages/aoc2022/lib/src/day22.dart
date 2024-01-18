@@ -1,7 +1,7 @@
 // https://adventofcode.com/2022/day/22
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
@@ -26,10 +26,10 @@ class Day22 extends AdventDay {
       int steps = p.steps;
       while (steps > 0) {
         Vec newPos = wrapped(grid, pos + facing);
-        while (grid.cell(newPos) == ' ') {
+        while (grid.value(newPos) == ' ') {
           newPos = wrapped(grid, newPos + facing);
         }
-        if (grid.cell(newPos) == '#') {
+        if (grid.value(newPos) == '#') {
           break;
         }
         pos = newPos;
@@ -160,7 +160,7 @@ class Day22 extends AdventDay {
           edge.face, mapPos(nextPos, start.facing, edge.facing), edge.facing);
     }
 
-    String cellAt(CubePos pos) => grid.cell(faceOffset[pos.face]! + pos.pos);
+    String cellAt(CubePos pos) => grid.value(faceOffset[pos.face]! + pos.pos);
 
     CubePos pos = CubePos(Face.down, Vec.zero, Vec.right);
     for (final p in path) {
@@ -189,8 +189,8 @@ class Day22 extends AdventDay {
     final face = Grid<String>(size, size, ' ');
     for (int row = 0; row < size; row++) {
       for (int col = 0; col < size; col++) {
-        face.setCell(
-            Vec(col, row), grid.cell(Vec(col + start.xInt, row + start.yInt)));
+        face.setValue(
+            Vec(col, row), grid.value(Vec(col + start.xInt, row + start.yInt)));
       }
     }
     return face;
@@ -206,7 +206,7 @@ class Day22 extends AdventDay {
       final row = gridData[y];
       for (int x = 0; x < grid.width; x++) {
         if (x < row.length) {
-          grid.setCell(Vec(x, y), gridData[y][x]);
+          grid.setValue(Vec(x, y), gridData[y][x]);
         }
       }
     }
@@ -238,10 +238,10 @@ class Day22 extends AdventDay {
   Vec move(Grid<String> grid, Vec pos, Vec dir, int steps) {
     while (steps > 0) {
       Vec newPos = wrapped(grid, pos + dir);
-      while (grid.cell(newPos) == ' ') {
+      while (grid.value(newPos) == ' ') {
         newPos = wrapped(grid, newPos + dir);
       }
-      if (grid.cell(newPos) == '#') {
+      if (grid.value(newPos) == '#') {
         return pos;
       }
       pos = newPos;

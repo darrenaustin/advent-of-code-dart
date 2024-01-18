@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
@@ -13,11 +13,11 @@ class Day16 extends AdventDay {
 
   @override
   dynamic part1(String input) =>
-      energizedBy(Grid.fromString(input), Vec.zero, Dir.right);
+      energizedBy(Grid.parse(input), Vec.zero, Dir.right);
 
   @override
   dynamic part2(String input) {
-    final grid = Grid.fromString(input);
+    final grid = Grid.parse(input);
     return <(Vec, Dir)>[
       for (int x = 1; x < grid.width - 1; x++) ...[
         (Vec(x, 0), Dir.down),
@@ -49,9 +49,9 @@ class Day16 extends AdventDay {
       }
 
       final (pos, dir) = beam;
-      if (grid.validCell(pos)) {
+      if (grid.validLocation(pos)) {
         energized.add(pos);
-        final newDirs = switch (grid.cell(pos)) {
+        final newDirs = switch (grid.value(pos)) {
           '.' => [dir],
           '/' => switch (dir) {
               Dir.left => [Dir.down],
@@ -77,7 +77,7 @@ class Day16 extends AdventDay {
               Dir.left => [Dir.up, Dir.down],
               Dir.right => [Dir.up, Dir.down],
             },
-          _ => throw Exception('Unknown tile: \'${grid.cell(pos)}\' at $pos')
+          _ => throw Exception('Unknown tile: \'${grid.value(pos)}\' at $pos')
         };
         for (final d in newDirs) {
           beams.add((pos + d.vec, d));

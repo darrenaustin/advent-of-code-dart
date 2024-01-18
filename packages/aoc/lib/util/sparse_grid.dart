@@ -6,13 +6,15 @@ import 'vec.dart';
 class SparseGrid<T> {
   SparseGrid({
     required this.defaultValue,
-    this.cellPrintWidth = 2,
+    this.cellPrintWidth = 1,
+    this.cellSeparator = ' ',
   })  : _cells = <Vec, T>{},
         _min = Vec.zero,
         _max = Vec.zero;
 
   final T defaultValue;
   final int cellPrintWidth;
+  final String cellSeparator;
 
   final Map<Vec, T> _cells;
 

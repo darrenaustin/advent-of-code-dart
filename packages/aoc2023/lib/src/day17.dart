@@ -3,7 +3,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/math.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
@@ -37,10 +37,10 @@ class Day17 extends AdventDay {
       ];
       for (final d in dirs) {
         final newPos = current.node.pos + d.vec;
-        if (grid.validCell(newPos)) {
+        if (grid.validLocation(newPos)) {
           final steps = (current.node.dir == d) ? current.node.steps + 1 : 1;
           neighbors.add(HeatPathNode(
-              current.heatLoss + grid.cell(newPos), newPos, d, steps));
+              current.heatLoss + grid.value(newPos), newPos, d, steps));
         }
       }
       for (final neighbor in neighbors) {
@@ -71,18 +71,18 @@ class Day17 extends AdventDay {
       final neighbors = <HeatPathNode>[];
       if (current.node.steps < 10) {
         final newPos = current.node.pos + current.node.dir.vec;
-        if (grid.validCell(newPos)) {
-          neighbors.add(HeatPathNode(current.heatLoss + grid.cell(newPos),
+        if (grid.validLocation(newPos)) {
+          neighbors.add(HeatPathNode(current.heatLoss + grid.value(newPos),
               newPos, current.node.dir, current.node.steps + 1));
         }
       }
       for (final d in current.node.dir.rightTurns()) {
         final newPos = current.node.pos + (d.vec * 4);
-        if (grid.validCell(newPos)) {
+        if (grid.validLocation(newPos)) {
           var cost = 0;
           var step = newPos;
           while (step != current.node.pos) {
-            cost += grid.cell(step);
+            cost += grid.value(step);
             step -= d.vec;
           }
           neighbors.add(HeatPathNode(current.heatLoss + cost, newPos, d, 4));

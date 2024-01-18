@@ -1,7 +1,7 @@
 // https://adventofcode.com/2022/day/24
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/math.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
@@ -56,12 +56,12 @@ class Valley {
 
     entrance = range(grid.width)
             .map((x) => Vec(x, 0))
-            .where((p) => grid.cell(p) == '.')
+            .where((p) => grid.value(p) == '.')
             .first +
         Vec.upLeft;
     exit = range(grid.width)
             .map((x) => Vec(x, grid.height - 1))
-            .where((p) => grid.cell(p) == '.')
+            .where((p) => grid.value(p) == '.')
             .first +
         Vec.upLeft;
 
@@ -73,7 +73,7 @@ class Valley {
         final gridPos = Vec(x, y);
         final pos = gridPos + Vec.upLeft;
         allSpaces.add(pos);
-        final cell = grid.cell(gridPos);
+        final cell = grid.value(gridPos);
         final dir = switch (cell) {
           '>' => Vec.right,
           '<' => Vec.left,

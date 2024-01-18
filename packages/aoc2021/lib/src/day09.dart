@@ -3,7 +3,7 @@
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
 import 'package:aoc/util/comparison.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
@@ -18,7 +18,7 @@ class Day09 extends AdventDay {
     final grid = parseGrid(input);
     return grid
         .locations()
-        .map((p) => lowPoint(grid, p) ? grid.cell(p) + 1 : 0)
+        .map((p) => lowPoint(grid, p) ? grid.value(p) + 1 : 0)
         .sum;
   }
 
@@ -35,8 +35,8 @@ class Day09 extends AdventDay {
   }
 
   bool lowPoint(Grid<int> grid, Vec p) {
-    final n = grid.cell(p);
-    return grid.neighbors(p, Vec.orthogonalDirs).every((e) => n < e);
+    final n = grid.value(p);
+    return grid.neighborValues(p, Vec.orthogonalDirs).every((e) => n < e);
   }
 
   int basinSizeFor(Grid<int> grid, Vec p) {
@@ -47,8 +47,8 @@ class Day09 extends AdventDay {
       locs.add(edge);
       edges.addAll(Vec.orthogonalDirs.map((offset) => edge + offset).where(
           (newEdge) =>
-              grid.validCell(newEdge) &&
-              grid.cell(newEdge) != 9 &&
+              grid.validLocation(newEdge) &&
+              grid.value(newEdge) != 9 &&
               !locs.contains(newEdge)));
     }
     return locs.length;

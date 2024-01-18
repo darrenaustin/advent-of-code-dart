@@ -1,7 +1,7 @@
 // https://adventofcode.com/2021/day/11
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
@@ -22,7 +22,7 @@ class Day11 extends AdventDay {
   dynamic part2(String input) {
     final grid = parseGrid(input);
     int step = 0;
-    while (!grid.cells().every((e) => e == 0)) {
+    while (!grid.values().every((e) => e == 0)) {
       stepGrid(grid);
       step++;
     }
@@ -30,16 +30,16 @@ class Day11 extends AdventDay {
   }
 
   int stepGrid(Grid<int> grid) {
-    grid.updateCells((e) => e + 1);
+    grid.updateValues((e) => e + 1);
     final flashes = <Vec>{};
-    final needFlashes = grid.locationsWhere((v) => v > 9).toList();
+    final needFlashes = grid.locationsWhereValue((v) => v > 9).toList();
     while (needFlashes.isNotEmpty) {
       final flash = needFlashes.removeLast();
       if (!flashes.contains(flash)) {
         flashes.add(flash);
-        for (final neighbor in grid.neighborLocations(flash)) {
-          final updatedEnergy = grid.cell(neighbor) + 1;
-          grid.setCell(neighbor, updatedEnergy);
+        for (final (neighbor, energy) in grid.neighborCells(flash)) {
+          final updatedEnergy = energy + 1;
+          grid.setValue(neighbor, updatedEnergy);
           if (updatedEnergy > 9 && !flashes.contains(neighbor)) {
             needFlashes.add(neighbor);
           }
@@ -47,7 +47,7 @@ class Day11 extends AdventDay {
       }
     }
     for (final flash in flashes) {
-      grid.setCell(flash, 0);
+      grid.setValue(flash, 0);
     }
     return flashes.length;
   }

@@ -1,7 +1,7 @@
 // https://adventofcode.com/2023/day/13
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
@@ -18,7 +18,7 @@ class Day13 extends AdventDay {
       parseGrids(input).map((g) => findSmudgeMirrorValue(g)).sum;
 
   List<Grid<String>> parseGrids(String input) =>
-      input.split('\n\n').map(Grid.fromString).toList();
+      input.split('\n\n').map(Grid.parse).toList();
 
   int findMirrorValue(Grid<String> grid) {
     final vMirror = findVertMirrorCol(grid);
@@ -35,9 +35,8 @@ class Day13 extends AdventDay {
   int findSmudgeMirrorValue(Grid<String> grid) {
     final vertMirror = findVertMirrorCol(grid);
     final horizMirror = findHorizMirrorRow(grid);
-    for (final l in grid.locations()) {
-      final origValue = grid.cell(l);
-      grid.setCell(l, origValue == '.' ? '#' : '.');
+    for (final (loc, value) in grid.cells()) {
+      grid.setValue(loc, value == '.' ? '#' : '.');
       final vMirror = findVertMirrorCol(grid, vertMirror);
       if (vMirror != null) {
         return vMirror;
@@ -46,7 +45,7 @@ class Day13 extends AdventDay {
       if (hMirror != null) {
         return 100 * hMirror;
       }
-      grid.setCell(l, origValue);
+      grid.setValue(loc, value);
     }
     throw Exception(
         'No smudged mirror found:\n$grid\n v = $vertMirror, h = $horizMirror');
@@ -63,7 +62,7 @@ class Day13 extends AdventDay {
           continue;
         }
         for (int y = 0; y < grid.height; y++) {
-          if (grid.cell(Vec(tx, y)) != grid.cell(Vec(mirrorX, y))) {
+          if (grid.value(Vec(tx, y)) != grid.value(Vec(mirrorX, y))) {
             return false;
           }
         }
@@ -90,7 +89,7 @@ class Day13 extends AdventDay {
           continue;
         }
         for (int x = 0; x < grid.width; x++) {
-          if (grid.cell(Vec(x, ty)) != grid.cell(Vec(x, mirrorY))) {
+          if (grid.value(Vec(x, ty)) != grid.value(Vec(x, mirrorY))) {
             return false;
           }
         }

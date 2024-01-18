@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 
@@ -20,11 +20,11 @@ class Day03 extends AdventDay {
       for (int x = 0; x < rect.width; x++) {
         for (int y = 0; y < rect.height; y++) {
           final pos = Vec(rect.x + x, rect.y + y);
-          fabric.setCell(pos, fabric.cell(pos) + 1);
+          fabric.setValue(pos, fabric.value(pos) + 1);
         }
       }
     }
-    return fabric.cellsWhere((c) => c > 1).length;
+    return fabric.values().where((c) => c > 1).length;
   }
 
   @override

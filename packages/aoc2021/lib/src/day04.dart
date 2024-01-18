@@ -1,7 +1,7 @@
 // https://adventofcode.com/2021/day/4
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
@@ -68,11 +68,11 @@ class Day04 extends AdventDay {
   ];
 
   void removeNumber(Grid<int?> board, int number) =>
-      board.updateCellsWhere((n) => n == number, (_) => null);
+      board.updateValuesWhere((n) => n == number, (_) => null);
 
   bool winning(Grid<int?> board) =>
-      winningGroups.any((g) => g.every((p) => board.cell(p) == null));
+      winningGroups.any((g) => g.every((p) => board.value(p) == null));
 
   int score(Grid<int?> board, int winningNumber) =>
-      board.cells().whereNotNull().sum * winningNumber;
+      board.values().whereNotNull().sum * winningNumber;
 }

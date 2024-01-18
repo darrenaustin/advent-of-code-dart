@@ -1,7 +1,7 @@
 // https://adventofcode.com/2020/day/11
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
@@ -33,7 +33,7 @@ class Day11 extends AdventDay {
       equilibrium = seats == nextSeats;
       seats = nextSeats;
     }
-    return seats.cellsWhere(isSeatOccupied).length;
+    return seats.values().where(isSeatOccupied).length;
   }
 
   bool isSeatOccupied(String cell) => cell == '#';
@@ -42,18 +42,18 @@ class Day11 extends AdventDay {
   Grid<String> adjacentSeatRules(Grid<String> seats) {
     final nextSeats = seats.copy();
     for (final loc in seats.locations()) {
-      switch (seats.cell(loc)) {
+      switch (seats.value(loc)) {
         case 'L':
           // If there are no adjacent occupied seats, it becomes occupied
-          if (seats.neighbors(loc).none(isSeatOccupied)) {
-            nextSeats.setCell(loc, '#');
+          if (seats.neighborValues(loc).none(isSeatOccupied)) {
+            nextSeats.setValue(loc, '#');
           }
           break;
 
         case '#':
           // If there are at least 4 occupied adjacent seats, it becomes empty
-          if (seats.neighbors(loc).where(isSeatOccupied).length >= 4) {
-            nextSeats.setCell(loc, 'L');
+          if (seats.neighborValues(loc).where(isSeatOccupied).length >= 4) {
+            nextSeats.setValue(loc, 'L');
           }
           break;
       }
@@ -64,12 +64,12 @@ class Day11 extends AdventDay {
   Grid<String> visiblyAdjacentSeatRules(Grid<String> seats) {
     final nextSeats = seats.copy();
     for (final loc in seats.locations()) {
-      switch (seats.cell(loc)) {
+      switch (seats.value(loc)) {
         case 'L':
           // If there are no visibly adjacent occupied seats, it becomes occupied
           // if (seats.visiblyAdjacent(x, y, isSpace).none(isSeatOccupied)) {
           if (visiblyAdjacent(seats, loc, isSpace).none(isSeatOccupied)) {
-            nextSeats.setCell(loc, '#');
+            nextSeats.setValue(loc, '#');
           }
           break;
 
@@ -80,7 +80,7 @@ class Day11 extends AdventDay {
                   .where(isSeatOccupied)
                   .length >=
               5) {
-            nextSeats.setCell(loc, 'L');
+            nextSeats.setValue(loc, 'L');
           }
           break;
       }
@@ -92,10 +92,11 @@ class Day11 extends AdventDay {
       Grid<String> seats, Vec location, bool Function(String) invisibleTest) {
     String? firstVisibleInDirection(Vec directionOffset) {
       Vec closest = location + directionOffset;
-      while (seats.validCell(closest) && invisibleTest(seats.cell(closest))) {
+      while (
+          seats.validLocation(closest) && invisibleTest(seats.value(closest))) {
         closest += directionOffset;
       }
-      return seats.validCell(closest) ? seats.cell(closest) : null;
+      return seats.validLocation(closest) ? seats.value(closest) : null;
     }
 
     return Vec.aroundDirs.map((p) => firstVisibleInDirection(p)).whereNotNull();

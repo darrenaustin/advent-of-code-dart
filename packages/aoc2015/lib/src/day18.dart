@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 
@@ -15,14 +15,16 @@ class Day18 extends AdventDay {
   dynamic part1(String input, [int steps = 100]) =>
       iterate(animate, lightGrid(input))
           .elementAt(steps)
-          .cellsWhere(lightOn)
+          .values()
+          .where(lightOn)
           .length;
 
   @override
   dynamic part2(String input, [int steps = 100]) =>
       iterate(cornersOnAnimate, turnCornersOn(lightGrid(input)))
           .elementAt(steps)
-          .cellsWhere(lightOn)
+          .values()
+          .where(lightOn)
           .length;
 
   static Grid<String> lightGrid(String input) =>
@@ -33,12 +35,12 @@ class Day18 extends AdventDay {
   static Grid<String> animate(Grid<String> lights) {
     final nextLights = Grid.emptyFrom(lights);
     for (final loc in lights.locations()) {
-      final bool on = lightOn(lights.cell(loc));
-      final int neighborsOn = lights.neighbors(loc).where(lightOn).length;
+      final bool on = lightOn(lights.value(loc));
+      final int neighborsOn = lights.neighborValues(loc).where(lightOn).length;
       if (on && (neighborsOn == 2 || neighborsOn == 3)) {
-        nextLights.setCell(loc, '#');
+        nextLights.setValue(loc, '#');
       } else if (!on && neighborsOn == 3) {
-        nextLights.setCell(loc, '#');
+        nextLights.setValue(loc, '#');
       }
     }
     return nextLights;
@@ -48,10 +50,10 @@ class Day18 extends AdventDay {
       turnCornersOn(animate(lights));
 
   static Grid<String> turnCornersOn(Grid<String> lights) {
-    lights.setCell(Vec.zero, '#');
-    lights.setCell(Vec(lights.width - 1, 0), '#');
-    lights.setCell(Vec(0, lights.height - 1), '#');
-    lights.setCell(Vec(lights.width - 1, lights.height - 1), '#');
+    lights.setValue(Vec.zero, '#');
+    lights.setValue(Vec(lights.width - 1, 0), '#');
+    lights.setValue(Vec(0, lights.height - 1), '#');
+    lights.setValue(Vec(lights.width - 1, lights.height - 1), '#');
     return lights;
   }
 }

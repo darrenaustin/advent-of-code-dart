@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
@@ -23,10 +23,10 @@ class Day06 extends AdventDay {
 
     for (final command in input.lines.map(parseCommand)) {
       for (final loc in Vec.range(command.p1, command.p2 + Vec.downRight)) {
-        lights.updateCell(loc, (light) => apply(command, light));
+        lights.updateValue(loc, (light) => apply(command, light));
       }
     }
-    return lights.cellsWhere((on) => on).length;
+    return lights.values().where((on) => on).length;
   }
 
   @override
@@ -46,10 +46,10 @@ class Day06 extends AdventDay {
 
     for (final command in input.lines.map(parseCommand)) {
       for (final loc in Vec.range(command.p1, command.p2 + Vec.downRight)) {
-        lights.updateCell(loc, (l) => apply(command, l));
+        lights.updateValue(loc, (l) => apply(command, l));
       }
     }
-    return lights.cells().sum;
+    return lights.values().sum;
   }
 
   static final RegExp _commandRegex =

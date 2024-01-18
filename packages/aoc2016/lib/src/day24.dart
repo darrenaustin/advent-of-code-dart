@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/combinatorics.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/range.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
@@ -20,7 +20,7 @@ class Day24 extends AdventDay {
   dynamic part2(String input) => shortestPath(input, true);
 
   int shortestPath(String input, [bool returnToStart = false]) {
-    final grid = Grid.fromString(input);
+    final grid = Grid.parse(input);
 
     // BFS search between to grid postions
     int? distanceBetween(Vec from, Vec to) {
@@ -34,8 +34,8 @@ class Day24 extends AdventDay {
         }
         for (final dir in Vec.orthogonalDirs) {
           final next = node + dir;
-          if (grid.validCell(next) &&
-              grid.cell(next) != '#' &&
+          if (grid.validLocation(next) &&
+              grid.value(next) != '#' &&
               !visited.contains(next)) {
             visited.add(next);
             queue.add((next, dist + 1));
@@ -46,8 +46,12 @@ class Day24 extends AdventDay {
     }
 
     // Find the starting and goal postitions in the grid.
-    final start = grid.locationsWhere((c) => c == '0').first;
-    final goals = grid.locationsWhere((c) => c != '0' && c.isDigit).toList();
+    final (start, _) = grid.cells().where((c) => c.$2 == '0').first;
+    final goals = grid
+        .cells()
+        .where((c) => c.$2 != '0' && c.$2.isDigit)
+        .map((c) => c.$1)
+        .toList();
 
     // Calculte the distances between the start and each goal, as well
     // as the distance between each pair of goal locations.

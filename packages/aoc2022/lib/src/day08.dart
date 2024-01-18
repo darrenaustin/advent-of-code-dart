@@ -2,7 +2,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
@@ -40,8 +40,8 @@ class Day08 extends AdventDay {
     final List<Vec> seen = [starting];
     Vec max = starting;
     Vec current = starting + dir;
-    while (grid.validCell(current)) {
-      if (grid.cell(max) < grid.cell(current)) {
+    while (grid.validLocation(current)) {
+      if (grid.value(max) < grid.value(current)) {
         seen.add(current);
         max = current;
       }
@@ -52,11 +52,11 @@ class Day08 extends AdventDay {
 
   int numSeenFromTree(Grid<int> grid, Vec tree, Vec dir) {
     int seen = 0;
-    int treeHeight = grid.cell(tree);
+    int treeHeight = grid.value(tree);
     Vec current = tree + dir;
-    while (grid.validCell(current)) {
+    while (grid.validLocation(current)) {
       seen += 1;
-      if (grid.cell(current) >= treeHeight) {
+      if (grid.value(current) >= treeHeight) {
         return seen;
       }
       current = current + dir;

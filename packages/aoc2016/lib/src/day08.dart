@@ -1,7 +1,7 @@
 // https://adventofcode.com/2016/day/8
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 
@@ -65,32 +65,32 @@ class Screen {
   void rect(int width, int height) {
     for (int h = 0; h < height; h++) {
       for (int w = 0; w < width; w++) {
-        _grid.setCell(Vec(w, h), '#');
+        _grid.setValue(Vec(w, h), '#');
       }
     }
   }
 
   void rotateColumn(int col, int amount) {
     for (int times = 0; times < amount; times++) {
-      final bottom = _grid.cell(Vec(col, _grid.height - 1));
+      final bottom = _grid.value(Vec(col, _grid.height - 1));
       for (int h = _grid.height - 1; h > 0; h--) {
-        _grid.setCell(Vec(col, h), _grid.cell(Vec(col, h - 1)));
+        _grid.setValue(Vec(col, h), _grid.value(Vec(col, h - 1)));
       }
-      _grid.setCell(Vec(col, 0), bottom);
+      _grid.setValue(Vec(col, 0), bottom);
     }
   }
 
   void rotateRow(int row, int amount) {
     for (int times = 0; times < amount; times++) {
-      final right = _grid.cell(Vec(_grid.width - 1, row));
+      final right = _grid.value(Vec(_grid.width - 1, row));
       for (int w = _grid.width - 1; w > 0; w--) {
-        _grid.setCell(Vec(w, row), _grid.cell(Vec(w - 1, row)));
+        _grid.setValue(Vec(w, row), _grid.value(Vec(w - 1, row)));
       }
-      _grid.setCell(Vec(0, row), right);
+      _grid.setValue(Vec(0, row), right);
     }
   }
 
-  int numLit() => _grid.cellsWhere((String s) => s == '#').length;
+  int numLit() => _grid.values().where((String s) => s == '#').length;
 
   @override
   String toString() => _grid.toString();

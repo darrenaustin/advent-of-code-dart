@@ -1,7 +1,7 @@
 // https://adventofcode.com/2021/day/20
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
 
@@ -35,7 +35,8 @@ class Day20 extends AdventDay {
     final grid = parseGrid(inputLines.sublist(2));
 
     return _enhance(algo: algo, grid: grid, numTimes: numEnhancements)
-        .cellsWhere((l) => l == 1)
+        .values()
+        .where((l) => l == 1)
         .length;
   }
 
@@ -52,10 +53,10 @@ class Day20 extends AdventDay {
           final center = Vec(x, y);
           final areaValues = _areaOffsets.map((o) {
             final l = o + center;
-            return grid.validCell(l) ? grid.cell(l) : outerValue;
+            return grid.validLocation(l) ? grid.value(l) : outerValue;
           });
           final index = areaValues.reduce((v, e) => (v << 1) | e);
-          newGrid.setCell(center, algo[index]);
+          newGrid.setValue(center, algo[index]);
         }
       }
       grid = newGrid;

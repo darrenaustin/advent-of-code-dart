@@ -1,7 +1,7 @@
 // https://adventofcode.com/2023/day/14
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
@@ -12,14 +12,14 @@ class Day14 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    Grid<String> grid = Grid.fromString(input);
+    Grid<String> grid = Grid.parse(input);
     tilt(grid, Vec.up);
     return load(grid);
   }
 
   @override
   dynamic part2(String input) {
-    Grid<String> grid = Grid.fromString(input);
+    Grid<String> grid = Grid.parse(input);
     final seen = <Grid<String>>[];
     int? cycleStart;
     int? cyclePeriod;
@@ -46,7 +46,7 @@ class Day14 extends AdventDay {
   }
 
   int load(Grid<String> g) =>
-      g.locationsWhere((c) => c == 'O').map((l) => g.height - l.yInt).sum;
+      g.locationsWhereValue((c) => c == 'O').map((l) => g.height - l.yInt).sum;
 
   void cycle(Grid<String> g) {
     for (final d in [Vec.north, Vec.west, Vec.south, Vec.east]) {
@@ -58,17 +58,17 @@ class Day14 extends AdventDay {
     // Get the locations of all rocks and sort them by x or y component
     // increasing in the reverse direction given. This assumes unit orthongonal
     // directions.
-    final rocks = g.locationsWhere((c) => c == 'O').sortedByCompare(
-        (l) => l.xInt * dir.xInt + l.yInt * dir.yInt, (a, b) => b - a);
+    final rocks = g.locationsWhereValue((c) => c == 'O').sortedByCompare(
+        (l) => l.x * dir.x + l.y * dir.y, (a, b) => (b - a).toInt());
     for (final r in rocks) {
       var next = r + dir;
-      while (g.validCell(next) && g.cell(next) == '.') {
+      while (g.validLocation(next) && g.value(next) == '.') {
         next += dir;
       }
       next -= dir;
-      if (g.validCell(next) && g.cell(next) == '.') {
-        g.setCell(r, '.');
-        g.setCell(next, 'O');
+      if (g.validLocation(next) && g.value(next) == '.') {
+        g.setValue(r, '.');
+        g.setValue(next, 'O');
       }
     }
   }

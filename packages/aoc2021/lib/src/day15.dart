@@ -1,7 +1,7 @@
 // https://adventofcode.com/2021/day/15
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/pathfinding.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
@@ -30,7 +30,7 @@ class Day15 extends AdventDay {
       start: start,
       goal: goal,
       estimatedDistance: (p) => (p.distanceTo(goal)),
-      costTo: (from, to) => grid.cell(to).toDouble(),
+      costTo: (from, to) => grid.value(to).toDouble(),
       neighborsOf: (i) => grid.neighborLocations(i, Vec.orthogonalDirs),
     );
   }
@@ -44,8 +44,8 @@ class Day15 extends AdventDay {
         for (int x = 0; x < source.width; x++) {
           for (int y = 0; y < source.height; y++) {
             final cellLoc = Vec(x, y);
-            final risk = (source.cell(cellLoc) + riskIncrease - 1) % 9 + 1;
-            grid.setCell(gridOrigin + cellLoc, risk);
+            final risk = (source.value(cellLoc) + riskIncrease - 1) % 9 + 1;
+            grid.setValue(gridOrigin + cellLoc, risk);
           }
         }
       }

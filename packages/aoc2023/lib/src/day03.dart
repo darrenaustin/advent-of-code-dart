@@ -3,8 +3,7 @@
 
 import 'package:aoc/aoc.dart';
 import 'package:aoc/util/collection.dart';
-import 'package:aoc/util/grid2.dart';
-import 'package:aoc/util/string.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
@@ -18,7 +17,7 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    final grid = parseGrid(input);
+    final grid = Grid.parse(input);
     final numberMatches = RegExp(r'[\d]+', multiLine: true).allMatches(input);
     return numberMatches
         .map((m) => partNumber(grid, m))
@@ -29,7 +28,7 @@ class Day03 extends AdventDay {
 
   @override
   dynamic part2(String input) {
-    final grid = parseGrid(input);
+    final grid = Grid.parse(input);
     final numberMatches = RegExp(r'[\d]+', multiLine: true).allMatches(input);
     final validParts = numberMatches
         .map((m) => partNumber(grid, m))
@@ -51,11 +50,6 @@ class Day03 extends AdventDay {
     return sum;
   }
 
-  Grid<String> parseGrid(String input) {
-    List<List<String>> data = input.lines.map((s) => s.chars.toList()).toList();
-    return Grid.from(data, '.');
-  }
-
   Vec gridPosFrom(Grid grid, int stringStartIndex) => Vec(
       stringStartIndex % (grid.width + 1),
       stringStartIndex ~/ (grid.height + 1));
@@ -71,8 +65,8 @@ class Day03 extends AdventDay {
   bool validPartNumber(Grid grid, PartNumber number, [RegExp? regexp]) {
     return number
         .neighborPositions()
-        .where((p) => grid.validCell(p))
-        .map((p) => grid.cell(p))
+        .where((p) => grid.validLocation(p))
+        .map((p) => grid.value(p))
         .any((c) => (regexp ?? symbolRegExp).hasMatch(c));
   }
 }

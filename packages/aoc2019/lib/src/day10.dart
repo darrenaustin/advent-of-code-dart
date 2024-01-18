@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/math.dart';
 import 'package:aoc/util/string.dart';
 import 'package:aoc/util/vec.dart';
@@ -32,7 +32,7 @@ class Day10 extends AdventDay {
         asteroids = asteroidPositions(map);
         toVaporize = asteroidsDetectedFrom(station, asteroids).toList();
       }
-      map.setCell(toVaporize.removeAt(0), '.');
+      map.setValue(toVaporize.removeAt(0), '.');
       numVaporized++;
     }
     final finalAsteroidToNuke = toVaporize.first;
@@ -72,6 +72,8 @@ class Day10 extends AdventDay {
     return maxLocation;
   }
 
-  Iterable<Vec> asteroidPositions(Grid<String> map) =>
-      map.locationsWhere((c) => c == '#');
+  Iterable<Vec> asteroidPositions(Grid<String> map) => map
+      .cells()
+      .where((c) => c.$2 == '#')
+      .map((c) => c.$1); //locationsWhereValue((c) => c == '#');
 }

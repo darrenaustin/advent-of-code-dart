@@ -1,7 +1,7 @@
 // https://adventofcode.com/2023/day/23
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
 import 'package:aoc/util/vec.dart';
 import 'package:collection/collection.dart';
 
@@ -14,17 +14,19 @@ class Day23 extends AdventDay {
 
   @override
   dynamic part1(String input) {
-    final grid = Grid.fromString(input);
-    final (start, _) = grid.row(0).firstWhere((c) => c.$2 == '.');
-    final (end, _) = grid.row(grid.height - 1).firstWhere((c) => c.$2 == '.');
+    final grid = Grid.parse(input);
+    final (start, _) = grid.rowCells(0).firstWhere((c) => c.$2 == '.');
+    final (end, _) =
+        grid.rowCells(grid.height - 1).firstWhere((c) => c.$2 == '.');
     return maxPathSteepSlopes(grid, start, end);
   }
 
   @override
   dynamic part2(String input) {
-    final grid = Grid.fromString(input);
-    final (start, _) = grid.row(0).firstWhere((c) => c.$2 == '.');
-    final (end, _) = grid.row(grid.height - 1).firstWhere((c) => c.$2 == '.');
+    final grid = Grid.parse(input);
+    final (start, _) = grid.rowCells(0).firstWhere((c) => c.$2 == '.');
+    final (end, _) =
+        grid.rowCells(grid.height - 1).firstWhere((c) => c.$2 == '.');
     return maxPath(grid, start, end);
   }
 
@@ -52,18 +54,18 @@ class Day23 extends AdventDay {
   Iterable<Vec> adjacent(Grid<String> grid, Vec loc,
       [bool steepSlopes = false]) {
     final dirs = steepSlopes
-        ? switch (grid.cell(loc)) {
+        ? switch (grid.value(loc)) {
             '.' => Vec.orthogonalDirs,
             '>' => [Vec.right],
             '<' => [Vec.left],
             'v' => [Vec.down],
             '^' => [Vec.up],
-            _ => throw Exception('Unknown floor type: ${grid.cell(loc)}'),
+            _ => throw Exception('Unknown floor type: ${grid.value(loc)}'),
           }
         : Vec.orthogonalDirs;
     return dirs
         .map((d) => loc + d)
-        .where((p) => grid.validCell(p) && grid.cell(p) != '#');
+        .where((p) => grid.validLocation(p) && grid.value(p) != '#');
   }
 
   int maxPath(Grid<String> g, Vec start, Vec goal) {
@@ -102,12 +104,10 @@ class Day23 extends AdventDay {
     return maxSteps;
   }
 
-  Set<Vec> findIntersections(Grid<String> g) {
-    return g
-        .locationsWhere((c) => c != '#')
-        .where((l) => g.validCell(l) && adjacent(g, l).length > 2)
-        .toSet();
-  }
+  Set<Vec> findIntersections(Grid<String> g) => g
+      .locationsWhereValue((c) => c != '#')
+      .where((l) => g.validLocation(l) && adjacent(g, l).length > 2)
+      .toSet();
 
   DistanceGraph distanceGraph(Grid<String> g, Vec start, Vec goal) {
     final intersections = findIntersections(g)

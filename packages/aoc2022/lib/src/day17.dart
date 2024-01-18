@@ -3,7 +3,8 @@
 import 'dart:math';
 
 import 'package:aoc/aoc.dart';
-import 'package:aoc/util/grid2.dart';
+import 'package:aoc/util/grid.dart';
+import 'package:aoc/util/range.dart';
 import 'package:aoc/util/vec.dart';
 
 main() => Day17().solve();
@@ -56,7 +57,7 @@ class Day17 extends AdventDay {
     for (int row = 0; row < height; row++) {
       final line = lines[row];
       for (int col = 0; col < width; col++) {
-        grid.setCell(Vec(col, row), line[col]);
+        grid.setValue(Vec(col, row), line[col]);
       }
     }
     return grid;
@@ -136,9 +137,9 @@ class Tower {
     for (int row = 0; row < shape.height; row++) {
       for (int col = 0; col < shape.width; col++) {
         final shapePos = Vec(col, row);
-        final pixel = shape.cell(shapePos);
+        final pixel = shape.value(shapePos);
         if (pixel != '.') {
-          if (_grid.cell(pos + shapePos) != '.') {
+          if (_grid.value(pos + shapePos) != '.') {
             return false;
           }
         }
@@ -151,10 +152,10 @@ class Tower {
     for (int row = 0; row < shape.height; row++) {
       for (int col = 0; col < shape.width; col++) {
         final shapePos = Vec(col, row);
-        final pixel = shape.cell(shapePos);
+        final pixel = shape.value(shapePos);
         if (pixel != '.') {
           Vec gridPos = pos + shapePos;
-          _grid.setCell(gridPos, pixel);
+          _grid.setValue(gridPos, pixel);
         }
       }
     }
@@ -163,7 +164,9 @@ class Tower {
   void growGridFor(Grid<String> shape) {
     final spaceNeeded = shape.height + 3;
     if (spaceNeeded > _floor) {
-      _grid.addTopRows(spaceNeeded);
+      for (int r = 0; r < spaceNeeded; r++) {
+        _grid.insertRow(0);
+      }
       _floor = _floor + spaceNeeded;
     }
   }
@@ -182,7 +185,9 @@ class Tower {
 
   String cacheRows() {
     final numRows = min(7, _grid.height - _floor);
-    return _grid.printRows(_floor, numRows);
+    return range(_floor, _floor + numRows)
+        .map((r) => _grid.rowValues(r).join(' '))
+        .join('\n');
   }
 
   List<Grid<String>> shapes;
@@ -225,7 +230,7 @@ class CacheState {
 // import 'dart:math';
 //
 // import 'package:aoc/aoc.dart';
-// import 'package:aoc/util/grid2.dart';
+// import 'package:aoc/util/grid.dart';
 // import 'package:aoc/util/vec.dart';
 //
 // class Day17 extends AdventDay {
