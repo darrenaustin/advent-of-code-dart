@@ -30,7 +30,7 @@ class Day17 extends AdventDay {
     final world = World<String>(defaultValue: '.');
     for (var y = 0; y < height; y++) {
       for (var x = 0; x < width; x++) {
-        world.setCell(Vec4.int(x, y), rows[y][x]);
+        world.setCell(Vec4(x, y), rows[y][x]);
       }
     }
     return world;
@@ -45,10 +45,10 @@ class Day17 extends AdventDay {
 
       final minPoint = world.minPoint - Vec4(1, 1, 1, 1);
       final maxPoint = world.maxPoint + Vec4(1, 1, 1, 1);
-      for (double w = minPoint.w; w <= maxPoint.w; w++) {
-        for (double z = minPoint.z; z <= maxPoint.z; z++) {
-          for (double y = minPoint.y; y <= maxPoint.y; y++) {
-            for (double x = minPoint.x; x <= maxPoint.x; x++) {
+      for (num w = minPoint.w; w <= maxPoint.w; w++) {
+        for (num z = minPoint.z; z <= maxPoint.z; z++) {
+          for (num y = minPoint.y; y <= maxPoint.y; y++) {
+            for (num x = minPoint.x; x <= maxPoint.x; x++) {
               final p = Vec4(x, y, z, w);
               final numActiveNeighbors = adjacentOffsets
                   .where((o) => isActive(world.cell(p + o)))
@@ -78,10 +78,10 @@ class Day17 extends AdventDay {
 
   static Iterable<Vec4> _offsets(Vec4 min, Vec4 max) {
     final offsets = <Vec4>[];
-    for (double w = min.w; w <= max.w; w++) {
-      for (double z = min.z; z <= max.z; z++) {
-        for (double y = min.y; y <= max.y; y++) {
-          for (double x = min.x; x <= max.x; x++) {
+    for (num w = min.w; w <= max.w; w++) {
+      for (num z = min.z; z <= max.z; z++) {
+        for (num y = min.y; y <= max.y; y++) {
+          for (num x = min.x; x <= max.x; x++) {
             if (x != 0 || y != 0 || z != 0 || w != 0) {
               offsets.add(Vec4(x, y, z, w));
             }
@@ -141,10 +141,10 @@ class World<T> {
       [Vec4? minP, Vec4? maxP]) sync* {
     final min = minP ?? minPoint;
     final max = maxP ?? maxPoint;
-    for (double w = min.w; w <= max.w; w++) {
-      for (double z = min.z; z <= max.z; z++) {
-        for (double y = min.y; y <= max.y; y++) {
-          for (double x = min.x; x <= max.x; x++) {
+    for (num w = min.w; w <= max.w; w++) {
+      for (num z = min.z; z <= max.z; z++) {
+        for (num y = min.y; y <= max.y; y++) {
+          for (num x = min.x; x <= max.x; x++) {
             final c = cell(Vec4(x, y, z, w));
             if (test(c)) {
               yield c;

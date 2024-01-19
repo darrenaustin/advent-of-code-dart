@@ -67,7 +67,7 @@ class Day18 extends AdventDay {
     for (int z = minV.zInt; z <= maxV.zInt; z++) {
       for (int y = minV.yInt; y <= maxV.yInt; y++) {
         for (int x = minV.xInt; x <= maxV.xInt; x++) {
-          final pos = Vec3.int(x, y, z);
+          final pos = Vec3(x, y, z);
           if (!cubes.contains(pos) &&
               !trapped.contains(pos) &&
               !exposed.contains(pos)) {
@@ -93,7 +93,7 @@ class Day18 extends AdventDay {
   Set<Vec3> parseCubes(String input) {
     return input.lines
         .map((s) => s.split(',').map(int.parse).toList())
-        .map((v) => Vec3.int(v[0], v[1], v[2]))
+        .map((v) => Vec3(v[0], v[1], v[2]))
         .toSet();
   }
 

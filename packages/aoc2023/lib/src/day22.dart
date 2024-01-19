@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 // https://adventofcode.com/2023/day/22
 
 import 'package:aoc/aoc.dart';
@@ -30,8 +29,8 @@ class Day22 extends AdventDay {
 class Brick {
   factory Brick(id, String input) {
     final ns = input.numbers();
-    var start = Vec3.int(ns[0], ns[1], ns[2]);
-    var end = Vec3.int(ns[3], ns[4], ns[5]);
+    var start = Vec3(ns[0], ns[1], ns[2]);
+    var end = Vec3(ns[3], ns[4], ns[5]);
     if (start.zInt > end.zInt) {
       (start, end) = (end, start);
     }

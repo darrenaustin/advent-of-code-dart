@@ -44,7 +44,7 @@ class Day12 extends AdventDay {
     return input.lines.map((l) {
       final match = RegExp(r'<x=(-?\d+), y=(-?\d+), z=(-?\d+)>').firstMatch(l)!;
       return Moon(
-        Vec3.int(int.parse(match.group(1)!), int.parse(match.group(2)!),
+        Vec3(int.parse(match.group(1)!), int.parse(match.group(2)!),
             int.parse(match.group(3)!)),
         Vec3(0, 0, 0),
       );
@@ -88,8 +88,8 @@ class Moon {
 }
 
 class CycleDetector {
-  late final List<double> _positions;
-  late final List<double> _velocities;
+  late final List<num> _positions;
+  late final List<num> _velocities;
 
   int? cycle;
   bool get detected => cycle != null;
@@ -98,7 +98,7 @@ class CycleDetector {
 
   int _count = 0;
 
-  void update(Iterable<double> positions, Iterable<double> velocities) {
+  void update(Iterable<num> positions, Iterable<num> velocities) {
     if (!detected) {
       if (_count == 0) {
         _positions = List.from(positions);
